@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://caoy1avvlxhx0"]
+
+[ext_resource type="Script" uid="uid://c7wlknyyg870u" path="res://ui/inventory_item_control.gd" id="1_bn6ra"]
+
+[node name="HBoxContainer" type="HBoxContainer" node_paths=PackedStringArray("texture_rect", "amount_label")]
+custom_minimum_size = Vector2(0, 32)
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_vertical = 4
+script = ExtResource("1_bn6ra")
+texture_rect = NodePath("TextureRect")
+amount_label = NodePath("Label")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(16, 64)
+layout_mode = 2
+size_flags_vertical = 4
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "X"
