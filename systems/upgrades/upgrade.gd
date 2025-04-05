@@ -16,7 +16,6 @@ func _init(p_id: StringName = "default", p_display_name: String = "Item", p_text
 	texture = p_texture
 
 
-
 func add_level(tier):
 	if levels.size() < num_tiers:
 		levels.resize(num_tiers)

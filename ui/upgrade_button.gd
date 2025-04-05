@@ -16,13 +16,13 @@ class_name UpgradeButton
 var current_level = 0
 
 func _ready() -> void:
-	label.text = str(current_level) + "/" + str(max_level)	
+	label.text = str(current_level) + "/" + str(max_level)
 
 func _on_pressed():
 	if can_upgrade(): 
 		upgrade.add_level(tier)
 		current_level = upgrade.levels[tier]
-	label.text = str(current_level) + "/" + str(max_level)	
+	label.text = str(current_level) + "/" + str(max_level)
 
 func can_upgrade():
 	# TODO: Check money is enough
@@ -32,7 +32,7 @@ func can_upgrade():
 		for dependency in dependecies:
 			if dependency.current_level >= dependecies[dependency]:
 				return true
-		
+
 func _draw():
 	for dependency in dependecies:
 		draw_line(dependency.get_position()+Vector2(dependency.size.x/2,0)-self.get_position(), Vector2(self.get_size().x/2, self.get_size().y), Color.BLACK, 3)
