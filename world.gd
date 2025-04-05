@@ -5,10 +5,10 @@ extends Node2D
 @onready var nav_meshes = $Level/NavMeshes
 
 func _ready() -> void:
-	player.throw_initiated.connect(_spawn_bomb_with_velocity)
+	player.throw_released.connect(_spawn_bomb_with_velocity)
 
 
-func _spawn_bomb_with_velocity(data: Player.ThrowInitiatedEventData) -> void:
+func _spawn_bomb_with_velocity(data: Player.ThrowReleasedEventData) -> void:
 	var new_bomb := data.bomb_type.bomb_scene.instantiate() as ThrowableBomb
 	new_bomb.bomb_type = data.bomb_type
 	
@@ -53,7 +53,7 @@ func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 		tilemap.set_cell(tile)
 	
 	for nav_mesh in nav_meshes.get_children():
-		var baked_nav_mesh : Array = []
+		var baked_nav_mesh: Array = []
 		if nav_mesh is NavigationRegion2D:
 			var outline = nav_mesh.get_bounds()
 			var bounding_box = outline.grow(100)
@@ -62,4 +62,3 @@ func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 					if not baked_nav_mesh.has(nav_mesh):
 						baked_nav_mesh.append(nav_mesh)
 						nav_mesh.bake_navigation_polygon()
-						
