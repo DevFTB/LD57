@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=23 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="1_j5wjh"]
@@ -17,6 +17,7 @@
 [ext_resource type="Resource" uid="uid://diae5nc080sux" path="res://entities/player/player_bomb_inventory.tres" id="8_mfdv2"]
 [ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="9_215e1"]
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="9_rvswv"]
+[ext_resource type="Script" uid="uid://b37gaxh31ri3k" path="res://depth._label.gd" id="12_e36ub"]
 [ext_resource type="PackedScene" uid="uid://787nmru65xmp" path="res://ui/health/health_bar.tscn" id="14_215e1"]
 [ext_resource type="Script" uid="uid://b3r1glubcsdwt" path="res://ui/upgrade/upgrade_gui.gd" id="14_e8heu"]
 
@@ -123,6 +124,12 @@ layout_mode = 2
 size_flags_horizontal = 6
 health_component = NodePath("../../../../World/Player/HealthComponent")
 
+[node name="Depth" type="Label" parent="GUI/HUD/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+horizontal_alignment = 2
+script = ExtResource("12_e36ub")
+
 [node name="InventoryGUI2" type="PanelContainer" parent="GUI/HUD" node_paths=PackedStringArray("control_parent")]
 layout_mode = 2
 offset_top = 240.0
@@ -195,5 +202,7 @@ layout_mode = 2
 [node name="UpgradeButton2" parent="GUI/UpgradeGUI/HBoxContainer" instance=ExtResource("9_215e1")]
 layout_mode = 2
 upgrade = ExtResource("3_e8heu")
+
+[connection signal="depth_changed" from="World/Player" to="GUI/HUD/VBoxContainer/Depth" method="_on_player_depth_changed"]
 
 [editable path="World/Player"]
