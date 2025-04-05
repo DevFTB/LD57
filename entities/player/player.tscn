@@ -1,14 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://be4tedtvsf8on"]
+[gd_scene load_steps=10 format=3 uid="uid://be4tedtvsf8on"]
 
 [ext_resource type="Script" uid="uid://uex2tapn1k1y" path="res://entities/player/player.gd" id="1_merdl"]
 [ext_resource type="Script" uid="uid://3o156l3yjpoa" path="res://entities/player/inventory_component.gd" id="2_sglur"]
 [ext_resource type="Resource" uid="uid://ctoa5b8j1n1x3" path="res://entities/player/player_inventory.tres" id="3_sglur"]
 [ext_resource type="Resource" uid="uid://diae5nc080sux" path="res://entities/player/player_bomb_inventory.tres" id="4_bls4j"]
-
-[sub_resource type="Curve" id="Curve_sglur"]
-_limits = [10.0, 1000.0, 0.0, 1.0]
-_data = [Vector2(0, 10), 0.0, 0.0, 0, 0, Vector2(1, 1000), 0.0, 0.0, 0, 0]
-point_count = 2
+[ext_resource type="PackedScene" uid="uid://bdhnok20thjuo" path="res://entities/common/health_component.tscn" id="5_fkugw"]
+[ext_resource type="PackedScene" uid="uid://eenrl1ayi2xr" path="res://entities/common/hurtbox_component.tscn" id="6_8fjmc"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mwb40"]
 
@@ -16,10 +13,12 @@ point_count = 2
 radius = 30.0
 height = 90.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_8fjmc"]
+radius = 65.9697
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_merdl")
-throw_force_curve = SubResource("Curve_sglur")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1.43051e-06, -1.90735e-06)
@@ -41,5 +40,15 @@ inventory = ExtResource("4_bls4j")
 
 [node name="BombCooldown" type="Timer" parent="."]
 one_shot = true
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_fkugw")]
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_8fjmc")]
+collision_layer = 2
+collision_mask = 4
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_8fjmc")
 
 [connection signal="timeout" from="BombCooldown" to="." method="_on_bomb_cooldown_timeout"]
