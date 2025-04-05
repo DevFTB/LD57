@@ -1,19 +1,29 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://1s8d18ai2k57"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://1s8d18ai2k57"]
 
+[ext_resource type="Resource" uid="uid://bfwwxfc0kwllo" path="res://systems/inventory/items/item_bombpowder.tres" id="1_fryho"]
+[ext_resource type="Resource" uid="uid://bsytuw721i88d" path="res://systems/inventory/items/item_upgradium.tres" id="1_gltk4"]
 [ext_resource type="Texture2D" uid="uid://cpk6xdtc72grb" path="res://world/tileset/test_ores.png" id="1_j0ugs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wmwg"]
 texture = ExtResource("1_j0ugs")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
+0:0/0/custom_data_0 = ExtResource("1_fryho")
 1:0/0 = 0
+1:0/0/custom_data_0 = ExtResource("1_fryho")
 2:0/0 = 0
+2:0/0/custom_data_0 = ExtResource("1_fryho")
 3:0/0 = 0
 0:1/0 = 0
+0:1/0/custom_data_0 = ExtResource("1_gltk4")
 1:1/0 = 0
+1:1/0/custom_data_0 = ExtResource("1_gltk4")
 2:1/0 = 0
+2:1/0/custom_data_0 = ExtResource("1_gltk4")
 3:1/0 = 0
 
 [resource]
 tile_size = Vector2i(32, 32)
+custom_data_layer_0/name = "drop_item"
+custom_data_layer_0/type = 24
 sources/0 = SubResource("TileSetAtlasSource_0wmwg")
