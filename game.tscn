@@ -43,8 +43,8 @@ tile_set = ExtResource("2_e2o6t")
 [node name="Player" parent="World" groups=["player"] instance=ExtResource("1_80nbo")]
 position = Vector2(128, -3280)
 collision_mask = 3
-throw_force_curve = SubResource("Curve_lc2xo")
 available_bomb_types = Array[ExtResource("4_hve3p")]([null])
+throw_force_curve = SubResource("Curve_lc2xo")
 max_speed = 200
 acceleration = 5000
 ground_deceleration = 800
