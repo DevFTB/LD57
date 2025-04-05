@@ -11,4 +11,5 @@ config_version=5
 [application]
 
 config/name="LD57"
+run/main_scene="uid://djnj4g2g35ylo"
 config/features=PackedStringArray("4.4", "Forward Plus")
