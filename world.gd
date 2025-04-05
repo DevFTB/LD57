@@ -28,14 +28,18 @@ func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 	var explosion_tiles: Array[Vector2i] = []
 	for x: int in range(top_left.x, bottom_right.x + 1):
 		for y: int in range(top_left.y, bottom_right.y + 1):
-			var distance: float = pow((x - map_position_of_explosion.x), 2) + pow(y - map_position_of_explosion.y, 2)
-			prints(x, y, distance, map_position_of_explosion)
-			if distance < pow(explosion_radius, 2) - 1.0:
-				explosion_tiles.append(Vector2i(x, y))
+			var distance: float = sqrt(pow((x - map_position_of_explosion.x), 2) + pow(y - map_position_of_explosion.y, 2))
+			if distance < explosion_radius:
+				var tile_location := Vector2i(x, y)
+				var tile_data: TileData = tilemap.get_cell_tile_data(tile_location)
+				if tile_data:
+					var tile_hardness: int = tile_data.get_custom_data("hardness")
+					
+					var bomb_effective_hardness = clampf((1 - distance / explosion_radius) * bomb.bomb_type.hardness, 0, bomb.bomb_type.hardness)
+
+					prints(distance, bomb_effective_hardness)
+					if tile_hardness >= 0 and tile_hardness <= bomb_effective_hardness:
+						explosion_tiles.append(Vector2i(x, y))
 
 	for tile in explosion_tiles:
-		var tile_data: TileData = tilemap.get_cell_tile_data(tile)
-		if tile_data:
-			var tile_hardness: int = tile_data.get_custom_data("hardness")
-			if tile_hardness >= 0 and tile_hardness <= bomb.bomb_type.hardness:
-				tilemap.set_cell(tile)
+		tilemap.set_cell(tile)
