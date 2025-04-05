@@ -3,6 +3,13 @@ extends Node2D
 @export var seed: int = randi()
 @export var height_hardness_factor: float = 0.5
 @export var ore_hardness_factor: float = 0.3
+@export var chunk_size: int = 32 ## nav mesh chunk size in tiles
+
+@export_subgroup("Generation Extents")
+@export var min_x := -100
+@export var max_x := 100
+@export var min_y := -100
+@export var max_y := 100
 
 # ordering determines which ones get priority when spawning
 # resources must match to the row on the ore indicators atlas
@@ -51,14 +58,14 @@ func _get_resource_map(resource: Resources) -> Noise:
 
 # TODO: might need improvement but just a POC
 # TODO: transform the thresholds instead of the noise? are they equivalent?
-func noise_height_transform(y: int, noise_value: float, height_factor: float=0.5,
-	min_added: float=-2.0, max_added: float=2.0, y_offset: float=0.0) -> float:
+func noise_height_transform(y: int, noise_value: float, height_factor: float = 0.5,
+	min_added: float = -2.0, max_added: float = 2.0, y_offset: float = 0.0) -> float:
 	# maps from noise_value [-1, 1] to [-1, 1]
 	var transform_term = clamp((height_hardness_factor * (y + y_offset) / 100), min_added, max_added)
 	return clamp(noise_value + transform_term, -1.0, 1.0)
 	
 func generate_cave_blocks(cave_noise: Noise, hardness_noise: Noise, resource_noise: Dictionary,
-	from_x: int, to_x: int, from_y:int, to_y: int) -> void:
+	from_x: int, to_x: int, from_y: int, to_y: int) -> void:
 	# coords are tilemap coords
 	for x in range(from_x, to_x):
 		for y in range(from_y, to_y):
@@ -108,7 +115,8 @@ func _get_cave_block_hardness_map() -> Dictionary:
 	
 	
 	return valid_tiles
-	
+# The chunks where the player spawns outside of normal terrain generation
+const START_CHUNKS := [Vector2i(0, -4), Vector2i(-1, -4)]
 func _ready() -> void:
 	HARDNESS_THRESHOLDS.sort()
 	
@@ -122,8 +130,43 @@ func _ready() -> void:
 	resource_noise[Resources.BOMB_POWDER] = bomb_powder_ore_noise
 	
 	
-	generate_cave_blocks(cave_noise, hardness_noise, resource_noise, -100, 100, -100, 100)
+	generate_cave_blocks(cave_noise, hardness_noise, resource_noise, min_x, max_x, min_y, max_y)
 	
 	#for i in range(-100, 100):
 		#for j in range(-100, 100):
 			#print(cave_noise.get_noise_2d(i, j))
+	
+	##initial navmesh bake
+	##each nav mesh block is 32 by 32 blocks of 32 by 32
+	var nav_mesh_chunk_list: Array = START_CHUNKS.duplicate()
+	for x in range(min_x / chunk_size, max_x / chunk_size):
+		for y in range(min_y / chunk_size, max_y / chunk_size):
+			nav_mesh_chunk_list.append(Vector2i(x, y))
+	print(nav_mesh_chunk_list)
+	create_nav_meshes(nav_mesh_chunk_list)
+
+func create_nav_meshes(mesh_chunk_list):
+	for chunk in mesh_chunk_list:
+		var min_x = (chunk.x) * chunk_size
+		var max_x = (chunk.x + 1) * chunk_size
+		var min_y = (chunk.y) * chunk_size
+		var max_y = (chunk.y + 1) * chunk_size
+		var new_nav_region = NavigationRegion2D.new()
+
+		prints(min_x, max_x, min_y, max_y)
+		$NavMeshes.add_child(new_nav_region)
+		call_deferred("bake_nav_mesh", new_nav_region,
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(min_x, min_y)),
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(min_x, max_y)),
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(max_x, max_y)),
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(max_x, min_y)))
+
+const FEATHER := 20
+func bake_nav_mesh(mesh, point1, point2, point3, point4):
+	var new_navigation_mesh = NavigationPolygon.new()
+	var bounding_outline = PackedVector2Array([point1 - Vector2(FEATHER, FEATHER), point2 - Vector2(FEATHER, -FEATHER), point3 + Vector2(FEATHER, FEATHER), point4 + Vector2(FEATHER, -FEATHER)])
+	new_navigation_mesh.add_outline(bounding_outline)
+	new_navigation_mesh.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_EXPLICIT
+	new_navigation_mesh.agent_radius = 20
+	NavigationServer2D.bake_from_source_geometry_data(new_navigation_mesh, NavigationMeshSourceGeometryData2D.new());
+	mesh.navigation_polygon = new_navigation_mesh
