@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://duvgimajjq5gf"]
+
+[ext_resource type="Script" uid="uid://dg3mif63wy502" path="res://entities/common/hitbox_component.gd" id="1_5y84n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_56i32"]
+radius = 48.0
+
+[node name="HitboxComponent" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_5y84n")
+
+[node name="HitTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_56i32")

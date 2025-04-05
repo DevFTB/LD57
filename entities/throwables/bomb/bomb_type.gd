@@ -10,3 +10,4 @@ class_name BombType
 @export var is_perishable: bool = false
 @export var is_sticky: bool = false
 @export var explosion_radius: int = 2
+@export var entity_damage: int = 50
