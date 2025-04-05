@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhol6hs31mkio"]
+
+[ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="1_0nsfq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vef74"]
+radius = 56.0
+
+[node name="PlayerDetector2D" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_0nsfq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vef74")
