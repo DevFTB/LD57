@@ -2,6 +2,7 @@ extends Node2D
 
 @export var seed: int = randi()
 @export var height_hardness_factor: float = 0.5
+@export var chunk_size : int = 32 ##nav mesh chunk size in tiles
 
 @onready var CAVE_BLOCK_TILEMAP: TileMapLayer = $CaveBlocks
 @onready var ORE_INDICATOR_TILEMAP: TileMapLayer = $OreIndicators
@@ -97,8 +98,45 @@ func _ready() -> void:
 	var bomb_fuse_ore_noise = _get_resource_map()
 	var upgradium_ore_noise = _get_resource_map()
 	
-	generate_cave_blocks(cave_noise, hardness_noise, bomb_fuse_ore_noise, upgradium_ore_noise, -100, 100, -100, 100)
+	var min_x := -100
+	var max_x := 100
+	var min_y := -100
+	var max_y := 100
+	
+	generate_cave_blocks(cave_noise, hardness_noise, bomb_fuse_ore_noise, upgradium_ore_noise, min_x, max_x, min_y, max_x)
 	
 	#for i in range(-100, 100):
 		#for j in range(-100, 100):
 			#print(cave_noise.get_noise_2d(i, j))
+	
+	##initial navmesh bake
+	##each nav mesh block is 32 by 32 blocks of 32 by 32
+	var nav_mesh_chunk_list : Array = []
+	for x in range(min_x/chunk_size, max_x/chunk_size):
+		for y in range(min_y/chunk_size, max_y/chunk_size):
+			nav_mesh_chunk_list.append(Vector2i(x,y))
+	print(nav_mesh_chunk_list)
+	create_nav_meshes(nav_mesh_chunk_list)
+
+func create_nav_meshes(mesh_chunk_list):
+	for chunk in mesh_chunk_list:
+		var min_x = chunk.x * chunk_size
+		var max_x = chunk.x+1 * chunk_size
+		var min_y = chunk.y * chunk_size
+		var max_y = chunk.y+1 * chunk_size
+		var new_nav_region = NavigationRegion2D.new()
+		$NavMeshes.add_child(new_nav_region)
+		call_deferred("bake_nav_mesh",new_nav_region,
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(min_x, min_y)), 
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(min_x, max_y)), 
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(max_x,min_y)), 
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(max_x,max_y)))
+
+func bake_nav_mesh(mesh, min_x, max_x, min_y, max_y):
+	var new_navigation_mesh = NavigationPolygon.new()
+	var bounding_outline = PackedVector2Array([min_x, max_x, max_y,min_y])
+	new_navigation_mesh.add_outline(bounding_outline)
+	new_navigation_mesh.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_EXPLICIT
+	new_navigation_mesh.agent_radius = 20
+	NavigationServer2D.bake_from_source_geometry_data(new_navigation_mesh, NavigationMeshSourceGeometryData2D.new());
+	mesh.navigation_polygon = new_navigation_mesh

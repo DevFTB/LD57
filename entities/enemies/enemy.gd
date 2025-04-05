@@ -27,7 +27,8 @@ func die():
 	queue_free()
 
 func _on_visible_on_screen_notifier_2d_screen_entered():
-	refresh_timer.start()
+	if refresh_timer:
+		refresh_timer.start()
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
@@ -38,19 +39,16 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 func _on_refresh_timer_timeout():
 	#get line of sight
-	#los.target_position = player.global_position
-	#var collided_shape = los.get_collider()
-	#if collided_shape is Player:
-		#sees_player = true
-	#else: 
-		#sees_player = false
-	#
-	##start navigation agent
-	#if sees_player == true:
-	nav.target_position = player.global_position
-	if nav.is_target_reachable():
-		if enemy_stats.is_grounded:
-			pass
-			# grounded enemy movement
-		else:
-			state_machine._transition_to_next_state("Flying")
+	los.target_position = player.global_position - global_position
+	var collided_shape = los.get_collider()
+	if collided_shape is Player:
+		sees_player = true
+	#start navigation agent
+	if sees_player == true:
+		nav.target_position = player.global_position
+		if nav.is_target_reachable():
+			if enemy_stats.is_grounded:
+				pass
+				# grounded enemy movement
+			else:
+				state_machine._transition_to_next_state("Flying")

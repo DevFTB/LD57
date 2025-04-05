@@ -6,9 +6,9 @@
 
 [resource]
 script = ExtResource("1_4wq8t")
-maximum_size = 50
+maximum_size = 1000
 starting_inventory = {
 ExtResource("2_2qu1l"): 1,
-ExtResource("3_lon2p"): 1
+ExtResource("3_lon2p"): 900
 }
 metadata/_custom_type_script = "uid://b0ogai8s7l7sc"
