@@ -8,7 +8,8 @@ func _ready() -> void:
 
 
 func _spawn_bomb_with_velocity(data: Player.ThrowInitiatedEventData) -> void:
-	var new_bomb := data.bomb_scene.instantiate() as ThrowableBomb
+	var new_bomb := data.bomb_type.bomb_scene.instantiate() as ThrowableBomb
+	new_bomb.bomb_type = data.bomb_type
 	
 	add_child(new_bomb)
 	new_bomb.global_position = data.impulse.normalized() * 30 + data.position

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=14 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="1_j5wjh"]
@@ -7,9 +7,11 @@
 [ext_resource type="Script" uid="uid://b2x8g2xixii70" path="res://ui/inventory_control.gd" id="3_feb5d"]
 [ext_resource type="Resource" uid="uid://ctoa5b8j1n1x3" path="res://entities/player/player_inventory.tres" id="4_7jktm"]
 [ext_resource type="PackedScene" uid="uid://caoy1avvlxhx0" path="res://ui/test_inventory_item_control.tscn" id="4_fc0e3"]
+[ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="4_hve3p"]
 [ext_resource type="PackedScene" uid="uid://bq84mpxun851f" path="res://entities/moab/moab_entity.tscn" id="4_j5wjh"]
 [ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="5_vef74"]
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="7_eow3j"]
+[ext_resource type="Resource" uid="uid://diae5nc080sux" path="res://entities/player/player_bomb_inventory.tres" id="8_mfdv2"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_vef74"]
 vertices = PackedVector2Array(300, 52, 300, 108, 172, 108, 84, 84, 172, 52, 172, -20, 84, 12, 108, -140, 172, -108, 204, -52, 204, -20, 308, 180, 308, 116, 492, 116, 492, 276, 404, 268, 556, 276, 556, 364, 404, 364, 244, 268, 244, 236, 212, 236, 212, 204, 44, 140, 44, 204, 12, 204, -108, 108, -116, 84, 12, 276, 108, 276, 108, 332, -140, 332, -140, 244, -108, 244, -268, -12, -180, 108, -180, 140, -212, 140, -300, 52, -300, -12, -212, 172, -276, 172, -276, 204, -308, 204, -396, 52, -308, 236, -396, 236, -268, -84, -492, -84, -492, -268, -276, -140, -276, -268, -116, 12, -76, -140, -76, -172, 108, -172, 172, -140, 308, -180, 276, -180, 276, -244, 180, -244, 180, -276, 460, -300, 148, -276, 148, -300, 460, -52, 308, -108, 172, 180, 148, 204, 148, 140)
@@ -29,8 +31,8 @@ bomb_timer_starting_value = 305.0
 script = ExtResource("2_hve3p")
 
 [node name="Player" parent="World" groups=["player"] instance=ExtResource("1_80nbo")]
-collision_layer = 2
 collision_mask = 7
+available_bomb_types = Array[ExtResource("4_hve3p")]([null])
 max_speed = 200
 acceleration = 5000
 ground_deceleration = 800
@@ -62,6 +64,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="InventoryGUI2" type="PanelContainer" parent="GUI/Control" node_paths=PackedStringArray("control_parent")]
+layout_mode = 2
+offset_top = 240.0
+offset_right = 192.0
+offset_bottom = 432.0
+script = ExtResource("3_feb5d")
+inventory = ExtResource("8_mfdv2")
+item_control = ExtResource("4_fc0e3")
+control_parent = NodePath("VBoxContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Control/InventoryGUI2"]
+layout_mode = 2
 
 [node name="InventoryGUI" type="PanelContainer" parent="GUI/Control" node_paths=PackedStringArray("control_parent")]
 layout_mode = 0
