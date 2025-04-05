@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://jc5sht43d6gw"]
+[gd_scene load_steps=11 format=3 uid="uid://jc5sht43d6gw"]
 
 [ext_resource type="Script" uid="uid://c2s1n2iqs3g8o" path="res://entities/enemies/enemy.gd" id="1_wqcwe"]
 [ext_resource type="Texture2D" uid="uid://nbpbxi2j8ij" path="res://entities/moab/texture_moab.png" id="2_5lf1o"]
@@ -7,16 +7,13 @@
 [ext_resource type="Script" uid="uid://dgd6cthhe8s0c" path="res://entities/enemies/states/idle.gd" id="5_twyc1"]
 [ext_resource type="Script" uid="uid://dvgloxkvr0q30" path="res://entities/enemies/states/flying.gd" id="6_w4yt1"]
 [ext_resource type="PackedScene" uid="uid://eenrl1ayi2xr" path="res://entities/common/hurtbox_component.tscn" id="7_ipr6v"]
-[ext_resource type="Script" uid="uid://dg3mif63wy502" path="res://entities/common/hitbox_component.gd" id="8_gj3y3"]
+[ext_resource type="PackedScene" uid="uid://duvgimajjq5gf" path="res://entities/common/hitbox_component.tscn" id="8_gj3y3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_msovg"]
 radius = 15.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gj3y3"]
 radius = 25.2982
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_56i32"]
-radius = 48.0
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4
@@ -62,14 +59,10 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("CircleShape2D_gj3y3")
 
-[node name="HitboxComponent" parent="." instance=ExtResource("7_ipr6v")]
-collision_layer = 4
-collision_mask = 2
-script = ExtResource("8_gj3y3")
+[node name="HitboxComponent" parent="." instance=ExtResource("8_gj3y3")]
 damage = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
-shape = SubResource("CircleShape2D_56i32")
+repeating = false
+repeat_interval = 1.0
 
 [connection signal="timeout" from="RefreshTimer" to="." method="_on_refresh_timer_timeout"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]

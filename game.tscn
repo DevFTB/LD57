@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=16 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="1_j5wjh"]
@@ -10,15 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://caoy1avvlxhx0" path="res://ui/test_inventory_item_control.tscn" id="4_fc0e3"]
 [ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="4_hve3p"]
 [ext_resource type="PackedScene" uid="uid://bq84mpxun851f" path="res://entities/moab/moab_entity.tscn" id="4_j5wjh"]
-[ext_resource type="PackedScene" uid="uid://cah75vc7owpub" path="res://world/nav_mesh.tscn" id="5_215e1"]
 [ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="5_vef74"]
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="7_eow3j"]
 [ext_resource type="Resource" uid="uid://diae5nc080sux" path="res://entities/player/player_bomb_inventory.tres" id="8_mfdv2"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_215e1"]
-outlines = Array[PackedVector2Array]([PackedVector2Array(92, -19, 545, 253, 722, 534, -324, 357, -551, 53, 85, -186), PackedVector2Array(-288, -3456, 256, -3456, 256, -3232, 64, -3232, 64, -3032, -96, -3032, -96, -3232, -288, -3232)])
-parsed_collision_mask = 4294967041
-source_geometry_mode = 2
+[ext_resource type="PackedScene" uid="uid://787nmru65xmp" path="res://ui/health/health_bar.tscn" id="14_215e1"]
 
 [sub_resource type="Curve" id="Curve_lc2xo"]
 _limits = [0.0, 1000.0, 0.0, 1.0]
@@ -44,9 +39,6 @@ tile_set = ExtResource("2_e2o6t")
 [node name="OreIndicators" type="TileMapLayer" parent="World/Level"]
 
 [node name="NavMeshes" type="Node2D" parent="World/Level"]
-
-[node name="NavMesh" parent="World/Level/NavMeshes" instance=ExtResource("5_215e1")]
-navigation_polygon = SubResource("NavigationPolygon_215e1")
 
 [node name="Player" parent="World" groups=["player"] instance=ExtResource("1_80nbo")]
 position = Vector2(128, -3280)
@@ -104,20 +96,25 @@ control_parent = NodePath("VBoxContainer")
 [node name="VBoxContainer" type="VBoxContainer" parent="GUI/Control/InventoryGUI"]
 layout_mode = 2
 
-[node name="BombProgressBar" type="ProgressBar" parent="GUI/Control" node_paths=PackedStringArray("bomb_explosion_system", "bomb_progress_bar", "time_display")]
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Control"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 32.0
+offset_bottom = 4.0
 grow_horizontal = 2
+
+[node name="BombProgressBar" type="ProgressBar" parent="GUI/Control/VBoxContainer" node_paths=PackedStringArray("bomb_explosion_system", "bomb_progress_bar", "time_display")]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 show_percentage = false
 script = ExtResource("7_eow3j")
-bomb_explosion_system = NodePath("../../../MoabExplosionSystem")
+bomb_explosion_system = NodePath("../../../../MoabExplosionSystem")
 bomb_progress_bar = NodePath(".")
 time_display = NodePath("TimeDisplay")
 
-[node name="TimeDisplay" type="Label" parent="GUI/Control/BombProgressBar"]
+[node name="TimeDisplay" type="Label" parent="GUI/Control/VBoxContainer/BombProgressBar"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -132,3 +129,11 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HealthBar" parent="GUI/Control/VBoxContainer" node_paths=PackedStringArray("health_component") instance=ExtResource("14_215e1")]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+health_component = NodePath("../../../../World/Player/HealthComponent")
+
+[editable path="World/Player"]
