@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="1_j5wjh"]
 [ext_resource type="TileSet" uid="uid://ci0bxhrhedi27" path="res://world/tileset/test_tileset.tres" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://dxicxe0tvx28m" path="res://world.gd" id="2_hve3p"]
-[ext_resource type="Script" uid="uid://b2x8g2xixii70" path="res://ui/inventory_control.gd" id="3_feb5d"]
+[ext_resource type="Script" path="res://ui/inventory_control.gd" id="3_feb5d"]
 [ext_resource type="Script" uid="uid://bhk4kqmlpwyv0" path="res://world/levelgen.gd" id="3_lc2xo"]
 [ext_resource type="Resource" uid="uid://ctoa5b8j1n1x3" path="res://entities/player/player_inventory.tres" id="4_7jktm"]
 [ext_resource type="PackedScene" uid="uid://caoy1avvlxhx0" path="res://ui/test_inventory_item_control.tscn" id="4_fc0e3"]
@@ -16,9 +16,7 @@
 [ext_resource type="Resource" uid="uid://diae5nc080sux" path="res://entities/player/player_bomb_inventory.tres" id="8_mfdv2"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_215e1"]
-vertices = PackedVector2Array(82.2266, -13.2031, 537.797, 260.344, 701.617, 520.398, -318.383, 347.797, -535.023, 57.6797, 75.5781, -171.781)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(4, 5, 0)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(92, -19, 545, 253, 722, 534, -324, 357, -551, 53, 85, -186)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(92, -19, 545, 253, 722, 534, -324, 357, -551, 53, 85, -186), PackedVector2Array(-288, -3456, 256, -3456, 256, -3232, 64, -3232, 64, -3032, -96, -3032, -96, -3232, -288, -3232)])
 parsed_collision_mask = 4294967041
 source_geometry_mode = 2
 
@@ -52,7 +50,7 @@ navigation_polygon = SubResource("NavigationPolygon_215e1")
 
 [node name="Player" parent="World" groups=["player"] instance=ExtResource("1_80nbo")]
 position = Vector2(128, -3280)
-collision_mask = 7
+collision_mask = 3
 throw_force_curve = SubResource("Curve_lc2xo")
 available_bomb_types = Array[ExtResource("4_hve3p")]([null])
 max_speed = 200
