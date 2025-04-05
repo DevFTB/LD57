@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://be4tedtvsf8on"]
+
+[ext_resource type="Script" uid="uid://uex2tapn1k1y" path="res://entities/player/player.gd" id="1_merdl"]
+[ext_resource type="Script" uid="uid://3o156l3yjpoa" path="res://entities/player/inventory_component.gd" id="2_sglur"]
+[ext_resource type="Resource" uid="uid://ctoa5b8j1n1x3" path="res://entities/player/player_inventory.tres" id="3_sglur"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mwb40"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mwb40"]
+radius = 16.0
+height = 63.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_merdl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-4.76837e-07, 0)
+scale = Vector2(32, 64)
+texture = SubResource("PlaceholderTexture2D_mwb40")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_mwb40")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="InventoryComponent" type="Node" parent="."]
+script = ExtResource("2_sglur")
+inventory = ExtResource("3_sglur")
