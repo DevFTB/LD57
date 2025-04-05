@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://jc5sht43d6gw"]
+
+[ext_resource type="Script" uid="uid://c2s1n2iqs3g8o" path="res://entities/enemies/enemy.gd" id="1_wqcwe"]
+[ext_resource type="Texture2D" uid="uid://nbpbxi2j8ij" path="res://entities/moab/texture_moab.png" id="2_5lf1o"]
+[ext_resource type="Resource" uid="uid://c6fb7g3i00wft" path="res://entities/enemies/bat/bat_stats.tres" id="2_msovg"]
+[ext_resource type="Script" uid="uid://wsxsmioftt1q" path="res://entities/enemies/state_machine.gd" id="4_msovg"]
+[ext_resource type="Script" uid="uid://dgd6cthhe8s0c" path="res://entities/enemies/states/idle.gd" id="5_twyc1"]
+[ext_resource type="Script" uid="uid://dvgloxkvr0q30" path="res://entities/enemies/states/flying.gd" id="6_w4yt1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_msovg"]
+radius = 15.0
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("1_wqcwe")
+enemy_stats = ExtResource("2_msovg")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+texture = ExtResource("2_5lf1o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_msovg")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
+
+[node name="RefreshTimer" type="Timer" parent="."]
+wait_time = 0.15
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("4_msovg")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("5_twyc1")
+
+[node name="Flying" type="Node" parent="StateMachine"]
+script = ExtResource("6_w4yt1")
+
+[node name="Running" type="Node" parent="StateMachine"]
+
+[node name="Attacking" type="Node" parent="StateMachine"]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="LineOfSight" type="RayCast2D" parent="."]
+collision_mask = 783
+
+[connection signal="timeout" from="RefreshTimer" to="." method="_on_refresh_timer_timeout"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
