@@ -1,24 +1,32 @@
-[gd_scene load_steps=15 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=21 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="1_j5wjh"]
 [ext_resource type="TileSet" uid="uid://ci0bxhrhedi27" path="res://world/tileset/test_tileset.tres" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://dxicxe0tvx28m" path="res://world.gd" id="2_hve3p"]
-[ext_resource type="Script" uid="uid://b2x8g2xixii70" path="res://ui/inventory_control.gd" id="3_feb5d"]
+[ext_resource type="Resource" uid="uid://b6xkpnkwkffbg" path="res://systems/upgrades/upgrade_bomb_radius.tres" id="3_e8heu"]
+[ext_resource type="Script" uid="uid://b2x8g2xixii70" path="res://ui/inventory/inventory_control.gd" id="3_feb5d"]
 [ext_resource type="Script" path="res://world/levelgen.gd" id="3_lc2xo"]
 [ext_resource type="Resource" uid="uid://ctoa5b8j1n1x3" path="res://entities/player/player_inventory.tres" id="4_7jktm"]
-[ext_resource type="PackedScene" uid="uid://caoy1avvlxhx0" path="res://ui/test_inventory_item_control.tscn" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://caoy1avvlxhx0" path="res://ui/inventory/test_inventory_item_control.tscn" id="4_fc0e3"]
 [ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="4_hve3p"]
 [ext_resource type="PackedScene" uid="uid://bq84mpxun851f" path="res://entities/moab/moab_entity.tscn" id="4_j5wjh"]
+[ext_resource type="Resource" uid="uid://b6nkhnlvgtk7s" path="res://systems/upgrades/upgrade_bomb_hardness.tres" id="4_rvswv"]
 [ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="5_vef74"]
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="7_eow3j"]
 [ext_resource type="Resource" uid="uid://diae5nc080sux" path="res://entities/player/player_bomb_inventory.tres" id="8_mfdv2"]
+[ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="9_215e1"]
+[ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="9_rvswv"]
+[ext_resource type="Script" uid="uid://b3r1glubcsdwt" path="res://ui/upgrade/upgrade_gui.gd" id="14_e8heu"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_vef74"]
 outlines = Array[PackedVector2Array]([PackedVector2Array(-629, -444, 704, -444, 699, 470, -633, 481, -641, -443)])
 parsed_collision_mask = 4294967041
 source_geometry_mode = 2
 agent_radius = 20.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rvswv"]
+size = Vector2(536, 224)
 
 [node name="Game" type="Node"]
 
@@ -61,9 +69,20 @@ moab_explosion_system = NodePath("../../MoabExplosionSystem")
 [node name="Enemy" parent="World" instance=ExtResource("5_vef74")]
 position = Vector2(160, -3360)
 
+[node name="SpawnAreaPlayerDetector" type="Area2D" parent="World"]
+position = Vector2(-32, -3328)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("9_rvswv")
+metadata/_custom_type_script = "uid://1x04lpb258os"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/SpawnAreaPlayerDetector"]
+position = Vector2(12, -16)
+shape = SubResource("RectangleShape2D_rvswv")
+
 [node name="GUI" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="GUI"]
+[node name="HUD" type="Control" parent="GUI"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,7 +90,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="InventoryGUI2" type="PanelContainer" parent="GUI/Control" node_paths=PackedStringArray("control_parent")]
+[node name="InventoryGUI2" type="PanelContainer" parent="GUI/HUD" node_paths=PackedStringArray("control_parent")]
 layout_mode = 2
 offset_top = 240.0
 offset_right = 192.0
@@ -81,10 +100,10 @@ inventory = ExtResource("8_mfdv2")
 item_control = ExtResource("4_fc0e3")
 control_parent = NodePath("VBoxContainer")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Control/InventoryGUI2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/HUD/InventoryGUI2"]
 layout_mode = 2
 
-[node name="InventoryGUI" type="PanelContainer" parent="GUI/Control" node_paths=PackedStringArray("control_parent")]
+[node name="InventoryGUI" type="PanelContainer" parent="GUI/HUD" node_paths=PackedStringArray("control_parent")]
 layout_mode = 0
 offset_top = 32.0
 offset_right = 192.0
@@ -94,10 +113,10 @@ inventory = ExtResource("4_7jktm")
 item_control = ExtResource("4_fc0e3")
 control_parent = NodePath("VBoxContainer")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Control/InventoryGUI"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/HUD/InventoryGUI"]
 layout_mode = 2
 
-[node name="BombProgressBar" type="ProgressBar" parent="GUI/Control" node_paths=PackedStringArray("bomb_explosion_system", "bomb_progress_bar", "time_display")]
+[node name="BombProgressBar" type="ProgressBar" parent="GUI/HUD" node_paths=PackedStringArray("bomb_explosion_system", "bomb_progress_bar", "time_display")]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -110,7 +129,7 @@ bomb_explosion_system = NodePath("../../../MoabExplosionSystem")
 bomb_progress_bar = NodePath(".")
 time_display = NodePath("TimeDisplay")
 
-[node name="TimeDisplay" type="Label" parent="GUI/Control/BombProgressBar"]
+[node name="TimeDisplay" type="Label" parent="GUI/HUD/BombProgressBar"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -125,3 +144,50 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="UpgradeGUI" type="Control" parent="GUI" node_paths=PackedStringArray("spawn_area_detector")]
+layout_mode = 3
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -448.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("14_e8heu")
+spawn_area_detector = NodePath("../../World/SpawnAreaPlayerDetector")
+
+[node name="NinePatchRect" type="ColorRect" parent="GUI/UpgradeGUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0.193653, 0.193653, 0.193653, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/UpgradeGUI"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="UpgradeButton" parent="GUI/UpgradeGUI/HBoxContainer" groups=["player"] instance=ExtResource("9_215e1")]
+layout_mode = 2
+upgrade = ExtResource("4_rvswv")
+
+[node name="Control" type="Control" parent="GUI/UpgradeGUI/HBoxContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="UpgradeButton2" parent="GUI/UpgradeGUI/HBoxContainer" instance=ExtResource("9_215e1")]
+layout_mode = 2
+upgrade = ExtResource("3_e8heu")
