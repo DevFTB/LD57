@@ -19,13 +19,14 @@ signal throw_released(data: ThrowReleasedEventData)
 @export var maximum_throw_hold_time := 1.0
 var _holding_throw := false
 var _throw_action_held_time := 0.0
+var selected_bomb_item: Item
+var can_throw := true
+
+var upgrade_state: PlayerUpgradeState = PlayerUpgradeState.new()
 
 @onready var mineral_inventory_component: InventoryComponent = $MineralInventoryComponent
 @onready var bomb_inventory_component: InventoryComponent = $BombInventoryComponent
 @onready var bomb_cooldown: Timer = $BombCooldown
-
-var selected_bomb_item: Item
-var can_throw := true
 
 func _ready() -> void:
 	var inv := bomb_inventory_component.inventory
@@ -69,7 +70,9 @@ func switch_selected_bomb(index: int) -> void:
 	
 	if items.size() > index:
 		selected_bomb_item = items[index]
-
+		
+const UPGRADE_BOMB_HARDNESS = preload("res://systems/upgrades/upgrade_bomb_hardness.tres")
+const UPGRADE_BOMB_RADIUS = preload("res://systems/upgrades/upgrade_bomb_radius.tres")
 func initiate_throw() -> void:
 	_holding_throw = true
 	throw_initiated.emit()
@@ -87,7 +90,11 @@ func _on_throw_release(strength = 1.0) -> void:
 	var direction := global_position.direction_to(get_global_mouse_position())
 	
 	# Get bomb type from selected item.
-	var bomb_type := selected_bomb_item.get_data_component(Item.DataCompontents.BOMB_DATA_COMPONENT) as BombType
+	var bomb_type: BombType = (selected_bomb_item.get_data_component(Item.DataCompontents.BOMB_DATA_COMPONENT)).duplicate()
+	
+	# apply upgrades
+	bomb_type.hardness += upgrade_state.get_value(UPGRADE_BOMB_HARDNESS)
+	bomb_type.explosion_radius += upgrade_state.get_value(UPGRADE_BOMB_RADIUS)
 
 	var data := ThrowReleasedEventData.new()
 	data.position = global_position

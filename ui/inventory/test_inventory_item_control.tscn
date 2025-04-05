@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://caoy1avvlxhx0"]
 
-[ext_resource type="Script" uid="uid://c7wlknyyg870u" path="res://ui/inventory_item_control.gd" id="1_bn6ra"]
+[ext_resource type="Script" uid="uid://c7wlknyyg870u" path="res://ui/inventory/inventory_item_control.gd" id="1_bn6ra"]
 
 [node name="HBoxContainer" type="HBoxContainer" node_paths=PackedStringArray("texture_rect", "amount_label")]
 custom_minimum_size = Vector2(0, 32)
