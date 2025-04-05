@@ -120,21 +120,22 @@ func _ready() -> void:
 
 func create_nav_meshes(mesh_chunk_list):
 	for chunk in mesh_chunk_list:
-		var min_x = chunk.x * chunk_size
-		var max_x = chunk.x+1 * chunk_size
-		var min_y = chunk.y * chunk_size
-		var max_y = chunk.y+1 * chunk_size
+		var min_x = (chunk.x-1) * chunk_size
+		var max_x = chunk.x * chunk_size
+		var min_y = (chunk.y-1)  * chunk_size
+		var max_y = chunk.y * chunk_size
 		var new_nav_region = NavigationRegion2D.new()
 		$NavMeshes.add_child(new_nav_region)
 		call_deferred("bake_nav_mesh",new_nav_region,
 			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(min_x, min_y)), 
 			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(min_x, max_y)), 
-			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(max_x,min_y)), 
-			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(max_x,max_y)))
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(max_x,max_y)), 
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(max_x,min_y)))
 
-func bake_nav_mesh(mesh, min_x, max_x, min_y, max_y):
+func bake_nav_mesh(mesh, point1, point2, point3, point4):
+	var feather = 24
 	var new_navigation_mesh = NavigationPolygon.new()
-	var bounding_outline = PackedVector2Array([min_x, max_x, max_y,min_y])
+	var bounding_outline = PackedVector2Array([point1 - Vector2(feather,feather), point2 - Vector2(feather,-feather), point3 + Vector2(feather,feather), point4 + Vector2(feather,-feather)])
 	new_navigation_mesh.add_outline(bounding_outline)
 	new_navigation_mesh.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_EXPLICIT
 	new_navigation_mesh.agent_radius = 20
