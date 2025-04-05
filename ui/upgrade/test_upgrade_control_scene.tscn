@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cine4lnyuyj15"]
+[gd_scene load_steps=2 format=3 uid="uid://bnbwg5vpy4avb"]
 
-[ext_resource type="PackedScene" uid="uid://cm1cpvqfbd7yk" path="res://ui/upgrade_button.tscn" id="1_765ag"]
+[ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="1_765ag"]
 
 [node name="TestUpgradeControlScene" type="CanvasLayer"]
 
@@ -20,15 +20,12 @@ offset_left = 43.0
 offset_top = 4.0
 offset_right = 83.0
 offset_bottom = 74.0
-max_level = 3
 
 [node name="UpgradeButton2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_765ag")]
 offset_left = -7.0
 offset_top = -131.0
 offset_right = 33.0
 offset_bottom = -61.0
-max_level = 7
-tier = 2
 dependecies = {
 NodePath("../UpgradeButton"): 3
 }
@@ -38,8 +35,6 @@ offset_left = 92.0
 offset_top = -131.0
 offset_right = 132.0
 offset_bottom = -61.0
-max_level = 5
-tier = 1
 dependecies = {
 NodePath("../UpgradeButton"): 2
 }
@@ -49,8 +44,6 @@ offset_left = 46.0
 offset_top = -277.0
 offset_right = 86.0
 offset_bottom = -207.0
-max_level = 2
-tier = 3
 dependecies = {
 NodePath("../UpgradeButton2"): 3,
 NodePath("../UpgradeButton3"): 4
