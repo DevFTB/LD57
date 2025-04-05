@@ -32,4 +32,8 @@ func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 				explosion_tiles.append(Vector2i(x, y))
 
 	for tile in explosion_tiles:
-		tilemap.set_cell(tile)
+		var tile_data: TileData = tilemap.get_cell_tile_data(tile)
+		if tile_data:
+			var tile_hardness: int = tile_data.get_custom_data("hardness")
+			if tile_hardness >= 0 and tile_hardness <= bomb.bomb_type.hardness:
+				tilemap.set_cell(tile)
