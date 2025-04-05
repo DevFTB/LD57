@@ -13,14 +13,12 @@ texture_region_size = Vector2i(32, 32)
 1:0/0/custom_data_0 = ExtResource("1_fryho")
 2:0/0 = 0
 2:0/0/custom_data_0 = ExtResource("1_fryho")
-3:0/0 = 0
 0:1/0 = 0
 0:1/0/custom_data_0 = ExtResource("1_gltk4")
 1:1/0 = 0
 1:1/0/custom_data_0 = ExtResource("1_gltk4")
 2:1/0 = 0
 2:1/0/custom_data_0 = ExtResource("1_gltk4")
-3:1/0 = 0
 
 [resource]
 tile_size = Vector2i(32, 32)
