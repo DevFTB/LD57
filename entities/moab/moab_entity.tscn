@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://bq84mpxun851f"]
+
+[ext_resource type="Script" uid="uid://ce42cdw34mrhe" path="res://entities/moab/moab_entity.gd" id="1_075v3"]
+[ext_resource type="Texture2D" uid="uid://nbpbxi2j8ij" path="res://entities/moab/texture_moab.png" id="2_kilkt"]
+[ext_resource type="PackedScene" uid="uid://bhol6hs31mkio" path="res://world/detectors/player_detector_2d.tscn" id="3_exw8j"]
+
+[sub_resource type="Animation" id="Animation_dgwo1"]
+resource_name = "consume"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hndvo"]
+_data = {
+&"consume": SubResource("Animation_dgwo1")
+}
+
+[node name="BombTimer" type="Node2D"]
+script = ExtResource("1_075v3")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_kilkt")
+
+[node name="PlayerDetector2D" parent="." instance=ExtResource("3_exw8j")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_hndvo")
+}
