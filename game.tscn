@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="1_j5wjh"]
 [ext_resource type="TileSet" uid="uid://ci0bxhrhedi27" path="res://world/tileset/test_tileset.tres" id="2_e2o6t"]
+[ext_resource type="Script" uid="uid://dxicxe0tvx28m" path="res://world.gd" id="2_hve3p"]
 [ext_resource type="Script" uid="uid://b2x8g2xixii70" path="res://ui/inventory_control.gd" id="3_feb5d"]
 [ext_resource type="Resource" uid="uid://ctoa5b8j1n1x3" path="res://entities/player/player_inventory.tres" id="4_7jktm"]
 [ext_resource type="PackedScene" uid="uid://caoy1avvlxhx0" path="res://ui/test_inventory_item_control.tscn" id="4_fc0e3"]
@@ -25,6 +26,7 @@ script = ExtResource("1_j5wjh")
 bomb_timer_starting_value = 305.0
 
 [node name="World" type="Node2D" parent="."]
+script = ExtResource("2_hve3p")
 
 [node name="Player" parent="World" groups=["player"] instance=ExtResource("1_80nbo")]
 collision_layer = 2

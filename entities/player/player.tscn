@@ -1,8 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://be4tedtvsf8on"]
+[gd_scene load_steps=7 format=3 uid="uid://be4tedtvsf8on"]
 
 [ext_resource type="Script" uid="uid://uex2tapn1k1y" path="res://entities/player/player.gd" id="1_merdl"]
 [ext_resource type="Script" uid="uid://3o156l3yjpoa" path="res://entities/player/inventory_component.gd" id="2_sglur"]
 [ext_resource type="Resource" uid="uid://ctoa5b8j1n1x3" path="res://entities/player/player_inventory.tres" id="3_sglur"]
+
+[sub_resource type="Curve" id="Curve_sglur"]
+_limits = [10.0, 1000.0, 0.0, 1.0]
+_data = [Vector2(0, 10), 0.0, 0.0, 0, 0, Vector2(1, 1000), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mwb40"]
 
@@ -11,7 +16,9 @@ radius = 16.0
 height = 63.0
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
 script = ExtResource("1_merdl")
+throw_force_curve = SubResource("Curve_sglur")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-4.76837e-07, 0)
