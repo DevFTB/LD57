@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://be4tedtvsf8on"]
+
+[ext_resource type="Script" uid="uid://uex2tapn1k1y" path="res://entities/player/player.gd" id="1_merdl"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mwb40"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mwb40"]
+radius = 16.0
+height = 63.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_merdl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-4.76837e-07, 0)
+scale = Vector2(32, 64)
+texture = SubResource("PlaceholderTexture2D_mwb40")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_mwb40")
+
+[node name="Camera2D" type="Camera2D" parent="."]
