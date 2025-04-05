@@ -10,20 +10,24 @@ signal interacted
 signal throw_initiated(data: ThrowInitiatedEventData)
 
 @export var throw_force_curve: Curve
-
 @export var available_bomb_types: Array[BombType]
-
-var selected_bomb_item: Item
+@export var throw_cooldown := 0.3
 
 @onready var mineral_inventory_component: InventoryComponent = $MineralInventoryComponent
 @onready var bomb_inventory_component: InventoryComponent = $BombInventoryComponent
+@onready var bomb_cooldown : Timer = $BombCooldown
+
+var selected_bomb_item: Item
+var can_throw := true
 
 func _ready() -> void:
 	var inv := bomb_inventory_component.inventory
+	bomb_cooldown.wait_time = throw_cooldown
 	if inv.size() > 0:
 		var items := inv.get_items()
 		selected_bomb_item = items.front()
 		
+
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	
@@ -31,7 +35,8 @@ func _physics_process(delta: float) -> void:
 		interacted.emit()
 	
 	if Input.is_action_just_pressed("throw"):
-		initiate_throw()
+		if can_throw == true:
+			initiate_throw()
 		
 	if Input.is_action_just_pressed("select_bomb_1"):
 		switch_selected_bomb(0)
@@ -47,6 +52,10 @@ func switch_selected_bomb(index: int) -> void:
 		selected_bomb_item = items[index]
 
 func initiate_throw() -> void:
+	#cooldown
+	can_throw = false
+	bomb_cooldown.start()
+	
 	var direction := global_position.direction_to(get_global_mouse_position())
 	
 	var bomb_type := selected_bomb_item.get_data_component(Item.DataCompontents.BOMB_DATA_COMPONENT) as BombType
@@ -62,3 +71,8 @@ func initiate_throw() -> void:
 			bomb_inventory_component.inventory.remove_item(selected_bomb_item, 1)
 	else:
 		throw_initiated.emit(data)
+
+
+func _on_bomb_cooldown_timeout():
+	can_throw = true
+	pass # Replace with function body.

@@ -38,3 +38,8 @@ inventory = ExtResource("3_sglur")
 [node name="BombInventoryComponent" type="Node" parent="."]
 script = ExtResource("2_sglur")
 inventory = ExtResource("4_bls4j")
+
+[node name="BombCooldown" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="BombCooldown" to="." method="_on_bomb_cooldown_timeout"]
