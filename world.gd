@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var player: Player = $Player
 @onready var tilemap: TileMapLayer = $Level/CaveBlocks
+@onready var nav_meshes = $Level/NavMeshes
 
 func _ready() -> void:
 	player.throw_initiated.connect(_spawn_bomb_with_velocity)
@@ -47,6 +48,18 @@ func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 					if tile_hardness >= 0 and tile_hardness <= bomb_effective_hardness:
 						explosion_tiles.append(Vector2i(x, y))
 
-	# Clears the flagged tiles.
+	
 	for tile in explosion_tiles:
 		tilemap.set_cell(tile)
+	
+	for nav_mesh in nav_meshes.get_children():
+		var baked_nav_mesh : Array = []
+		if nav_mesh is NavigationRegion2D:
+			var outline = nav_mesh.get_bounds()
+			var bounding_box = outline.grow(100)
+			for tile in explosion_tiles:
+				if bounding_box.has_point(tilemap.map_to_local(tile)):
+					if not baked_nav_mesh.has(nav_mesh):
+						baked_nav_mesh.append(nav_mesh)
+						nav_mesh.bake_navigation_polygon()
+						

@@ -3,6 +3,7 @@ extends Node2D
 @export var seed: int = randi()
 @export var height_hardness_factor: float = 0.5
 @export var ore_hardness_factor: float = 0.3
+@export var chunk_size : int = 32 ##nav mesh chunk size in tiles
 
 # ordering determines which ones get priority when spawning
 # resources must match to the row on the ore indicators atlas
@@ -117,13 +118,50 @@ func _ready() -> void:
 	var bomb_powder_ore_noise = _get_resource_map(Resources.BOMB_POWDER)
 	var upgradium_ore_noise = _get_resource_map(Resources.UPGRADIUM)
 	
+	var min_x := -100
+	var max_x := 100
+	var min_y := -100
+	var max_y := 100
 	var resource_noise = {}
 	resource_noise[Resources.UPGRADIUM] = upgradium_ore_noise
 	resource_noise[Resources.BOMB_POWDER] = bomb_powder_ore_noise
 	
 	
-	generate_cave_blocks(cave_noise, hardness_noise, resource_noise, -100, 100, -100, 100)
+	generate_cave_blocks(cave_noise, hardness_noise, resource_noise, min_x, max_x, min_y, max_y)
 	
 	#for i in range(-100, 100):
 		#for j in range(-100, 100):
 			#print(cave_noise.get_noise_2d(i, j))
+	
+	##initial navmesh bake
+	##each nav mesh block is 32 by 32 blocks of 32 by 32
+	var nav_mesh_chunk_list : Array = []
+	for x in range(min_x/chunk_size, max_x/chunk_size):
+		for y in range(min_y/chunk_size, max_y/chunk_size):
+			nav_mesh_chunk_list.append(Vector2i(x,y))
+	print(nav_mesh_chunk_list)
+	create_nav_meshes(nav_mesh_chunk_list)
+
+func create_nav_meshes(mesh_chunk_list):
+	for chunk in mesh_chunk_list:
+		var min_x = (chunk.x) * chunk_size
+		var max_x = (chunk.x + 1) * chunk_size
+		var min_y = (chunk.y)  * chunk_size
+		var max_y = (chunk.y + 1) * chunk_size
+		var new_nav_region = NavigationRegion2D.new()
+		$NavMeshes.add_child(new_nav_region)
+		call_deferred("bake_nav_mesh",new_nav_region,
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(min_x, min_y)), 
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(min_x, max_y)), 
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(max_x,max_y)), 
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(max_x,min_y)))
+
+func bake_nav_mesh(mesh, point1, point2, point3, point4):
+	var feather = 24
+	var new_navigation_mesh = NavigationPolygon.new()
+	var bounding_outline = PackedVector2Array([point1 - Vector2(feather,feather), point2 - Vector2(feather,-feather), point3 + Vector2(feather,feather), point4 + Vector2(feather,-feather)])
+	new_navigation_mesh.add_outline(bounding_outline)
+	new_navigation_mesh.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_EXPLICIT
+	new_navigation_mesh.agent_radius = 20
+	NavigationServer2D.bake_from_source_geometry_data(new_navigation_mesh, NavigationMeshSourceGeometryData2D.new());
+	mesh.navigation_polygon = new_navigation_mesh

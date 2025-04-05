@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("interact"):
 		interacted.emit()
 	
-	if Input.is_action_just_pressed("throw"):
+	if Input.is_action_pressed("throw"):
 		if can_throw == true:
 			initiate_throw()
 		
