@@ -1,6 +1,7 @@
 extends Area2D
 class_name HitboxComponent
 
+@export var active: bool = true
 @export var damage: int = 1
 
 @export var repeating := false
@@ -11,15 +12,20 @@ class_name HitboxComponent
 func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 	hit_timer.timeout.connect(_on_hit_timer_timeout)
-	
+
 func _on_area_entered(area: Area2D) -> void:
-	if area is HurtboxComponent:
+	if active and area is HurtboxComponent:
 		area.apply_damage(damage, self)
 		hit_timer.start()
-		
-func _on_hit_timer_timeout() -> void:
+
+func damage_overlapping_hurtboxes() -> void:
 	var areas := get_overlapping_areas()
 	for area in areas:
 		if area is HurtboxComponent:
 			area.apply_damage(damage, self)
-			hit_timer.start()
+			if repeating:
+				hit_timer.start()
+		
+func _on_hit_timer_timeout() -> void:
+	if active:
+		damage_overlapping_hurtboxes()
