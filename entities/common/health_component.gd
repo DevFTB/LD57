@@ -19,6 +19,7 @@ signal died
 var is_dead : bool = false
 
 @onready var current_health : int = maximum_health
+	
 
 func _ready() -> void:
 	set_maximum_health(maximum_health)
@@ -42,7 +43,7 @@ func take_damage(amount: int) -> void:
 	if amount < 0:
 		push_warning("Damage shouldn't be negative")
 		return
-	
+
 	if not is_dead and not is_invulnerable:
 		var applied_damage := mini(amount, current_health)
 		current_health -= applied_damage
@@ -51,3 +52,10 @@ func take_damage(amount: int) -> void:
 		if current_health <= 0:
 			is_dead = true
 			died.emit()
+
+func reset():
+	is_invulnerable = false
+	current_health = maximum_health
+	is_dead = false
+	health_modified.emit(0, maximum_health)
+	

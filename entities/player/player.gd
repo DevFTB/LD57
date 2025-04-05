@@ -17,15 +17,18 @@ signal throw_released(data: ThrowReleasedEventData)
 @export var throw_force_curve: Curve
 @export var throw_strength_curve: Curve
 @export var maximum_throw_hold_time := 1.0
+
 var _holding_throw := false
 var _throw_action_held_time := 0.0
+var selected_bomb_item: Item
+var can_throw := true
+
 
 @onready var mineral_inventory_component: InventoryComponent = $MineralInventoryComponent
 @onready var bomb_inventory_component: InventoryComponent = $BombInventoryComponent
+@onready var health_component : HealthComponent = $HealthComponent
 @onready var bomb_cooldown: Timer = $BombCooldown
-
-var selected_bomb_item: Item
-var can_throw := true
+@onready var spawn_location : Vector2 = global_position
 
 func _ready() -> void:
 	var inv := bomb_inventory_component.inventory
@@ -33,11 +36,16 @@ func _ready() -> void:
 	if inv.size() > 0:
 		var items := inv.get_items()
 		selected_bomb_item = items.front()
-		
+	
+	#connect signals
+	if health_component:
+		health_component.died.connect(_on_death)
+	
+	#set spawn location
+	
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
-	
 	if Input.is_action_just_pressed("interact"):
 		interacted.emit()
 	
@@ -104,3 +112,12 @@ func _on_throw_release(strength = 1.0) -> void:
 
 func _on_bomb_cooldown_timeout():
 	can_throw = true
+
+func _on_death():
+	health_component.is_invulnerable = true
+	#drop all resources
+	#play death animation
+	health_component.reset()
+	velocity = Vector2.ZERO
+	global_position = spawn_location
+	pass
