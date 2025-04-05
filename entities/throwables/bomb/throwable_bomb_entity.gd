@@ -3,8 +3,6 @@ class_name ThrowableBomb
 
 signal exploded
 
-@export var explosion_radius: int = 1
-
 var bomb_type: BombType
 
 @onready var sprite_2d: Sprite2D = $Sprite2D

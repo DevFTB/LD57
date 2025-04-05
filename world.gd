@@ -19,17 +19,34 @@ func _spawn_bomb_with_velocity(data: Player.ThrowInitiatedEventData) -> void:
 	print(data.impulse)
 
 func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
+	var explosion_radius := bomb.bomb_type.explosion_radius
+
 	var map_position_of_explosion = tilemap.local_to_map(bomb.global_position)
-	var top_left = map_position_of_explosion - Vector2i.ONE * bomb.explosion_radius
-	var bottom_right = map_position_of_explosion + Vector2i.ONE * bomb.explosion_radius
+	
+	# Generates a bounding rectangle for the explosion.
+	var top_left = map_position_of_explosion - Vector2i.ONE * explosion_radius
+	var bottom_right = map_position_of_explosion + Vector2i.ONE * explosion_radius
 
 	var explosion_tiles: Array[Vector2i] = []
 	for x: int in range(top_left.x, bottom_right.x + 1):
 		for y: int in range(top_left.y, bottom_right.y + 1):
-			var distance: float = pow((x - map_position_of_explosion.x), 2) + pow(y - map_position_of_explosion.y, 2)
-			prints(x, y, distance, map_position_of_explosion)
-			if distance < pow(bomb.explosion_radius, 2) - 1.0:
-				explosion_tiles.append(Vector2i(x, y))
+			# Calculate distance to center of explosion
+			var distance: float = sqrt(pow((x - map_position_of_explosion.x), 2) + pow(y - map_position_of_explosion.y, 2))
+			
+			# Checks in a circle around the center
+			if distance < explosion_radius:
+				var tile_location := Vector2i(x, y)
+				var tile_data: TileData = tilemap.get_cell_tile_data(tile_location)
+				if tile_data:
+					var tile_hardness: int = tile_data.get_custom_data("hardness")
+					
+					# The bombs hardness falls of linearly as it gets further away from the center
+					var bomb_effective_hardness = clampf((1 - distance / explosion_radius) * bomb.bomb_type.hardness, 0, bomb.bomb_type.hardness)
 
+					# If the tile isn't indestructible and the bomb is strong enough, flag the tile to be broken.
+					if tile_hardness >= 0 and tile_hardness <= bomb_effective_hardness:
+						explosion_tiles.append(Vector2i(x, y))
+
+	# Clears the flagged tiles.
 	for tile in explosion_tiles:
 		tilemap.set_cell(tile)
