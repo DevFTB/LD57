@@ -13,8 +13,8 @@ point_count = 2
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mwb40"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mwb40"]
-radius = 16.0
-height = 63.0
+radius = 30.0
+height = 90.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -22,8 +22,8 @@ script = ExtResource("1_merdl")
 throw_force_curve = SubResource("Curve_sglur")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-4.76837e-07, 0)
-scale = Vector2(32, 64)
+position = Vector2(-1.43051e-06, -1.90735e-06)
+scale = Vector2(64, 96)
 texture = SubResource("PlaceholderTexture2D_mwb40")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

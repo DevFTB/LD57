@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var player: Player = $Player
-@onready var tilemap: TileMapLayer = $TileMapLayer
+@onready var tilemap: TileMapLayer = $Level/CaveBlocks
 
 func _ready() -> void:
 	player.throw_initiated.connect(_spawn_bomb_with_velocity)
