@@ -13,7 +13,6 @@ signal item_modified(item: Item, new_amount: int)
 		for item in starting_inventory:
 			add_item(item, starting_inventory.get(item, 0))
 
-
 var _inventory := {}
 var _current_size := 0
 

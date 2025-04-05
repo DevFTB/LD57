@@ -17,7 +17,6 @@ var is_running := true
 var _total_time_passed := 0.0
 
 func _ready():
-	#init bomb times
 	bomb_max_value = bomb_timer_starting_value
 	bomb_timer = bomb_timer_starting_value
 
