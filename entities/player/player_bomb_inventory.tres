@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Inventory" load_steps=4 format=3 uid="uid://diae5nc080sux"]
+
+[ext_resource type="Script" uid="uid://b0ogai8s7l7sc" path="res://systems/inventory/inventory.gd" id="1_4wq8t"]
+[ext_resource type="Resource" uid="uid://2rch3ef2vr66" path="res://systems/inventory/items/item_basic_bomb.tres" id="2_2qu1l"]
+[ext_resource type="Resource" uid="uid://44skluikbcii" path="res://systems/inventory/items/item_sticky_bomb.tres" id="3_lon2p"]
+
+[resource]
+script = ExtResource("1_4wq8t")
+maximum_size = 50
+starting_inventory = {
+ExtResource("2_2qu1l"): 1,
+ExtResource("3_lon2p"): 1
+}
+metadata/_custom_type_script = "uid://b0ogai8s7l7sc"

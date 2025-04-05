@@ -8,4 +8,5 @@ script = ExtResource("1_1cark")
 id = &"bombpowder"
 display_name = "bombpowder"
 texture = ExtResource("2_vu8pb")
+data_components = Dictionary[int, Variant]({})
 metadata/_custom_type_script = "uid://da7hjs20aj38i"
