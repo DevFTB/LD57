@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://cknalc1li3lyb"]
+
+[ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_mtqcl"]
+
+[resource]
+script = ExtResource("1_mtqcl")
+id = &""
+display_name = ""
+num_tiers = 5

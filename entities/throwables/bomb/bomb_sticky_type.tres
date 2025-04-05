@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BombType" load_steps=4 format=3 uid="uid://b7qldq0q7bpm6"]
+
+[ext_resource type="PackedScene" uid="uid://do0g7votir2b4" path="res://entities/throwables/bomb/throwable_bomb_entity.tscn" id="1_281vg"]
+[ext_resource type="Texture2D" uid="uid://c57v25cl0tews" path="res://entities/throwables/bomb/sticky_bomb.png" id="1_bans4"]
+[ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="2_bans4"]
+
+[resource]
+script = ExtResource("2_bans4")
+id = &"sticky"
+bomb_icon = ExtResource("1_bans4")
+bomb_scene = ExtResource("1_281vg")
+is_perishable = true
+is_sticky = true
+metadata/_custom_type_script = "uid://dgalf5pstb0iw"
