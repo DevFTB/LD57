@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://btvsief7ecmwe"]
+[gd_scene load_steps=5 format=3 uid="uid://c8sskfuh1crg1"]
 
-[ext_resource type="Script" path="res://world/levelgen.gd" id="1_qh37x"]
+[ext_resource type="Script" uid="uid://bhk4kqmlpwyv0" path="res://world/levelgen.gd" id="1_qh37x"]
 [ext_resource type="TileSet" uid="uid://ci0bxhrhedi27" path="res://world/tileset/test_tileset.tres" id="2_rqf4y"]
+[ext_resource type="TileSet" uid="uid://1s8d18ai2k57" path="res://world/tileset/ore_tileset.tres" id="3_3jk8p"]
+[ext_resource type="Script" uid="uid://cwi3pces57uw8" path="res://world/MoveCameraDebug.gd" id="4_vy04p"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_qh37x")
@@ -10,3 +12,10 @@ script = ExtResource("1_qh37x")
 tile_set = ExtResource("2_rqf4y")
 
 [node name="OreIndicators" type="TileMapLayer" parent="."]
+tile_set = ExtResource("3_3jk8p")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.1, 0.1)
+script = ExtResource("4_vy04p")
+
+[node name="NavMeshes" type="Node2D" parent="."]
