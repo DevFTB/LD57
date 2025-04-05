@@ -1,8 +1,6 @@
 class_name BombTimer
 extends Node2D
 
-signal bomb_timer_changed
-
 @onready var bomb_progress_bar = $BombProgressBar
 @onready var time_display = $TimeDisplay
 
