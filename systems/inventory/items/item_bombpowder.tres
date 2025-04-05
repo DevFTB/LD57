@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://bfwwxfc0kwllo"]
+
+[ext_resource type="Script" uid="uid://da7hjs20aj38i" path="res://systems/inventory/item.gd" id="1_1cark"]
+[ext_resource type="Texture2D" uid="uid://belkv520udyak" path="res://systems/inventory/items/texture_bombpowder.png" id="2_vu8pb"]
+
+[resource]
+script = ExtResource("1_1cark")
+id = &"bombpowder"
+display_name = "bombpowder"
+texture = ExtResource("2_vu8pb")
+data_components = Dictionary[int, Variant]({})
+metadata/_custom_type_script = "uid://da7hjs20aj38i"

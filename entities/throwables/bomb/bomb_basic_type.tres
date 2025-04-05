@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BombType" load_steps=4 format=3 uid="uid://bpn705x8mhcqt"]
+
+[ext_resource type="Texture2D" uid="uid://c0nbm2a4tsd3w" path="res://entities/throwables/bomb/throwable_bomb.png" id="1_wk0hc"]
+[ext_resource type="PackedScene" uid="uid://do0g7votir2b4" path="res://entities/throwables/bomb/throwable_bomb_entity.tscn" id="2_y4aks"]
+[ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="3_eopdv"]
+
+[resource]
+script = ExtResource("3_eopdv")
+id = &"basic"
+bomb_icon = ExtResource("1_wk0hc")
+bomb_scene = ExtResource("2_y4aks")
+is_perishable = false
+is_sticky = false
+metadata/_custom_type_script = "uid://dgalf5pstb0iw"
