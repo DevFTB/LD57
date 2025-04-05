@@ -1,2 +1,0 @@
-class_name BombTimer
-extends Node2D

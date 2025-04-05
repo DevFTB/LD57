@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://djnj4g2g35ylo"]
+[gd_scene load_steps=2 format=3 uid="uid://t05ua8iwyu6x"]
 
-[ext_resource type="Script" uid="uid://ce42cdw34mrhe" path="res://bomb_timer.gd" id="1_4fflx"]
+[ext_resource type="Script" uid="uid://ce42cdw34mrhe" path="res://entities/moab/moab_entity.gd" id="1_dgwo1"]
 
 [node name="BombTimer" type="Node2D"]
-script = ExtResource("1_4fflx")
+script = ExtResource("1_dgwo1")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 
