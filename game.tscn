@@ -1,11 +1,11 @@
-[gd_scene load_steps=15 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=16 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="1_j5wjh"]
 [ext_resource type="TileSet" uid="uid://ci0bxhrhedi27" path="res://world/tileset/test_tileset.tres" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://dxicxe0tvx28m" path="res://world.gd" id="2_hve3p"]
 [ext_resource type="Script" uid="uid://b2x8g2xixii70" path="res://ui/inventory_control.gd" id="3_feb5d"]
-[ext_resource type="Script" path="res://world/levelgen.gd" id="3_lc2xo"]
+[ext_resource type="Script" uid="uid://bhk4kqmlpwyv0" path="res://world/levelgen.gd" id="3_lc2xo"]
 [ext_resource type="Resource" uid="uid://ctoa5b8j1n1x3" path="res://entities/player/player_inventory.tres" id="4_7jktm"]
 [ext_resource type="PackedScene" uid="uid://caoy1avvlxhx0" path="res://ui/test_inventory_item_control.tscn" id="4_fc0e3"]
 [ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="4_hve3p"]
@@ -13,6 +13,11 @@
 [ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="5_vef74"]
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="7_eow3j"]
 [ext_resource type="Resource" uid="uid://diae5nc080sux" path="res://entities/player/player_bomb_inventory.tres" id="8_mfdv2"]
+
+[sub_resource type="Curve" id="Curve_lc2xo"]
+_limits = [0.0, 1000.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1000), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_vef74"]
 outlines = Array[PackedVector2Array]([PackedVector2Array(-629, -444, 704, -444, 699, 470, -633, 481, -641, -443)])
@@ -41,6 +46,7 @@ tile_set = ExtResource("2_e2o6t")
 [node name="Player" parent="World" groups=["player"] instance=ExtResource("1_80nbo")]
 position = Vector2(128, -3280)
 collision_mask = 7
+throw_force_curve = SubResource("Curve_lc2xo")
 available_bomb_types = Array[ExtResource("4_hve3p")]([null])
 max_speed = 200
 acceleration = 5000
