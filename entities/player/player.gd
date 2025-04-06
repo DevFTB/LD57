@@ -55,14 +55,10 @@ func _physics_process(delta: float) -> void:
 	
 	super._physics_process(delta)
 	current_depth = calculate_depth(global_position.y)
-
-	
 	if not health_component.is_dead:
 		if Input.is_action_just_pressed("interact"):
 			interacted.emit()
-		if Input.is_action_just_pressed("interact"):
-			interacted.emit()
-	
+		
 			
 		if Input.is_action_just_pressed("select_bomb_1"):
 			switch_selected_bomb(0)
