@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://be4tedtvsf8on"]
+[gd_scene load_steps=72 format=3 uid="uid://be4tedtvsf8on"]
 
 [ext_resource type="Script" uid="uid://uex2tapn1k1y" path="res://entities/player/player.gd" id="1_merdl"]
 [ext_resource type="Texture2D" uid="uid://o2j8sch5klsg" path="res://entities/player/animations/idle.png" id="2_7thud"]
@@ -33,6 +33,16 @@ _limits = [0.0, 1.0, 0.0, 5.0]
 _data = [Vector2(0, 0.00563121), 0.0, 0.795495, 0, 1, Vector2(1.25, 1), 0.795495, 0.0, 1, 0, Vector2(5, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
+[sub_resource type="Gradient" id="Gradient_qhcbd"]
+offsets = PackedFloat32Array(0, 0.298561, 0.697842, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.978008, 0.978008, 0.978008, 1, 0.436611, 0.436611, 0.436611, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mtric"]
+gradient = SubResource("Gradient_qhcbd")
+fill = 1
+fill_from = Vector2(0.517094, 0.470085)
+fill_to = Vector2(0.863248, 0.196581)
+
 [sub_resource type="Gradient" id="Gradient_yqrof"]
 offsets = PackedFloat32Array(0.0213675, 0.277778, 0.457265, 0.649573, 0.752137)
 colors = PackedColorArray(0.866667, 0.694118, 0.0666667, 1, 0.866467, 0.617401, 0.0665676, 1, 0.865655, 0.305739, 0.0661652, 1, 0.891002, 0.21752, 0.261955, 1, 0.171824, 0.0676239, 0.001577, 1)
@@ -64,6 +74,8 @@ color_ramp = SubResource("GradientTexture1D_3wlsy")
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mwb40"]
 radius = 30.0
 height = 90.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_221hk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8fjmc"]
 radius = 65.9697
@@ -772,6 +784,15 @@ throw_strength_curve = SubResource("Curve_26q78")
 maximum_throw_hold_time = 5.0
 unlocked_traversal_methods = Array[int]([1, 2])
 
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-16, -13)
+scale = Vector2(11.125, 5.75)
+color = Color(0.57872, 0.35134, 0.22798, 1)
+energy = 2.77
+blend_mode = 2
+texture = SubResource("GradientTexture2D_mtric")
+texture_scale = 2.84
+
 [node name="Jetpack" type="Node2D" parent="."]
 script = ExtResource("10_wvtmh")
 
@@ -801,6 +822,8 @@ hframes = 3
 shape = SubResource("CapsuleShape2D_mwb40")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+material = SubResource("ShaderMaterial_221hk")
+zoom = Vector2(1.5, 1.5)
 
 [node name="MineralInventoryComponent" type="Node" parent="."]
 script = ExtResource("2_sglur")
@@ -875,13 +898,13 @@ bus = &"Sound FX"
 
 [node name="HurtSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("21_eyb6c")
-volume_db = 10.0
+volume_db = 8.0
 pitch_scale = 1.4
 bus = &"Sound FX"
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("22_221hk")
-volume_db = 10.0
+volume_db = 8.0
 bus = &"Sound FX"
 
 [connection signal="timeout" from="BombCooldown" to="." method="_on_bomb_cooldown_timeout"]

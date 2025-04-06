@@ -24,9 +24,11 @@ func _physics_process(_delta: float) -> void:
 func _on_player_interacted(player: Player) -> void:
 	var player_inventory: Inventory = player.mineral_inventory_component.inventory
 	
-	if player_inventory.has_item(BOMBPOWDER_ITEM):
+	if player_inventory.has_item(BOMBPOWDER_ITEM, CONSUME_AMOUNT):
 		player_inventory.remove_item(BOMBPOWDER_ITEM, CONSUME_AMOUNT)
 		moab_explosion_system.add_to_timer(CONSUME_AMOUNT)
+		
+		StatsManager.add_to_stat(StatsManager.Stat.BOMBPOWDER_OFFERED, CONSUME_AMOUNT)
 		
 		animation_player.play("consume")
 		consumed_item.emit()

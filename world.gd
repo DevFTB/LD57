@@ -62,9 +62,17 @@ func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 			var location = ore_tilemap.map_to_local(tile)
 			var item: Item = ore_tilemap.get_cell_tile_data(tile).get_custom_data("drop_item")
 			
+			var drop_amount := 1
+			
+			if item.id == &"bombpowder":
+				StatsManager.add_to_stat(StatsManager.Stat.BOMBPOWDER_MINED, drop_amount)
+
+			if item.id == &"upgradium":
+				StatsManager.add_to_stat(StatsManager.Stat.UPGRADIUM_MINED, drop_amount)
+
 			# TODO: Add variable drop amounts
 			ore_tilemap.erase_cell(tile)
-			drop_ore(location, item, 1)
+			drop_ore(location, item, drop_amount)
 			
 		#tile destroy animation
 		var break_location = cave_blocks_tilemap.map_to_local(tile)
@@ -75,6 +83,7 @@ func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 		# destroy tile
 		cave_blocks_tilemap.erase_cell(tile)
 
+	StatsManager.add_to_stat(StatsManager.Stat.TILES_BROKEN, explosion_tiles.size())
 	
 	for nav_mesh in nav_meshes.get_children():
 		var baked_nav_mesh: Array = []

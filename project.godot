@@ -18,6 +18,10 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 
 buses/default_bus_layout="uid://ktxyn4sbn8h7"
 
+[autoload]
+
+StatsManager="*res://stats_manager.gd"
+
 [global_group]
 
 navigation_polygon_source_geometry_group="REQUIRED FOR NAVIGATION POLYGON"
