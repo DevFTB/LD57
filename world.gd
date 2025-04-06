@@ -1,6 +1,6 @@
 class_name World extends Node2D
 
-@export var spawn_camera_offset : Vector2 = Vector2(-140, -30)
+@export var spawn_camera_offset : Vector2 = Vector2(0, -30)
 
 @onready var player: Player = $Player
 @onready var cave_blocks_tilemap: TileMapLayer = $Level/CaveBlocks
@@ -10,8 +10,8 @@ class_name World extends Node2D
 
 @onready var block_break_scene = preload("res://systems/music_sfx/files/sfx/tile/block_break.tscn")
 
-var camera_following_player : bool = true
-
+var camera_following_player : bool = false
+var initial_camera_location
 
 class ThrowReleasedEventData:
 	var position: Vector2
@@ -20,11 +20,13 @@ class ThrowReleasedEventData:
 	
 func _ready() -> void:
 	player.throw_released.connect(_spawn_bomb_with_velocity)
+	player.health_component.died.connect(_on_player_death)
+	initial_camera_location = camera.position
 	
 func _physics_process(delta):
 	if camera_following_player:
 		var camera_tweener = get_tree().create_tween()
-		camera_tweener.tween_property(camera, "global_position",player.global_position, 0.2)
+		camera_tweener.tween_property(camera, "global_position",player.global_position, 0.3)
 
 
 
@@ -130,12 +132,13 @@ func drop_ore(location: Vector2, item: Item, amount: int) -> void:
 
 func _on_spawn_area_player_detector_player_entered(player):
 	player.health_component.is_invulnerable = true
+	player.health_component.current_health = player.health_component.maximum_health
 	#handle camera tween
 	camera_following_player = false
 	var camera_tweener = get_tree().create_tween()
 	camera_tweener.set_ease(Tween.EASE_IN)
 	camera_tweener.tween_property(camera, "zoom",Vector2(1.8,1.8), 1)
-	camera_tweener.parallel().tween_property(camera, "offset", spawn_camera_offset, 1)
+	camera_tweener.parallel().tween_property(camera, "position", initial_camera_location + spawn_camera_offset, 1)
 	pass # Replace with function body.
 
 
@@ -146,6 +149,9 @@ func _on_spawn_area_player_detector_player_exited(player):
 	var camera_tweener = get_tree().create_tween()
 	camera_tweener.set_ease(Tween.EASE_IN)
 	camera_tweener.tween_property(camera, "zoom",Vector2(1.5,1.5), 1)
-	camera_tweener.parallel().tween_property(camera, "offset", Vector2.ZERO, 1)
+	camera_tweener.parallel().tween_property(camera, "position", initial_camera_location, 1)
 	
 	pass # Replace with function body.
+
+func _on_player_death():
+	camera_following_player = false
