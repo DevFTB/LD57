@@ -18,6 +18,10 @@ func update(_delta: float) -> void:
 func physics_update(_delta: float) -> void:
 	#var acceleration = enemy.enemy_stats.move_speed * 15
 	
+	# TODO: sometimes the enemy gets stuck in the wall, never hitting the floor.
+	# fix if this becomes more prevalent
+	#print(_grounded, enemy.is_on_floor())
+	
 	if enemy.is_on_floor() and not _grounded:
 		_grounded = true
 		_jump_dir = 0

@@ -22,6 +22,7 @@ func physics_update(_delta: float) -> void:
 	
 	if (enemy.global_position.distance_to(enemy.nav.get_final_position()) > enemy.enemy_stats.range or
 	 not enemy.sees_player):
+		# TODO: should it really require sees_player? now it chases perhaps a bit too aggresively lol
 		finished.emit(IDLE)
 
 ## Called by the state machine upon changing the active state. The `data` parameter
