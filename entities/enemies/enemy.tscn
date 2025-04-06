@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://jc5sht43d6gw"]
+[gd_scene load_steps=16 format=3 uid="uid://jc5sht43d6gw"]
 
 [ext_resource type="Script" uid="uid://c2s1n2iqs3g8o" path="res://entities/enemies/enemy.gd" id="1_wqcwe"]
 [ext_resource type="Texture2D" uid="uid://nbpbxi2j8ij" path="res://entities/moab/texture_moab.png" id="2_5lf1o"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://duvgimajjq5gf" path="res://entities/common/hitbox_component.tscn" id="8_gj3y3"]
 [ext_resource type="Script" path="res://entities/enemies/states/knocked_back.gd" id="8_vabdn"]
 [ext_resource type="PackedScene" uid="uid://787nmru65xmp" path="res://ui/health/health_bar.tscn" id="9_56i32"]
+[ext_resource type="Script" uid="uid://bk6kwi8eda1t8" path="res://entities/enemies/states/ranged_attack.gd" id="9_nrfwl"]
 [ext_resource type="Script" uid="uid://do5gnx1cf4tjg" path="res://entities/common/health_component.gd" id="10_sb13e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_msovg"]
@@ -55,6 +56,13 @@ script = ExtResource("7_3udgd")
 script = ExtResource("8_vabdn")
 
 [node name="KnockbackTimer" type="Timer" parent="StateMachine/KnockedBack"]
+
+[node name="RangedAttacking" type="Node" parent="StateMachine"]
+script = ExtResource("9_nrfwl")
+
+[node name="RangedAttackTimer" type="Timer" parent="StateMachine/RangedAttacking"]
+wait_time = 2.0
+autostart = true
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 

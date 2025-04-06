@@ -1,5 +1,8 @@
 extends EnemyState
 
+@onready var ranged_attack_timer = $RangedAttackTimer
+@export var ranged_attack: RangedAttack
+
 ## Called by the state machine when receiving unhandled input events.
 func handle_input(_event: InputEvent) -> void:
 	pass
@@ -11,14 +14,15 @@ func update(_delta: float) -> void:
 ## Called by the state machine on the engine's physics update tick.
 func physics_update(_delta: float) -> void:
 	enemy.move_and_slide()
-	var target_pos: Vector2 = enemy.nav.get_next_path_position() - enemy.global_position
-	var target_direction = target_pos.normalized()
-	enemy.last_moved_direction = target_direction.normalized()
-	enemy.velocity = target_direction * enemy.enemy_stats.move_speed * _delta * 10
+	if enemy.enemy_stats.is_grounded == true:
+		enemy.velocity.y += enemy.gravity.y * _delta
 	
-	if enemy.is_ranged and enemy.global_position.distance_to(enemy.nav.get_final_position()) < enemy.enemy_stats.range:
-		finished.emit(RANGED_ATTACKING)
-	elif enemy.global_position.distance_to(enemy.nav.get_final_position()) <= 20:
+	# TODO: could be more efficnet spots to put it than here but should be nbd (use signal)
+	try_attack()
+	
+	if (enemy.global_position.distance_to(enemy.nav.get_final_position()) > enemy.enemy_stats.range or
+	 not enemy.sees_player):
+		# TODO: should it really require sees_player? now it chases perhaps a bit too aggresively lol
 		finished.emit(IDLE)
 
 ## Called by the state machine upon changing the active state. The `data` parameter
@@ -28,7 +32,14 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 	#play idle anim
 	if enemy.enemy_stats.is_grounded == false:
 		enemy.velocity.y = 0.0
-	pass
+		
+	try_attack()
+	
+		
+func try_attack():
+	if ranged_attack_timer.is_stopped():
+		ranged_attack.attack()
+		ranged_attack_timer.start()
 
 ## Called by the state machine before changing the active state. Use this function
 ## to clean up the state.

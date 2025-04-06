@@ -10,8 +10,8 @@
 [ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="7_cnkka"]
 [ext_resource type="PackedScene" uid="uid://bq84mpxun851f" path="res://entities/moab/moab_entity.tscn" id="8_537hp"]
 [ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="9_3oat4"]
+[ext_resource type="PackedScene" uid="uid://dqawvbjg7bayk" path="res://entities/enemies/skeleton_bomber/skeleton_bomber_enemy.tscn" id="9_pnepw"]
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="10_n80mf"]
-[ext_resource type="Resource" uid="uid://bynl6osvbjhk1" path="res://entities/enemies/spiky_ball/spiky_ball_stats.tres" id="10_pnepw"]
 [ext_resource type="PackedScene" uid="uid://bkh5wheo7tg4h" path="res://entities/item/item_entity.tscn" id="11_7118b"]
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="12_i5h41"]
 [ext_resource type="PackedScene" uid="uid://787nmru65xmp" path="res://ui/health/health_bar.tscn" id="13_sw03q"]
@@ -38,7 +38,7 @@ size = Vector2(536, 224)
 script = ExtResource("1_ctw1c")
 bomb_timer_starting_value = 305.0
 
-[node name="World" type="Node2D" parent="."]
+[node name="World" type="Node2D" parent="." groups=["world"]]
 script = ExtResource("2_2d1u3")
 
 [node name="Level" type="Node2D" parent="World"]
@@ -66,15 +66,22 @@ jump_power = 380
 max_fall_speed = 10000
 fall_acceleration = 550
 
+[node name="HealthComponent" parent="World/Player" index="7"]
+maximum_health = 50
+
 [node name="MoabEntity" parent="World" node_paths=PackedStringArray("moab_explosion_system") instance=ExtResource("8_537hp")]
 position = Vector2(-192, -3256)
 moab_explosion_system = NodePath("../../MoabExplosionSystem")
 
+[node name="Enemy3" parent="World" instance=ExtResource("9_pnepw")]
+position = Vector2(-528, -3265)
+
 [node name="Enemy2" parent="World" instance=ExtResource("6_2d1u3")]
+visible = false
 position = Vector2(-601, -3263)
-enemy_stats = ExtResource("10_pnepw")
 
 [node name="Enemy" parent="World" instance=ExtResource("9_3oat4")]
+visible = false
 position = Vector2(160, -3360)
 
 [node name="SpawnAreaPlayerDetector" type="Area2D" parent="World"]

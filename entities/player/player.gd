@@ -4,7 +4,7 @@ class_name Player
 signal interacted
 
 signal throw_initiated()
-signal throw_released(data: ThrowReleasedEventData)
+signal throw_released(data: World.ThrowReleasedEventData)
 signal depth_changed(depth)
 
 signal movement_state_changed(new_movement_state: MovementState)
@@ -161,7 +161,7 @@ func _on_throw_release(strength = 1.0) -> void:
 	bomb_type.hardness += upgrade_state.get_value(UPGRADE_BOMB_HARDNESS)
 	bomb_type.explosion_radius += upgrade_state.get_value(UPGRADE_BOMB_RADIUS)
 
-	var data := ThrowReleasedEventData.new()
+	var data := World.ThrowReleasedEventData.new()
 	data.position = global_position
 	data.impulse = direction.normalized() * throw_force_curve.sample_baked(strength)
 	data.bomb_type = bomb_type
@@ -183,11 +183,6 @@ func calculate_depth(current_y):
 
 func _on_bomb_cooldown_timeout():
 	can_throw = true
-
-class ThrowReleasedEventData:
-	var position: Vector2
-	var impulse: Vector2
-	var bomb_type: BombType
 
 func _on_death():
 	health_component.is_invulnerable = true
