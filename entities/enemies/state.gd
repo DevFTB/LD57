@@ -2,6 +2,7 @@
 ## Extend this class and override its methods to implement a state.
 class_name State extends Node
 
+@warning_ignore("unused_signal")
 ## Emitted when the state finishes and wants to transition to another state.
 signal finished(next_state_path: String, data: Dictionary)
 
@@ -19,7 +20,7 @@ func physics_update(_delta: float) -> void:
 
 ## Called by the state machine upon changing the active state. The `data` parameter
 ## is a dictionary with arbitrary data the state can use to initialize itself.
-func enter(previous_state_path: String, data := {}) -> void:
+func enter(_previous_state_path: String, _data := {}) -> void:
 	pass
 
 ## Called by the state machine before changing the active state. Use this function

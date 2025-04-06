@@ -18,7 +18,7 @@ func physics_update(_delta: float) -> void:
 
 ## Called by the state machine upon changing the active state. The `data` parameter
 ## is a dictionary with arbitrary data the state can use to initialize itself.
-func enter(previous_state_path: String, data := {}) -> void:
+func enter(_previous_state_path: String, _data := {}) -> void:
 	enemy.velocity.x = 0.0
 	#play idle anim
 	if enemy.enemy_stats.is_grounded == false:

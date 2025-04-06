@@ -59,7 +59,6 @@ func _physics_process(delta: float) -> void:
 
 	if _holding_throw:
 		_throw_action_held_time += delta
-		print(_throw_action_held_time)
 		
 		if Input.is_action_just_released("throw"):
 			var strength := throw_strength_curve.sample_baked(_throw_action_held_time)
