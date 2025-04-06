@@ -137,7 +137,8 @@ func _on_spawn_area_player_detector_player_entered(_player):
 	#handle camera tween
 	camera_following_player = false
 	var camera_tweener = get_tree().create_tween()
-	camera_tweener.set_ease(Tween.EASE_IN)
+	camera_tweener.set_ease(Tween.EASE_IN_OUT)
+	camera_tweener.set_trans(Tween.TRANS_CUBIC)
 	camera_tweener.tween_property(camera, "zoom", Vector2.ONE * SPAWN_ZOOM, 1)
 	camera_tweener.parallel().tween_property(camera, "position", initial_camera_location + spawn_camera_offset, 1)
 
