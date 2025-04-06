@@ -25,15 +25,14 @@ func _process(delta):
 	if is_running:
 		bomb_timer -= delta * time_scale
 	
-	if bomb_timer <= 0:
-		print("Game is over, bomb explodied sadge")
+	# if bomb_timer <= 0:
+	# 	print("Game is over, bomb explodied sadge")
 		
 	_total_time_passed += delta
 
 func add_to_timer(items_provided: int) -> void:
 	var time_added := items_provided / get_items_per_second(_total_time_passed)
 	bomb_timer += time_added
-	print("Time added ", time_added)
 
 func get_items_per_second(time: float) -> float:
 	return pow(time, 2) / 1000000 + 0.01

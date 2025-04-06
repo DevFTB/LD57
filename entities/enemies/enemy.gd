@@ -22,10 +22,10 @@ func _ready():
 	health_component.current_health = health_component.maximum_health
 	health_component.died.connect(die)
 
-func _process(delta):
+func _process(_delta: float) -> void:
 	pass
 
-func _physics_process(delta):
+func _physics_process(_delta: float) -> void:
 	pass
 
 func die():

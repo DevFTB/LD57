@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var seed: int = randi()
+@export var random_seed: int = randi()
 @export var height_hardness_factor: float = 0.5
 @export var ore_hardness_factor: float = 0.3
 @export var chunk_size: int = 32 ## nav mesh chunk size in tiles
@@ -33,7 +33,7 @@ func _get_cave_noise() -> Noise:
 	var fast_noise: FastNoiseLite = FastNoiseLite.new()
 	fast_noise.noise_type = FastNoiseLite.NoiseType.TYPE_SIMPLEX
 	#fast_noise.noise_type = FastNoiseLite.TYPE_CELLULAR
-	fast_noise.seed = seed
+	fast_noise.seed = random_seed
 	fast_noise.frequency = 0.05
 	#fast_noise.frequency = 0.1
 	
@@ -42,7 +42,7 @@ func _get_cave_noise() -> Noise:
 func _get_hardness_noise() -> Noise:
 	var fast_noise: FastNoiseLite = FastNoiseLite.new()
 	fast_noise.noise_type = FastNoiseLite.NoiseType.TYPE_SIMPLEX
-	fast_noise.seed = seed
+	fast_noise.seed = random_seed
 	fast_noise.frequency = 0.015
 	
 	return fast_noise
@@ -51,14 +51,14 @@ func _get_resource_map(resource: Resources) -> Noise:
 	# multiple resources will use this function. They all require a different noise generation
 	var fast_noise: FastNoiseLite = FastNoiseLite.new()
 	fast_noise.noise_type = FastNoiseLite.NoiseType.TYPE_SIMPLEX
-	fast_noise.seed = seed * resource
+	fast_noise.seed = random_seed * resource
 	fast_noise.frequency = 0.1
 	
 	return fast_noise
 
 # TODO: might need improvement but just a POC
 # TODO: transform the thresholds instead of the noise? are they equivalent?
-func noise_height_transform(y: int, noise_value: float, height_factor: float = 0.5,
+func noise_height_transform(y: int, noise_value: float, _height_factor: float = 0.5,
 	min_added: float = -2.0, max_added: float = 2.0, y_offset: float = 0.0) -> float:
 	# maps from noise_value [-1, 1] to [-1, 1]
 	var transform_term = clamp((height_hardness_factor * (y + y_offset) / 100), min_added, max_added)
@@ -89,7 +89,7 @@ func generate_cave_blocks(cave_noise: Noise, hardness_noise: Noise, resource_noi
 func _add_cave_block(hardness: int, x: int, y: int) -> void:
 	assert(CAVE_BLOCK_HARDNESS_MAP.has(hardness), "Cave block hardness map doesnt have " + str(hardness))
 	var rng = RandomNumberGenerator.new()
-	rng.seed = seed
+	rng.seed = random_seed
 	var tile_choices = CAVE_BLOCK_HARDNESS_MAP[hardness]
 	var tile_choice = tile_choices[rng.randi() % tile_choices.size()]
 	
@@ -139,27 +139,28 @@ func _ready() -> void:
 	##initial navmesh bake
 	##each nav mesh block is 32 by 32 blocks of 32 by 32
 	var nav_mesh_chunk_list: Array = START_CHUNKS.duplicate()
+
+	@warning_ignore("integer_division")
 	for x in range(min_x / chunk_size, max_x / chunk_size):
+		@warning_ignore("integer_division")
 		for y in range(min_y / chunk_size, max_y / chunk_size):
 			nav_mesh_chunk_list.append(Vector2i(x, y))
-	print(nav_mesh_chunk_list)
-	create_nav_meshes(nav_mesh_chunk_list)
 
+	create_nav_meshes(nav_mesh_chunk_list)
 func create_nav_meshes(mesh_chunk_list):
 	for chunk in mesh_chunk_list:
-		var min_x = (chunk.x) * chunk_size
-		var max_x = (chunk.x + 1) * chunk_size
-		var min_y = (chunk.y) * chunk_size
-		var max_y = (chunk.y + 1) * chunk_size
+		var _min_x = (chunk.x) * chunk_size
+		var _max_x = (chunk.x + 1) * chunk_size
+		var _min_y = (chunk.y) * chunk_size
+		var _max_y = (chunk.y + 1) * chunk_size
 		var new_nav_region = NavigationRegion2D.new()
 
-		prints(min_x, max_x, min_y, max_y)
 		$NavMeshes.add_child(new_nav_region)
 		call_deferred("bake_nav_mesh", new_nav_region,
-			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(min_x, min_y)),
-			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(min_x, max_y)),
-			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(max_x, max_y)),
-			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(max_x, min_y)))
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(_min_x, _min_y)),
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(_min_x, _max_y)),
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(_max_x, _max_y)),
+			CAVE_BLOCK_TILEMAP.map_to_local(Vector2(_max_x, _min_y)))
 
 const FEATHER := 20
 func bake_nav_mesh(mesh, point1, point2, point3, point4):
