@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b0ogai8s7l7sc" path="res://systems/inventory/inventory.gd" id="1_4wq8t"]
 [ext_resource type="Resource" uid="uid://2rch3ef2vr66" path="res://systems/inventory/items/item_basic_bomb.tres" id="2_2qu1l"]
 [ext_resource type="Resource" uid="uid://44skluikbcii" path="res://systems/inventory/items/item_sticky_bomb.tres" id="3_lon2p"]
-[ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="4_ugq1y"]
+[ext_resource type="Resource" path="res://systems/inventory/items/item_impact_bomb.tres" id="4_ugq1y"]
 
 [resource]
 script = ExtResource("1_4wq8t")

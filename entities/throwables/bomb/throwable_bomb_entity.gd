@@ -33,6 +33,9 @@ func _on_body_entered(body: Node2D) -> void:
 	elif bomb_type.is_sticky:
 		if body is TileMapLayer:
 			call_deferred("set", "freeze", true)
+		if body is Enemy:
+			call_deferred("set", "freeze", true)
+			body.call_deferred("stick", self)
 
 func explode() -> void:
 	exploded.emit()
