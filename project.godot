@@ -21,7 +21,7 @@ buses/default_bus_layout="uid://ktxyn4sbn8h7"
 
 [autoload]
 
-StatsManager="*res://stats_manager.gd"
+StatsManager="*res://systems/stats_manager.gd"
 
 [display]
 
