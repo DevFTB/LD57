@@ -5,6 +5,7 @@ signal interacted
 
 signal throw_initiated()
 signal throw_released(data: ThrowReleasedEventData)
+signal depth_changed(depth)
 
 enum MovementState {
 	FREE, GRAPPLE, JETPACK
@@ -27,6 +28,7 @@ var _holding_throw := false
 var _throw_action_held_time := 0.0
 var selected_bomb_item: Item
 var can_throw := true
+var current_depth := 0
 
 var upgrade_state: PlayerUpgradeState = PlayerUpgradeState.new()
 
@@ -34,9 +36,12 @@ var current_movement_state: MovementState = MovementState.FREE
 
 @onready var mineral_inventory_component: InventoryComponent = $MineralInventoryComponent
 @onready var bomb_inventory_component: InventoryComponent = $BombInventoryComponent
+@onready var health_component: HealthComponent = $HealthComponent
 @onready var bomb_cooldown: Timer = $BombCooldown
 @onready var grapple_point: GrapplePoint = $GrapplePoint
 @onready var jetpack: Jetpack = $Jetpack
+@onready var spawn_location: Vector2 = global_position
+@onready var animation = $AnimationPlayer
 
 func _ready() -> void:
 	var inv := bomb_inventory_component.inventory
@@ -46,8 +51,11 @@ func _ready() -> void:
 		selected_bomb_item = items.front()
 		
 	grapple_point.attached.connect(_on_grapple_attached)
-		
 
+	#connect signals
+	if health_component:
+		health_component.died.connect(_on_death)
+	
 func _physics_process(delta: float) -> void:
 	check_collsions()
 	
@@ -71,31 +79,32 @@ func _physics_process(delta: float) -> void:
 	
 	apply_movement()
 	
-	if Input.is_action_just_pressed("interact"):
-		interacted.emit()
-	
+	current_depth = calculate_depth(global_position.y)
+	if not health_component.is_dead:
+		if Input.is_action_just_pressed("interact"):
+			interacted.emit()
 		
-	if Input.is_action_just_pressed("select_bomb_1"):
-		switch_selected_bomb(0)
-	if Input.is_action_just_pressed("select_bomb_2"):
-		switch_selected_bomb(1)
-	if Input.is_action_just_pressed("select_bomb_3"):
-		switch_selected_bomb(2)
-		
-	if Input.is_action_just_pressed("throw"):
-		if can_throw == true:
-			initiate_throw()
+			
+		if Input.is_action_just_pressed("select_bomb_1"):
+			switch_selected_bomb(0)
+		if Input.is_action_just_pressed("select_bomb_2"):
+			switch_selected_bomb(1)
+		if Input.is_action_just_pressed("select_bomb_3"):
+			switch_selected_bomb(2)
+			
+		if Input.is_action_just_pressed("throw"):
+			if can_throw == true:
+				initiate_throw()
 
-	if _holding_throw:
-		_throw_action_held_time += delta
-		
-		if Input.is_action_just_released("throw"):
-			var strength := throw_strength_curve.sample_baked(_throw_action_held_time)
-			_on_throw_release(strength)
+		if _holding_throw:
+			_throw_action_held_time += delta
+			
+			if Input.is_action_just_released("throw"):
+				var strength := throw_strength_curve.sample_baked(_throw_action_held_time)
+				_on_throw_release(strength)
 
-		if _throw_action_held_time > maximum_throw_hold_time:
-			_on_throw_release(1.0)
-	
+			if _throw_action_held_time > maximum_throw_hold_time:
+				_on_throw_release(1.0)
 
 func handle_grapple(delta: float) -> void:
 	_frame_velocity = grapple_point.calculate_frame_velocity(delta)
@@ -105,7 +114,10 @@ func _on_grapple_attached() -> void:
 
 func handle_jetpack(delta: float) -> void:
 	_frame_velocity = jetpack.calculate_frame_velocity(delta)
-
+	
+func _process(delta):
+	if not health_component.is_dead:
+		super._process(delta)
 func switch_selected_bomb(index: int) -> void:
 	var items := bomb_inventory_component.inventory.get_items()
 	
@@ -150,6 +162,13 @@ func _on_throw_release(strength = 1.0) -> void:
 	else:
 		throw_released.emit(data)
 
+#calculates depth based on spawn position
+func calculate_depth(current_y):
+	var depth = (current_y - spawn_location.y) / 32 * 0.5
+	if depth != current_depth:
+		depth_changed.emit(depth)
+	return depth
+
 func _on_bomb_cooldown_timeout():
 	can_throw = true
 
@@ -157,3 +176,15 @@ class ThrowReleasedEventData:
 	var position: Vector2
 	var impulse: Vector2
 	var bomb_type: BombType
+
+func _on_death():
+	health_component.is_invulnerable = true
+	#drop all resources
+	animation.play("death") # plays death animation and resets the player when it is done.
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "death":
+		health_component.reset()
+		animation.play("RESET")
+		velocity = Vector2.ZERO
+		global_position = spawn_location

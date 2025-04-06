@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfb6tk3jaqp55"]
+
+[ext_resource type="Script" uid="uid://bvlixr8kl6y2q" path="res://systems/music_sfx/music.gd" id="1_y31cj"]
+[ext_resource type="AudioStream" uid="uid://dfeygp074ku3e" path="res://systems/music_sfx/files/BOMBOCLAT1.wav" id="2_gubim"]
+[ext_resource type="AudioStream" uid="uid://bi1mtpu73p3xw" path="res://systems/music_sfx/files/BOMBOCLAT2.wav" id="3_qo2mo"]
+[ext_resource type="AudioStream" uid="uid://dfi270s63t7ek" path="res://systems/music_sfx/files/BOMBOCLAT3.wav" id="4_n06wh"]
+
+[node name="Music" type="Node2D"]
+script = ExtResource("1_y31cj")
+depth_for_track1 = 5
+depth_for_track2 = 20
+depth_for_track3 = 50
+
+[node name="Depth1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_gubim")
+
+[node name="Depth2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_qo2mo")
+
+[node name="Depth3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_n06wh")
