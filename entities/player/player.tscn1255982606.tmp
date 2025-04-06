@@ -762,7 +762,7 @@ graph_offset = Vector2(43, -138)
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_merdl")
-throw_cooldown = 0.6
+throw_cooldown = 0.1
 throw_force_curve = SubResource("Curve_qiwj3")
 throw_strength_curve = SubResource("Curve_26q78")
 maximum_throw_hold_time = 5.0
@@ -773,7 +773,7 @@ script = ExtResource("10_wvtmh")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Jetpack"]
 position = Vector2(0, 16)
-amount = 32
+amount = 16
 texture = ExtResource("3_yqrof")
 process_material = SubResource("ParticleProcessMaterial_gx6sm")
 
@@ -831,7 +831,6 @@ player = NodePath("..")
 
 [node name="BombStrengthSFX" type="AudioStreamPlayer" parent="BombStrengthProgressBar"]
 stream = ExtResource("13_we0b7")
-volume_db = -5.0
 bus = &"Sound FX"
 
 [node name="GrapplePoint" type="CharacterBody2D" parent="."]
