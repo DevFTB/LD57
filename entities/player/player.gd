@@ -137,7 +137,8 @@ func _on_throw_release(strength = 1.0) -> void:
 	# Reset throw strength timer
 	_holding_throw = false
 	_throw_action_held_time = 0.0
-	
+	$ThrowSound.pitch_scale = randf_range(0.9,1.1)
+	$ThrowSound.play()
 	# Throw towards mouse.
 	var direction := global_position.direction_to(get_global_mouse_position())
 	

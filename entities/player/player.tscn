@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://be4tedtvsf8on"]
+[gd_scene load_steps=67 format=3 uid="uid://be4tedtvsf8on"]
 
 [ext_resource type="Script" uid="uid://uex2tapn1k1y" path="res://entities/player/player.gd" id="1_merdl"]
 [ext_resource type="Texture2D" uid="uid://o2j8sch5klsg" path="res://entities/player/animations/idle.png" id="2_7thud"]
@@ -19,6 +19,7 @@
 [ext_resource type="AudioStream" uid="uid://dg6cyqp7qwmm7" path="res://systems/music_sfx/files/sfx/throw selection sound.wav" id="13_we0b7"]
 [ext_resource type="Texture2D" uid="uid://bf5qhstojbd5w" path="res://entities/player/animations/throw.png" id="14_afbqv"]
 [ext_resource type="Script" uid="uid://c82oqxqpg511e" path="res://entities/player/player_animation_tree.gd" id="15_gx6sm"]
+[ext_resource type="AudioStream" uid="uid://dis0is1c00khw" path="res://systems/music_sfx/files/sfx/throw sound.wav" id="20_mtric"]
 
 [sub_resource type="Curve" id="Curve_qiwj3"]
 _limits = [0.0, 1000.0, 0.0, 1.0]
@@ -862,6 +863,11 @@ anim_player = NodePath("..")
 script = ExtResource("15_gx6sm")
 player = NodePath("../..")
 sprite = NodePath("../../Sprite2D")
+
+[node name="ThrowSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_mtric")
+volume_db = -0.3
+bus = &"Sound FX"
 
 [connection signal="timeout" from="BombCooldown" to="." method="_on_bomb_cooldown_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
