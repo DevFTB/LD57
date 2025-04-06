@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://briwqk6mcgr80"]
+
+[ext_resource type="Texture2D" uid="uid://kqpbfn6i6agw" path="res://systems/upgrades/icons/bomb_radius_icon.png" id="1_sjum0"]
+[ext_resource type="Texture2D" uid="uid://nfi4v3bb6elw" path="res://systems/upgrades/icons/bomb_strength.png" id="1_vj4bt"]
+[ext_resource type="AudioStream" uid="uid://c800xef1mh8vm" path="res://systems/music_sfx/files/sfx/explosion.wav" id="2_33yin"]
+[ext_resource type="Script" uid="uid://bavlfh8rdvqqv" path="res://entities/throwables/bomb/bomb_explode.gd" id="2_sjum0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1lo4m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_sjum0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_vj4bt")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 5.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_1lo4m")
+animation = &"explode"
+autoplay = "explode"
+script = ExtResource("2_sjum0")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_33yin")
+volume_db = -5.0
+autoplay = true
+bus = &"Sound FX"

@@ -38,7 +38,7 @@ size = Vector2(536, 224)
 script = ExtResource("1_j5wjh")
 bomb_timer_starting_value = 305.0
 
-[node name="World" type="Node2D" parent="."]
+[node name="World" type="Node2D" parent="." groups=["world"]]
 script = ExtResource("2_hve3p")
 
 [node name="Level" type="Node2D" parent="World"]

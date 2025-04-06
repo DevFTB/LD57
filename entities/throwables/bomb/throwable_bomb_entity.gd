@@ -12,6 +12,9 @@ var bomb_type: BombType
 @onready var explosion_timer: Timer = $ExplosionTimer
 @onready var hitbox_component: HitboxComponent = $HitboxComponent
 
+@onready var explosion_animation_scene = preload("res://entities/throwables/bomb/bomb_explode.tscn")
+
+
 func _ready() -> void:
 	sprite_2d.texture = bomb_type.bomb_icon
 	hitbox_component.damage = bomb_type.entity_damage
@@ -31,4 +34,9 @@ func _on_body_entered(body: Node2D) -> void:
 func explode() -> void:
 	exploded.emit()
 	hitbox_component.damage_overlapping_hurtboxes()
-	animation_player.play("explode")
+	var explosion_animation = explosion_animation_scene.instantiate()
+	get_tree().get_first_node_in_group("world").add_child(explosion_animation)
+	explosion_animation.global_position = global_position
+	queue_free()
+	
+	#animation_player.play("explode")
