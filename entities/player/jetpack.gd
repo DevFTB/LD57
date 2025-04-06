@@ -32,14 +32,15 @@ func handle_action(key: StringName) -> void:
 		state = JetpackState.ON
 		player.current_movement_state = Player.MovementState.JETPACK
 		particles.emitting = true
+		if not $JetpackStart.playing:
+			$JetpackStart.play()
+		$JetpackLoop.play()
 	elif Input.is_action_just_released(key):
 		state = JetpackState.OFF
 		player.current_movement_state = Player.MovementState.FREE
 		particles.emitting = false
+		$JetpackLoop.stop()
 
-	elif Input.is_action_just_released(key):
-		state = JetpackState.OFF
-		player.current_movement_state = Player.MovementState.FREE
 
 func _physics_process(delta: float) -> void:
 	# Burn fuel when on.

@@ -1,12 +1,14 @@
-[gd_scene load_steps=63 format=3 uid="uid://be4tedtvsf8on"]
+[gd_scene load_steps=65 format=3 uid="uid://be4tedtvsf8on"]
 
 [ext_resource type="Script" uid="uid://uex2tapn1k1y" path="res://entities/player/player.gd" id="1_merdl"]
 [ext_resource type="Texture2D" uid="uid://o2j8sch5klsg" path="res://entities/player/animations/idle.png" id="2_7thud"]
 [ext_resource type="Script" uid="uid://3o156l3yjpoa" path="res://entities/player/inventory_component.gd" id="2_sglur"]
 [ext_resource type="Resource" uid="uid://ctoa5b8j1n1x3" path="res://entities/player/player_inventory.tres" id="3_sglur"]
 [ext_resource type="Texture2D" uid="uid://c7tla5tuusbhm" path="res://entities/player/particles/jetpack_particles.png" id="3_yqrof"]
+[ext_resource type="AudioStream" uid="uid://de7ioukso276q" path="res://systems/music_sfx/files/sfx/jetpack/jetpack start.wav" id="4_b2kln"]
 [ext_resource type="Resource" uid="uid://diae5nc080sux" path="res://entities/player/player_bomb_inventory.tres" id="4_bls4j"]
 [ext_resource type="PackedScene" uid="uid://bdhnok20thjuo" path="res://entities/common/health_component.tscn" id="5_fkugw"]
+[ext_resource type="AudioStream" uid="uid://cnkpk86sygxlu" path="res://systems/music_sfx/files/sfx/jetpack/jetpack loop.wav" id="5_we0b7"]
 [ext_resource type="PackedScene" uid="uid://eenrl1ayi2xr" path="res://entities/common/hurtbox_component.tscn" id="6_8fjmc"]
 [ext_resource type="Script" uid="uid://lw70x0du5vba" path="res://entities/player/bomb_strength_progress_bar.gd" id="7_qiwj3"]
 [ext_resource type="Script" path="res://entities/player/grapple_point.gd" id="8_26q78"]
@@ -773,6 +775,16 @@ position = Vector2(0, 16)
 amount = 16
 texture = ExtResource("3_yqrof")
 process_material = SubResource("ParticleProcessMaterial_gx6sm")
+
+[node name="JetpackStart" type="AudioStreamPlayer" parent="Jetpack"]
+stream = ExtResource("4_b2kln")
+volume_db = -3.0
+bus = &"Sound FX"
+
+[node name="JetpackLoop" type="AudioStreamPlayer" parent="Jetpack"]
+stream = ExtResource("5_we0b7")
+volume_db = -3.0
+bus = &"Sound FX"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -40)
