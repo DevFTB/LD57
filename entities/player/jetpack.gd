@@ -1,11 +1,14 @@
 extends Node2D
 class_name Jetpack
 
+signal fuel_changed
+
 enum JetpackState {
 	OFF, ON
 }
 ## The current amount of fuel in the jetpack.
-@export var fuel: float = 100.0
+
+@export var max_fuel: float = 100.0
 
 ## How fast the jetpack burns fuel.
 @export var fuel_burn_rate: float = 1.0
@@ -21,6 +24,11 @@ var state: JetpackState = JetpackState.OFF
 @onready var player: Player = get_parent()
 
 @onready var particles: GPUParticles2D = $GPUParticles2D
+
+@onready var fuel: float = 100.0:
+	set(value):
+		fuel = value
+		fuel_changed.emit(fuel)
 
 func _ready() -> void:
 	particles.emitting = false
