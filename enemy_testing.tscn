@@ -66,6 +66,9 @@ jump_power = 380
 max_fall_speed = 10000
 fall_acceleration = 550
 
+[node name="HealthComponent" parent="World/Player" index="7"]
+maximum_health = 50
+
 [node name="MoabEntity" parent="World" node_paths=PackedStringArray("moab_explosion_system") instance=ExtResource("8_537hp")]
 position = Vector2(-192, -3256)
 moab_explosion_system = NodePath("../../MoabExplosionSystem")
