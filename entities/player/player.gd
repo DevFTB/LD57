@@ -7,7 +7,11 @@ signal throw_initiated()
 signal throw_released(data: ThrowReleasedEventData)
 
 enum MovementState {
-	FREE, GRAPPLE
+	FREE, GRAPPLE, JETPACK
+}
+
+enum TraversalMethod {
+	NONE, GRAPPLE, JETPACK
 }
 
 @export var available_bomb_types: Array[BombType]
@@ -16,6 +20,8 @@ enum MovementState {
 @export var throw_force_curve: Curve
 @export var throw_strength_curve: Curve
 @export var maximum_throw_hold_time := 1.0
+
+@export var traversal_method: TraversalMethod = TraversalMethod.NONE
 
 var _holding_throw := false
 var _throw_action_held_time := 0.0
@@ -29,6 +35,8 @@ var current_movement_state: MovementState = MovementState.FREE
 @onready var mineral_inventory_component: InventoryComponent = $MineralInventoryComponent
 @onready var bomb_inventory_component: InventoryComponent = $BombInventoryComponent
 @onready var bomb_cooldown: Timer = $BombCooldown
+@onready var grapple_point: GrapplePoint = $GrapplePoint
+@onready var jetpack: Jetpack = $Jetpack
 
 func _ready() -> void:
 	var inv := bomb_inventory_component.inventory
@@ -43,6 +51,12 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	check_collsions()
 	
+	match traversal_method:
+		TraversalMethod.GRAPPLE:
+			grapple_point.handle_action(&"traverse")
+		TraversalMethod.JETPACK:
+			jetpack.handle_action(&"traverse")
+	
 	match current_movement_state:
 		MovementState.FREE:
 			handle_jump()
@@ -50,6 +64,10 @@ func _physics_process(delta: float) -> void:
 			handle_gravity(delta)
 		MovementState.GRAPPLE:
 			handle_grapple(delta)
+		MovementState.JETPACK:
+			handle_direction(delta)
+			handle_gravity(delta)
+			handle_jetpack(delta)
 	
 	apply_movement()
 	
@@ -78,30 +96,15 @@ func _physics_process(delta: float) -> void:
 		if _throw_action_held_time > maximum_throw_hold_time:
 			_on_throw_release(1.0)
 	
-	if Input.is_action_just_released("traverse"):
-		match grapple_point.grapple_state:
-			GrapplePoint.GrappleState.INACTIVE:
-				grapple_point.throw(global_position.direction_to(get_global_mouse_position()))
-			_:
-				grapple_point.cancel()
-				current_movement_state = MovementState.FREE
 
-@export var grapple_speed: float = 400.0
-@onready var grapple_point: GrapplePoint = $GrapplePoint
-
-const GRAPPLE_MIN_PULL_DISTANCE := 60
-
-func handle_grapple(_delta: float) -> void:
-	# pull player towards grapple point
-	var direction := position.direction_to(grapple_point.position)
-	var distance := position.distance_to(grapple_point.position)
-	
-	if distance > GRAPPLE_MIN_PULL_DISTANCE:
-		_frame_velocity = direction * grapple_speed
+func handle_grapple(delta: float) -> void:
+	_frame_velocity = grapple_point.calculate_frame_velocity(delta)
 
 func _on_grapple_attached() -> void:
 	current_movement_state = MovementState.GRAPPLE
 
+func handle_jetpack(delta: float) -> void:
+	_frame_velocity = jetpack.calculate_frame_velocity(delta)
 
 func switch_selected_bomb(index: int) -> void:
 	var items := bomb_inventory_component.inventory.get_items()
