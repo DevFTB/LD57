@@ -5,6 +5,8 @@ extends Node2D
 @onready var ore_tilemap: TileMapLayer = $Level/OreIndicators
 @onready var nav_meshes = $Level/NavMeshes
 
+@onready var block_break_scene = preload("res://systems/music_sfx/files/sfx/tile/block_break.tscn")
+
 func _ready() -> void:
 	player.throw_released.connect(_spawn_bomb_with_velocity)
 
@@ -52,16 +54,22 @@ func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 		var has_ore := ore_tilemap.get_cell_source_id(tile) != -1
 		# check for drops
 		if has_ore:
-			var location := ore_tilemap.map_to_local(tile)
+			var location = ore_tilemap.map_to_local(tile)
 			var item: Item = ore_tilemap.get_cell_tile_data(tile).get_custom_data("drop_item")
 			
 			# TODO: Add variable drop amounts
 			ore_tilemap.erase_cell(tile)
 			drop_ore(location, item, 1)
-
+			
+		#tile destroy animation
+		var break_location = cave_blocks_tilemap.map_to_local(tile)
+		var block_break_anim = block_break_scene.instantiate()
+		add_child(block_break_anim)
+		block_break_anim.position = break_location
+		
 		# destroy tile
 		cave_blocks_tilemap.erase_cell(tile)
-	
+
 	
 	for nav_mesh in nav_meshes.get_children():
 		var baked_nav_mesh: Array = []
