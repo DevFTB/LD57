@@ -58,6 +58,10 @@ func physics_update(_delta: float) -> void:
 	
 	if enemy.global_position.distance_to(enemy.nav.get_final_position()) > 1000:
 		finished.emit(IDLE)
+	
+	if enemy.is_ranged and enemy.sees_player and enemy.global_position.distance_to(enemy.nav.get_final_position()) < enemy.enemy_stats.range:
+		finished.emit(RANGED_ATTACKING)
+		
 		
 func handle_gravity(_delta: float) -> void:
 	if enemy.enemy_stats.is_grounded == true and not _grounded:

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ciotwht6ndtcv"]
+
+[ext_resource type="PackedScene" uid="uid://do0g7votir2b4" path="res://entities/throwables/bomb/throwable_bomb_entity.tscn" id="1_ycafd"]
+[ext_resource type="Script" uid="uid://ckdym2bhfubfd" path="res://entities/enemies/skeleton_bomber/skeleton_bomb.gd" id="2_o5g1n"]
+
+[node name="ThrowableBomb" instance=ExtResource("1_ycafd")]
+script = ExtResource("2_o5g1n")
+
+[node name="ExplosionTimer" parent="." index="3"]
+wait_time = 10.0
+
+[node name="HitboxComponent" parent="." index="4"]
+collision_mask = 2

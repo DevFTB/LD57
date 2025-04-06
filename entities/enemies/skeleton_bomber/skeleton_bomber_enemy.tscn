@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://dqawvbjg7bayk"]
+
+[ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="1_735mc"]
+[ext_resource type="Texture2D" uid="uid://5eotavc3ynea" path="res://entities/enemies/skeleton_bomber/texture_skeleton_bomber.png" id="2_735mc"]
+[ext_resource type="Resource" uid="uid://dnpf6wwg6415s" path="res://entities/enemies/skeleton_bomber/skeleton_bomber_stats.tres" id="2_fevhr"]
+[ext_resource type="Script" uid="uid://0oi3c8x2djd6" path="res://entities/enemies/skeleton_bomber/bomb_attack.gd" id="4_dx0db"]
+[ext_resource type="Resource" uid="uid://br4sg3mkhd41y" path="res://entities/enemies/skeleton_bomber/bomb_skeleton.tres" id="5_fevhr"]
+
+[node name="Enemy" instance=ExtResource("1_735mc")]
+enemy_stats = ExtResource("2_fevhr")
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource("2_735mc")
+
+[node name="RangedAttacking" parent="StateMachine" index="5" node_paths=PackedStringArray("ranged_attack")]
+ranged_attack = NodePath("BombAttack")
+
+[node name="RangedAttackTimer" parent="StateMachine/RangedAttacking" index="0"]
+one_shot = true
+
+[node name="BombAttack" type="Node" parent="StateMachine/RangedAttacking" index="1"]
+script = ExtResource("4_dx0db")
+bomb_type = ExtResource("5_fevhr")
+
+[node name="CollisionShape2D" parent="HurtboxComponent" index="1"]
+disabled = true
+
+[editable path="HitboxComponent"]

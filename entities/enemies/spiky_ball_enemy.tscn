@@ -1,12 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5457i8ubkrc7"]
+[gd_scene load_steps=4 format=3 uid="uid://m64ve0tk4nea"]
 
 [ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="1_0ymvm"]
-[ext_resource type="Texture2D" uid="uid://c4ak0bcm50f5r" path="res://entities/enemies/spiky_ball/texture_spiky_ball.png" id="2_foarc"]
-[ext_resource type="Resource" uid="uid://bynl6osvbjhk1" path="res://entities/enemies/spiky_ball/spiky_ball_stats.tres" id="2_hj171"]
+[ext_resource type="Texture2D" path="res://entities/enemies/texture_spiky_ball.png" id="2_foarc"]
 [ext_resource type="Script" uid="uid://duat2hmovvg3u" path="res://entities/enemies/spiky_ball/roll_sprite.gd" id="3_gww4m"]
 
 [node name="Enemy" instance=ExtResource("1_0ymvm")]
-enemy_stats = ExtResource("2_hj171")
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource("2_foarc")
