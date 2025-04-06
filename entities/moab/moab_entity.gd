@@ -12,10 +12,15 @@ const CONSUME_AMOUNT := 1
 
 @onready var player_detector: PlayerDetectorArea2D = $PlayerDetector2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var path_follow: PathFollow2D = $Path2D/PathFollow2D
 
 func _ready() -> void:
 	player_detector.player_interacted.connect(_on_player_interacted)
-	
+	animation_player.play("idle")
+
+func _physics_process(_delta: float) -> void:
+	path_follow.progress_ratio = 1 - moab_explosion_system.bomb_timer / moab_explosion_system.bomb_max_value
+
 func _on_player_interacted(player: Player) -> void:
 	var player_inventory: Inventory = player.mineral_inventory_component.inventory
 	

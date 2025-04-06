@@ -24,7 +24,6 @@ script = ExtResource("1_wqcwe")
 enemy_stats = ExtResource("2_msovg")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-modulate = Color(0, 0, 0, 1)
 texture = ExtResource("2_5lf1o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -75,6 +74,8 @@ offset_top = -80.0
 offset_right = 48.0
 offset_bottom = -53.0
 health_component = NodePath("../HealthComponent")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [connection signal="timeout" from="RefreshTimer" to="." method="_on_refresh_timer_timeout"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
