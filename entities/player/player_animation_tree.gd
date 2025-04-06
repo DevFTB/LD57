@@ -7,8 +7,10 @@ extends AnimationTree
 
 func _ready() -> void:
 	player.jumped.connect(playback.travel.bind("jump"))
-	player.throw_released.connect(playback.travel.bind("throw").unbind(1))
 	
 func _process(_delta: float) -> void:
-	sprite.flip_h = player.velocity.x > 0
-	# print(playback.get_current_node())
+	sprite.flip_h = player.last_inputted_direction.x > 0
+	
+	if player._holding_throw or playback.get_current_node().contains("throw"):
+		sprite.flip_h = (player.get_global_mouse_position() - player.position).x > 0
+	# aprint(playback.get_current_node())
