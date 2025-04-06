@@ -1,0 +1,24 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=5 format=3 uid="uid://dvj8glwqavlfj"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wvmjp"]
+animation = &"fly_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d2sdu"]
+animation = &"fly_right"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_wvmjp"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_wvmjp")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_d2sdu")
+blend_point_1/pos = 1.0
+blend_mode = 2
+sync = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d2sdu"]
+advance_mode = 2
+
+[resource]
+states/Start/position = Vector2(191, 115)
+states/fly/node = SubResource("AnimationNodeBlendSpace1D_wvmjp")
+states/fly/position = Vector2(416, 115)
+transitions = ["Start", "fly", SubResource("AnimationNodeStateMachineTransition_d2sdu")]

@@ -20,7 +20,8 @@ func _on_area_entered(area: Area2D) -> void:
 	if active and area is HurtboxComponent:
 		area.apply_damage(damage, self)
 		hurt_entity.emit(area)
-		hit_timer.start()
+		if repeating:
+			hit_timer.start()
 
 func damage_overlapping_hurtboxes() -> void:
 	var areas := get_overlapping_areas()
