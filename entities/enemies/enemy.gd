@@ -6,7 +6,7 @@ extends CharacterBody2D
 var player: Player
 var sees_player := false
 
-var gravity: Vector2 = ProjectSettings.get_setting("physics/2d/default_gravity_vector")
+var gravity: Vector2 = Vector2(0, 250)
 
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var refresh_timer = $RefreshTimer
@@ -52,7 +52,6 @@ func _on_refresh_timer_timeout():
 		nav.target_position = player.global_position
 		if nav.is_target_reachable():
 			if enemy_stats.is_grounded:
-				pass
-				# grounded enemy movement
+				state_machine._transition_to_next_state("Running")
 			else:
 				state_machine._transition_to_next_state("Flying")

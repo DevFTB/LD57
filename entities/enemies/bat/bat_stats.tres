@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_rrn3n")
-max_health = 100.0
+max_health = 100
 move_speed = 500
 damage = 10.0
 is_grounded = false

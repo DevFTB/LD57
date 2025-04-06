@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5457i8ubkrc7"]
+
+[ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="1_0ymvm"]
+[ext_resource type="Texture2D" uid="uid://c4ak0bcm50f5r" path="res://entities/enemies/spiky_ball/texture_spiky_ball.png" id="2_foarc"]
+
+[node name="Enemy" instance=ExtResource("1_0ymvm")]
+
+[node name="Sprite" parent="." index="0"]
+modulate = Color(1, 1, 1, 1)
+texture = ExtResource("2_foarc")

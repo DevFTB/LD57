@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=2 format=3 uid="uid://bynl6osvbjhk1"]
+
+[ext_resource type="Script" uid="uid://bvi6ww4ywm8ge" path="res://entities/enemies/enemy_stats.gd" id="1_dvny4"]
+
+[resource]
+script = ExtResource("1_dvny4")
+max_health = 100
+move_speed = 200
+damage = 10.0
+is_grounded = true
+metadata/_custom_type_script = "uid://bvi6ww4ywm8ge"
