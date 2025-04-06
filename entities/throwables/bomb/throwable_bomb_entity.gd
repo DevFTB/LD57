@@ -34,8 +34,11 @@ func _on_body_entered(body: Node2D) -> void:
 func explode() -> void:
 	exploded.emit()
 	hitbox_component.damage_overlapping_hurtboxes()
+
 	var explosion_animation = explosion_animation_scene.instantiate()
+	explosion_animation.radius = bomb_type.explosion_radius
 	get_tree().get_first_node_in_group("world").add_child(explosion_animation)
+
 	explosion_animation.global_position = global_position
 	queue_free()
 	

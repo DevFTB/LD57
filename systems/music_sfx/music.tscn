@@ -13,9 +13,12 @@ depth_for_track3 = 50
 
 [node name="Depth1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_gubim")
+bus = &"Music"
 
 [node name="Depth2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_qo2mo")
+bus = &"Music"
 
 [node name="Depth3" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_n06wh")
+bus = &"Music"
