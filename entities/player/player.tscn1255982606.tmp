@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://be4tedtvsf8on"]
+[gd_scene load_steps=66 format=3 uid="uid://be4tedtvsf8on"]
 
 [ext_resource type="Script" uid="uid://uex2tapn1k1y" path="res://entities/player/player.gd" id="1_merdl"]
 [ext_resource type="Texture2D" uid="uid://o2j8sch5klsg" path="res://entities/player/animations/idle.png" id="2_7thud"]
@@ -19,7 +19,6 @@
 [ext_resource type="AudioStream" uid="uid://dg6cyqp7qwmm7" path="res://systems/music_sfx/files/sfx/throw selection sound.wav" id="13_we0b7"]
 [ext_resource type="Texture2D" uid="uid://bf5qhstojbd5w" path="res://entities/player/animations/throw.png" id="14_afbqv"]
 [ext_resource type="Script" uid="uid://c82oqxqpg511e" path="res://entities/player/player_animation_tree.gd" id="15_gx6sm"]
-[ext_resource type="AudioStream" uid="uid://dis0is1c00khw" path="res://systems/music_sfx/files/sfx/throw sound.wav" id="20_mtric"]
 
 [sub_resource type="Curve" id="Curve_qiwj3"]
 _limits = [0.0, 1000.0, 0.0, 1.0]
@@ -763,7 +762,7 @@ graph_offset = Vector2(43, -138)
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_merdl")
-throw_cooldown = 0.6
+throw_cooldown = 0.1
 throw_force_curve = SubResource("Curve_qiwj3")
 throw_strength_curve = SubResource("Curve_26q78")
 maximum_throw_hold_time = 5.0
@@ -774,7 +773,7 @@ script = ExtResource("10_wvtmh")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Jetpack"]
 position = Vector2(0, 16)
-amount = 32
+amount = 16
 texture = ExtResource("3_yqrof")
 process_material = SubResource("ParticleProcessMaterial_gx6sm")
 
@@ -811,7 +810,6 @@ inventory = ExtResource("4_bls4j")
 one_shot = true
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_fkugw")]
-maximum_health = 500000
 is_invulnerable = true
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_8fjmc")]
@@ -833,7 +831,6 @@ player = NodePath("..")
 
 [node name="BombStrengthSFX" type="AudioStreamPlayer" parent="BombStrengthProgressBar"]
 stream = ExtResource("13_we0b7")
-volume_db = -5.0
 bus = &"Sound FX"
 
 [node name="GrapplePoint" type="CharacterBody2D" parent="."]
@@ -864,11 +861,6 @@ anim_player = NodePath("..")
 script = ExtResource("15_gx6sm")
 player = NodePath("../..")
 sprite = NodePath("../../Sprite2D")
-
-[node name="ThrowSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("20_mtric")
-volume_db = -0.3
-bus = &"Sound FX"
 
 [connection signal="timeout" from="BombCooldown" to="." method="_on_bomb_cooldown_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
