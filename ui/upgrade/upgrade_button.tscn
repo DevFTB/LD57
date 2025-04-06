@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://df3b6w0eshfhw"]
+[gd_scene load_steps=6 format=3 uid="uid://df3b6w0eshfhw"]
 
 [ext_resource type="Script" uid="uid://83gcc3c0wdlt" path="res://ui/upgrade/upgrade_button.gd" id="1_gwg2v"]
 [ext_resource type="Theme" uid="uid://dux51agncyd4f" path="res://ui/upgrade/upgrade_tooltip.tres" id="1_xvo5y"]
 [ext_resource type="Resource" uid="uid://cknalc1li3lyb" path="res://systems/upgrades/upgrade.tres" id="2_lcpy1"]
+[ext_resource type="PackedScene" uid="uid://bwxyn1ev8t08p" path="res://ui/upgrade/upgrade_tooltip.tscn" id="4_7rvsv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qdyvx"]
 font_color = Color(0.871201, 0.433732, 0.270906, 1)
 
-[node name="UpgradeButton" type="VBoxContainer"]
+[node name="UpgradeButton" type="VBoxContainer" node_paths=PackedStringArray("tooltip")]
 custom_minimum_size = Vector2(64, 64)
 anchors_preset = 8
 anchor_left = 0.5
@@ -16,19 +17,20 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -576.0
 offset_top = -324.0
-offset_right = -512.0
-offset_bottom = -233.0
+offset_right = -483.0
+offset_bottom = -229.0
 grow_horizontal = 2
 grow_vertical = 2
-tooltip_text = "asdfasdasdasdas"
 theme = ExtResource("1_xvo5y")
 script = ExtResource("1_gwg2v")
 upgrade = ExtResource("2_lcpy1")
+tooltip = NodePath("UpgradeTooltip")
 
 [node name="Button" type="Button" parent="."]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 1
 expand_icon = true
 
 [node name="Maxed" type="ColorRect" parent="Button"]
@@ -47,3 +49,11 @@ size_flags_vertical = 8
 text = "0/0"
 label_settings = SubResource("LabelSettings_qdyvx")
 horizontal_alignment = 1
+
+[node name="UpgradeTooltip" parent="." instance=ExtResource("4_7rvsv")]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[connection signal="mouse_entered" from="Button" to="." method="display_tooltip"]
+[connection signal="mouse_exited" from="Button" to="." method="hide_tooltip"]

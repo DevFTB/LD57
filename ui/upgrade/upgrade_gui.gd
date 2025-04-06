@@ -13,9 +13,10 @@ func _ready() -> void:
 	visible = false
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_released("toggle_upgrade_gui") and toggleable:
-		visible = not visible
-		get_tree().paused = visible
+	if event.is_action_released("toggle_upgrade_gui"):
+		if toggleable:
+			visible = not visible
+			get_tree().paused = visible
 
 func set_toggleable(value: bool) -> void:
 	toggleable = value

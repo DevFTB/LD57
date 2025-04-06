@@ -7,6 +7,7 @@ class_name UpgradeButton
 @export var dependecies: Dictionary[UpgradeButton, int]
 @export var max_level = 3
 @export var tier : int
+@export var tooltip : UpgradeTooltip
 
 @onready var player : Player = get_tree().get_first_node_in_group("player")
 @onready var label = $Label
@@ -20,12 +21,14 @@ var current_level: int:
 
 
 func _ready() -> void:
+	hide_tooltip()
 	button.pressed.connect(_on_pressed)
 	player.upgrade_state.changed.connect(_on_upgrade_state_changed)
 	_on_upgrade_state_changed()
 
 const LEVEL_FORMAT_STRING := "%d/%d"
 func _on_upgrade_state_changed() -> void:
+	update_tooltip()
 	label.text = LEVEL_FORMAT_STRING % [current_level, max_level]
 	visible = dependencies_satisfied(1)
 	button.disabled = not can_upgrade() and not maxed()
@@ -64,16 +67,23 @@ func dependencies_satisfied(force_min=0) -> bool:
 			dependencies_satisfied = dependecies and dependency.current_level >= min 
 	
 	return dependencies_satisfied
-	
+
+func mouse_entered():
+	tooltip = display_tooltip()
+
+func mouse_exited():
+	hide_tooltip()
 
 func _draw():
 	for dependency in dependecies:
 		draw_line(dependency.get_position()+Vector2(dependency.size.x/2,0)-self.get_position(), Vector2(self.get_size().x/2, self.get_size().y), Color.BLACK, 3)
-	
+
+func update_tooltip():
+	tooltip.config(upgrade.get_text(tier), LEVEL_FORMAT_STRING % [current_level, max_level], "1")
 
 func display_tooltip():
-	var tooltip =  preload("res://ui/upgrade/upgrade_tooltip.tscn").instantiate()
-	tooltip.config(upgrade.get_text(tier), LEVEL_FORMAT_STRING % [current_level, max_level], "1")
-	return tooltip
+	tooltip.visible = true
 
+func hide_tooltip():
+	tooltip.visible = false
 	

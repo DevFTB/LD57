@@ -1,11 +1,14 @@
 extends Control
-@onready var textbox = $Panel/MarginContainer/RichTextLabel
+class_name UpgradeTooltip
+@onready var desc_label = $Panel/MarginContainer/VBoxContainer/Description	
+@onready var cost_label = $Panel/MarginContainer/VBoxContainer/HBoxContainer/Cost	
+@onready var level_label = $Panel/MarginContainer/VBoxContainer/HBoxContainer/Level	
 
-func config(text, level, cost):
-	if not textbox:
-		await self.ready
-	textbox.add_text(text)
-	textbox.add_text("/n")
-	textbox.add_text(level)
-	textbox.add_text(cost)
-	
+
+func config(desc, level, cost):
+	desc_label.clear()
+	cost_label.clear()
+	level_label.clear()
+	desc_label.append_text("[color=white]%s[/color]" % [desc])
+	cost_label.append_text("[color=yellow]%s[/color]" % [cost])
+	level_label.append_text("[color=red]%s[/color]" % [level])

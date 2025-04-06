@@ -87,6 +87,8 @@ metadata/_custom_type_script = "uid://1x04lpb258os"
 position = Vector2(12, -16)
 shape = SubResource("RectangleShape2D_rvswv")
 
+[node name="Music" parent="." instance=ExtResource("23_qhcbd")]
+
 [node name="GUI" type="CanvasLayer" parent="."]
 
 [node name="HUD" type="Control" parent="GUI"]
@@ -181,10 +183,8 @@ render_target_update_mode = 4
 
 [node name="NinePatchRect" parent="GUI/SubViewportContainer/SubViewport" instance=ExtResource("19_e36ub")]
 
-[node name="Music" parent="." instance=ExtResource("23_qhcbd")]
-
-[connection signal="depth_changed" from="World/Player" to="GUI/HUD/VBoxContainer/Depth" method="_on_player_depth_changed"]
 [connection signal="depth_changed" from="World/Player" to="Music" method="_on_player_depth_changed"]
+[connection signal="depth_changed" from="World/Player" to="GUI/HUD/VBoxContainer/Depth" method="_on_player_depth_changed"]
 
 [editable path="World/Player"]
 [editable path="World/MoabEntity"]

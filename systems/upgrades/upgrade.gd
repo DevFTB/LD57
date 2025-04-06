@@ -6,6 +6,8 @@ enum UpgradeType {
 	BOMB_RADIUS, BOMB_HARDNESS
 }
 
+@export var tier_value_in_tooltip = true
+@export var tooltip_string: String
 @export var type: UpgradeType
 @export var display_name: String
 @export var texture: Texture2D
@@ -13,7 +15,8 @@ enum UpgradeType {
 	get:
 		return num_tiers
 
-@export var tier_value_map: Dictionary[int, Variant] = {}
+@export var tier_costs: Array[int]
+@export var tier_values: Array
 
 var levels: Array[int]
 
@@ -30,5 +33,5 @@ func add_level(tier):
 	levels[tier] += 1
 
 func get_text(tier):
-	return "+ %d stat" % [tier_value_map[tier]]
-	
+	if tier_value_in_tooltip:	return tooltip_string % [tier_values[tier]]
+	else: return tooltip_string

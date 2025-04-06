@@ -11,7 +11,7 @@ func get_tier_level(upgrade: Upgrade, tier) -> int:
 	return levels[tier]
 
 func get_tier_value(upgrade: Upgrade, tier) -> Variant:
-	return upgrade.tier_value_map[tier] * get_tier_level(upgrade, tier)
+	return upgrade.tier_values[tier] * get_tier_level(upgrade, tier)
 
 func increment_upgrade_tier_level(upgrade: Upgrade, tier) -> void:
 	var current_tier := get_tier_level(upgrade, tier)

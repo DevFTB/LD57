@@ -5,14 +5,11 @@
 
 [resource]
 script = ExtResource("1_7enb1")
+tier_value_in_tooltip = true
+tooltip_string = "%d extra bomb hardness"
 type = 1
 display_name = "Bomb Hardness"
 texture = ExtResource("2_bc300")
 num_tiers = 5
-tier_value_map = Dictionary[int, Variant]({
-0: 0.0,
-1: 1.0,
-2: 2.0,
-3: 3.0,
-4: 4.0
-})
+tier_costs = Array[int]([2, 5, 10, 20, 100])
+tier_values = [1, 2, 3, 4, 5]
