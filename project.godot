@@ -16,7 +16,7 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 
 [audio]
 
-buses/default_bus_layout="res://systems/music_sfx/default_bus_layout.tres"
+buses/default_bus_layout="uid://ktxyn4sbn8h7"
 
 [global_group]
 
