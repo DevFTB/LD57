@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://be4tedtvsf8on"]
+[gd_scene load_steps=71 format=3 uid="uid://be4tedtvsf8on"]
 
 [ext_resource type="Script" uid="uid://uex2tapn1k1y" path="res://entities/player/player.gd" id="1_merdl"]
 [ext_resource type="Texture2D" uid="uid://o2j8sch5klsg" path="res://entities/player/animations/idle.png" id="2_7thud"]
@@ -20,6 +20,8 @@
 [ext_resource type="Texture2D" uid="uid://bf5qhstojbd5w" path="res://entities/player/animations/throw.png" id="14_afbqv"]
 [ext_resource type="Script" uid="uid://c82oqxqpg511e" path="res://entities/player/player_animation_tree.gd" id="15_gx6sm"]
 [ext_resource type="AudioStream" uid="uid://dis0is1c00khw" path="res://systems/music_sfx/files/sfx/throw sound.wav" id="20_mtric"]
+[ext_resource type="AudioStream" uid="uid://gllb6uw3s25f" path="res://systems/music_sfx/files/sfx/player/damage.wav" id="21_eyb6c"]
+[ext_resource type="AudioStream" uid="uid://tpulestneq76" path="res://systems/music_sfx/files/sfx/player/death.wav" id="22_221hk"]
 
 [sub_resource type="Curve" id="Curve_qiwj3"]
 _limits = [0.0, 1000.0, 0.0, 1.0]
@@ -72,8 +74,6 @@ color_ramp = SubResource("GradientTexture1D_3wlsy")
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mwb40"]
 radius = 30.0
 height = 90.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_221hk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8fjmc"]
 radius = 65.9697
@@ -178,6 +178,7 @@ tracks/6/keys = {
 
 [sub_resource type="Animation" id="Animation_qiwj3"]
 resource_name = "death"
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -185,7 +186,7 @@ tracks/0/path = NodePath(".:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 2.03333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -197,7 +198,7 @@ tracks/1/path = NodePath("Sprite2D:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -818,10 +819,6 @@ hframes = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_mwb40")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-material = SubResource("ShaderMaterial_221hk")
-zoom = Vector2(1.5, 1.5)
-
 [node name="MineralInventoryComponent" type="Node" parent="."]
 script = ExtResource("2_sglur")
 inventory = ExtResource("3_sglur")
@@ -891,6 +888,17 @@ sprite = NodePath("../../Sprite2D")
 [node name="ThrowSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("20_mtric")
 volume_db = -0.3
+bus = &"Sound FX"
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_eyb6c")
+volume_db = 8.0
+pitch_scale = 1.4
+bus = &"Sound FX"
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_221hk")
+volume_db = 8.0
 bus = &"Sound FX"
 
 [connection signal="timeout" from="BombCooldown" to="." method="_on_bomb_cooldown_timeout"]

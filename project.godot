@@ -98,3 +98,4 @@ traverse={
 2d_physics/layer_3="enemy"
 2d_physics/layer_4="trigger"
 2d_physics/layer_5="bomb"
+2d_physics/layer_6="items"
