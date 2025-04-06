@@ -1,4 +1,4 @@
-extends Node2D
+class_name World extends Node2D
 
 @onready var player: Player = $Player
 @onready var cave_blocks_tilemap: TileMapLayer = $Level/CaveBlocks
@@ -7,11 +7,16 @@ extends Node2D
 
 @onready var block_break_scene = preload("res://systems/music_sfx/files/sfx/tile/block_break.tscn")
 
+class ThrowReleasedEventData:
+	var position: Vector2
+	var impulse: Vector2
+	var bomb_type: BombType
+	
 func _ready() -> void:
 	player.throw_released.connect(_spawn_bomb_with_velocity)
 
 
-func _spawn_bomb_with_velocity(data: Player.ThrowReleasedEventData) -> void:
+func _spawn_bomb_with_velocity(data: ThrowReleasedEventData) -> void:
 	var new_bomb := data.bomb_type.bomb_scene.instantiate() as ThrowableBomb
 	new_bomb.bomb_type = data.bomb_type
 	

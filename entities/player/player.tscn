@@ -767,7 +767,7 @@ throw_cooldown = 0.6
 throw_force_curve = SubResource("Curve_qiwj3")
 throw_strength_curve = SubResource("Curve_26q78")
 maximum_throw_hold_time = 5.0
-traversal_method = 2
+unlocked_traversal_methods = Array[int]([1, 2])
 
 [node name="Jetpack" type="Node2D" parent="."]
 script = ExtResource("10_wvtmh")
@@ -811,8 +811,7 @@ inventory = ExtResource("4_bls4j")
 one_shot = true
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_fkugw")]
-maximum_health = 500000
-is_invulnerable = true
+maximum_health = 100
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_8fjmc")]
 collision_layer = 2
@@ -823,6 +822,7 @@ health_component = NodePath("../HealthComponent")
 shape = SubResource("CircleShape2D_8fjmc")
 
 [node name="BombStrengthProgressBar" type="TextureProgressBar" parent="." node_paths=PackedStringArray("player")]
+visible = false
 offset_left = -56.0
 offset_top = -80.0
 offset_right = 56.0
