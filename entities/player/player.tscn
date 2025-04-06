@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://be4tedtvsf8on"]
+[gd_scene load_steps=76 format=3 uid="uid://be4tedtvsf8on"]
 
 [ext_resource type="Script" uid="uid://uex2tapn1k1y" path="res://entities/player/player.gd" id="1_merdl"]
 [ext_resource type="Texture2D" uid="uid://o2j8sch5klsg" path="res://entities/player/animations/idle.png" id="2_7thud"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://b6753y8fi3avo" path="res://entities/player/grapple/grapple_hook.png" id="9_bectd"]
 [ext_resource type="Script" uid="uid://cc2j1e84os7o7" path="res://entities/player/jetpack.gd" id="10_wvtmh"]
 [ext_resource type="Texture2D" uid="uid://chpbvtny8msu7" path="res://entities/player/animations/walk.png" id="12_a1qjk"]
+[ext_resource type="Script" path="res://entities/common/entity_hurtbox_component.gd" id="12_t1t22"]
 [ext_resource type="Texture2D" uid="uid://deinxf2hul2ko" path="res://entities/player/animations/jump.png" id="13_j3ovn"]
 [ext_resource type="AudioStream" uid="uid://dg6cyqp7qwmm7" path="res://systems/music_sfx/files/sfx/throw selection sound.wav" id="13_we0b7"]
 [ext_resource type="Texture2D" uid="uid://bf5qhstojbd5w" path="res://entities/player/animations/throw.png" id="14_afbqv"]
@@ -993,6 +994,8 @@ maximum_health = 100
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_8fjmc")]
 collision_layer = 2
 collision_mask = 4
+script = ExtResource("12_t1t22")
+blast_resistance_factor = 2.0
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=54 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
@@ -19,7 +19,7 @@
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="9_rvswv"]
 [ext_resource type="Texture2D" uid="uid://1r3chexcrwx" path="res://world/level_bg.png" id="11_qhcbd"]
 [ext_resource type="Script" uid="uid://motjp37ct4o3" path="res://ui/HUD/fuel_bar.gd" id="13_36jdj"]
-[ext_resource type="Script" path="res://ui/timer_progress_bar.gd" id="13_bnpwn"]
+[ext_resource type="Script" uid="uid://ulg81k7glw1a" path="res://ui/timer_progress_bar.gd" id="13_bnpwn"]
 [ext_resource type="PackedScene" uid="uid://bbvhdbp0joc6q" path="res://ui/bomb_select/bomb_slot_select_scene.tscn" id="13_i2p71"]
 [ext_resource type="PackedScene" uid="uid://p0ipn2tylswi" path="res://ui/inventory/inventory_item_display.tscn" id="13_qhcbd"]
 [ext_resource type="Script" uid="uid://b3r1glubcsdwt" path="res://ui/upgrade/upgrade_gui.gd" id="14_e8heu"]
@@ -37,6 +37,9 @@
 [ext_resource type="Texture2D" uid="uid://dimkj68ybmkil" path="res://ui/HUD/fuel.png" id="30_082n1"]
 [ext_resource type="Script" uid="uid://c8up2ibn67q7f" path="res://ui/HUD/label_health_bar.gd" id="31_dhpj7"]
 [ext_resource type="Texture2D" uid="uid://d317cp0qhrmd4" path="res://ui/parchment.png" id="32_7knny"]
+[ext_resource type="Resource" uid="uid://wylmsxcnfp00" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="34_l1i01"]
+[ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
+[ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
 
 [sub_resource type="Gradient" id="Gradient_qhcbd"]
 offsets = PackedFloat32Array(0, 0.298561, 0.697842, 1)
@@ -424,7 +427,39 @@ player_bomb_inventory = ExtResource("8_mfdv2")
 [node name="BombSlotSelect3" parent="GUI/NewHUD/VBoxContainer/HBoxContainer2/HBoxContainer2" instance=ExtResource("13_i2p71")]
 layout_mode = 2
 slot_number = 3
-bomb_item = ExtResource("15_5b14r")
+bomb_item = ExtResource("35_r62pu")
+player_bomb_inventory = ExtResource("8_mfdv2")
+
+[node name="BombSlotSelect4" parent="GUI/NewHUD/VBoxContainer/HBoxContainer2/HBoxContainer2" instance=ExtResource("13_i2p71")]
+layout_mode = 2
+slot_number = 4
+bomb_item = ExtResource("34_l1i01")
+player_bomb_inventory = ExtResource("8_mfdv2")
+
+[node name="BombSlotSelect5" parent="GUI/NewHUD/VBoxContainer/HBoxContainer2/HBoxContainer2" instance=ExtResource("13_i2p71")]
+layout_mode = 2
+slot_number = 5
+bomb_item = ExtResource("35_klri6")
+player_bomb_inventory = ExtResource("8_mfdv2")
+
+[node name="BombSlotSelect6" parent="GUI/NewHUD/VBoxContainer/HBoxContainer2/HBoxContainer2" instance=ExtResource("13_i2p71")]
+layout_mode = 2
+slot_number = 6
+player_bomb_inventory = ExtResource("8_mfdv2")
+
+[node name="BombSlotSelect7" parent="GUI/NewHUD/VBoxContainer/HBoxContainer2/HBoxContainer2" instance=ExtResource("13_i2p71")]
+layout_mode = 2
+slot_number = 7
+player_bomb_inventory = ExtResource("8_mfdv2")
+
+[node name="BombSlotSelect8" parent="GUI/NewHUD/VBoxContainer/HBoxContainer2/HBoxContainer2" instance=ExtResource("13_i2p71")]
+layout_mode = 2
+slot_number = 8
+player_bomb_inventory = ExtResource("8_mfdv2")
+
+[node name="BombSlotSelect9" parent="GUI/NewHUD/VBoxContainer/HBoxContainer2/HBoxContainer2" instance=ExtResource("13_i2p71")]
+layout_mode = 2
+slot_number = 9
 player_bomb_inventory = ExtResource("8_mfdv2")
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="GUI/NewHUD/VBoxContainer"]

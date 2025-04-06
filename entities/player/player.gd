@@ -25,7 +25,7 @@ enum TraversalMethod {
 @export var throw_force_curve: Curve
 @export var throw_strength_curve: Curve
 @export var maximum_throw_hold_time := 1.0
-
+@export var blast_resistance_factor := 0.5
 @export var unlocked_traversal_methods: Array[TraversalMethod] = []
 
 var _holding_throw := false
@@ -108,13 +108,8 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("interact"):
 			interacted.emit()
 			
-		if Input.is_action_just_pressed("select_bomb_1"):
-			switch_selected_bomb(0)
-		if Input.is_action_just_pressed("select_bomb_2"):
-			switch_selected_bomb(1)
-		if Input.is_action_just_pressed("select_bomb_3"):
-			switch_selected_bomb(2)
-			
+		handle_bomb_switch(range(9))
+
 		if Input.is_action_just_pressed("throw"):
 			if can_throw == true:
 				initiate_throw()
@@ -128,6 +123,11 @@ func _physics_process(delta: float) -> void:
 
 			if _throw_action_held_time > maximum_throw_hold_time:
 				_on_throw_release(1.0)
+func handle_bomb_switch(indexes: Array) -> void:
+	for i in indexes:
+		var action := "select_bomb_%d" % (i + 1)
+		if InputMap.has_action(action) and Input.is_action_just_pressed(action):
+			switch_selected_bomb(i)
 
 func handle_grapple(delta: float) -> void:
 	_frame_velocity = grapple_point.calculate_frame_velocity(delta)
@@ -180,6 +180,8 @@ func _on_throw_release(strength = 1.0) -> void:
 		if bomb_inventory_component.inventory.has_item(selected_bomb_item):
 			throw_released.emit(data)
 			bomb_inventory_component.inventory.remove_item(selected_bomb_item, 1)
+			if bomb_inventory_component.inventory.get_item_amount(selected_bomb_item) == 0:
+				switch_selected_bomb(0)
 	else:
 		throw_released.emit(data)
 
@@ -211,7 +213,7 @@ func _on_death():
 			dropped_item.item = item
 			dropped_item.quantity = 1
 			inventory.remove_item(item, dropped_item.quantity)
-			get_tree().get_first_node_in_group("world").add_child(dropped_item)
+			get_tree().get_first_node_in_group("world").call_deferred("add_child", dropped_item)
 			dropped_item.global_position = self.global_position + Vector2(randi_range(-10, 10), randi_range(-10, 10))
 			dropped_item.linear_velocity = Vector2(randf_range(-300, 300), randf_range(-300, 300))
 	$DeathSound.play()
