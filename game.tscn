@@ -33,7 +33,7 @@
 [ext_resource type="Resource" uid="uid://bfwwxfc0kwllo" path="res://systems/inventory/items/item_bombpowder.tres" id="16_vaj68"]
 [ext_resource type="PackedScene" uid="uid://dfb6tk3jaqp55" path="res://systems/music_sfx/music.tscn" id="23_qhcbd"]
 [ext_resource type="Script" path="res://global_stat_label.gd" id="24_vaj68"]
-[ext_resource type="Texture2D" uid="uid://b8vkgx0epv747" path="res://entities/moab/moab idle.png" id="28_aa0lp"]
+[ext_resource type="Texture2D" uid="uid://b8vkgx0epv747" path="res://entities/moab/moab_sprite_sheet.png" id="28_aa0lp"]
 [ext_resource type="Texture2D" uid="uid://2nhewmpeakjh" path="res://ui/HUD/hook.png" id="28_dhpj7"]
 [ext_resource type="Texture2D" uid="uid://dimkj68ybmkil" path="res://ui/HUD/fuel.png" id="30_082n1"]
 [ext_resource type="Texture2D" uid="uid://b6c3icp2xkhao" path="res://ui/health/heart.png" id="30_xfvwf"]
@@ -131,8 +131,8 @@ tile_set = ExtResource("5_e36ub")
 [node name="Player" parent="World" groups=["player"] instance=ExtResource("1_80nbo")]
 position = Vector2(128, -3280)
 collision_mask = 3
-throw_force_curve = SubResource("Curve_lc2xo")
 available_bomb_types = Array[ExtResource("4_hve3p")]([null])
+throw_force_curve = SubResource("Curve_lc2xo")
 max_speed = 200
 acceleration = 5000
 ground_deceleration = 800
@@ -147,6 +147,14 @@ moab_explosion_system = NodePath("../../MoabExplosionSystem")
 
 [node name="Sprite" parent="World/MoabEntity" index="0"]
 flip_h = true
+
+[node name="AnimationPlayer" parent="World/MoabEntity" index="2"]
+sprite_path = ""
+action_name = "default"
+sprite_sheet = null
+size = Vector2i(0, 0)
+direction_order = Array[int]([])
+generate_flips = true
 
 [node name="Path2D" parent="World/MoabEntity" index="3"]
 scale = Vector2(-1, 1)

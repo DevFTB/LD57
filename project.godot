@@ -17,10 +17,12 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 [audio]
 
 buses/default_bus_layout="uid://ktxyn4sbn8h7"
+"<<<<<<<HEAD[autoload]StatsManager"="*res://stats_manager.gd"
 
 [autoload]
 
 StatsManager="*res://stats_manager.gd"
+
 [display]
 
 window/size/viewport_width=1920
