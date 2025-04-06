@@ -46,6 +46,8 @@ var current_movement_state: MovementState = MovementState.FREE
 @onready var animation = $AnimationPlayer
 
 func _ready() -> void:
+	throw_released.connect(StatsManager.add_to_stat.bind(StatsManager.Stat.BOMBS_THROWN, 1).unbind(1))
+
 	var inv := bomb_inventory_component.inventory
 	bomb_cooldown.wait_time = throw_cooldown
 	if inv.size() > 0:
@@ -178,6 +180,7 @@ func _on_throw_release(strength = 1.0) -> void:
 func calculate_depth(current_y):
 	var depth = (current_y - spawn_location.y) / 32 * 0.5
 	if depth != current_depth:
+		StatsManager.surpass_stat(StatsManager.Stat.MAX_DEPTH, current_depth)
 		depth_changed.emit(depth)
 	return depth
 
@@ -185,6 +188,7 @@ func _on_bomb_cooldown_timeout():
 	can_throw = true
 
 func _on_death():
+	StatsManager.add_to_stat(StatsManager.Stat.DEATH_COUNT, 1)
 	health_component.is_invulnerable = true
 	can_throw = false
 	if _holding_throw:

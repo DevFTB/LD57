@@ -33,6 +33,7 @@ func _physics_process(_delta: float) -> void:
 	pass
 
 func die():
+	StatsManager.add_to_stat(StatsManager.Stat.ENEMIES_KILLED, 1)
 	queue_free()
 
 func _on_visible_on_screen_notifier_2d_screen_entered():
