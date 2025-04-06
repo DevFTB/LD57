@@ -1,6 +1,6 @@
 extends CharacterBody2D
 class_name GrapplePoint
-signal attached
+signal attached(_bool)
 
 enum GrappleState {
 	INACTIVE, # Not thrown
@@ -47,7 +47,7 @@ func _physics_process(_delta: float) -> void:
 				if collider is TileMapLayer:
 					velocity = Vector2.ZERO
 					set_state(GrappleState.ATTACHED)
-					attached.emit()
+					attached.emit(true)
 				
 func _draw():
 	# draws a line between the player and the grapple point
@@ -64,13 +64,20 @@ func throw(direction: Vector2) -> void:
 	
 ## Handles traversal actions from the player
 func handle_action(key: StringName) -> void:
-	if Input.is_action_just_released(key):
+	if Input.is_action_just_pressed(key):
 		match grapple_state:
 			GrappleState.INACTIVE:
 				throw(player.global_position.direction_to(player.get_global_mouse_position()))
 			_:
 				cancel()
 				player.current_movement_state = Player.MovementState.FREE
+	if Input.is_action_just_released(key):
+		match grapple_state:
+			GrappleState.SEARCHING:
+				cancel()
+			GrappleState.ATTACHED:
+				cancel()
+				attached.emit(false)
 
 ## Calculates the velocity for the player when it's using this traversal method.
 func calculate_frame_velocity(_delta: float) -> Vector2:

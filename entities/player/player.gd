@@ -22,7 +22,7 @@ enum TraversalMethod {
 @export var throw_strength_curve: Curve
 @export var maximum_throw_hold_time := 1.0
 
-@export var traversal_method: TraversalMethod = TraversalMethod.NONE
+@export var unlocked_traversal_methods : Array[TraversalMethod] = [] 
 
 var _holding_throw := false
 var _throw_action_held_time := 0.0
@@ -59,11 +59,16 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	check_collsions()
 	
-	match traversal_method:
-		TraversalMethod.GRAPPLE:
+	for method in unlocked_traversal_methods:
+		if method == TraversalMethod.GRAPPLE: #and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.GRAPPLE):
 			grapple_point.handle_action(&"traverse")
-		TraversalMethod.JETPACK:
-			jetpack.handle_action(&"traverse")
+		if method == TraversalMethod.JETPACK: #and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.JETPACK):
+			match jetpack.state:
+				jetpack.JetpackState.OFF:
+					if _coyote_usable == false:
+						jetpack.handle_action(&"jump")
+				jetpack.JetpackState.ON:
+					jetpack.handle_action(&"jump")
 	
 	match current_movement_state:
 		MovementState.FREE:
@@ -109,8 +114,11 @@ func _physics_process(delta: float) -> void:
 func handle_grapple(delta: float) -> void:
 	_frame_velocity = grapple_point.calculate_frame_velocity(delta)
 
-func _on_grapple_attached() -> void:
-	current_movement_state = MovementState.GRAPPLE
+func _on_grapple_attached(_bool) -> void:
+	if _bool:
+		current_movement_state = MovementState.GRAPPLE
+	if not _bool:
+		current_movement_state = MovementState.FREE
 
 func handle_jetpack(delta: float) -> void:
 	_frame_velocity = jetpack.calculate_frame_velocity(delta)
@@ -179,11 +187,15 @@ class ThrowReleasedEventData:
 
 func _on_death():
 	health_component.is_invulnerable = true
+	can_throw = false
+	if _holding_throw:
+		_on_throw_release(0)
 	#drop all resources
 	animation.play("death") # plays death animation and resets the player when it is done.
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "death":
+		can_throw = true
 		health_component.reset()
 		animation.play("RESET")
 		velocity = Vector2.ZERO

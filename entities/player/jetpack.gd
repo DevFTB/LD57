@@ -31,9 +31,10 @@ func handle_action(key: StringName) -> void:
 	if Input.is_action_just_pressed(key):
 		state = JetpackState.ON
 		player.current_movement_state = Player.MovementState.JETPACK
-		particles.emitting = true
+		particles.emitting = true 
 		$JetpackStart.play()
 		$JetpackLoop.play()
+
 	elif Input.is_action_just_released(key):
 		state = JetpackState.OFF
 		player.current_movement_state = Player.MovementState.FREE
