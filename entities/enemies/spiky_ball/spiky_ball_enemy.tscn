@@ -1,10 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://c5457i8ubkrc7"]
+[gd_scene load_steps=4 format=3 uid="uid://c5457i8ubkrc7"]
 
 [ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="1_0ymvm"]
 [ext_resource type="Texture2D" uid="uid://c4ak0bcm50f5r" path="res://entities/enemies/spiky_ball/texture_spiky_ball.png" id="2_foarc"]
+[ext_resource type="Script" uid="uid://duat2hmovvg3u" path="res://entities/enemies/spiky_ball/roll_sprite.gd" id="3_gww4m"]
 
 [node name="Enemy" instance=ExtResource("1_0ymvm")]
 
 [node name="Sprite" parent="." index="0"]
 modulate = Color(1, 1, 1, 1)
 texture = ExtResource("2_foarc")
+script = ExtResource("3_gww4m")

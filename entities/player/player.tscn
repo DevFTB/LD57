@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://be4tedtvsf8on"]
 
 [ext_resource type="Script" uid="uid://uex2tapn1k1y" path="res://entities/player/player.gd" id="1_merdl"]
-[ext_resource type="Script" uid="uid://3o156l3yjpoa" path="res://entities/player/inventory_component.gd" id="2_sglur"]
+[ext_resource type="Script" path="res://entities/player/inventory_component.gd" id="2_sglur"]
 [ext_resource type="Resource" uid="uid://ctoa5b8j1n1x3" path="res://entities/player/player_inventory.tres" id="3_sglur"]
 [ext_resource type="Resource" uid="uid://diae5nc080sux" path="res://entities/player/player_bomb_inventory.tres" id="4_bls4j"]
 [ext_resource type="PackedScene" uid="uid://bdhnok20thjuo" path="res://entities/common/health_component.tscn" id="5_fkugw"]
@@ -125,6 +125,7 @@ inventory = ExtResource("4_bls4j")
 one_shot = true
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_fkugw")]
+maximum_health = 500000
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_8fjmc")]
 collision_layer = 2

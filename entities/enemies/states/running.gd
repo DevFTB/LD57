@@ -2,6 +2,9 @@ extends EnemyState
 
 var _grounded
 @export var jump_power: float = 250
+#@export var jump_power: float = 300
+
+@onready var _jump_dir = 0
 
 ## Called by the state machine when receiving unhandled input events.
 func handle_input(_event: InputEvent) -> void:
@@ -13,8 +16,11 @@ func update(_delta: float) -> void:
 
 ## Called by the state machine on the engine's physics update tick.
 func physics_update(_delta: float) -> void:
+	#var acceleration = enemy.enemy_stats.move_speed * 15
+	
 	if enemy.is_on_floor() and not _grounded:
 		_grounded = true
+		_jump_dir = 0
 	
 	if not enemy.is_on_floor() and _grounded:
 		_grounded = false
@@ -27,11 +33,23 @@ func physics_update(_delta: float) -> void:
 	# move only if grounded
 	if _grounded:
 		# jump if next nav location is higher and not on ceiling
-		if not enemy.is_on_ceiling() and target_direction.y < 0:
+		var min_jump_angle = PI/8
+		if target_direction.y < 0:
+			print(target_direction.angle(),  (-PI + min_jump_angle), (-min_jump_angle))
+		if not enemy.is_on_ceiling() and target_direction.y < 0 and ((target_direction.angle() > (-PI + min_jump_angle)) and (target_direction.angle() < -min_jump_angle)):
 			enemy.velocity.y = -jump_power
+			#enemy.velocity.y = -jump_power * sin(Vector2.UP.dot(target_direction.normalized()) * PI/2)
 			
 		# else just move towards next nav location horizontally
-		enemy.velocity.x = enemy.enemy_stats.move_speed * (1 if target_direction.x > 0 else -1)
+		#if abs(enemy.velocity.x) < enemy.enemy_stats.move_speed:
+			#enemy.velocity.x += acceleration * _delta * (1 if target_direction.x > 0 else -1)
+			
+		_jump_dir = signf(target_direction.x)
+		enemy.velocity.x = enemy.enemy_stats.move_speed * _jump_dir
+	else:
+		# continue to apply jump x velocity when in air
+		# remove if sus
+		enemy.velocity.x = enemy.enemy_stats.move_speed * _jump_dir
 	
 	if enemy.is_on_ceiling():
 		enemy.velocity.y = maxf(0, enemy.velocity.y)
@@ -40,12 +58,11 @@ func physics_update(_delta: float) -> void:
 	
 	#enemy.velocity = target_direction * enemy.enemy_stats.move_speed * _delta * 10
 	
-	#if enemy.global_position.distance_to(enemy.nav.get_final_position()) > 100:
-		#finished.emit(IDLE)
+	if enemy.global_position.distance_to(enemy.nav.get_final_position()) > 1000:
+		finished.emit(IDLE)
 		
 func handle_gravity(_delta: float) -> void:
 	if enemy.enemy_stats.is_grounded == true and not _grounded:
-		print("handle_gravity", enemy.velocity)
 		enemy.velocity.y += enemy.gravity.y * _delta
 	
 ## Called by the state machine upon changing the active state. The `data` parameter
