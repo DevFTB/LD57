@@ -108,13 +108,8 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("interact"):
 			interacted.emit()
 			
-		if Input.is_action_just_pressed("select_bomb_1"):
-			switch_selected_bomb(0)
-		if Input.is_action_just_pressed("select_bomb_2"):
-			switch_selected_bomb(1)
-		if Input.is_action_just_pressed("select_bomb_3"):
-			switch_selected_bomb(2)
-			
+		handle_bomb_switch([0, 1, 2, 3])
+		
 		if Input.is_action_just_pressed("throw"):
 			if can_throw == true:
 				initiate_throw()
@@ -128,6 +123,10 @@ func _physics_process(delta: float) -> void:
 
 			if _throw_action_held_time > maximum_throw_hold_time:
 				_on_throw_release(1.0)
+func handle_bomb_switch(indexes: Array[int]) -> void:
+	for i in indexes:
+		if Input.is_action_just_pressed("select_bomb_%d" % (i + 1)):
+			switch_selected_bomb(i)
 
 func handle_grapple(delta: float) -> void:
 	_frame_velocity = grapple_point.calculate_frame_velocity(delta)
