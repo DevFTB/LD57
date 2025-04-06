@@ -13,10 +13,10 @@
 [ext_resource type="PackedScene" uid="uid://bq84mpxun851f" path="res://entities/moab/moab_entity.tscn" id="4_j5wjh"]
 [ext_resource type="Resource" uid="uid://b6nkhnlvgtk7s" path="res://systems/upgrades/upgrade_bomb_hardness.tres" id="4_rvswv"]
 [ext_resource type="TileSet" uid="uid://1s8d18ai2k57" path="res://world/tileset/ore_tileset.tres" id="5_e36ub"]
-[ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="5_vef74"]
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="7_eow3j"]
 [ext_resource type="Resource" uid="uid://diae5nc080sux" path="res://entities/player/player_bomb_inventory.tres" id="8_mfdv2"]
 [ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="9_215e1"]
+[ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="9_qhcbd"]
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="9_rvswv"]
 [ext_resource type="PackedScene" uid="uid://bkh5wheo7tg4h" path="res://entities/item/item_entity.tscn" id="11_hb5m1"]
 [ext_resource type="Script" path="res://systems/depth_label.gd" id="12_e36ub"]
@@ -70,8 +70,8 @@ fall_acceleration = 550
 position = Vector2(-192, -3256)
 moab_explosion_system = NodePath("../../MoabExplosionSystem")
 
-[node name="Enemy" parent="World" instance=ExtResource("5_vef74")]
-position = Vector2(160, -3360)
+[node name="Bat" parent="World" instance=ExtResource("9_qhcbd")]
+position = Vector2(-176, -3384)
 
 [node name="SpawnAreaPlayerDetector" type="Area2D" parent="World"]
 position = Vector2(-32, -3328)

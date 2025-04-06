@@ -8,6 +8,8 @@ var sees_player := false
 
 var gravity: Vector2 = ProjectSettings.get_setting("physics/2d/default_gravity_vector")
 
+var last_moved_direction: Vector2 = Vector2.RIGHT
+
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var refresh_timer = $RefreshTimer
 @onready var nav := $NavigationAgent2D
@@ -39,7 +41,6 @@ func _on_visible_on_screen_notifier_2d_screen_entered():
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	refresh_timer.stop()
 	state_machine._transition_to_next_state("Idle")
-
 
 func _on_refresh_timer_timeout():
 	#get line of sight
