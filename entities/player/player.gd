@@ -203,8 +203,8 @@ func _on_death():
 			dropped_item.global_position = self.global_position + Vector2(randi_range(-10,10), randi_range(-10,10))
 			dropped_item.linear_velocity = Vector2(randf_range(-300,300) , randf_range(-300,300))
 			
-		# TODO play death sound
 	animation.play("death") # plays death animation and resets the player when it is done.
+	$DeathSound.play()
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "death":
@@ -221,7 +221,8 @@ func _on_animation_player_animation_finished(anim_name):
 
 func _on_health_component_health_modified(amount, new_health):
 	if amount < 0:
-		# TODO play damage sound
+		$HurtSound.pitch_scale = randf_range(0.9,1.1)
+		$HurtSound.play()
 		self.modulate = Color.RED
 		await get_tree().create_timer(0.3).timeout
 		self.modulate = Color.WHITE
