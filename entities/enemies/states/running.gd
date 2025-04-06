@@ -34,8 +34,6 @@ func physics_update(_delta: float) -> void:
 	if _grounded:
 		# jump if next nav location is higher and not on ceiling
 		var min_jump_angle = PI/8
-		if target_direction.y < 0:
-			print(target_direction.angle(),  (-PI + min_jump_angle), (-min_jump_angle))
 		if not enemy.is_on_ceiling() and target_direction.y < 0 and ((target_direction.angle() > (-PI + min_jump_angle)) and (target_direction.angle() < -min_jump_angle)):
 			enemy.velocity.y = -jump_power
 			#enemy.velocity.y = -jump_power * sin(Vector2.UP.dot(target_direction.normalized()) * PI/2)

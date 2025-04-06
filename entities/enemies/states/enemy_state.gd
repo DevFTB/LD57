@@ -6,6 +6,7 @@ const ATTACKING = "Attacking"
 const RUNNING = "Running"
 const JUMPING = "Jumping"
 const FALLING = "Falling"
+const KNOCKED_BACK = "KnockedBack"
 
 var enemy : Enemy
 

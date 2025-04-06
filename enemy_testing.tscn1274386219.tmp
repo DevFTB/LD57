@@ -75,6 +75,7 @@ position = Vector2(-601, -3263)
 enemy_stats = ExtResource("10_pnepw")
 
 [node name="Enemy" parent="World" instance=ExtResource("9_3oat4")]
+visible = false
 position = Vector2(160, -3360)
 
 [node name="SpawnAreaPlayerDetector" type="Area2D" parent="World"]

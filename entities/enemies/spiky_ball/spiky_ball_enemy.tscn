@@ -10,3 +10,5 @@
 modulate = Color(1, 1, 1, 1)
 texture = ExtResource("2_foarc")
 script = ExtResource("3_gww4m")
+
+[editable path="HitboxComponent"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://jc5sht43d6gw"]
+[gd_scene load_steps=15 format=3 uid="uid://jc5sht43d6gw"]
 
 [ext_resource type="Script" uid="uid://c2s1n2iqs3g8o" path="res://entities/enemies/enemy.gd" id="1_wqcwe"]
 [ext_resource type="Texture2D" uid="uid://nbpbxi2j8ij" path="res://entities/moab/texture_moab.png" id="2_5lf1o"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://l5itsdtbfkhb" path="res://entities/enemies/states/running.gd" id="7_3udgd"]
 [ext_resource type="PackedScene" uid="uid://eenrl1ayi2xr" path="res://entities/common/hurtbox_component.tscn" id="7_ipr6v"]
 [ext_resource type="PackedScene" uid="uid://duvgimajjq5gf" path="res://entities/common/hitbox_component.tscn" id="8_gj3y3"]
+[ext_resource type="Script" uid="uid://dse764mc7rqcr" path="res://entities/enemies/states/knocked_back.gd" id="8_vabdn"]
 [ext_resource type="PackedScene" uid="uid://787nmru65xmp" path="res://ui/health/health_bar.tscn" id="9_56i32"]
 [ext_resource type="Script" uid="uid://do5gnx1cf4tjg" path="res://entities/common/health_component.gd" id="10_sb13e"]
 
@@ -51,6 +52,11 @@ script = ExtResource("7_3udgd")
 
 [node name="Attacking" type="Node" parent="StateMachine"]
 
+[node name="KnockedBack" type="Node" parent="StateMachine"]
+script = ExtResource("8_vabdn")
+
+[node name="KnockbackTimer" type="Timer" parent="StateMachine/KnockedBack"]
+
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [node name="LineOfSight" type="RayCast2D" parent="."]
@@ -79,5 +85,9 @@ offset_bottom = -53.0
 health_component = NodePath("../HealthComponent")
 
 [connection signal="timeout" from="RefreshTimer" to="." method="_on_refresh_timer_timeout"]
+[connection signal="timeout" from="StateMachine/KnockedBack/KnockbackTimer" to="StateMachine/KnockedBack" method="_on_knockback_timer_timeout"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="hurt_entity" from="HitboxComponent" to="StateMachine" method="_on_hitbox_component_hurt_entity"]
+
+[editable path="HitboxComponent"]
