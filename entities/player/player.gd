@@ -25,7 +25,7 @@ enum TraversalMethod {
 @export var throw_force_curve: Curve
 @export var throw_strength_curve: Curve
 @export var maximum_throw_hold_time := 1.0
-
+@export var blast_resistance_factor := 0.5
 @export var unlocked_traversal_methods: Array[TraversalMethod] = []
 
 var _holding_throw := false
@@ -211,7 +211,7 @@ func _on_death():
 			dropped_item.item = item
 			dropped_item.quantity = 1
 			inventory.remove_item(item, dropped_item.quantity)
-			get_tree().get_first_node_in_group("world").add_child(dropped_item)
+			get_tree().get_first_node_in_group("world").call_deferred("add_child", dropped_item)
 			dropped_item.global_position = self.global_position + Vector2(randi_range(-10, 10), randi_range(-10, 10))
 			dropped_item.linear_velocity = Vector2(randf_range(-300, 300), randf_range(-300, 300))
 	$DeathSound.play()
