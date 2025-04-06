@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://be4tedtvsf8on"]
+[gd_scene load_steps=18 format=3 uid="uid://be4tedtvsf8on"]
 
 [ext_resource type="Script" uid="uid://uex2tapn1k1y" path="res://entities/player/player.gd" id="1_merdl"]
 [ext_resource type="Script" uid="uid://3o156l3yjpoa" path="res://entities/player/inventory_component.gd" id="2_sglur"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bdhnok20thjuo" path="res://entities/common/health_component.tscn" id="5_fkugw"]
 [ext_resource type="PackedScene" uid="uid://eenrl1ayi2xr" path="res://entities/common/hurtbox_component.tscn" id="6_8fjmc"]
 [ext_resource type="Script" uid="uid://lw70x0du5vba" path="res://entities/player/bomb_strength_progress_bar.gd" id="7_qiwj3"]
+[ext_resource type="Script" uid="uid://yprph7eiqbic" path="res://entities/player/grapple_point.gd" id="8_26q78"]
+[ext_resource type="Texture2D" uid="uid://b6753y8fi3avo" path="res://entities/player/grapple/grapple_hook.png" id="9_bectd"]
 
 [sub_resource type="Curve" id="Curve_qiwj3"]
 _limits = [0.0, 1000.0, 0.0, 1.0]
@@ -35,6 +37,8 @@ colors = PackedColorArray(0, 0, 0.956863, 1, 0.24575, 0.470995, 0.296158, 1, 0.7
 gradient = SubResource("Gradient_8fjmc")
 width = 112
 height = 24
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bectd"]
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -82,5 +86,16 @@ offset_bottom = -56.0
 texture_progress = SubResource("GradientTexture2D_qiwj3")
 script = ExtResource("7_qiwj3")
 player = NodePath("..")
+
+[node name="GrapplePoint" type="CharacterBody2D" parent="."]
+top_level = true
+collision_layer = 0
+script = ExtResource("8_26q78")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrapplePoint"]
+shape = SubResource("CircleShape2D_bectd")
+
+[node name="GrappleHookSprite" type="Sprite2D" parent="GrapplePoint"]
+texture = ExtResource("9_bectd")
 
 [connection signal="timeout" from="BombCooldown" to="." method="_on_bomb_cooldown_timeout"]

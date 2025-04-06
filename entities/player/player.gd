@@ -1,15 +1,14 @@
 extends GroundedCharacterController
 class_name Player
 
-class ThrowReleasedEventData:
-	var position: Vector2
-	var impulse: Vector2
-	var bomb_type: BombType
-	
 signal interacted
 
 signal throw_initiated()
 signal throw_released(data: ThrowReleasedEventData)
+
+enum MovementState {
+	FREE, GRAPPLE
+}
 
 @export var available_bomb_types: Array[BombType]
 
@@ -17,12 +16,15 @@ signal throw_released(data: ThrowReleasedEventData)
 @export var throw_force_curve: Curve
 @export var throw_strength_curve: Curve
 @export var maximum_throw_hold_time := 1.0
+
 var _holding_throw := false
 var _throw_action_held_time := 0.0
 var selected_bomb_item: Item
 var can_throw := true
 
 var upgrade_state: PlayerUpgradeState = PlayerUpgradeState.new()
+
+var current_movement_state: MovementState = MovementState.FREE
 
 @onready var mineral_inventory_component: InventoryComponent = $MineralInventoryComponent
 @onready var bomb_inventory_component: InventoryComponent = $BombInventoryComponent
@@ -35,9 +37,21 @@ func _ready() -> void:
 		var items := inv.get_items()
 		selected_bomb_item = items.front()
 		
+	grapple_point.attached.connect(_on_grapple_attached)
+		
 
 func _physics_process(delta: float) -> void:
-	super._physics_process(delta)
+	check_collsions()
+	
+	match current_movement_state:
+		MovementState.FREE:
+			handle_jump()
+			handle_direction(delta)
+			handle_gravity(delta)
+		MovementState.GRAPPLE:
+			handle_grapple(delta)
+	
+	apply_movement()
 	
 	if Input.is_action_just_pressed("interact"):
 		interacted.emit()
@@ -63,6 +77,31 @@ func _physics_process(delta: float) -> void:
 
 		if _throw_action_held_time > maximum_throw_hold_time:
 			_on_throw_release(1.0)
+	
+	if Input.is_action_just_released("traverse"):
+		match grapple_point.grapple_state:
+			GrapplePoint.GrappleState.INACTIVE:
+				grapple_point.throw(global_position.direction_to(get_global_mouse_position()))
+			_:
+				grapple_point.cancel()
+				current_movement_state = MovementState.FREE
+
+@export var grapple_speed: float = 400.0
+@onready var grapple_point: GrapplePoint = $GrapplePoint
+
+const GRAPPLE_MIN_PULL_DISTANCE := 60
+
+func handle_grapple(_delta: float) -> void:
+	# pull player towards grapple point
+	var direction := position.direction_to(grapple_point.position)
+	var distance := position.distance_to(grapple_point.position)
+	
+	if distance > GRAPPLE_MIN_PULL_DISTANCE:
+		_frame_velocity = direction * grapple_speed
+
+func _on_grapple_attached() -> void:
+	current_movement_state = MovementState.GRAPPLE
+
 
 func switch_selected_bomb(index: int) -> void:
 	var items := bomb_inventory_component.inventory.get_items()
@@ -110,3 +149,8 @@ func _on_throw_release(strength = 1.0) -> void:
 
 func _on_bomb_cooldown_timeout():
 	can_throw = true
+
+class ThrowReleasedEventData:
+	var position: Vector2
+	var impulse: Vector2
+	var bomb_type: BombType
