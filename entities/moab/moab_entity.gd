@@ -21,7 +21,6 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	path_follow.progress_ratio = 1 - moab_explosion_system.bomb_timer / moab_explosion_system.bomb_max_value
-	print(playback.get_current_node(), playback.get_current_play_position())
 
 func _on_player_interacted(player: Player) -> void:
 	var player_inventory: Inventory = player.mineral_inventory_component.inventory

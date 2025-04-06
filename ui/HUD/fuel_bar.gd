@@ -7,6 +7,5 @@ func _ready() -> void:
 	update()
 
 func update() -> void:
-	print(value, "updatng")
 	value = jetpack.fuel
 	max_value = jetpack.max_fuel

@@ -148,14 +148,6 @@ moab_explosion_system = NodePath("../../MoabExplosionSystem")
 [node name="Sprite" parent="World/MoabEntity" index="0"]
 flip_h = true
 
-[node name="AnimationPlayer" parent="World/MoabEntity" index="2"]
-sprite_path = ""
-action_name = "default"
-sprite_sheet = null
-size = Vector2i(0, 0)
-direction_order = Array[int]([])
-generate_flips = true
-
 [node name="Path2D" parent="World/MoabEntity" index="3"]
 scale = Vector2(-1, 1)
 

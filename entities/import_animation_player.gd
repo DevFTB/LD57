@@ -33,17 +33,21 @@ const direction_strings := {
 
 func load_animations() -> void:
 	var anim_library := get_animation_library("")
-	
+
+	if direction_order.size() == 0:
+		var anim := _generate_animation_direction(0)
+		anim_library.add_animation(action_name, anim)
+
 	for direction_index in range(direction_order.size()):
 		var direction := direction_order[direction_index]
 		
 		var animation_name := str(action_name, "_", direction_strings[direction])
-		var anim := _generate_animation_direction(direction, direction_index)
+		var anim := _generate_animation_direction(direction_index)
 		anim_library.add_animation(animation_name, anim)
 		
 		if generate_flips:
 			var flipped_animation_name := str(action_name, "_", direction_strings[FLIP_TARGET[direction]])
-			var flipped_anim := _generate_animation_direction(FLIP_TARGET[direction], direction_index, true)
+			var flipped_anim := _generate_animation_direction(direction_index, true)
 
 			anim_library.add_animation(flipped_animation_name, flipped_anim)
 			
@@ -52,7 +56,8 @@ func load_animations() -> void:
 func _get_path(property: String) -> String:
 	return str(sprite_path, ":", property)
 
-func _generate_animation_direction(direction: Direction, frame_coords_y: int, is_flipped: bool = false) -> Animation:
+
+func _generate_animation_direction(frame_coords_y: int, is_flipped: bool = false) -> Animation:
 	var anim := Animation.new()
 	anim.length = custom_frame_order.size() * time_spacing if custom_frame_order_enabled else size.x * time_spacing
 	anim.loop_mode = Animation.LOOP_LINEAR
@@ -77,7 +82,7 @@ func _generate_animation_direction(direction: Direction, frame_coords_y: int, is
 	anim.track_set_path(frame_coords_track_id, _get_path("frame_coords"))
 	anim.track_set_interpolation_loop_wrap(frame_coords_track_id, true)
 	
-	anim.value_track_set_update_mode(frame_coords_track_id, 1)
+	anim.value_track_set_update_mode(frame_coords_track_id, Animation.UPDATE_DISCRETE)
 	
 	if custom_frame_order_enabled:
 		var x := 0
