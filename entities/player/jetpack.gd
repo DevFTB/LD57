@@ -21,11 +21,21 @@ var state: JetpackState = JetpackState.OFF
 
 @onready var player: Player = get_parent()
 
+@onready var particles: GPUParticles2D = $GPUParticles2D
+
+func _ready() -> void:
+	particles.emitting = false
+
 func handle_action(key: StringName) -> void:
 	# Take control when traverse action is pressed.
 	if Input.is_action_just_pressed(key):
 		state = JetpackState.ON
 		player.current_movement_state = Player.MovementState.JETPACK
+		particles.emitting = true
+	elif Input.is_action_just_released(key):
+		state = JetpackState.OFF
+		player.current_movement_state = Player.MovementState.FREE
+		particles.emitting = false
 
 	elif Input.is_action_just_released(key):
 		state = JetpackState.OFF
