@@ -1,12 +1,14 @@
-[gd_scene load_steps=63 format=3 uid="uid://be4tedtvsf8on"]
+[gd_scene load_steps=67 format=3 uid="uid://be4tedtvsf8on"]
 
 [ext_resource type="Script" uid="uid://uex2tapn1k1y" path="res://entities/player/player.gd" id="1_merdl"]
 [ext_resource type="Texture2D" uid="uid://o2j8sch5klsg" path="res://entities/player/animations/idle.png" id="2_7thud"]
 [ext_resource type="Script" uid="uid://3o156l3yjpoa" path="res://entities/player/inventory_component.gd" id="2_sglur"]
 [ext_resource type="Resource" uid="uid://ctoa5b8j1n1x3" path="res://entities/player/player_inventory.tres" id="3_sglur"]
 [ext_resource type="Texture2D" uid="uid://c7tla5tuusbhm" path="res://entities/player/particles/jetpack_particles.png" id="3_yqrof"]
+[ext_resource type="AudioStream" uid="uid://de7ioukso276q" path="res://systems/music_sfx/files/sfx/jetpack/jetpack start.wav" id="4_b2kln"]
 [ext_resource type="Resource" uid="uid://diae5nc080sux" path="res://entities/player/player_bomb_inventory.tres" id="4_bls4j"]
 [ext_resource type="PackedScene" uid="uid://bdhnok20thjuo" path="res://entities/common/health_component.tscn" id="5_fkugw"]
+[ext_resource type="AudioStream" uid="uid://cnkpk86sygxlu" path="res://systems/music_sfx/files/sfx/jetpack/jetpack loop.wav" id="5_we0b7"]
 [ext_resource type="PackedScene" uid="uid://eenrl1ayi2xr" path="res://entities/common/hurtbox_component.tscn" id="6_8fjmc"]
 [ext_resource type="Script" uid="uid://lw70x0du5vba" path="res://entities/player/bomb_strength_progress_bar.gd" id="7_qiwj3"]
 [ext_resource type="Script" uid="uid://yprph7eiqbic" path="res://entities/player/grapple_point.gd" id="8_26q78"]
@@ -14,8 +16,10 @@
 [ext_resource type="Script" uid="uid://cc2j1e84os7o7" path="res://entities/player/jetpack.gd" id="10_wvtmh"]
 [ext_resource type="Texture2D" uid="uid://chpbvtny8msu7" path="res://entities/player/animations/walk.png" id="12_a1qjk"]
 [ext_resource type="Texture2D" uid="uid://deinxf2hul2ko" path="res://entities/player/animations/jump.png" id="13_j3ovn"]
+[ext_resource type="AudioStream" uid="uid://dg6cyqp7qwmm7" path="res://systems/music_sfx/files/sfx/throw selection sound.wav" id="13_we0b7"]
 [ext_resource type="Texture2D" uid="uid://bf5qhstojbd5w" path="res://entities/player/animations/throw.png" id="14_afbqv"]
 [ext_resource type="Script" uid="uid://c82oqxqpg511e" path="res://entities/player/player_animation_tree.gd" id="15_gx6sm"]
+[ext_resource type="AudioStream" uid="uid://dis0is1c00khw" path="res://systems/music_sfx/files/sfx/throw sound.wav" id="20_mtric"]
 
 [sub_resource type="Curve" id="Curve_qiwj3"]
 _limits = [0.0, 1000.0, 0.0, 1.0]
@@ -759,20 +763,30 @@ graph_offset = Vector2(43, -138)
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_merdl")
-throw_cooldown = 0.1
+throw_cooldown = 0.6
 throw_force_curve = SubResource("Curve_qiwj3")
 throw_strength_curve = SubResource("Curve_26q78")
 maximum_throw_hold_time = 5.0
-traversal_method = 2
+unlocked_traversal_methods = Array[int]([1, 2])
 
 [node name="Jetpack" type="Node2D" parent="."]
 script = ExtResource("10_wvtmh")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Jetpack"]
 position = Vector2(0, 16)
-amount = 16
+amount = 32
 texture = ExtResource("3_yqrof")
 process_material = SubResource("ParticleProcessMaterial_gx6sm")
+
+[node name="JetpackStart" type="AudioStreamPlayer" parent="Jetpack"]
+stream = ExtResource("4_b2kln")
+volume_db = -3.0
+bus = &"Sound FX"
+
+[node name="JetpackLoop" type="AudioStreamPlayer" parent="Jetpack"]
+stream = ExtResource("5_we0b7")
+volume_db = -3.0
+bus = &"Sound FX"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -40)
@@ -797,8 +811,7 @@ inventory = ExtResource("4_bls4j")
 one_shot = true
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_fkugw")]
-maximum_health = 500000
-is_invulnerable = true
+maximum_health = 100
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_8fjmc")]
 collision_layer = 2
@@ -809,6 +822,7 @@ health_component = NodePath("../HealthComponent")
 shape = SubResource("CircleShape2D_8fjmc")
 
 [node name="BombStrengthProgressBar" type="TextureProgressBar" parent="." node_paths=PackedStringArray("player")]
+visible = false
 offset_left = -56.0
 offset_top = -80.0
 offset_right = 56.0
@@ -816,6 +830,11 @@ offset_bottom = -56.0
 texture_progress = SubResource("GradientTexture2D_qiwj3")
 script = ExtResource("7_qiwj3")
 player = NodePath("..")
+
+[node name="BombStrengthSFX" type="AudioStreamPlayer" parent="BombStrengthProgressBar"]
+stream = ExtResource("13_we0b7")
+volume_db = -5.0
+bus = &"Sound FX"
 
 [node name="GrapplePoint" type="CharacterBody2D" parent="."]
 top_level = true
@@ -845,6 +864,11 @@ anim_player = NodePath("..")
 script = ExtResource("15_gx6sm")
 player = NodePath("../..")
 sprite = NodePath("../../Sprite2D")
+
+[node name="ThrowSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_mtric")
+volume_db = -0.3
+bus = &"Sound FX"
 
 [connection signal="timeout" from="BombCooldown" to="." method="_on_bomb_cooldown_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

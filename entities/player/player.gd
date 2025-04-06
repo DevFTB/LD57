@@ -7,6 +7,8 @@ signal throw_initiated()
 signal throw_released(data: World.ThrowReleasedEventData)
 signal depth_changed(depth)
 
+signal movement_state_changed(new_movement_state: MovementState)
+
 enum MovementState {
 	FREE, GRAPPLE, JETPACK
 }
@@ -22,7 +24,7 @@ enum TraversalMethod {
 @export var throw_strength_curve: Curve
 @export var maximum_throw_hold_time := 1.0
 
-@export var traversal_method: TraversalMethod = TraversalMethod.NONE
+@export var unlocked_traversal_methods: Array[TraversalMethod] = []
 
 var _holding_throw := false
 var _throw_action_held_time := 0.0
@@ -50,20 +52,34 @@ func _ready() -> void:
 		var items := inv.get_items()
 		selected_bomb_item = items.front()
 		
-	grapple_point.attached.connect(_on_grapple_attached)
-
 	#connect signals
 	if health_component:
 		health_component.died.connect(_on_death)
+		
+func set_movement_state(new_movement_state: MovementState) -> void:
+	current_movement_state = new_movement_state
+	movement_state_changed.emit(new_movement_state)
+
+func free_movement(source: MovementState) -> void:
+	# Only free the movement if the current movement state matches the source of the request.
+	# Otherwise other states could override the control of the current state.
+	if current_movement_state == source:
+		current_movement_state = MovementState.FREE
+		movement_state_changed.emit(current_movement_state)
 	
 func _physics_process(delta: float) -> void:
 	check_collsions()
 	
-	match traversal_method:
-		TraversalMethod.GRAPPLE:
+	for method in unlocked_traversal_methods:
+		if method == TraversalMethod.GRAPPLE: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.GRAPPLE):
 			grapple_point.handle_action(&"traverse")
-		TraversalMethod.JETPACK:
-			jetpack.handle_action(&"traverse")
+		if method == TraversalMethod.JETPACK: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.JETPACK):
+			match jetpack.state:
+				jetpack.JetpackState.OFF:
+					if not is_on_floor():
+						jetpack.handle_action(&"jump")
+				jetpack.JetpackState.ON:
+					jetpack.handle_action(&"jump")
 	
 	match current_movement_state:
 		MovementState.FREE:
@@ -83,7 +99,6 @@ func _physics_process(delta: float) -> void:
 	if not health_component.is_dead:
 		if Input.is_action_just_pressed("interact"):
 			interacted.emit()
-		
 			
 		if Input.is_action_just_pressed("select_bomb_1"):
 			switch_selected_bomb(0)
@@ -109,9 +124,6 @@ func _physics_process(delta: float) -> void:
 func handle_grapple(delta: float) -> void:
 	_frame_velocity = grapple_point.calculate_frame_velocity(delta)
 
-func _on_grapple_attached() -> void:
-	current_movement_state = MovementState.GRAPPLE
-
 func handle_jetpack(delta: float) -> void:
 	_frame_velocity = jetpack.calculate_frame_velocity(delta)
 	
@@ -129,16 +141,16 @@ const UPGRADE_BOMB_RADIUS = preload("res://systems/upgrades/upgrade_bomb_radius.
 func initiate_throw() -> void:
 	_holding_throw = true
 	throw_initiated.emit()
+	# Start bomb throw cooldown
+	bomb_cooldown.start()
+	can_throw = false
 
 func _on_throw_release(strength = 1.0) -> void:
 	# Reset throw strength timer
 	_holding_throw = false
 	_throw_action_held_time = 0.0
-
-	# Start bomb throw cooldown
-	bomb_cooldown.start()
-	can_throw = false
-	
+	$ThrowSound.pitch_scale = randf_range(0.9, 1.1)
+	$ThrowSound.play()
 	# Throw towards mouse.
 	var direction := global_position.direction_to(get_global_mouse_position())
 	
@@ -174,11 +186,15 @@ func _on_bomb_cooldown_timeout():
 
 func _on_death():
 	health_component.is_invulnerable = true
+	can_throw = false
+	if _holding_throw:
+		_on_throw_release(0)
 	#drop all resources
 	animation.play("death") # plays death animation and resets the player when it is done.
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "death":
+		can_throw = true
 		health_component.reset()
 		animation.play("RESET")
 		velocity = Vector2.ZERO
