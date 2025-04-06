@@ -6,7 +6,7 @@ extends CharacterBody2D
 var player: Player
 var sees_player := false
 
-var gravity: Vector2 = ProjectSettings.get_setting("physics/2d/default_gravity_vector")
+var gravity: Vector2 = Vector2(0, 250)
 
 var last_moved_direction: Vector2 = Vector2.RIGHT
 
@@ -42,6 +42,8 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 	refresh_timer.stop()
 	state_machine._transition_to_next_state("Idle")
 
+
+# TODO: perhaps refactor by moving to idle in fture. The check for idle is not great.
 func _on_refresh_timer_timeout():
 	#get line of sight
 	los.target_position = player.global_position - global_position
@@ -51,9 +53,8 @@ func _on_refresh_timer_timeout():
 	#start navigation agent
 	if sees_player == true:
 		nav.target_position = player.global_position
-		if nav.is_target_reachable():
+		if nav.is_target_reachable() and state_machine.state == $StateMachine/Idle:
 			if enemy_stats.is_grounded:
-				pass
-				# grounded enemy movement
+				state_machine._transition_to_next_state("Running")
 			else:
 				state_machine._transition_to_next_state("Flying")
