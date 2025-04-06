@@ -29,4 +29,3 @@ script = ExtResource("2_sjum0")
 stream = ExtResource("2_33yin")
 volume_db = -5.0
 autoplay = true
-bus = &"Sound FX"
