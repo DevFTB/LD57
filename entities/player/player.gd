@@ -10,6 +10,7 @@ signal interacted
 
 signal throw_initiated()
 signal throw_released(data: ThrowReleasedEventData)
+signal depth_changed(depth)
 
 @export var available_bomb_types: Array[BombType]
 
@@ -22,6 +23,7 @@ var _holding_throw := false
 var _throw_action_held_time := 0.0
 var selected_bomb_item: Item
 var can_throw := true
+var current_depth := 0
 
 var upgrade_state: PlayerUpgradeState = PlayerUpgradeState.new()
 
@@ -52,6 +54,7 @@ func _process(delta):
 func _physics_process(delta: float) -> void:
 	
 	super._physics_process(delta)
+	current_depth = calculate_depth(global_position.y)
 	if not health_component.is_dead:
 		if Input.is_action_just_pressed("interact"):
 			interacted.emit()
@@ -121,6 +124,14 @@ func _on_throw_release(strength = 1.0) -> void:
 			bomb_inventory_component.inventory.remove_item(selected_bomb_item, 1)
 	else:
 		throw_released.emit(data)
+
+#calculates depth based on spawn position
+func calculate_depth(current_y):
+	
+	var depth = (current_y - spawn_location.y) / 32 * 0.5
+	if depth != current_depth:
+		depth_changed.emit(depth)
+	return depth
 
 func _on_bomb_cooldown_timeout():
 	can_throw = true
