@@ -15,7 +15,7 @@ func _process(_delta: float) -> void:
 	
 	if player._holding_throw or playback.get_current_node().contains("throw"):
 		sprite.flip_h = (player.get_global_mouse_position() - player.position).x > 0
-	print(playback.get_current_node())
+	#print(playback.get_current_node())
 
 func _on_player_health_modified(amount: int, _new_value: int) -> void:
 	print("tri", amount)

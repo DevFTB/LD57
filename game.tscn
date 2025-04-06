@@ -1,15 +1,13 @@
-[gd_scene load_steps=56 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=51 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
-[ext_resource type="PackedScene" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
+[ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="1_j5wjh"]
 [ext_resource type="TileSet" uid="uid://ci0bxhrhedi27" path="res://world/tileset/test_tileset.tres" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://dxicxe0tvx28m" path="res://world.gd" id="2_hve3p"]
 [ext_resource type="Resource" uid="uid://b6xkpnkwkffbg" path="res://systems/upgrades/upgrade_bomb_radius.tres" id="3_e8heu"]
-[ext_resource type="Script" uid="uid://b2x8g2xixii70" path="res://ui/inventory/inventory_control.gd" id="3_feb5d"]
 [ext_resource type="Script" uid="uid://bhk4kqmlpwyv0" path="res://world/levelgen.gd" id="3_lc2xo"]
 [ext_resource type="Resource" uid="uid://ctoa5b8j1n1x3" path="res://entities/player/player_inventory.tres" id="4_7jktm"]
-[ext_resource type="PackedScene" uid="uid://caoy1avvlxhx0" path="res://ui/inventory/test_inventory_item_control.tscn" id="4_fc0e3"]
 [ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="4_hve3p"]
 [ext_resource type="PackedScene" uid="uid://bq84mpxun851f" path="res://entities/moab/moab_entity.tscn" id="4_j5wjh"]
 [ext_resource type="Resource" uid="uid://b6nkhnlvgtk7s" path="res://systems/upgrades/upgrade_bomb_hardness.tres" id="4_rvswv"]
@@ -20,12 +18,10 @@
 [ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="9_qhcbd"]
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="9_rvswv"]
 [ext_resource type="Texture2D" uid="uid://1r3chexcrwx" path="res://world/level_bg.png" id="11_qhcbd"]
-[ext_resource type="Script" path="res://systems/depth_label.gd" id="12_e36ub"]
 [ext_resource type="Script" uid="uid://motjp37ct4o3" path="res://ui/HUD/fuel_bar.gd" id="13_36jdj"]
-[ext_resource type="Script" uid="uid://ulg81k7glw1a" path="res://ui/timer_progress_bar.gd" id="13_bnpwn"]
+[ext_resource type="Script" path="res://ui/timer_progress_bar.gd" id="13_bnpwn"]
 [ext_resource type="PackedScene" uid="uid://bbvhdbp0joc6q" path="res://ui/bomb_select/bomb_slot_select_scene.tscn" id="13_i2p71"]
 [ext_resource type="PackedScene" uid="uid://p0ipn2tylswi" path="res://ui/inventory/inventory_item_display.tscn" id="13_qhcbd"]
-[ext_resource type="PackedScene" uid="uid://787nmru65xmp" path="res://ui/health/health_bar.tscn" id="14_215e1"]
 [ext_resource type="Script" uid="uid://b3r1glubcsdwt" path="res://ui/upgrade/upgrade_gui.gd" id="14_e8heu"]
 [ext_resource type="Resource" uid="uid://2rch3ef2vr66" path="res://systems/inventory/items/item_basic_bomb.tres" id="14_xa8c5"]
 [ext_resource type="Resource" uid="uid://44skluikbcii" path="res://systems/inventory/items/item_sticky_bomb.tres" id="15_5b14r"]
@@ -33,10 +29,12 @@
 [ext_resource type="Resource" uid="uid://bfwwxfc0kwllo" path="res://systems/inventory/items/item_bombpowder.tres" id="16_vaj68"]
 [ext_resource type="PackedScene" uid="uid://dfb6tk3jaqp55" path="res://systems/music_sfx/music.tscn" id="23_qhcbd"]
 [ext_resource type="Script" uid="uid://d0eblir7jx7p" path="res://ui/HUD/global_stat_label.gd" id="24_vaj68"]
+[ext_resource type="Texture2D" uid="uid://d4hqng7ebmhnc" path="res://ui/HUD/health_under.png" id="26_klri6"]
+[ext_resource type="Texture2D" uid="uid://bjhukgdcwwab7" path="res://ui/HUD/health_over.png" id="27_eu6ph"]
 [ext_resource type="Texture2D" uid="uid://b8vkgx0epv747" path="res://entities/moab/moab_sprite_sheet.png" id="28_aa0lp"]
 [ext_resource type="Texture2D" uid="uid://2nhewmpeakjh" path="res://ui/HUD/hook.png" id="28_dhpj7"]
+[ext_resource type="Texture2D" uid="uid://de1ldfvaoh7a" path="res://ui/HUD/health_fill.png" id="28_edr7y"]
 [ext_resource type="Texture2D" uid="uid://dimkj68ybmkil" path="res://ui/HUD/fuel.png" id="30_082n1"]
-[ext_resource type="Texture2D" uid="uid://b6c3icp2xkhao" path="res://ui/health/heart.png" id="30_xfvwf"]
 [ext_resource type="Script" uid="uid://c8up2ibn67q7f" path="res://ui/HUD/label_health_bar.gd" id="31_dhpj7"]
 [ext_resource type="Texture2D" uid="uid://d317cp0qhrmd4" path="res://ui/parchment.png" id="32_7knny"]
 
@@ -69,18 +67,6 @@ fill_to = Vector2(0.82906, 0.145299)
 size = Vector2(536, 153)
 
 [sub_resource type="Environment" id="Environment_qhcbd"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dhpj7"]
-atlas = ExtResource("30_xfvwf")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7knny"]
-atlas = ExtResource("30_xfvwf")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xfvwf"]
-atlas = ExtResource("30_xfvwf")
-region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="LabelSettings" id="LabelSettings_xfvwf"]
 font_size = 32
@@ -147,7 +133,7 @@ tile_set = ExtResource("5_e36ub")
 
 [node name="NavMeshes" type="Node2D" parent="World/Level"]
 
-[node name="Player" parent="World" groups=["player"] instance=ExtResource("1_80nbo")]
+[node name="Player" parent="World" instance=ExtResource("1_80nbo")]
 position = Vector2(128, -3280)
 collision_mask = 3
 available_bomb_types = Array[ExtResource("4_hve3p")]([null])
@@ -196,81 +182,6 @@ shape = SubResource("RectangleShape2D_rvswv")
 environment = SubResource("Environment_qhcbd")
 
 [node name="GUI" type="CanvasLayer" parent="."]
-
-[node name="HUD" type="Control" parent="GUI"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/HUD"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 63.0
-grow_horizontal = 2
-
-[node name="BombProgressBar" type="ProgressBar" parent="GUI/HUD/VBoxContainer" node_paths=PackedStringArray("bomb_explosion_system", "bomb_progress_bar", "time_display")]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-show_percentage = false
-script = ExtResource("7_eow3j")
-bomb_explosion_system = NodePath("../../../../MoabExplosionSystem")
-bomb_progress_bar = NodePath(".")
-time_display = NodePath("TimeDisplay")
-
-[node name="TimeDisplay" type="Label" parent="GUI/HUD/VBoxContainer/BombProgressBar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HealthBar" parent="GUI/HUD/VBoxContainer" node_paths=PackedStringArray("health_component") instance=ExtResource("14_215e1")]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 6
-health_component = NodePath("../../../../World/Player/HealthComponent")
-
-[node name="Depth" type="Label" parent="GUI/HUD/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-horizontal_alignment = 2
-script = ExtResource("12_e36ub")
-
-[node name="InventoryGUI2" type="PanelContainer" parent="GUI/HUD" node_paths=PackedStringArray("control_parent")]
-layout_mode = 2
-offset_top = 240.0
-offset_right = 192.0
-offset_bottom = 432.0
-script = ExtResource("3_feb5d")
-inventory = ExtResource("8_mfdv2")
-item_control = ExtResource("4_fc0e3")
-control_parent = NodePath("VBoxContainer")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/HUD/InventoryGUI2"]
-layout_mode = 2
-
-[node name="InventoryGUI" type="PanelContainer" parent="GUI/HUD" node_paths=PackedStringArray("control_parent")]
-layout_mode = 0
-offset_top = 32.0
-offset_right = 192.0
-offset_bottom = 224.0
-script = ExtResource("3_feb5d")
-inventory = ExtResource("4_7jktm")
-item_control = ExtResource("4_fc0e3")
-control_parent = NodePath("VBoxContainer")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/HUD/InventoryGUI"]
-layout_mode = 2
 
 [node name="UpgradeGUI" type="Control" parent="GUI" node_paths=PackedStringArray("spawn_area_detector")]
 visible = false
@@ -406,12 +317,13 @@ grow_vertical = 2
 [node name="HealthBar" type="TextureProgressBar" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/Control/HBoxContainer" node_paths=PackedStringArray("label", "health_component")]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 value = 100.0
 fill_mode = 3
 nine_patch_stretch = true
-texture_under = SubResource("AtlasTexture_dhpj7")
-texture_over = SubResource("AtlasTexture_7knny")
-texture_progress = SubResource("AtlasTexture_xfvwf")
+texture_under = ExtResource("26_klri6")
+texture_over = ExtResource("27_eu6ph")
+texture_progress = ExtResource("28_edr7y")
 script = ExtResource("31_dhpj7")
 label = NodePath("HealthLabel")
 health_component = NodePath("../../../../../../../World/Player/HealthComponent")
@@ -561,7 +473,6 @@ size_flags_vertical = 3
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.36968, 0.328359, 0.176195, 1)
 
-[connection signal="depth_changed" from="World/Player" to="GUI/HUD/VBoxContainer/Depth" method="_on_player_depth_changed"]
 [connection signal="depth_changed" from="World/Player" to="Music" method="_on_player_depth_changed"]
 [connection signal="health_modified" from="World/Player/HealthComponent" to="World/Player" method="_on_health_component_health_modified"]
 [connection signal="player_entered" from="World/Spawn/SpawnAreaPlayerDetector" to="World" method="_on_spawn_area_player_detector_player_entered"]

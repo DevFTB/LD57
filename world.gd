@@ -133,7 +133,7 @@ func drop_ore(location: Vector2, item: Item, amount: int) -> void:
 
 func _on_spawn_area_player_detector_player_entered(_player):
 	player.health_component.is_invulnerable = true
-	player.health_component.current_health = player.health_component.maximum_health
+	player.health_component.heal(player.health_component.maximum_health)
 	#handle camera tween
 	camera_following_player = false
 	var camera_tweener = get_tree().create_tween()

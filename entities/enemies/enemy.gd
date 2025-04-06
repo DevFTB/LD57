@@ -16,6 +16,7 @@ var last_moved_direction: Vector2 = Vector2.RIGHT
 @onready var nav := $NavigationAgent2D
 @onready var los = $LineOfSight
 @onready var state_machine = $StateMachine
+@onready var animation_tree = $AnimationPlayer/AnimationTree
 @onready var is_ranged = enemy_stats.range != 0
 
 
@@ -35,6 +36,9 @@ func _physics_process(_delta: float) -> void:
 func die():
 	StatsManager.add_to_stat(StatsManager.Stat.ENEMIES_KILLED, 1)
 	queue_free()
+
+func do_knockback(origin, amount):
+	state_machine._transition_to_next_state("KnockedBack", {"knockback_origin": origin, "knockback_amount" : amount})
 
 func _on_visible_on_screen_notifier_2d_screen_entered():
 	if refresh_timer:
@@ -64,3 +68,20 @@ func _on_refresh_timer_timeout():
 				state_machine._transition_to_next_state("Running")
 			else:
 				state_machine._transition_to_next_state("Flying")
+
+func _on_health_component_health_modified(amount, new_health):
+	if amount < 0:
+		$HurtSound.pitch_scale = randf_range(0.9,1.1)
+		$HurtSound.play()
+		self.modulate = Color.RED
+		await get_tree().create_timer(0.3).timeout
+		self.modulate = Color.WHITE
+
+func _on_hitbox_component_hurt_entity(hurtbox_component: HurtboxComponent) -> void:
+	if hurtbox_component.get_parent().is_in_group("player") and state_machine.state != $KnockedBack:
+		do_knockback(hurtbox_component.get_parent().global_position, 1)
+
+
+func _on_hurtbox_component_damage_applied(amount, _source):
+	do_knockback(_source.global_position, amount/20)
+	pass # Replace with function body.

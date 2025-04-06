@@ -214,7 +214,7 @@ func _on_death():
 			get_tree().get_first_node_in_group("world").add_child(dropped_item)
 			dropped_item.global_position = self.global_position + Vector2(randi_range(-10, 10), randi_range(-10, 10))
 			dropped_item.linear_velocity = Vector2(randf_range(-300, 300), randf_range(-300, 300))
-	
+	$DeathSound.play()
 	died.emit()
 
 func reset_player() -> void:
