@@ -2,10 +2,10 @@
 extends Control
 class_name UpgradeButton
 
-@export var upgrade : Upgrade
+@export var upgrade: Upgrade
 @export var dependecies: Dictionary[UpgradeButton, int]
 
-@onready var player : Player = get_tree().get_first_node_in_group("player")
+@onready var player: Player = get_tree().get_first_node_in_group("player")
 
 @onready var label = $Label
 @onready var button: Button = $Button
@@ -30,7 +30,7 @@ func _on_upgrade_state_changed() -> void:
 const ITEM_UPGRADIUM = preload("res://systems/inventory/items/item_upgradium.tres")
 
 func _on_pressed():
-	if can_upgrade(): 
+	if can_upgrade():
 		player.mineral_inventory_component.inventory.remove_item(ITEM_UPGRADIUM, 1)
 		player.upgrade_state.increment_upgrade_tier(upgrade)
 
@@ -51,4 +51,4 @@ func can_upgrade():
 
 func _draw():
 	for dependency in dependecies:
-		draw_line(dependency.get_position()+Vector2(dependency.size.x/2,0)-self.get_position(), Vector2(self.get_size().x/2, self.get_size().y), Color.BLACK, 3)
+		draw_line(dependency.get_position() + Vector2(dependency.size.x / 2, 0) - self.get_position(), Vector2(self.get_size().x / 2, self.get_size().y), Color.BLACK, 3)

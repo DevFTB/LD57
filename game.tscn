@@ -1,7 +1,7 @@
-[gd_scene load_steps=31 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=56 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
-[ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
+[ext_resource type="PackedScene" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="1_j5wjh"]
 [ext_resource type="TileSet" uid="uid://ci0bxhrhedi27" path="res://world/tileset/test_tileset.tres" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://dxicxe0tvx28m" path="res://world.gd" id="2_hve3p"]
@@ -20,23 +20,47 @@
 [ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="9_qhcbd"]
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="9_rvswv"]
 [ext_resource type="Texture2D" uid="uid://1r3chexcrwx" path="res://world/level_bg.png" id="11_qhcbd"]
-[ext_resource type="Script" uid="uid://b37gaxh31ri3k" path="res://systems/depth_label.gd" id="12_e36ub"]
+[ext_resource type="Script" path="res://systems/depth_label.gd" id="12_e36ub"]
+[ext_resource type="Script" uid="uid://motjp37ct4o3" path="res://ui/HUD/fuel_bar.gd" id="13_36jdj"]
+[ext_resource type="Script" uid="uid://ulg81k7glw1a" path="res://ui/timer_progress_bar.gd" id="13_bnpwn"]
+[ext_resource type="PackedScene" uid="uid://bbvhdbp0joc6q" path="res://ui/bomb_select/bomb_slot_select_scene.tscn" id="13_i2p71"]
+[ext_resource type="PackedScene" uid="uid://p0ipn2tylswi" path="res://ui/inventory/inventory_item_display.tscn" id="13_qhcbd"]
 [ext_resource type="PackedScene" uid="uid://787nmru65xmp" path="res://ui/health/health_bar.tscn" id="14_215e1"]
 [ext_resource type="Script" uid="uid://b3r1glubcsdwt" path="res://ui/upgrade/upgrade_gui.gd" id="14_e8heu"]
+[ext_resource type="Resource" uid="uid://2rch3ef2vr66" path="res://systems/inventory/items/item_basic_bomb.tres" id="14_xa8c5"]
+[ext_resource type="Resource" uid="uid://44skluikbcii" path="res://systems/inventory/items/item_sticky_bomb.tres" id="15_5b14r"]
+[ext_resource type="Resource" uid="uid://bsytuw721i88d" path="res://systems/inventory/items/item_upgradium.tres" id="16_i2p71"]
+[ext_resource type="Resource" uid="uid://bfwwxfc0kwllo" path="res://systems/inventory/items/item_bombpowder.tres" id="16_vaj68"]
 [ext_resource type="PackedScene" uid="uid://dfb6tk3jaqp55" path="res://systems/music_sfx/music.tscn" id="23_qhcbd"]
-[ext_resource type="Script" path="res://global_stat_label.gd" id="24_vaj68"]
+[ext_resource type="Script" uid="uid://d0eblir7jx7p" path="res://ui/HUD/global_stat_label.gd" id="24_vaj68"]
+[ext_resource type="Texture2D" uid="uid://b8vkgx0epv747" path="res://entities/moab/moab_sprite_sheet.png" id="28_aa0lp"]
+[ext_resource type="Texture2D" uid="uid://2nhewmpeakjh" path="res://ui/HUD/hook.png" id="28_dhpj7"]
+[ext_resource type="Texture2D" uid="uid://dimkj68ybmkil" path="res://ui/HUD/fuel.png" id="30_082n1"]
+[ext_resource type="Texture2D" uid="uid://b6c3icp2xkhao" path="res://ui/health/heart.png" id="30_xfvwf"]
+[ext_resource type="Script" uid="uid://c8up2ibn67q7f" path="res://ui/HUD/label_health_bar.gd" id="31_dhpj7"]
+[ext_resource type="Texture2D" uid="uid://d317cp0qhrmd4" path="res://ui/parchment.png" id="32_7knny"]
+
+[sub_resource type="Gradient" id="Gradient_qhcbd"]
+offsets = PackedFloat32Array(0, 0.298561, 0.697842, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.978008, 0.978008, 0.978008, 1, 0.436611, 0.436611, 0.436611, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_l1i01"]
+gradient = SubResource("Gradient_qhcbd")
+fill = 1
+fill_from = Vector2(0.517094, 0.470085)
+fill_to = Vector2(0.863248, 0.196581)
 
 [sub_resource type="Curve" id="Curve_lc2xo"]
 _limits = [0.0, 1000.0, 0.0, 1.0]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1000), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="Gradient" id="Gradient_qhcbd"]
+[sub_resource type="Gradient" id="Gradient_r62pu"]
 offsets = PackedFloat32Array(0, 0.406475, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0.798561, 0.798561, 0.798561, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_f1jbl"]
-gradient = SubResource("Gradient_qhcbd")
+gradient = SubResource("Gradient_r62pu")
 fill = 1
 fill_from = Vector2(0.517094, 0.470085)
 fill_to = Vector2(0.82906, 0.145299)
@@ -45,6 +69,41 @@ fill_to = Vector2(0.82906, 0.145299)
 size = Vector2(536, 153)
 
 [sub_resource type="Environment" id="Environment_qhcbd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dhpj7"]
+atlas = ExtResource("30_xfvwf")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7knny"]
+atlas = ExtResource("30_xfvwf")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfvwf"]
+atlas = ExtResource("30_xfvwf")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xfvwf"]
+font_size = 32
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iu0sx"]
+atlas = ExtResource("28_aa0lp")
+region = Rect2(192, 128, 640, 704)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dhpj7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xex6t"]
+atlas = ExtResource("30_082n1")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_082n1"]
+atlas = ExtResource("30_082n1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aa0lp"]
+atlas = ExtResource("30_082n1")
+region = Rect2(64, 0, 64, 64)
 
 [node name="Game" type="Node"]
 
@@ -65,6 +124,15 @@ script = ExtResource("2_hve3p")
 [node name="MainCamera" type="Camera2D" parent="World"]
 position = Vector2(-32, -3328)
 scale = Vector2(2, 2)
+
+[node name="PointLight2D" type="PointLight2D" parent="World/MainCamera"]
+position = Vector2(-16, -13)
+scale = Vector2(11.125, 5.75)
+color = Color(0.57872, 0.35134, 0.22798, 1)
+energy = 2.77
+blend_mode = 2
+texture = SubResource("GradientTexture2D_l1i01")
+texture_scale = 2.84
 
 [node name="Level" type="Node2D" parent="World"]
 script = ExtResource("3_lc2xo")
@@ -130,6 +198,7 @@ environment = SubResource("Environment_qhcbd")
 [node name="GUI" type="CanvasLayer" parent="."]
 
 [node name="HUD" type="Control" parent="GUI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -204,6 +273,7 @@ control_parent = NodePath("VBoxContainer")
 layout_mode = 2
 
 [node name="UpgradeGUI" type="Control" parent="GUI" node_paths=PackedStringArray("spawn_area_detector")]
+visible = false
 layout_mode = 3
 anchors_preset = 11
 anchor_left = 1.0
@@ -238,7 +308,7 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="UpgradeButton" parent="GUI/UpgradeGUI/HBoxContainer" groups=["player"] instance=ExtResource("9_215e1")]
+[node name="UpgradeButton" parent="GUI/UpgradeGUI/HBoxContainer" instance=ExtResource("9_215e1")]
 layout_mode = 2
 upgrade = ExtResource("4_rvswv")
 
@@ -292,6 +362,199 @@ layout_mode = 2
 script = ExtResource("24_vaj68")
 stat = 5
 title = "Deaths"
+
+[node name="NewHUD" type="MarginContainer" parent="GUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/NewHUD"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/NewHUD/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="GUI/NewHUD/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("32_7knny")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/Control"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" type="TextureProgressBar" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/Control/HBoxContainer" node_paths=PackedStringArray("label", "health_component")]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+value = 100.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = SubResource("AtlasTexture_dhpj7")
+texture_over = SubResource("AtlasTexture_7knny")
+texture_progress = SubResource("AtlasTexture_xfvwf")
+script = ExtResource("31_dhpj7")
+label = NodePath("HealthLabel")
+health_component = NodePath("../../../../../../../World/Player/HealthComponent")
+
+[node name="HealthLabel" type="Label" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/Control/HBoxContainer/HealthBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "12"
+label_settings = SubResource("LabelSettings_xfvwf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Bottom" type="HBoxContainer" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BombpowderDisplay" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/Control/HBoxContainer/Bottom" instance=ExtResource("13_qhcbd")]
+layout_mode = 2
+inventory = ExtResource("4_7jktm")
+item = ExtResource("16_vaj68")
+
+[node name="Control" type="Control" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/Control/HBoxContainer/Bottom"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="UpgradiumDisplay" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/Control/HBoxContainer/Bottom" instance=ExtResource("13_qhcbd")]
+layout_mode = 2
+inventory = ExtResource("4_7jktm")
+item = ExtResource("16_i2p71")
+
+[node name="Control2" type="Control" parent="GUI/NewHUD/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/NewHUD/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = -40
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/HBoxContainer"]
+z_index = 1
+layout_mode = 2
+texture = SubResource("AtlasTexture_iu0sx")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="BombProgressBar" type="ProgressBar" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("bomb_explosion_system", "bomb_progress_bar", "time_display")]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+show_percentage = false
+script = ExtResource("7_eow3j")
+bomb_explosion_system = NodePath("../../../../../../MoabExplosionSystem")
+bomb_progress_bar = NodePath(".")
+time_display = NodePath("TimeDisplay")
+
+[node name="TimeDisplay" type="Label" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/HBoxContainer/BombProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="GUI/NewHUD/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="GUI/NewHUD/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="BombSlotSelect" parent="GUI/NewHUD/VBoxContainer/HBoxContainer2/HBoxContainer2" instance=ExtResource("13_i2p71")]
+layout_mode = 2
+bomb_item = ExtResource("14_xa8c5")
+player_bomb_inventory = ExtResource("8_mfdv2")
+
+[node name="BombSlotSelect2" parent="GUI/NewHUD/VBoxContainer/HBoxContainer2/HBoxContainer2" instance=ExtResource("13_i2p71")]
+layout_mode = 2
+slot_number = 2
+bomb_item = ExtResource("15_5b14r")
+player_bomb_inventory = ExtResource("8_mfdv2")
+
+[node name="BombSlotSelect3" parent="GUI/NewHUD/VBoxContainer/HBoxContainer2/HBoxContainer2" instance=ExtResource("13_i2p71")]
+layout_mode = 2
+slot_number = 3
+bomb_item = ExtResource("15_5b14r")
+player_bomb_inventory = ExtResource("8_mfdv2")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="GUI/NewHUD/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="TextureRect" type="TextureRect" parent="GUI/NewHUD/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("28_dhpj7")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="ProgressBar" type="ProgressBar" parent="GUI/NewHUD/VBoxContainer/HBoxContainer3/TextureRect" node_paths=PackedStringArray("timer")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_dhpj7")
+fill_mode = 3
+show_percentage = false
+script = ExtResource("13_bnpwn")
+timer = NodePath("../../../../../../World/Player/GrapplePoint/GrappleCooldown")
+
+[node name="FuelBar" type="TextureProgressBar" parent="GUI/NewHUD/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("jetpack")]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = SubResource("AtlasTexture_xex6t")
+texture_over = SubResource("AtlasTexture_082n1")
+texture_progress = SubResource("AtlasTexture_aa0lp")
+script = ExtResource("13_36jdj")
+jetpack = NodePath("../../../../../World/Player/Jetpack")
+
+[node name="Control" type="Control" parent="GUI/NewHUD/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Music" parent="." instance=ExtResource("23_qhcbd")]
 

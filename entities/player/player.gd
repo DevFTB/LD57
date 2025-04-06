@@ -6,11 +6,13 @@ signal interacted
 signal throw_initiated()
 signal throw_released(data: World.ThrowReleasedEventData)
 signal depth_changed(depth)
+signal selected_bomb_changed(bomb: Item)
 
 signal movement_state_changed(new_movement_state: MovementState)
+signal died
 
 enum MovementState {
-	FREE, GRAPPLE, JETPACK
+	FREE, GRAPPLE, JETPACK, BLOCKED
 }
 
 enum TraversalMethod {
@@ -44,7 +46,6 @@ var current_movement_state: MovementState = MovementState.FREE
 @onready var grapple_point: GrapplePoint = $GrapplePoint
 @onready var jetpack: Jetpack = $Jetpack
 @onready var spawn_location: Vector2 = global_position
-@onready var animation = $AnimationPlayer
 
 func _ready() -> void:
 	throw_released.connect(StatsManager.add_to_stat.bind(StatsManager.Stat.BOMBS_THROWN, 1).unbind(1))
@@ -54,6 +55,7 @@ func _ready() -> void:
 	if inv.size() > 0:
 		var items := inv.get_items()
 		selected_bomb_item = items.front()
+		selected_bomb_changed.emit(selected_bomb_item)
 		
 	#connect signals
 	if health_component:
@@ -73,16 +75,17 @@ func free_movement(source: MovementState) -> void:
 func _physics_process(delta: float) -> void:
 	check_collsions()
 	
-	for method in unlocked_traversal_methods:
-		if method == TraversalMethod.GRAPPLE: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.GRAPPLE):
-			grapple_point.handle_action(&"traverse")
-		if method == TraversalMethod.JETPACK: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.JETPACK):
-			match jetpack.state:
-				jetpack.JetpackState.OFF:
-					if not is_on_floor():
+	if not current_movement_state == MovementState.BLOCKED:
+		for method in unlocked_traversal_methods:
+			if method == TraversalMethod.GRAPPLE: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.GRAPPLE):
+				grapple_point.handle_action(&"traverse")
+			if method == TraversalMethod.JETPACK: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.JETPACK):
+				match jetpack.state:
+					jetpack.JetpackState.OFF:
+						if not is_on_floor():
+							jetpack.handle_action(&"jump")
+					jetpack.JetpackState.ON:
 						jetpack.handle_action(&"jump")
-				jetpack.JetpackState.ON:
-					jetpack.handle_action(&"jump")
 	
 	match current_movement_state:
 		MovementState.FREE:
@@ -95,6 +98,8 @@ func _physics_process(delta: float) -> void:
 			handle_direction(delta)
 			handle_gravity(delta)
 			handle_jetpack(delta)
+		MovementState.BLOCKED:
+			pass
 	
 	apply_movement()
 	
@@ -138,6 +143,7 @@ func switch_selected_bomb(index: int) -> void:
 	
 	if items.size() > index:
 		selected_bomb_item = items[index]
+		selected_bomb_changed.emit(selected_bomb_item)
 		
 const UPGRADE_BOMB_HARDNESS = preload("res://systems/upgrades/upgrade_bomb_hardness.tres")
 const UPGRADE_BOMB_RADIUS = preload("res://systems/upgrades/upgrade_bomb_radius.tres")
@@ -190,44 +196,35 @@ func _on_bomb_cooldown_timeout():
 
 func _on_death():
 	StatsManager.add_to_stat(StatsManager.Stat.DEATH_COUNT, 1)
+	
+	set_movement_state(MovementState.BLOCKED)
 	health_component.is_invulnerable = true
 	can_throw = false
 	can_pickup = false
 	if _holding_throw:
 		_on_throw_release(0)
-	var inventory : Inventory = mineral_inventory_component.inventory
+	var inventory: Inventory = mineral_inventory_component.inventory
 	var dropped_item_scene = preload("res://entities/item/item_entity.tscn")
 	for item in inventory.get_items():
 		for i in range(inventory.get_item_amount(item)):
 			var dropped_item = dropped_item_scene.instantiate()
 			dropped_item.item = item
-			dropped_item.quantity = 1 
+			dropped_item.quantity = 1
 			inventory.remove_item(item, dropped_item.quantity)
 			get_tree().get_first_node_in_group("world").add_child(dropped_item)
-			dropped_item.global_position = self.global_position + Vector2(randi_range(-10,10), randi_range(-10,10))
-			dropped_item.linear_velocity = Vector2(randf_range(-300,300) , randf_range(-300,300))
-			
-	animation.play("death") # plays death animation and resets the player when it is done.
-	$DeathSound.play()
+			dropped_item.global_position = self.global_position + Vector2(randi_range(-10, 10), randi_range(-10, 10))
+			dropped_item.linear_velocity = Vector2(randf_range(-300, 300), randf_range(-300, 300))
+	
+	died.emit()
 
-func _on_animation_player_animation_finished(anim_name):
-	if anim_name == "death":
-		can_throw = true
-		can_pickup = true
-		health_component.reset()
-		animation.play("RESET")
-		velocity = Vector2.ZERO
-		global_position = spawn_location
+func reset_player() -> void:
+	can_throw = true
+	can_pickup = true
+	health_component.reset()
+	velocity = Vector2.ZERO
+	global_position = spawn_location
+	set_movement_state(MovementState.FREE)
 
-
-	pass # Replace with function body.
-
-
-func _on_health_component_health_modified(amount, new_health):
-	if amount < 0:
-		$HurtSound.pitch_scale = randf_range(0.9,1.1)
-		$HurtSound.play()
-		self.modulate = Color.RED
-		await get_tree().create_timer(0.3).timeout
-		self.modulate = Color.WHITE
-	pass # Replace with function body.
+func _play_hurt_sounds() -> void:
+	$HurtSound.pitch_scale = randf_range(0.9, 1.1)
+	$HurtSound.play()
