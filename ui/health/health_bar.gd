@@ -1,11 +1,12 @@
 extends Range
+class_name HealthBar
 
-@export var health_component : HealthComponent
+@export var health_component: HealthComponent
 
 func _ready() -> void:
 	set_health_component(health_component)
 
-func set_health_component(hc : HealthComponent) -> void:
+func set_health_component(hc: HealthComponent) -> void:
 	health_component = hc
 	max_value = hc.maximum_health
 	value = hc.current_health

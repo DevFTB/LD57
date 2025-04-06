@@ -6,6 +6,7 @@ signal interacted
 signal throw_initiated()
 signal throw_released(data: World.ThrowReleasedEventData)
 signal depth_changed(depth)
+signal selected_bomb_changed(bomb: Item)
 
 signal movement_state_changed(new_movement_state: MovementState)
 
@@ -54,6 +55,7 @@ func _ready() -> void:
 	if inv.size() > 0:
 		var items := inv.get_items()
 		selected_bomb_item = items.front()
+		selected_bomb_changed.emit(selected_bomb_item)
 		
 	#connect signals
 	if health_component:
@@ -138,6 +140,7 @@ func switch_selected_bomb(index: int) -> void:
 	
 	if items.size() > index:
 		selected_bomb_item = items[index]
+		selected_bomb_changed.emit(selected_bomb_item)
 		
 const UPGRADE_BOMB_HARDNESS = preload("res://systems/upgrades/upgrade_bomb_hardness.tres")
 const UPGRADE_BOMB_RADIUS = preload("res://systems/upgrades/upgrade_bomb_radius.tres")
