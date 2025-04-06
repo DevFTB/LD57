@@ -8,6 +8,7 @@ signal hurt_entity(hurtbox_component)
 
 @export var repeating := false
 @export var repeat_interval := 1.0
+@export var has_dmg_falloff := false
 
 @onready var hit_timer: Timer = $HitTimer
 
@@ -25,7 +26,13 @@ func damage_overlapping_hurtboxes() -> void:
 	var areas := get_overlapping_areas()
 	for area in areas:
 		if area is HurtboxComponent:
-			area.apply_damage(damage, self)
+			var damage_amount = damage
+			if has_dmg_falloff:
+				var max_range = $CollisionShape2D.shape.radius
+				var distance_to_area : float = self.global_position.distance_to(area.global_position)
+				damage_amount = (distance_to_area / max_range) * damage
+			area.apply_damage(damage_amount, self)
+			print(str(damage_amount))
 			hurt_entity.emit(area)
 			if repeating:
 				hit_timer.start()

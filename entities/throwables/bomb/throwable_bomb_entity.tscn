@@ -84,3 +84,4 @@ one_shot = true
 collision_layer = 0
 collision_mask = 6
 active = false
+has_dmg_falloff = true
