@@ -32,7 +32,7 @@ func damage_overlapping_hurtboxes() -> void:
 				var distance_to_area : float = self.global_position.distance_to(area.global_position)
 				damage_amount = (distance_to_area / max_range) * damage
 			area.apply_damage(damage_amount, self)
-			print(str(damage_amount))
+			#print(str(damage_amount))
 			hurt_entity.emit(area)
 			if repeating:
 				hit_timer.start()
