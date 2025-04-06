@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=4 uid="uid://8fcjad7sd4gq"]
+[gd_scene load_steps=28 format=4 uid="uid://8fcjad7sd4gq"]
 
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="1_ctw1c"]
 [ext_resource type="Script" uid="uid://dxicxe0tvx28m" path="res://world.gd" id="2_2d1u3"]
+[ext_resource type="Script" uid="uid://b0mdeooldsu15" path="res://enemy_spawner.gd" id="3_e2ivd"]
 [ext_resource type="Script" uid="uid://bhk4kqmlpwyv0" path="res://world/levelgen.gd" id="3_pnepw"]
 [ext_resource type="TileSet" uid="uid://ci0bxhrhedi27" path="res://world/tileset/test_tileset.tres" id="4_e2ivd"]
 [ext_resource type="TileSet" uid="uid://1s8d18ai2k57" path="res://world/tileset/ore_tileset.tres" id="5_bgsfg"]
@@ -24,6 +25,9 @@
 [ext_resource type="Resource" uid="uid://b6nkhnlvgtk7s" path="res://systems/upgrades/upgrade_bomb_hardness.tres" id="20_2obmt"]
 [ext_resource type="Resource" uid="uid://b6xkpnkwkffbg" path="res://systems/upgrades/upgrade_bomb_radius.tres" id="21_2jcs7"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2ivd"]
+size = Vector2(2881, 1981)
+
 [sub_resource type="Curve" id="Curve_lc2xo"]
 _limits = [0.0, 1000.0, 0.0, 1.0]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1000), 0.0, 0.0, 0, 0]
@@ -40,6 +44,25 @@ bomb_timer_starting_value = 305.0
 
 [node name="World" type="Node2D" parent="." groups=["world"]]
 script = ExtResource("2_2d1u3")
+
+[node name="Spawner" type="Node2D" parent="World"]
+position = Vector2(128, -3280)
+script = ExtResource("3_e2ivd")
+enemies = null
+
+[node name="SpawnTimer" type="Timer" parent="World/Spawner"]
+wait_time = 2.0
+autostart = true
+
+[node name="SpawnZones" type="Node2D" parent="World/Spawner"]
+
+[node name="LeftSpawn" type="CollisionShape2D" parent="World/Spawner/SpawnZones"]
+position = Vector2(-1448.5, 1314.5)
+shape = SubResource("RectangleShape2D_e2ivd")
+
+[node name="RightSpawn" type="CollisionShape2D" parent="World/Spawner/SpawnZones"]
+position = Vector2(1436, 1314)
+shape = SubResource("RectangleShape2D_e2ivd")
 
 [node name="Level" type="Node2D" parent="World"]
 script = ExtResource("3_pnepw")
@@ -68,6 +91,7 @@ fall_acceleration = 550
 
 [node name="HealthComponent" parent="World/Player" index="7"]
 maximum_health = 50
+is_invulnerable = true
 
 [node name="MoabEntity" parent="World" node_paths=PackedStringArray("moab_explosion_system") instance=ExtResource("8_537hp")]
 position = Vector2(-192, -3256)
@@ -214,5 +238,7 @@ layout_mode = 2
 [node name="UpgradeButton2" parent="GUI/UpgradeGUI/HBoxContainer" instance=ExtResource("19_tdh2o")]
 layout_mode = 2
 upgrade = ExtResource("21_2jcs7")
+
+[connection signal="timeout" from="World/Spawner/SpawnTimer" to="World/Spawner" method="_on_spawn_timer_timeout"]
 
 [editable path="World/Player"]
