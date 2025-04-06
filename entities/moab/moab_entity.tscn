@@ -1,22 +1,141 @@
-[gd_scene load_steps=6 format=3 uid="uid://bq84mpxun851f"]
+[gd_scene load_steps=14 format=3 uid="uid://bq84mpxun851f"]
 
 [ext_resource type="Script" uid="uid://ce42cdw34mrhe" path="res://entities/moab/moab_entity.gd" id="1_075v3"]
-[ext_resource type="Texture2D" uid="uid://nbpbxi2j8ij" path="res://entities/moab/texture_moab.png" id="2_kilkt"]
+[ext_resource type="Texture2D" uid="uid://b8vkgx0epv747" path="res://entities/moab/moab idle.png" id="2_3f07h"]
 [ext_resource type="PackedScene" uid="uid://bhol6hs31mkio" path="res://world/detectors/player_detector_2d.tscn" id="3_exw8j"]
 
 [sub_resource type="Animation" id="Animation_dgwo1"]
 resource_name = "consume"
 
+[sub_resource type="Animation" id="Animation_3f07h"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:vframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_v21hs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:vframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hndvo"]
 _data = {
-&"consume": SubResource("Animation_dgwo1")
+&"RESET": SubResource("Animation_v21hs"),
+&"consume": SubResource("Animation_dgwo1"),
+&"idle": SubResource("Animation_3f07h")
 }
+
+[sub_resource type="Curve2D" id="Curve2D_3f07h"]
+_data = {
+"points": PackedVector2Array(-1.62441, 0, 0.101526, 0, 65, -68, 7.98657, 2.66972, -7.98657, -2.66972, 48, -64, 0, 0, 0, 0, 40, -72, -2.03051, -0.406102, 2.03051, 0.406102, 32, -80, -6.49763, 4.46712, 6.49763, -4.46712, 24, -80, 0, 0, 0, 0, 16, -72, 0, 0, 0, 0, 8, -64)
+}
+point_count = 7
+
+[sub_resource type="Gradient" id="Gradient_yqrof"]
+offsets = PackedFloat32Array(0.0213675, 0.277778, 0.457265, 0.649573, 0.752137)
+colors = PackedColorArray(0.866667, 0.694118, 0.0666667, 1, 0.866467, 0.617401, 0.0665676, 1, 0.865655, 0.305739, 0.0661652, 1, 0.891002, 0.21752, 0.261955, 1, 0.171824, 0.0676239, 0.001577, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3f07h"]
+gradient = SubResource("Gradient_yqrof")
+
+[sub_resource type="Curve" id="Curve_3f07h"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.984615, 0), -3.14274, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_v21hs"]
+curve = SubResource("Curve_3f07h")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3f07h"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 4.0
+angle_min = -251.3
+angle_max = 96.6
+direction = Vector3(1, -1, 0)
+initial_velocity_min = 50.34
+initial_velocity_max = 117.45
+gravity = Vector3(0, 0, 0)
+scale_min = 6.0
+scale_max = 8.0
+scale_curve = SubResource("CurveTexture_v21hs")
+color_ramp = SubResource("GradientTexture1D_3f07h")
 
 [node name="BombTimer" type="Node2D"]
 script = ExtResource("1_075v3")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_kilkt")
+scale = Vector2(0.265, 0.265)
+texture = ExtResource("2_3f07h")
+hframes = 2
 
 [node name="PlayerDetector2D" parent="." instance=ExtResource("3_exw8j")]
 
@@ -24,3 +143,14 @@ texture = ExtResource("2_kilkt")
 libraries = {
 &"": SubResource("AnimationLibrary_hndvo")
 }
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_3f07h")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(65, -68)
+rotates = false
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Path2D/PathFollow2D"]
+lifetime = 0.6
+process_material = SubResource("ParticleProcessMaterial_3f07h")

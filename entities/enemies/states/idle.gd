@@ -12,7 +12,7 @@ func update(_delta: float) -> void:
 func physics_update(_delta: float) -> void:
 	enemy.move_and_slide()
 	if enemy.enemy_stats.is_grounded == true:
-		enemy.velocity.y += enemy.gravity.y + _delta
+		enemy.velocity.y += enemy.gravity.y * _delta
 	
 	pass
 

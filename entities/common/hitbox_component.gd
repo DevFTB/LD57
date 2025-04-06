@@ -1,6 +1,8 @@
 extends Area2D
 class_name HitboxComponent
 
+signal hurt_entity(hurtbox_component)
+
 @export var active: bool = true
 @export var damage: int = 1
 
@@ -16,6 +18,7 @@ func _ready() -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if active and area is HurtboxComponent:
 		area.apply_damage(damage, self)
+		hurt_entity.emit(area)
 		hit_timer.start()
 
 func damage_overlapping_hurtboxes() -> void:
@@ -23,6 +26,7 @@ func damage_overlapping_hurtboxes() -> void:
 	for area in areas:
 		if area is HurtboxComponent:
 			area.apply_damage(damage, self)
+			hurt_entity.emit(area)
 			if repeating:
 				hit_timer.start()
 		

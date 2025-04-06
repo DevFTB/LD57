@@ -13,6 +13,7 @@ func physics_update(_delta: float) -> void:
 	enemy.move_and_slide()
 	var target_pos: Vector2 = enemy.nav.get_next_path_position() - enemy.global_position
 	var target_direction = target_pos.normalized()
+	enemy.last_moved_direction = target_direction.normalized()
 	enemy.velocity = target_direction * enemy.enemy_stats.move_speed * _delta * 10
 	if enemy.global_position.distance_to(enemy.nav.get_final_position()) <= 20:
 		finished.emit(IDLE)

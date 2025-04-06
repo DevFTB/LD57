@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=25 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="1_j5wjh"]
@@ -13,13 +13,12 @@
 [ext_resource type="PackedScene" uid="uid://bq84mpxun851f" path="res://entities/moab/moab_entity.tscn" id="4_j5wjh"]
 [ext_resource type="Resource" uid="uid://b6nkhnlvgtk7s" path="res://systems/upgrades/upgrade_bomb_hardness.tres" id="4_rvswv"]
 [ext_resource type="TileSet" uid="uid://1s8d18ai2k57" path="res://world/tileset/ore_tileset.tres" id="5_e36ub"]
-[ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="5_vef74"]
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="7_eow3j"]
 [ext_resource type="Resource" uid="uid://diae5nc080sux" path="res://entities/player/player_bomb_inventory.tres" id="8_mfdv2"]
 [ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="9_215e1"]
+[ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="9_qhcbd"]
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="9_rvswv"]
-[ext_resource type="PackedScene" uid="uid://bkh5wheo7tg4h" path="res://entities/item/item_entity.tscn" id="11_hb5m1"]
-[ext_resource type="Script" path="res://systems/depth_label.gd" id="12_e36ub"]
+[ext_resource type="Script" uid="uid://b37gaxh31ri3k" path="res://systems/depth_label.gd" id="12_e36ub"]
 [ext_resource type="PackedScene" uid="uid://787nmru65xmp" path="res://ui/health/health_bar.tscn" id="14_215e1"]
 [ext_resource type="Script" uid="uid://b3r1glubcsdwt" path="res://ui/upgrade/upgrade_gui.gd" id="14_e8heu"]
 [ext_resource type="PackedScene" uid="uid://dfb6tk3jaqp55" path="res://systems/music_sfx/music.tscn" id="23_qhcbd"]
@@ -67,11 +66,17 @@ max_fall_speed = 10000
 fall_acceleration = 550
 
 [node name="MoabEntity" parent="World" node_paths=PackedStringArray("moab_explosion_system") instance=ExtResource("4_j5wjh")]
-position = Vector2(-192, -3256)
+position = Vector2(-208, -3288)
 moab_explosion_system = NodePath("../../MoabExplosionSystem")
 
-[node name="Enemy" parent="World" instance=ExtResource("5_vef74")]
-position = Vector2(160, -3360)
+[node name="Sprite" parent="World/MoabEntity" index="0"]
+flip_h = true
+
+[node name="Path2D" parent="World/MoabEntity" index="3"]
+scale = Vector2(-1, 1)
+
+[node name="Bat" parent="World" instance=ExtResource("9_qhcbd")]
+position = Vector2(-176, -3384)
 
 [node name="SpawnAreaPlayerDetector" type="Area2D" parent="World"]
 position = Vector2(-32, -3328)
@@ -83,9 +88,6 @@ metadata/_custom_type_script = "uid://1x04lpb258os"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/SpawnAreaPlayerDetector"]
 position = Vector2(12, -16)
 shape = SubResource("RectangleShape2D_rvswv")
-
-[node name="ItemEntity" parent="World" instance=ExtResource("11_hb5m1")]
-position = Vector2(-128, -3256)
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
@@ -216,3 +218,4 @@ upgrade = ExtResource("3_e8heu")
 [connection signal="depth_changed" from="World/Player" to="Music" method="_on_player_depth_changed"]
 
 [editable path="World/Player"]
+[editable path="World/MoabEntity"]
