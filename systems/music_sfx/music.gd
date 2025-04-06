@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var depth_for_track1 = 0
+@export var depth_for_track1 = 10
 @export var depth_for_track2 = 100
 @export var depth_for_track3 = 200
 
@@ -13,19 +13,26 @@ func _ready():
 
 ## Called on depth change to fade in tracks
 func _on_player_depth_changed(depth):
-	if depth > depth_for_track1:
-		fade_in($Depth1)
-	else:
+	if depth < depth_for_track1:
+		fade_in($Surface)
 		fade_out($Depth1)
-	if depth > depth_for_track2:
-		fade_in($Depth2)
-	else:
 		fade_out($Depth2)
-	if depth > depth_for_track3:
-		fade_in($Depth3)
-	else:
 		fade_out($Depth3)
-	pass # Replace with function body.
+	else:
+		fade_out($Surface)
+		if depth > depth_for_track1:
+			fade_in($Depth1)
+		else:
+			fade_out($Depth1)
+		if depth > depth_for_track2:
+			fade_in($Depth2)
+		else:
+			fade_out($Depth2)
+		if depth > depth_for_track3:
+			fade_in($Depth3)
+		else:
+			fade_out($Depth3)
+		pass # Replace with function body.
 
 func fade_in(audio_player : AudioStreamPlayer):
 	if not fading_tracks.has(audio_player):
