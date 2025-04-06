@@ -1,3 +1,4 @@
+@tool
 extends Resource
 class_name Upgrade
 
@@ -27,3 +28,7 @@ func add_level(tier):
 		levels.resize(num_tiers)
 		levels.fill(0)
 	levels[tier] += 1
+
+func get_text(tier):
+	return "+ %d stat" % [tier_value_map[tier]]
+	

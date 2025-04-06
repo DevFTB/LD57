@@ -1,0 +1,139 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3cnp6fsypd5"]
+
+[ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="1_kku6u"]
+[ext_resource type="Script" uid="uid://08b32ubcmb2e" path="res://ui/upgrade/upgrade_tree.gd" id="1_m7apr"]
+[ext_resource type="Resource" uid="uid://b6nkhnlvgtk7s" path="res://systems/upgrades/upgrade_bomb_hardness.tres" id="2_m7apr"]
+[ext_resource type="Resource" uid="uid://b6xkpnkwkffbg" path="res://systems/upgrades/upgrade_bomb_radius.tres" id="3_tsxcs"]
+
+[node name="NinePatchRect" type="ColorRect"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1924.0
+offset_top = -2176.0
+offset_right = 1924.0
+offset_bottom = 2176.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.193653, 0.193653, 0.193653, 1)
+script = ExtResource("1_m7apr")
+
+[node name="Health" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1562.0
+offset_top = 2315.0
+offset_right = 1626.0
+offset_bottom = 2406.0
+upgrade = ExtResource("2_m7apr")
+dependecies = {
+NodePath("../Damage"): 1
+}
+
+[node name="Health2" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1574.0
+offset_top = 2177.0
+offset_right = 1638.0
+offset_bottom = 2268.0
+upgrade = ExtResource("2_m7apr")
+dependecies = {
+NodePath("../Health"): 2
+}
+tier = 1
+
+[node name="Health3" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1561.0
+offset_top = 2064.0
+offset_right = 1625.0
+offset_bottom = 2155.0
+upgrade = ExtResource("2_m7apr")
+dependecies = {
+NodePath("../Health2"): 3
+}
+max_level = 7
+tier = 2
+
+[node name="Damage" parent="." instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1476.0
+offset_top = 2417.0
+offset_right = 1540.0
+offset_bottom = 2508.0
+upgrade = ExtResource("3_tsxcs")
+max_level = 5
+
+[node name="Damage2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1382.0
+offset_top = 2316.0
+offset_right = 1446.0
+offset_bottom = 2407.0
+upgrade = ExtResource("3_tsxcs")
+dependecies = {
+NodePath("../Damage"): 2
+}
+max_level = 4
+tier = 1
+
+[node name="Damage3" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1390.0
+offset_top = 2183.0
+offset_right = 1454.0
+offset_bottom = 2274.0
+upgrade = ExtResource("3_tsxcs")
+dependecies = {
+NodePath("../Damage2"): 2
+}
+tier = 2
+
+[node name="Damage4" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1433.0
+offset_top = 2066.0
+offset_right = 1497.0
+offset_bottom = 2157.0
+upgrade = ExtResource("3_tsxcs")
+dependecies = {
+NodePath("../Damage3"): 3
+}
+max_level = 7
+tier = 3

@@ -1,16 +1,26 @@
 extends Resource
 class_name PlayerUpgradeState
 
-var upgrade_tiers: Dictionary[Upgrade, int]
+var upgrade_tier_levels: Dictionary[Upgrade, Array]
 
-func get_tier(upgrade: Upgrade) -> int:
-	return upgrade_tiers.get(upgrade, 0)
+func get_tier_level(upgrade: Upgrade, tier) -> int:
+	var levels = upgrade_tier_levels.get_or_add(upgrade, Array())
+	if levels.is_empty():
+		levels.resize(upgrade.num_tiers)
+		levels.fill(0)
+	return levels[tier]
 
-func get_value(upgrade: Upgrade) -> Variant:
-	return upgrade.tier_value_map[get_tier(upgrade)]
+func get_tier_value(upgrade: Upgrade, tier) -> Variant:
+	return upgrade.tier_value_map[tier] * get_tier_level(upgrade, tier)
 
-func increment_upgrade_tier(upgrade: Upgrade) -> void:
-	var current_tier := get_tier(upgrade)
-	if upgrade.num_tiers > current_tier + 1:
-		upgrade_tiers.set(upgrade, current_tier + 1)
-		emit_changed()
+func increment_upgrade_tier_level(upgrade: Upgrade, tier) -> void:
+	var current_tier := get_tier_level(upgrade, tier)
+	upgrade_tier_levels.get(upgrade)[tier] += 1
+	emit_changed()
+	
+func get_total_value(upgrade: Upgrade) -> Variant:
+	var sum = 0
+	for tier in range(upgrade.num_tiers):
+		sum += get_tier_value(upgrade, tier)
+	return sum
+		

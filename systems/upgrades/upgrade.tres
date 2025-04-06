@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_mtqcl")
-id = &""
+type = 0
 display_name = ""
 num_tiers = 5
+tier_value_map = Dictionary[int, Variant]({})

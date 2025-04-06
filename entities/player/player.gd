@@ -145,9 +145,9 @@ func _on_throw_release(strength = 1.0) -> void:
 	# Get bomb type from selected item.
 	var bomb_type: BombType = (selected_bomb_item.get_data_component(Item.DataCompontents.BOMB_DATA_COMPONENT)).duplicate()
 	
-	# apply upgrades
-	bomb_type.hardness += upgrade_state.get_value(UPGRADE_BOMB_HARDNESS)
-	bomb_type.explosion_radius += upgrade_state.get_value(UPGRADE_BOMB_RADIUS)
+	# apply upgrades		
+	bomb_type.hardness += upgrade_state.get_total_value(UPGRADE_BOMB_HARDNESS)
+	bomb_type.explosion_radius += upgrade_state.get_total_value(UPGRADE_BOMB_RADIUS)
 
 	var data := ThrowReleasedEventData.new()
 	data.position = global_position
