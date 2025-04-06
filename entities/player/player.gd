@@ -55,14 +55,14 @@ func _physics_process(delta: float) -> void:
 	
 	super._physics_process(delta)
 	current_depth = calculate_depth(global_position.y)
-	
-	if Input.is_action_just_pressed("interact"):
-		interacted.emit()
+
 	
 	if not health_component.is_dead:
 		if Input.is_action_just_pressed("interact"):
 			interacted.emit()
-		
+		if Input.is_action_just_pressed("interact"):
+			interacted.emit()
+	
 			
 		if Input.is_action_just_pressed("select_bomb_1"):
 			switch_selected_bomb(0)
@@ -131,8 +131,8 @@ func _on_throw_release(strength = 1.0) -> void:
 
 #calculates depth based on spawn position
 func calculate_depth(current_y):
-	#spawn_position.y
-	var depth = current_y / 32 * 0.5
+	
+	var depth = (current_y - spawn_location.y) / 32 * 0.5
 	if depth != current_depth:
 		depth_changed.emit(depth)
 	return depth
