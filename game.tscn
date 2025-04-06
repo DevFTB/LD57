@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=54 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
@@ -38,6 +38,7 @@
 [ext_resource type="Script" uid="uid://c8up2ibn67q7f" path="res://ui/HUD/label_health_bar.gd" id="31_dhpj7"]
 [ext_resource type="Texture2D" uid="uid://d317cp0qhrmd4" path="res://ui/parchment.png" id="32_7knny"]
 [ext_resource type="Resource" uid="uid://wylmsxcnfp00" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="34_l1i01"]
+[ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
 
 [sub_resource type="Gradient" id="Gradient_qhcbd"]
@@ -433,6 +434,32 @@ player_bomb_inventory = ExtResource("8_mfdv2")
 layout_mode = 2
 slot_number = 4
 bomb_item = ExtResource("34_l1i01")
+player_bomb_inventory = ExtResource("8_mfdv2")
+
+[node name="BombSlotSelect5" parent="GUI/NewHUD/VBoxContainer/HBoxContainer2/HBoxContainer2" instance=ExtResource("13_i2p71")]
+layout_mode = 2
+slot_number = 5
+bomb_item = ExtResource("35_klri6")
+player_bomb_inventory = ExtResource("8_mfdv2")
+
+[node name="BombSlotSelect6" parent="GUI/NewHUD/VBoxContainer/HBoxContainer2/HBoxContainer2" instance=ExtResource("13_i2p71")]
+layout_mode = 2
+slot_number = 6
+player_bomb_inventory = ExtResource("8_mfdv2")
+
+[node name="BombSlotSelect7" parent="GUI/NewHUD/VBoxContainer/HBoxContainer2/HBoxContainer2" instance=ExtResource("13_i2p71")]
+layout_mode = 2
+slot_number = 7
+player_bomb_inventory = ExtResource("8_mfdv2")
+
+[node name="BombSlotSelect8" parent="GUI/NewHUD/VBoxContainer/HBoxContainer2/HBoxContainer2" instance=ExtResource("13_i2p71")]
+layout_mode = 2
+slot_number = 8
+player_bomb_inventory = ExtResource("8_mfdv2")
+
+[node name="BombSlotSelect9" parent="GUI/NewHUD/VBoxContainer/HBoxContainer2/HBoxContainer2" instance=ExtResource("13_i2p71")]
+layout_mode = 2
+slot_number = 9
 player_bomb_inventory = ExtResource("8_mfdv2")
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="GUI/NewHUD/VBoxContainer"]

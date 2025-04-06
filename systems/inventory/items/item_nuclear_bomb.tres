@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://de0glg7ekgldy"]
+
+[ext_resource type="Resource" uid="uid://buus3c8sckqo4" path="res://entities/throwables/bomb/bomb_nuclear.tres" id="1_e0fkg"]
+[ext_resource type="Script" uid="uid://da7hjs20aj38i" path="res://systems/inventory/item.gd" id="2_8ob3a"]
+[ext_resource type="Texture2D" uid="uid://j87bgvr41snu" path="res://entities/throwables/bomb/nuclear_bomb.png" id="3_e0fkg"]
+
+[resource]
+script = ExtResource("2_8ob3a")
+id = &"nuclear_bomb"
+display_name = "Nuclear Bomb"
+texture = ExtResource("3_e0fkg")
+data_components = Dictionary[int, Variant]({
+0: ExtResource("1_e0fkg")
+})
+metadata/_custom_type_script = "uid://da7hjs20aj38i"

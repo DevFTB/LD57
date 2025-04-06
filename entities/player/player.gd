@@ -108,8 +108,8 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("interact"):
 			interacted.emit()
 			
-		handle_bomb_switch([0, 1, 2, 3])
-		
+		handle_bomb_switch(range(9))
+
 		if Input.is_action_just_pressed("throw"):
 			if can_throw == true:
 				initiate_throw()
@@ -123,9 +123,10 @@ func _physics_process(delta: float) -> void:
 
 			if _throw_action_held_time > maximum_throw_hold_time:
 				_on_throw_release(1.0)
-func handle_bomb_switch(indexes: Array[int]) -> void:
+func handle_bomb_switch(indexes: Array) -> void:
 	for i in indexes:
-		if Input.is_action_just_pressed("select_bomb_%d" % (i + 1)):
+		var action := "select_bomb_%d" % (i + 1)
+		if InputMap.has_action(action) and Input.is_action_just_pressed(action):
 			switch_selected_bomb(i)
 
 func handle_grapple(delta: float) -> void:
@@ -179,6 +180,8 @@ func _on_throw_release(strength = 1.0) -> void:
 		if bomb_inventory_component.inventory.has_item(selected_bomb_item):
 			throw_released.emit(data)
 			bomb_inventory_component.inventory.remove_item(selected_bomb_item, 1)
+			if bomb_inventory_component.inventory.get_item_amount(selected_bomb_item) == 0:
+				switch_selected_bomb(0)
 	else:
 		throw_released.emit(data)
 
