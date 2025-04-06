@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://do0g7votir2b4"]
+[gd_scene load_steps=9 format=3 uid="uid://do0g7votir2b4"]
 
 [ext_resource type="Script" uid="uid://cn3mhruacmrcu" path="res://entities/throwables/bomb/throwable_bomb_entity.gd" id="1_vey3e"]
 [ext_resource type="Texture2D" uid="uid://c0nbm2a4tsd3w" path="res://entities/throwables/bomb/throwable_bomb.png" id="2_vdrfm"]
 [ext_resource type="PackedScene" uid="uid://duvgimajjq5gf" path="res://entities/common/hitbox_component.tscn" id="3_vdrfm"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vdrfm"]
+bounce = 0.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j5wjh"]
 
@@ -58,6 +61,7 @@ _data = {
 
 [node name="ThrowableBomb" type="RigidBody2D"]
 collision_layer = 16
+physics_material_override = SubResource("PhysicsMaterial_vdrfm")
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_vey3e")
@@ -80,3 +84,4 @@ one_shot = true
 collision_layer = 0
 collision_mask = 6
 active = false
+has_dmg_falloff = true

@@ -5,6 +5,7 @@ extends CharacterBody2D
 
 var player: Player
 var sees_player := false
+var seen_player := false
 
 var gravity: Vector2 = Vector2(0, 250)
 
@@ -15,6 +16,7 @@ var last_moved_direction: Vector2 = Vector2.RIGHT
 @onready var nav := $NavigationAgent2D
 @onready var los = $LineOfSight
 @onready var state_machine = $StateMachine
+@onready var is_ranged = enemy_stats.range != 0
 
 
 func _ready():
@@ -50,8 +52,11 @@ func _on_refresh_timer_timeout():
 	var collided_shape = los.get_collider()
 	if collided_shape is Player:
 		sees_player = true
+		seen_player = true
+	else:
+		sees_player = false
 	#start navigation agent
-	if sees_player == true:
+	if seen_player:
 		nav.target_position = player.global_position
 		if nav.is_target_reachable() and state_machine.state == $StateMachine/Idle:
 			if enemy_stats.is_grounded:
