@@ -17,6 +17,7 @@ signal throw_released(data: ThrowReleasedEventData)
 @export var throw_force_curve: Curve
 @export var throw_strength_curve: Curve
 @export var maximum_throw_hold_time := 1.0
+
 var _holding_throw := false
 var _throw_action_held_time := 0.0
 var selected_bomb_item: Item
@@ -26,7 +27,10 @@ var upgrade_state: PlayerUpgradeState = PlayerUpgradeState.new()
 
 @onready var mineral_inventory_component: InventoryComponent = $MineralInventoryComponent
 @onready var bomb_inventory_component: InventoryComponent = $BombInventoryComponent
+@onready var health_component : HealthComponent = $HealthComponent
 @onready var bomb_cooldown: Timer = $BombCooldown
+@onready var spawn_location : Vector2 = global_position
+@onready var animation = $AnimationPlayer
 
 func _ready() -> void:
 	var inv := bomb_inventory_component.inventory
@@ -34,35 +38,45 @@ func _ready() -> void:
 	if inv.size() > 0:
 		var items := inv.get_items()
 		selected_bomb_item = items.front()
-		
+	
+	#connect signals
+	if health_component:
+		health_component.died.connect(_on_death)
+	
+	#set spawn location
+	
+func _process(delta):
+	if not health_component.is_dead:
+		super._process(delta)
 
 func _physics_process(delta: float) -> void:
+	
 	super._physics_process(delta)
-	
-	if Input.is_action_just_pressed("interact"):
-		interacted.emit()
-	
+	if not health_component.is_dead:
+		if Input.is_action_just_pressed("interact"):
+			interacted.emit()
 		
-	if Input.is_action_just_pressed("select_bomb_1"):
-		switch_selected_bomb(0)
-	if Input.is_action_just_pressed("select_bomb_2"):
-		switch_selected_bomb(1)
-	if Input.is_action_just_pressed("select_bomb_3"):
-		switch_selected_bomb(2)
-		
-	if Input.is_action_just_pressed("throw"):
-		if can_throw == true:
-			initiate_throw()
+			
+		if Input.is_action_just_pressed("select_bomb_1"):
+			switch_selected_bomb(0)
+		if Input.is_action_just_pressed("select_bomb_2"):
+			switch_selected_bomb(1)
+		if Input.is_action_just_pressed("select_bomb_3"):
+			switch_selected_bomb(2)
+			
+		if Input.is_action_just_pressed("throw"):
+			if can_throw == true:
+				initiate_throw()
 
-	if _holding_throw:
-		_throw_action_held_time += delta
-		
-		if Input.is_action_just_released("throw"):
-			var strength := throw_strength_curve.sample_baked(_throw_action_held_time)
-			_on_throw_release(strength)
+		if _holding_throw:
+			_throw_action_held_time += delta
+			
+			if Input.is_action_just_released("throw"):
+				var strength := throw_strength_curve.sample_baked(_throw_action_held_time)
+				_on_throw_release(strength)
 
-		if _throw_action_held_time > maximum_throw_hold_time:
-			_on_throw_release(1.0)
+			if _throw_action_held_time > maximum_throw_hold_time:
+				_on_throw_release(1.0)
 
 func switch_selected_bomb(index: int) -> void:
 	var items := bomb_inventory_component.inventory.get_items()
@@ -110,3 +124,18 @@ func _on_throw_release(strength = 1.0) -> void:
 
 func _on_bomb_cooldown_timeout():
 	can_throw = true
+
+func _on_death():
+	health_component.is_invulnerable = true
+	#drop all resources
+	animation.play("death") #plays death animation and resets the player when it is done.
+
+
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "death":
+		health_component.reset()
+		animation.play("RESET")
+		velocity = Vector2.ZERO
+		global_position = spawn_location
+	pass # Replace with function body.
