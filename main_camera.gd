@@ -11,6 +11,7 @@ func apply_shake():
 func _physics_process(delta):
 	if camera_shake_strength > 0:
 		camera_shake_strength = lerpf(camera_shake_strength, 0, shake_fade * delta)
+		offset = randomise_camera_offset()
 	
 func randomise_camera_offset() -> Vector2:
 	return Vector2(randf_range(-camera_shake_strength, camera_shake_strength),randf_range(-camera_shake_strength, camera_shake_strength))
