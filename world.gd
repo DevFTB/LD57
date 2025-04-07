@@ -186,7 +186,7 @@ func _on_spawn_area_player_detector_player_entered(_player):
 			player.bomb_inventory_component.inventory.add_item(item, diff)
 			
 	player.jetpack.restock()
-	# TODO: play restock sound.
+	$RestockSound.play()
 
 
 func _on_spawn_area_player_detector_player_exited(_player):

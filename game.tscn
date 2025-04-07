@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=68 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
@@ -43,6 +43,7 @@
 [ext_resource type="Texture2D" uid="uid://b8vkgx0epv747" path="res://entities/moab/moab_sprite_sheet.png" id="28_aa0lp"]
 [ext_resource type="Texture2D" uid="uid://2nhewmpeakjh" path="res://ui/HUD/hook.png" id="28_dhpj7"]
 [ext_resource type="Texture2D" uid="uid://de1ldfvaoh7a" path="res://ui/HUD/health_fill.png" id="28_edr7y"]
+[ext_resource type="AudioStream" uid="uid://bixi2inlened8" path="res://systems/music_sfx/files/sfx/ui/restock sound.wav" id="29_qpefm"]
 [ext_resource type="Texture2D" uid="uid://dimkj68ybmkil" path="res://ui/HUD/fuel.png" id="30_082n1"]
 [ext_resource type="Script" uid="uid://c8up2ibn67q7f" path="res://ui/HUD/label_health_bar.gd" id="31_dhpj7"]
 [ext_resource type="Texture2D" uid="uid://d317cp0qhrmd4" path="res://ui/parchment.png" id="32_7knny"]
@@ -253,6 +254,9 @@ environment = SubResource("Environment_qhcbd")
 [node name="LootChest" parent="World" instance=ExtResource("13_klri6")]
 position = Vector2(224, -3264)
 loot_table = ExtResource("15_m28ev")
+
+[node name="RestockSound" type="AudioStreamPlayer" parent="World"]
+stream = ExtResource("29_qpefm")
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
