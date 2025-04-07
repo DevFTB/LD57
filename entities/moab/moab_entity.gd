@@ -32,4 +32,5 @@ func _on_player_interacted(player: Player) -> void:
 		StatsManager.add_to_stat(StatsManager.Stat.BOMBPOWDER_OFFERED, CONSUME_AMOUNT)
 		
 		playback.travel("consume")
+		$EatSound.play()
 		consumed_item.emit()
