@@ -35,6 +35,8 @@ func _on_upgrade_state_changed() -> void:
 	maxed_rect.visible = maxed()
 	button.icon = upgrade.texture
 
+
+
 func generate() -> void:
 	$Label.text = LEVEL_FORMAT_STRING % [0, max_level]
 	$Button.icon = upgrade.texture

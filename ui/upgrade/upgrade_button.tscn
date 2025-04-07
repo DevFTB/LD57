@@ -32,9 +32,11 @@ layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 0
 mouse_filter = 1
+disabled = true
 expand_icon = true
 
 [node name="Maxed" type="ColorRect" parent="Button"]
+visible = false
 modulate = Color(0.188235, 0.898039, 0.192157, 0.462745)
 layout_mode = 1
 anchors_preset = 15
@@ -47,7 +49,7 @@ mouse_filter = 2
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
 size_flags_vertical = 8
-text = "0/0"
+text = "0/3"
 label_settings = SubResource("LabelSettings_qdyvx")
 horizontal_alignment = 1
 

@@ -18,6 +18,7 @@ func _process(delta: float) -> void:
 		if toggleable:
 			if not visible:
 				upgrade_tree.global_position = upgrade_tree.initial_pos
+				upgrade_tree.update_all()
 			visible = not visible
 			get_tree().paused = visible
 
