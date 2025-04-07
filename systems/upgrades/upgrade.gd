@@ -33,8 +33,8 @@ func get_text(tier, current_level):
 		var val = tier_values[tier]
 		if mult: val = (val - 1) * 100
 		var current_val = val * current_level
-		val = str(val)
-		current_val = str(current_val)
+		val = str(snapped(val, 0.01))
+		current_val = str(snapped(current_val, 0.01))
 		if mult:
 			val += "%"
 			current_val += "%"
