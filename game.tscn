@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=80 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="Script" uid="uid://hbvbhincea3w" path="res://game.gd" id="1_4v2jo"]
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
@@ -54,6 +54,7 @@
 [ext_resource type="Texture2D" uid="uid://psaqm0aoode4" path="res://ui/bomb_timer/moab 3.png" id="46_gh0px"]
 [ext_resource type="Texture2D" uid="uid://cjc30eoicedm3" path="res://ui/bomb_timer/moab 4.png" id="47_v33yl"]
 [ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="49_mljfx"]
+[ext_resource type="Texture2D" uid="uid://cuuq11nrekgy6" path="res://ui/invincible/invincible_bar.png" id="49_v33yl"]
 
 [sub_resource type="Animation" id="Animation_iu0sx"]
 length = 0.001
@@ -408,6 +409,18 @@ script = ExtResource("8_87ddb")
 entries = Array[ExtResource("40_gh0px")]([SubResource("Resource_m28ev")])
 metadata/_custom_type_script = "uid://cnf626cpgukip"
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2tki7"]
+atlas = ExtResource("49_v33yl")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ib7ph"]
+atlas = ExtResource("49_v33yl")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vuohh"]
+atlas = ExtResource("49_v33yl")
+region = Rect2(128, 0, 128, 128)
+
 [node name="Game" type="Node"]
 script = ExtResource("1_4v2jo")
 stat_bonus = 1000
@@ -752,6 +765,10 @@ player = NodePath("../../../../../../World/Player")
 timer = NodePath("../../../../../../World/Player/GrapplePoint/GrappleCooldown")
 
 [node name="InvulnerabillityBar" parent="GUI/HUD/VBoxContainer/HBoxContainer3" index="1" node_paths=PackedStringArray("player", "timer")]
+value = 99.0
+texture_under = SubResource("AtlasTexture_2tki7")
+texture_over = SubResource("AtlasTexture_ib7ph")
+texture_progress = SubResource("AtlasTexture_vuohh")
 player = NodePath("../../../../../World/Player")
 timer = NodePath("../../../../../World/Player/InvulnerabilityCooldown")
 
