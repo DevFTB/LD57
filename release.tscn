@@ -325,8 +325,11 @@ inventory_component = NodePath("../../../../../../../../World/Player/MineralInve
 [node name="UpgradiumDisplay" parent="GUI/HUD/VBoxContainer/HBoxContainer/Control/HBoxContainer/Bottom" index="2" node_paths=PackedStringArray("inventory_component")]
 inventory_component = NodePath("../../../../../../../../World/Player/MineralInventoryComponent")
 
-[node name="BombProgressBar" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer" index="1" node_paths=PackedStringArray("bomb_explosion_system")]
-bomb_explosion_system = NodePath("../../../../../../MoabExplosionSystem")
+[node name="Depth" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/Control2" index="0" node_paths=PackedStringArray("player")]
+player = NodePath("../../../../../../../World/Player")
+
+[node name="BombProgressBar" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/HBoxContainer" index="1" node_paths=PackedStringArray("bomb_explosion_system")]
+bomb_explosion_system = NodePath("../../../../../../../MoabExplosionSystem")
 
 [node name="ProgressBar" parent="GUI/HUD/VBoxContainer/HBoxContainer3/TextureRect" index="0" node_paths=PackedStringArray("player", "timer")]
 player = NodePath("../../../../../../World/Player")

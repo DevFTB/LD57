@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://de1ldfvaoh7a" path="res://ui/HUD/health_fill.png" id="4_xyxuj"]
 [ext_resource type="Script" uid="uid://c8up2ibn67q7f" path="res://ui/HUD/label_health_bar.gd" id="5_ko6kn"]
 [ext_resource type="Texture2D" uid="uid://bm4qbqxhx3vff" path="res://ui/depth.png" id="6_5q00s"]
-[ext_resource type="Script" path="res://ui/HUD/depth.gd" id="7_a2w4y"]
+[ext_resource type="Script" uid="uid://eky8k0h2e6jt" path="res://ui/HUD/depth.gd" id="7_a2w4y"]
 [ext_resource type="PackedScene" uid="uid://p0ipn2tylswi" path="res://ui/inventory/inventory_item_display.tscn" id="8_q2pla"]
 [ext_resource type="Resource" uid="uid://bfwwxfc0kwllo" path="res://systems/inventory/items/item_bombpowder.tres" id="10_c2qag"]
 [ext_resource type="Resource" uid="uid://bsytuw721i88d" path="res://systems/inventory/items/item_upgradium.tres" id="11_2grvh"]
@@ -116,21 +116,6 @@ label_settings = SubResource("LabelSettings_xfvwf")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Depth" type="TextureRect" parent="VBoxContainer/HBoxContainer/Control/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("6_5q00s")
-expand_mode = 2
-script = ExtResource("7_a2w4y")
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Control/HBoxContainer/Depth"]
-layout_mode = 0
-offset_top = -8.0
-offset_right = 92.0
-offset_bottom = 84.0
-label_settings = SubResource("LabelSettings_cfc7e")
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Bottom" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/Control/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -150,24 +135,73 @@ item = ExtResource("11_2grvh")
 [node name="Control2" type="Control" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.0
+size_flags_stretch_ratio = 2.02
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = -40
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
-z_index = 1
+[node name="Control2" type="Control" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
+
+[node name="Depth" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer/Control2"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_5q00s")
+expand_mode = 2
+stretch_mode = 5
+script = ExtResource("7_a2w4y")
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer/Control2/Depth"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_cfc7e")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="Control" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer/HBoxContainer"]
+z_index = 1
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = -64.0
+offset_right = 97.0
+offset_bottom = 64.0
+grow_vertical = 2
 texture = SubResource("AtlasTexture_iu0sx")
 expand_mode = 2
-stretch_mode = 4
+stretch_mode = 5
 
-[node name="BombProgressBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("bomb_progress_bar", "time_display")]
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
+[node name="BombProgressBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("bomb_progress_bar", "time_display")]
+clip_contents = true
+custom_minimum_size = Vector2(192, 24)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 show_percentage = false
@@ -175,7 +209,7 @@ script = ExtResource("13_05i5p")
 bomb_progress_bar = NodePath(".")
 time_display = NodePath("TimeDisplay")
 
-[node name="TimeDisplay" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer/BombProgressBar"]
+[node name="TimeDisplay" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer/HBoxContainer/BombProgressBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
