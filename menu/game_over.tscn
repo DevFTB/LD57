@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cc5dkwrsnplny"]
 
-[ext_resource type="Script" path="res://menu/game_over_menu.gd" id="1_641x1"]
+[ext_resource type="Script" uid="uid://0d6wvm58o7md" path="res://menu/game_over_menu.gd" id="1_641x1"]
 [ext_resource type="Script" uid="uid://d0eblir7jx7p" path="res://ui/HUD/global_stat_label.gd" id="2_rkkr6"]
 [ext_resource type="Texture2D" uid="uid://bu5fijvptxlny" path="res://ui/HUD/explosion.png" id="3_uh3ar"]
 

@@ -14,8 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://b8vkgx0epv747" path="res://entities/moab/moab_sprite_sheet.png" id="12_m3kpf"]
 [ext_resource type="Script" uid="uid://cg2pmlrf8nc4r" path="res://ui/HUD/boom_status_texture_rect.gd" id="12_mki3y"]
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="13_05i5p"]
-[ext_resource type="Texture2D" uid="uid://cqkl475g6eq2c" path="res://ui/HUD/explosion.png" id="13_gifym"]
-[ext_resource type="Texture2D" uid="uid://bjtjugm88gtk5" path="res://world/loot/chest.png" id="14_27arm"]
+[ext_resource type="Texture2D" path="res://ui/HUD/explosion.png" id="13_gifym"]
+[ext_resource type="Texture2D" path="res://world/loot/chest.png" id="14_27arm"]
 [ext_resource type="PackedScene" uid="uid://bbvhdbp0joc6q" path="res://ui/bomb_select/bomb_slot_select_scene.tscn" id="14_ui12q"]
 [ext_resource type="Resource" uid="uid://2rch3ef2vr66" path="res://systems/inventory/items/item_basic_bomb.tres" id="15_yxxc1"]
 [ext_resource type="Resource" uid="uid://44skluikbcii" path="res://systems/inventory/items/item_sticky_bomb.tres" id="16_n8ty0"]
@@ -196,7 +196,6 @@ expand_mode = 2
 stretch_mode = 5
 script = ExtResource("12_mki3y")
 boom_level_textures = Dictionary[int, Texture2D]({
-0: SubResource("AtlasTexture_iu0sx"),
 1: ExtResource("20_h7hnh"),
 2: ExtResource("14_27arm"),
 3: ExtResource("13_gifym")

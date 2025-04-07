@@ -1,8 +1,8 @@
-@tool
+#@tool
 extends Control
 class_name UpgradeButton
 
-@export_tool_button("generate") var generate_button = generate
+#@export_tool_button("generate") var generate_button = generate
 @export var upgrade: Upgrade
 @export var dependecies: Dictionary[UpgradeButton, int]
 @export var max_level = 3
@@ -23,7 +23,8 @@ var current_level: int:
 func _ready() -> void:
 	hide_tooltip()
 	button.pressed.connect(_on_pressed)
-	player.upgrade_state.changed.connect(_on_upgrade_state_changed)
+	if player:
+		player.upgrade_state.changed.connect(_on_upgrade_state_changed)
 	_on_upgrade_state_changed()
 
 const LEVEL_FORMAT_STRING := "%d/%d"
@@ -56,6 +57,7 @@ func maxed():
 
 
 func can_upgrade():
+	if not player: return false
 	# TODO: Check money is enough and take money
 	var has_items := player.mineral_inventory_component.inventory.has_item(ITEM_UPGRADIUM, upgrade.tier_costs[tier])
 	#var has_items := player.mineral_inventory_component.inventory.has_item(ITEM_UPGRADIUM, 0)
