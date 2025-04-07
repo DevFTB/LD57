@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=84 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="Script" uid="uid://hbvbhincea3w" path="res://game.gd" id="1_4v2jo"]
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://dxicxe0tvx28m" path="res://world.gd" id="2_hve3p"]
 [ext_resource type="SpriteFrames" uid="uid://dputq1l47geed" path="res://entities/explosion_sprite_frames.tres" id="2_l1i01"]
 [ext_resource type="Script" uid="uid://bhk4kqmlpwyv0" path="res://world/levelgen.gd" id="3_lc2xo"]
-[ext_resource type="Script" path="res://systems/hints/item_collection_hint.gd" id="3_lwlx3"]
+[ext_resource type="Script" uid="uid://b3ixyl0rewrho" path="res://systems/hints/item_collection_hint.gd" id="3_lwlx3"]
 [ext_resource type="AudioStream" uid="uid://c800xef1mh8vm" path="res://systems/music_sfx/files/sfx/explosion.wav" id="3_r62pu"]
 [ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="4_hve3p"]
 [ext_resource type="PackedScene" uid="uid://bq84mpxun851f" path="res://entities/moab/moab_entity.tscn" id="4_j5wjh"]
@@ -18,12 +18,12 @@
 [ext_resource type="Script" uid="uid://cv6y1hrey2gct" path="res://main_camera.gd" id="7_lwlx3"]
 [ext_resource type="Resource" uid="uid://bsytuw721i88d" path="res://systems/inventory/items/item_upgradium.tres" id="8_0de7l"]
 [ext_resource type="Script" uid="uid://cnf626cpgukip" path="res://entities/loot_chest/loot_table.gd" id="8_87ddb"]
-[ext_resource type="Script" path="res://systems/hints/location_based_hint.gd" id="9_87ddb"]
+[ext_resource type="Script" uid="uid://dqic6wnf216n8" path="res://systems/hints/location_based_hint.gd" id="9_87ddb"]
 [ext_resource type="Script" uid="uid://b0mdeooldsu15" path="res://enemy_spawner.gd" id="9_kq12w"]
 [ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="9_qhcbd"]
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="9_rvswv"]
 [ext_resource type="Resource" uid="uid://bibv5en88eckk" path="res://entities/loot_chest/loot_table_hardness_2.tres" id="10_mljfx"]
-[ext_resource type="Script" path="res://systems/hints/timer_based_hint.gd" id="10_qpefm"]
+[ext_resource type="Script" uid="uid://cxlwd2pylj2aw" path="res://systems/hints/timer_based_hint.gd" id="10_qpefm"]
 [ext_resource type="Texture2D" uid="uid://1r3chexcrwx" path="res://world/level_bg.png" id="11_qhcbd"]
 [ext_resource type="Resource" uid="uid://c6xty2mdlfahl" path="res://entities/loot_chest/loot_table_hardness_3.tres" id="11_qpefm"]
 [ext_resource type="PackedScene" uid="uid://c5457i8ubkrc7" path="res://entities/enemies/spiky_ball/spiky_ball_enemy.tscn" id="11_t46w6"]
@@ -45,12 +45,15 @@
 [ext_resource type="PackedScene" uid="uid://c4e86uoalfgiw" path="res://ui/HUD/hud.tscn" id="36_4v2jo"]
 [ext_resource type="PackedScene" uid="uid://cc5dkwrsnplny" path="res://menu/game_over.tscn" id="37_4v2jo"]
 [ext_resource type="PackedScene" uid="uid://b3cnp6fsypd5" path="res://ui/upgrade/upgrade_tree.tscn" id="38_l1i01"]
+[ext_resource type="FontFile" uid="uid://dyco6ifhi4rkt" path="res://ui/FreeCheeseItalic-m28d9.ttf" id="39_vuohh"]
+[ext_resource type="Script" uid="uid://dosh0nath1iks" path="res://feed_label.gd" id="40_3gvs5"]
 [ext_resource type="Script" uid="uid://c7t2d4jjx2aeb" path="res://entities/loot_chest/loot_table_entry.gd" id="40_gh0px"]
+[ext_resource type="Texture2D" uid="uid://celwptlye823p" path="res://ui/keyboard_tab.png" id="41_mc3al"]
 [ext_resource type="Resource" uid="uid://bfwwxfc0kwllo" path="res://systems/inventory/items/item_bombpowder.tres" id="41_v33yl"]
 [ext_resource type="PackedScene" uid="uid://b1k16mj1gyba7" path="res://ui/HUD/hint_container.tscn" id="42_m28ev"]
 [ext_resource type="Texture2D" uid="uid://obnans8x4h0f" path="res://ui/bomb_timer/moab 1.png" id="44_tb2lt"]
 [ext_resource type="Texture2D" uid="uid://di8hppjk33q36" path="res://ui/bomb_timer/moab 2.png" id="45_cfc7e"]
-[ext_resource type="Script" path="res://systems/hints/depth_based_hint.gd" id="45_t46w6"]
+[ext_resource type="Script" uid="uid://b7n44vpq265gx" path="res://systems/hints/depth_based_hint.gd" id="45_t46w6"]
 [ext_resource type="Texture2D" uid="uid://psaqm0aoode4" path="res://ui/bomb_timer/moab 3.png" id="46_gh0px"]
 [ext_resource type="Texture2D" uid="uid://cjc30eoicedm3" path="res://ui/bomb_timer/moab 4.png" id="47_v33yl"]
 [ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="49_mljfx"]
@@ -380,8 +383,12 @@ point_count = 2
 [sub_resource type="CircleShape2D" id="CircleShape2D_87ddb"]
 radius = 128.0
 
+[sub_resource type="LabelSettings" id="LabelSettings_bqa6y"]
+font = ExtResource("39_vuohh")
+font_size = 30
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rvswv"]
-size = Vector2(536, 176)
+size = Vector2(663, 176)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tb2lt"]
 size = Vector2(263, 192)
@@ -492,7 +499,7 @@ script = ExtResource("9_87ddb")
 area_2d = NodePath("../../World/Spawn/BombHintArea2D")
 player = NodePath("../../World/Player")
 hint_text = "You find yourself in an entrance to a cave with a pocket full of ordinary bombs. Blast through this dirt by pressing [Left Click] to throw bombs. Don't get too close!.
-Hold [Left Click] to aim and charge your throw.a"
+Hold [Left Click] to aim and charge your throw."
 hint_box = NodePath("../../GUI/HintContainer")
 metadata/_custom_type_script = "uid://cvfc62vqgmxes"
 
@@ -652,6 +659,26 @@ shape = SubResource("CircleShape2D_87ddb")
 [node name="Spawn" type="Node2D" parent="World"]
 position = Vector2(-32, -3328)
 
+[node name="UpgradeLabel" type="Label" parent="World/Spawn" node_paths=PackedStringArray("player_detector")]
+modulate = Color(1, 1, 1, 0)
+offset_left = 120.0
+offset_top = 46.0
+offset_right = 355.0
+offset_bottom = 154.0
+text = "UPGRADE"
+label_settings = SubResource("LabelSettings_bqa6y")
+script = ExtResource("40_3gvs5")
+player_detector = NodePath("../SpawnAreaPlayerDetector")
+
+[node name="TAB" type="TextureRect" parent="World/Spawn/UpgradeLabel"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = -74.0
+offset_right = 109.0
+offset_bottom = 14.0
+texture = ExtResource("41_mc3al")
+expand_mode = 1
+
 [node name="SpawnAreaPlayerDetector" type="Area2D" parent="World/Spawn"]
 collision_layer = 0
 collision_mask = 2
@@ -659,7 +686,7 @@ script = ExtResource("9_rvswv")
 metadata/_custom_type_script = "uid://1x04lpb258os"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Spawn/SpawnAreaPlayerDetector"]
-position = Vector2(12, -40)
+position = Vector2(-51.5, -40)
 shape = SubResource("RectangleShape2D_rvswv")
 
 [node name="BombHintArea2D" type="Area2D" parent="World/Spawn"]
