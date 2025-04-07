@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=52 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="4_hve3p"]
 [ext_resource type="PackedScene" uid="uid://bq84mpxun851f" path="res://entities/moab/moab_entity.tscn" id="4_j5wjh"]
 [ext_resource type="Resource" uid="uid://b6nkhnlvgtk7s" path="res://systems/upgrades/upgrade_bomb_hardness.tres" id="4_rvswv"]
+[ext_resource type="PackedScene" uid="uid://vp4hhi7lbt7d" path="res://world/buildings/winch.tscn" id="5_4v2jo"]
 [ext_resource type="TileSet" uid="uid://1s8d18ai2k57" path="res://world/tileset/ore_tileset.tres" id="5_e36ub"]
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="7_eow3j"]
 [ext_resource type="Resource" uid="uid://diae5nc080sux" path="res://entities/player/player_bomb_inventory.tres" id="8_mfdv2"]
@@ -107,12 +108,15 @@ texture = ExtResource("11_qhcbd")
 [node name="World" type="Node2D" parent="." groups=["world"]]
 script = ExtResource("2_hve3p")
 
+[node name="Winch" parent="World" instance=ExtResource("5_4v2jo")]
+position = Vector2(-3.945, -3300)
+
 [node name="MainCamera" type="Camera2D" parent="World"]
 position = Vector2(-32, -3328)
 scale = Vector2(2, 2)
 
 [node name="PointLight2D" type="PointLight2D" parent="World/MainCamera"]
-position = Vector2(-16, -13)
+position = Vector2(-17.5, -15)
 scale = Vector2(11.125, 5.75)
 color = Color(0.57872, 0.35134, 0.22798, 1)
 energy = 2.77
