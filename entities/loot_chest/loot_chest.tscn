@@ -1,13 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://53ohv57t2ihg"]
+[gd_scene load_steps=10 format=3 uid="uid://53ohv57t2ihg"]
 
 [ext_resource type="Script" uid="uid://ctdioywig46t4" path="res://entities/loot_chest/loot_chest.gd" id="1_alovd"]
-[ext_resource type="Texture2D" uid="uid://bjtjugm88gtk5" path="res://world/loot/chest.png" id="2_cm3eg"]
+[ext_resource type="Texture2D" uid="uid://cdp2qg6foouy2" path="res://world/loot/chest.png" id="2_cm3eg"]
 [ext_resource type="Script" uid="uid://do5gnx1cf4tjg" path="res://entities/common/health_component.gd" id="3_g0r7p"]
 [ext_resource type="Script" uid="uid://bh4wfgcuvhfeq" path="res://entities/common/hurtbox_component.gd" id="4_j5r8d"]
 [ext_resource type="Script" uid="uid://3o156l3yjpoa" path="res://entities/player/inventory_component.gd" id="5_3nwv4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_klri6"]
 size = Vector2(51, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_alovd"]
+size = Vector2(59, 55)
 
 [sub_resource type="Animation" id="Animation_t46w6"]
 resource_name = "die"
@@ -45,6 +48,7 @@ shape = SubResource("RectangleShape2D_klri6")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_g0r7p")
+base_maximum_health = 1
 metadata/_custom_type_script = "uid://do5gnx1cf4tjg"
 
 [node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
@@ -54,8 +58,8 @@ health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://bh4wfgcuvhfeq"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(-1.5, 7)
-shape = SubResource("RectangleShape2D_klri6")
+position = Vector2(-0.5, 5.5)
+shape = SubResource("RectangleShape2D_alovd")
 
 [node name="InventoryComponent" type="Node" parent="."]
 script = ExtResource("5_3nwv4")

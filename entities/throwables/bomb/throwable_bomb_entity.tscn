@@ -9,7 +9,7 @@
 bounce = 0.3
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j5wjh"]
-radius = 32.0
+radius = 15.1327
 
 [sub_resource type="Animation" id="Animation_o053b"]
 length = 0.001
@@ -62,7 +62,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kyrvw"]
-radius = 20.0
+radius = 15.1327
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vdrfm"]
 radius = 0.01
@@ -76,6 +76,7 @@ max_contacts_reported = 1
 script = ExtResource("1_vey3e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 1)
 shape = SubResource("CircleShape2D_j5wjh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

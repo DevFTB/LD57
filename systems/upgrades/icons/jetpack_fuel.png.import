@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bu5fijvptxlny"
-path="res://.godot/imported/explosion.png-d5da18402deb34981733f908a5ccd9f9.ctex"
+uid="uid://dr7d621hmsxv"
+path="res://.godot/imported/jetpack_fuel.png-3eef82c4b42e301dca131401b4866ad2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/HUD/explosion.png"
-dest_files=["res://.godot/imported/explosion.png-d5da18402deb34981733f908a5ccd9f9.ctex"]
+source_file="res://systems/upgrades/icons/jetpack_fuel.png"
+dest_files=["res://.godot/imported/jetpack_fuel.png-3eef82c4b42e301dca131401b4866ad2.ctex"]
 
 [params]
 

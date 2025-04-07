@@ -1,20 +1,21 @@
 [gd_scene load_steps=35 format=3 uid="uid://c4e86uoalfgiw"]
 
 [ext_resource type="Texture2D" uid="uid://d317cp0qhrmd4" path="res://ui/parchment.png" id="1_mki3y"]
-[ext_resource type="Texture2D" uid="uid://d4hqng7ebmhnc" path="res://ui/HUD/health_under.png" id="2_gifym"]
-[ext_resource type="Texture2D" uid="uid://bjhukgdcwwab7" path="res://ui/HUD/health_over.png" id="3_27arm"]
-[ext_resource type="Texture2D" uid="uid://de1ldfvaoh7a" path="res://ui/HUD/health_fill.png" id="4_xyxuj"]
+[ext_resource type="Texture2D" uid="uid://di1qrf568wfoh" path="res://ui/HUD/heart_under.png" id="2_mki3y"]
+[ext_resource type="Texture2D" uid="uid://x1piys74ke6r" path="res://ui/HUD/heart_over.png" id="3_gifym"]
+[ext_resource type="Texture2D" uid="uid://b6665t4pngacj" path="res://ui/HUD/heart_fill.png" id="4_27arm"]
 [ext_resource type="Script" uid="uid://c8up2ibn67q7f" path="res://ui/HUD/label_health_bar.gd" id="5_ko6kn"]
 [ext_resource type="Texture2D" uid="uid://bm4qbqxhx3vff" path="res://ui/depth.png" id="6_5q00s"]
 [ext_resource type="Script" uid="uid://eky8k0h2e6jt" path="res://ui/HUD/depth.gd" id="7_a2w4y"]
 [ext_resource type="PackedScene" uid="uid://p0ipn2tylswi" path="res://ui/inventory/inventory_item_display.tscn" id="8_q2pla"]
 [ext_resource type="Resource" uid="uid://bfwwxfc0kwllo" path="res://systems/inventory/items/item_bombpowder.tres" id="10_c2qag"]
 [ext_resource type="Resource" uid="uid://bsytuw721i88d" path="res://systems/inventory/items/item_upgradium.tres" id="11_2grvh"]
+[ext_resource type="Texture2D" uid="uid://bu5fijvptxlny" path="res://ui/HUD/explosion.png" id="11_mki3y"]
 [ext_resource type="Texture2D" uid="uid://b8vkgx0epv747" path="res://entities/moab/moab_sprite_sheet.png" id="12_m3kpf"]
 [ext_resource type="Script" uid="uid://cg2pmlrf8nc4r" path="res://ui/HUD/boom_status_texture_rect.gd" id="12_mki3y"]
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="13_05i5p"]
-[ext_resource type="Texture2D" uid="uid://cqkl475g6eq2c" path="res://ui/HUD/explosion.png" id="13_gifym"]
-[ext_resource type="Texture2D" uid="uid://bjtjugm88gtk5" path="res://world/loot/chest.png" id="14_27arm"]
+[ext_resource type="Texture2D" path="res://ui/HUD/explosion.png" id="13_gifym"]
+[ext_resource type="Texture2D" path="res://world/loot/chest.png" id="14_27arm"]
 [ext_resource type="PackedScene" uid="uid://bbvhdbp0joc6q" path="res://ui/bomb_select/bomb_slot_select_scene.tscn" id="14_ui12q"]
 [ext_resource type="Resource" uid="uid://2rch3ef2vr66" path="res://systems/inventory/items/item_basic_bomb.tres" id="15_yxxc1"]
 [ext_resource type="Resource" uid="uid://44skluikbcii" path="res://systems/inventory/items/item_sticky_bomb.tres" id="16_n8ty0"]
@@ -24,8 +25,9 @@
 [ext_resource type="Resource" uid="uid://wylmsxcnfp00" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="18_uaqyj"]
 [ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="19_iikl3"]
 [ext_resource type="Texture2D" uid="uid://2nhewmpeakjh" path="res://ui/HUD/hook.png" id="20_h7hnh"]
+[ext_resource type="Texture2D" uid="uid://bdnh8n7dj826g" path="res://ui/HUD/empty fuel.png" id="21_mki3y"]
 [ext_resource type="Script" uid="uid://bw4n7aeli48jj" path="res://ui/grapple_ui.gd" id="21_s7ar1"]
-[ext_resource type="Texture2D" uid="uid://dimkj68ybmkil" path="res://ui/HUD/fuel.png" id="22_npbsg"]
+[ext_resource type="Texture2D" uid="uid://c34niogq1juqp" path="res://ui/HUD/fuel full.png" id="22_gifym"]
 [ext_resource type="Script" uid="uid://motjp37ct4o3" path="res://ui/HUD/fuel_bar.gd" id="23_wbpfx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xfvwf"]
@@ -38,23 +40,15 @@ font_size = 20
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_iu0sx"]
-atlas = ExtResource("12_m3kpf")
-region = Rect2(192, 128, 640, 704)
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dhpj7"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xex6t"]
-atlas = ExtResource("22_npbsg")
-region = Rect2(128, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_mki3y"]
+atlas = ExtResource("21_mki3y")
+region = Rect2(18, 17, 94, 104)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_082n1"]
-atlas = ExtResource("22_npbsg")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aa0lp"]
-atlas = ExtResource("22_npbsg")
-region = Rect2(64, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_gifym"]
+atlas = ExtResource("22_gifym")
+region = Rect2(18, 17, 94, 104)
 
 [node name="HUD" type="MarginContainer"]
 anchors_preset = 15
@@ -97,15 +91,15 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HealthBar" type="TextureProgressBar" parent="VBoxContainer/HBoxContainer/Control/HBoxContainer" node_paths=PackedStringArray("label")]
-custom_minimum_size = Vector2(128, 0)
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 4
 value = 100.0
 fill_mode = 3
 nine_patch_stretch = true
-texture_under = ExtResource("2_gifym")
-texture_over = ExtResource("3_27arm")
-texture_progress = ExtResource("4_xyxuj")
+texture_under = ExtResource("2_mki3y")
+texture_over = ExtResource("3_gifym")
+texture_progress = ExtResource("4_27arm")
 script = ExtResource("5_ko6kn")
 label = NodePath("HealthLabel")
 
@@ -197,12 +191,11 @@ offset_top = -64.0
 offset_right = 97.0
 offset_bottom = 64.0
 grow_vertical = 2
-texture = SubResource("AtlasTexture_iu0sx")
+texture = ExtResource("11_mki3y")
 expand_mode = 2
 stretch_mode = 5
 script = ExtResource("12_mki3y")
 boom_level_textures = Dictionary[int, Texture2D]({
-0: SubResource("AtlasTexture_iu0sx"),
 1: ExtResource("20_h7hnh"),
 2: ExtResource("14_27arm"),
 3: ExtResource("13_gifym")
@@ -344,9 +337,8 @@ custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 fill_mode = 3
 nine_patch_stretch = true
-texture_under = SubResource("AtlasTexture_xex6t")
-texture_over = SubResource("AtlasTexture_082n1")
-texture_progress = SubResource("AtlasTexture_aa0lp")
+texture_under = SubResource("AtlasTexture_mki3y")
+texture_progress = SubResource("AtlasTexture_gifym")
 script = ExtResource("23_wbpfx")
 
 [node name="Control" type="Control" parent="VBoxContainer"]

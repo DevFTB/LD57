@@ -37,7 +37,7 @@ var magnet_strength_multiplier = 1
 var bomb_damage_multiplier = 1
 var bomb_radius_multiplier = 1
 var jetpack_fuel_multiplier = 1
-var invulnerability_duration : float = 0
+var invulnerability_duration: float = 0
 var multi_bomb_chance_percent := 0.0
 var multi_bomb_amount := 1
 
@@ -108,7 +108,7 @@ func on_upgrade(upgrade: Upgrade, tier):
 		PlayerUpgradeState.UpgradeType.MULTIBOMB_AMOUNT:
 			multi_bomb_amount = upgrade_state.get_total_value(upgrade) + 1
 		PlayerUpgradeState.UpgradeType.BLAST_RESISTANCE: # logarithmic scale
-			hurtbox_component.blast_resistance_factor= upgrade_state.get_total_value(upgrade)
+			hurtbox_component.blast_resistance_factor = upgrade_state.get_total_value(upgrade)
 
 func set_movement_state(new_movement_state: MovementState) -> void:
 	current_movement_state = new_movement_state
@@ -229,7 +229,7 @@ func _on_throw_release(strength = 1.0) -> void:
 	bomb_type.explosion_radius = bomb_type.explosion_radius * bomb_radius_multiplier
 	var multi_bomb = false
 	var thrown_bomb_amount := 1
-	if randf_range(0,100) <= multi_bomb_chance_percent:
+	if randf_range(0, 100) <= multi_bomb_chance_percent:
 		multi_bomb = true
 		thrown_bomb_amount = 1 + multi_bomb_amount
 
@@ -248,8 +248,8 @@ func _on_throw_release(strength = 1.0) -> void:
 	else:
 		for i in range(0, thrown_bomb_amount):
 			if multi_bomb:
-				data.impulse.y *= randf_range(1-(multi_bomb_amount*0.1),1+(multi_bomb_amount*0.1))
-				data.position += Vector2(0,-15)
+				data.impulse.y *= randf_range(1 - (multi_bomb_amount * 0.1), 1 + (multi_bomb_amount * 0.1))
+				data.position += Vector2(0, -15)
 				data.random_fuse = true
 				print("multithrow")
 			throw_released.emit(data)

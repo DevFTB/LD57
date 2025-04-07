@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=60 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="Script" uid="uid://hbvbhincea3w" path="res://game.gd" id="1_4v2jo"]
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
@@ -37,8 +37,12 @@
 [ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
 [ext_resource type="PackedScene" uid="uid://c4e86uoalfgiw" path="res://ui/HUD/hud.tscn" id="36_4v2jo"]
-[ext_resource type="PackedScene" uid="uid://b2vtm14w5fe48" path="res://menu/game_over.tscn" id="37_4v2jo"]
+[ext_resource type="PackedScene" uid="uid://cc5dkwrsnplny" path="res://menu/game_over.tscn" id="37_4v2jo"]
+[ext_resource type="Texture2D" uid="uid://2nhewmpeakjh" path="res://ui/HUD/hook.png" id="37_kq12w"]
 [ext_resource type="PackedScene" uid="uid://b3cnp6fsypd5" path="res://ui/upgrade/upgrade_tree.tscn" id="38_l1i01"]
+[ext_resource type="Texture2D" uid="uid://cdp2qg6foouy2" path="res://world/loot/chest.png" id="38_t46w6"]
+[ext_resource type="Texture2D" uid="uid://bu5fijvptxlny" path="res://ui/HUD/explosion.png" id="39_m28ev"]
+[ext_resource type="Texture2D" uid="uid://b8vkgx0epv747" path="res://entities/moab/moab_sprite_sheet.png" id="40_lwlx3"]
 [ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="49_mljfx"]
 
 [sub_resource type="Animation" id="Animation_iu0sx"]
@@ -338,6 +342,10 @@ size = Vector2(536, 153)
 
 [sub_resource type="Environment" id="Environment_qhcbd"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0de7l"]
+atlas = ExtResource("40_lwlx3")
+region = Rect2(1291, 193, 511, 545)
+
 [node name="Game" type="Node"]
 script = ExtResource("1_4v2jo")
 stat_bonus = 1000
@@ -441,7 +449,7 @@ position = Vector2(128, -3280)
 collision_mask = 3
 available_bomb_types = Array[ExtResource("4_hve3p")]([null])
 throw_force_curve = SubResource("Curve_lc2xo")
-unlocked_traversal_methods = Array[int]([1, 0])
+unlocked_traversal_methods = Array[int]([1, 0, 2])
 max_speed = 200
 acceleration = 5000
 ground_deceleration = 800
@@ -545,6 +553,14 @@ inventory_component = NodePath("../../../../../../../../World/Player/MineralInve
 
 [node name="Depth" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/Control2" index="0" node_paths=PackedStringArray("player")]
 player = NodePath("../../../../../../../World/Player")
+
+[node name="BoomLevelTextureRect" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" index="0"]
+boom_level_textures = Dictionary[int, Texture2D]({
+0: SubResource("AtlasTexture_0de7l"),
+1: ExtResource("37_kq12w"),
+2: ExtResource("38_t46w6"),
+3: ExtResource("39_m28ev")
+})
 
 [node name="BombProgressBar" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" index="1" node_paths=PackedStringArray("bomb_explosion_system")]
 bomb_explosion_system = NodePath("../../../../../../../../MoabExplosionSystem")

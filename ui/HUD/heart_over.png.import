@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bu5fijvptxlny"
-path="res://.godot/imported/explosion.png-d5da18402deb34981733f908a5ccd9f9.ctex"
+uid="uid://x1piys74ke6r"
+path="res://.godot/imported/heart_over.png-43d96a8cedebe9e809057f1d67558b60.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/HUD/explosion.png"
-dest_files=["res://.godot/imported/explosion.png-d5da18402deb34981733f908a5ccd9f9.ctex"]
+source_file="res://ui/HUD/heart_over.png"
+dest_files=["res://.godot/imported/heart_over.png-43d96a8cedebe9e809057f1d67558b60.ctex"]
 
 [params]
 

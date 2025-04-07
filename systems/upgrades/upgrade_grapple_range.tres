@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://bpwardgn02pyv"]
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://bpwardgn02pyv"]
 
 [ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_cdcwg"]
+[ext_resource type="Texture2D" uid="uid://2nhewmpeakjh" path="res://ui/HUD/hook.png" id="2_m8dhf"]
 
 [resource]
 script = ExtResource("1_cdcwg")
@@ -9,6 +10,7 @@ mult = true
 tier_value_in_tooltip = true
 tooltip_string = "more grapple range"
 display_name = "Item"
+texture = ExtResource("2_m8dhf")
 num_tiers = 3
 tier_costs = Array[int]([5, 10, 20])
 tier_values = [1.15, 1.25, 1.4]
