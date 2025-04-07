@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://m8ocays85axa"
+path="res://.godot/imported/skeleton hurt.wav-fe808cea7691b1e3c0c70991aa2b1910.sample"
+
+[deps]
+
+source_file="res://systems/music_sfx/files/sfx/enemies/skeleton hurt.wav"
+dest_files=["res://.godot/imported/skeleton hurt.wav-fe808cea7691b1e3c0c70991aa2b1910.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

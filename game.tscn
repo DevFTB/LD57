@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://b0ogai8s7l7sc" path="res://systems/inventory/inventory.gd" id="5_lwlx3"]
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="7_eow3j"]
 [ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="9_215e1"]
-[ext_resource type="Script" uid="uid://b0mdeooldsu15" path="res://enemy_spawner.gd" id="9_kq12w"]
+[ext_resource type="Script" path="res://enemy_spawner.gd" id="9_kq12w"]
 [ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="9_qhcbd"]
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="9_rvswv"]
 [ext_resource type="Texture2D" uid="uid://1r3chexcrwx" path="res://world/level_bg.png" id="11_qhcbd"]
@@ -46,6 +46,12 @@
 [ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
 [ext_resource type="Script" uid="uid://bw4n7aeli48jj" path="res://ui/grapple_ui.gd" id="43_m28ev"]
+
+[sub_resource type="Resource" id="Resource_0de7l"]
+script = ExtResource("5_lwlx3")
+maximum_size = -1
+starting_inventory = {}
+metadata/_custom_type_script = "uid://b0ogai8s7l7sc"
 
 [sub_resource type="Resource" id="Resource_0de7l"]
 script = ExtResource("5_lwlx3")

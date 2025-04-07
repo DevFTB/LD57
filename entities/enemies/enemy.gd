@@ -19,9 +19,13 @@ var last_moved_direction: Vector2 = Vector2.RIGHT
 @onready var animation_tree = get_node_or_null("AnimationPlayer/AnimationTree")
 @onready var is_ranged = enemy_stats.range != 0
 
+var death_scene = preload("res://entities/enemies/bat/death.tscn")
+
 
 func _ready():
 	player = get_tree().get_first_node_in_group("player")
+	if enemy_stats.hurt_sound:
+		$HurtSound.stream = enemy_stats.hurt_sound
 	enemy_stats.health = enemy_stats.max_health
 	health_component.maximum_health = enemy_stats.max_health
 	health_component.current_health = health_component.maximum_health
@@ -35,6 +39,11 @@ func _physics_process(_delta: float) -> void:
 
 func die():
 	StatsManager.add_to_stat(StatsManager.Stat.ENEMIES_KILLED, 1)
+	var death = death_scene.instantiate()
+	get_tree().get_first_node_in_group("world").add_child(death)
+	death.global_position = self.global_position
+	var death_initial_velocity = Vector2(randf_range(-100,100), randf_range(-100,-300))
+	death.set_properties(enemy_stats.death_sound, enemy_stats.death_sprite, death_initial_velocity)
 	queue_free()
 
 func stick(entity: Node2D) -> void:
@@ -91,5 +100,6 @@ func _on_hitbox_component_hurt_entity(hurtbox_component: HurtboxComponent) -> vo
 
 
 func _on_hurtbox_component_damage_applied(amount, _source):
-	do_knockback(_source.global_position, amount / 20)
+	if amount > 5:
+		do_knockback(_source.global_position, amount / 20)
 	pass # Replace with function body.

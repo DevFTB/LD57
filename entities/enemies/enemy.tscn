@@ -93,7 +93,8 @@ health_component = NodePath("../HealthComponent")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
-[node name="HurtSound" type="AudioStreamPlayer" parent="."]
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+bus = &"Sound FX"
 
 [connection signal="timeout" from="RefreshTimer" to="." method="_on_refresh_timer_timeout"]
 [connection signal="timeout" from="StateMachine/KnockedBack/KnockbackTimer" to="StateMachine/KnockedBack" method="_on_knockback_timer_timeout"]
