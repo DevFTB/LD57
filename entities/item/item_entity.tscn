@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bkh5wheo7tg4h"]
+[gd_scene load_steps=10 format=3 uid="uid://bkh5wheo7tg4h"]
 
 [ext_resource type="Script" uid="uid://cks8634iddsry" path="res://entities/item/item_entity.gd" id="1_qtltb"]
 [ext_resource type="Resource" uid="uid://bfwwxfc0kwllo" path="res://systems/inventory/items/item_bombpowder.tres" id="2_66d2l"]
@@ -7,6 +7,11 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qtltb"]
 bounce = 0.5
+
+[sub_resource type="Curve" id="Curve_66d2l"]
+_limits = [1.0, 1.5, 0.0, 100.0]
+_data = [Vector2(0, 1), 0.0, 0.0186894, 0, 0, Vector2(100, 1.5), 0.000794668, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e36ub"]
 
@@ -22,6 +27,7 @@ collision_mask = 33
 physics_material_override = SubResource("PhysicsMaterial_qtltb")
 lock_rotation = true
 script = ExtResource("1_qtltb")
+scale_curve = SubResource("Curve_66d2l")
 item = ExtResource("2_66d2l")
 quantity = 5
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=69 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="Script" uid="uid://hbvbhincea3w" path="res://game.gd" id="1_4v2jo"]
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
@@ -44,13 +44,13 @@
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
 [ext_resource type="PackedScene" uid="uid://c4e86uoalfgiw" path="res://ui/HUD/hud.tscn" id="36_4v2jo"]
 [ext_resource type="PackedScene" uid="uid://cc5dkwrsnplny" path="res://menu/game_over.tscn" id="37_4v2jo"]
-[ext_resource type="Texture2D" uid="uid://2nhewmpeakjh" path="res://ui/HUD/hook.png" id="37_kq12w"]
 [ext_resource type="PackedScene" uid="uid://b3cnp6fsypd5" path="res://ui/upgrade/upgrade_tree.tscn" id="38_l1i01"]
-[ext_resource type="Texture2D" uid="uid://cdp2qg6foouy2" path="res://world/loot/chest.png" id="38_t46w6"]
-[ext_resource type="Texture2D" uid="uid://bu5fijvptxlny" path="res://ui/HUD/explosion.png" id="39_m28ev"]
-[ext_resource type="Texture2D" uid="uid://b8vkgx0epv747" path="res://entities/moab/moab_sprite_sheet.png" id="40_lwlx3"]
 [ext_resource type="PackedScene" uid="uid://b1k16mj1gyba7" path="res://ui/HUD/hint_container.tscn" id="42_m28ev"]
+[ext_resource type="Texture2D" uid="uid://obnans8x4h0f" path="res://ui/bomb_timer/moab 1.png" id="44_tb2lt"]
+[ext_resource type="Texture2D" uid="uid://di8hppjk33q36" path="res://ui/bomb_timer/moab 2.png" id="45_cfc7e"]
 [ext_resource type="Script" uid="uid://b7n44vpq265gx" path="res://systems/hints/depth_based_hint.gd" id="45_t46w6"]
+[ext_resource type="Texture2D" uid="uid://psaqm0aoode4" path="res://ui/bomb_timer/moab 3.png" id="46_gh0px"]
+[ext_resource type="Texture2D" uid="uid://cjc30eoicedm3" path="res://ui/bomb_timer/moab 4.png" id="47_v33yl"]
 [ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="49_mljfx"]
 
 [sub_resource type="Animation" id="Animation_iu0sx"]
@@ -345,6 +345,11 @@ ExtResource("35_klri6"): 0
 }
 metadata/_custom_type_script = "uid://b0ogai8s7l7sc"
 
+[sub_resource type="Curve" id="Curve_tb2lt"]
+_limits = [1.0, 100.0, 0.0, 5.0]
+_data = [Vector2(0.0235571, 1), 0.0, 0.398794, 0, 0, Vector2(5, 100), 62.7556, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_87ddb"]
 radius = 128.0
 
@@ -352,10 +357,6 @@ radius = 128.0
 size = Vector2(536, 153)
 
 [sub_resource type="Environment" id="Environment_qhcbd"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0de7l"]
-atlas = ExtResource("40_lwlx3")
-region = Rect2(1291, 193, 511, 545)
 
 [node name="Game" type="Node"]
 script = ExtResource("1_4v2jo")
@@ -422,7 +423,7 @@ metadata/_custom_type_script = "uid://cvfc62vqgmxes"
 script = ExtResource("9_87ddb")
 area_2d = NodePath("../../World/MoabEntity/MoabHintArea")
 player = NodePath("../../World/Player")
-hint_text = "This is Big Boom Bob. He is everything to you. Feed him boompowder, the black dust you mine from the caves, to prevent him from exploding. He gets hungrier as time goes on. Press [E] to feed."
+hint_text = "This is Big Boom Bob. He is everything to you. Feed him boompowder, the black dust you mine from the caves, to prevent him from exploding. He gets hungrier as time goes on. Press and hold [E] to feed."
 hint_box = NodePath("../../GUI/HintContainer")
 metadata/_custom_type_script = "uid://cvfc62vqgmxes"
 
@@ -552,6 +553,7 @@ inventory = SubResource("Resource_lwlx3")
 [node name="MoabEntity" parent="World" node_paths=PackedStringArray("moab_explosion_system") instance=ExtResource("4_j5wjh")]
 position = Vector2(-216, -3288)
 moab_explosion_system = NodePath("../../MoabExplosionSystem")
+feed_curve = SubResource("Curve_tb2lt")
 
 [node name="MoabHintArea" type="Area2D" parent="World/MoabEntity"]
 collision_layer = 0
@@ -648,10 +650,10 @@ player = NodePath("../../../../../../../World/Player")
 
 [node name="BoomLevelTextureRect" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" index="0"]
 boom_level_textures = Dictionary[int, Texture2D]({
-0: SubResource("AtlasTexture_0de7l"),
-1: ExtResource("37_kq12w"),
-2: ExtResource("38_t46w6"),
-3: ExtResource("39_m28ev")
+0: ExtResource("44_tb2lt"),
+1: ExtResource("45_cfc7e"),
+2: ExtResource("46_gh0px"),
+3: ExtResource("47_v33yl")
 })
 
 [node name="BombProgressBar" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" index="1" node_paths=PackedStringArray("bomb_explosion_system")]
