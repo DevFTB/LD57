@@ -12,6 +12,7 @@ bomb_scene = ExtResource("1_281vg")
 hardness = 3.0
 is_perishable = true
 is_sticky = true
+explode_on_impact = false
 explosion_radius = 2
 entity_damage = 50
 metadata/_custom_type_script = "uid://dgalf5pstb0iw"

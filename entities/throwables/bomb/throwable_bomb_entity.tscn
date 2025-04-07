@@ -84,6 +84,6 @@ one_shot = true
 
 [node name="HitboxComponent" parent="." instance=ExtResource("3_vdrfm")]
 collision_layer = 0
-collision_mask = 6
+collision_mask = 70
 active = false
 has_dmg_falloff = true

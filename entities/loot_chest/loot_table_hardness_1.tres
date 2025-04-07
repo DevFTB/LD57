@@ -1,0 +1,66 @@
+[gd_resource type="Resource" script_class="LootTable" load_steps=16 format=3 uid="uid://bag1idy6pkmv1"]
+
+[ext_resource type="Script" uid="uid://6gp81uqd76gy" path="res://entities/loot_chest/random_float.gd" id="1_wgxi4"]
+[ext_resource type="Resource" uid="uid://bsytuw721i88d" path="res://systems/inventory/items/item_upgradium.tres" id="2_d6kee"]
+[ext_resource type="Script" uid="uid://c7t2d4jjx2aeb" path="res://entities/loot_chest/loot_table_entry.gd" id="3_nqgce"]
+[ext_resource type="Resource" uid="uid://44skluikbcii" path="res://systems/inventory/items/item_sticky_bomb.tres" id="4_f4ku2"]
+[ext_resource type="Resource" uid="uid://bfwwxfc0kwllo" path="res://systems/inventory/items/item_bombpowder.tres" id="5_f4ku2"]
+[ext_resource type="Script" uid="uid://cnf626cpgukip" path="res://entities/loot_chest/loot_table.gd" id="6_a1cfc"]
+[ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="6_jd33o"]
+
+[sub_resource type="Resource" id="Resource_mljfx"]
+script = ExtResource("1_wgxi4")
+min_value = 4
+max_value = 8
+metadata/_custom_type_script = "uid://6gp81uqd76gy"
+
+[sub_resource type="Resource" id="Resource_m28ev"]
+script = ExtResource("3_nqgce")
+item = ExtResource("5_f4ku2")
+probability = 0.8
+amount_of_drops = SubResource("Resource_mljfx")
+metadata/_custom_type_script = "uid://c7t2d4jjx2aeb"
+
+[sub_resource type="Resource" id="Resource_lwlx3"]
+script = ExtResource("1_wgxi4")
+min_value = 5
+max_value = 10
+metadata/_custom_type_script = "uid://6gp81uqd76gy"
+
+[sub_resource type="Resource" id="Resource_0de7l"]
+script = ExtResource("3_nqgce")
+item = ExtResource("2_d6kee")
+probability = 0.8
+amount_of_drops = SubResource("Resource_lwlx3")
+metadata/_custom_type_script = "uid://c7t2d4jjx2aeb"
+
+[sub_resource type="Resource" id="Resource_kq12w"]
+script = ExtResource("1_wgxi4")
+min_value = 2
+max_value = 4
+metadata/_custom_type_script = "uid://6gp81uqd76gy"
+
+[sub_resource type="Resource" id="Resource_t46w6"]
+script = ExtResource("3_nqgce")
+item = ExtResource("4_f4ku2")
+probability = 0.6
+amount_of_drops = SubResource("Resource_kq12w")
+metadata/_custom_type_script = "uid://c7t2d4jjx2aeb"
+
+[sub_resource type="Resource" id="Resource_jd33o"]
+script = ExtResource("1_wgxi4")
+min_value = 1
+max_value = 3
+metadata/_custom_type_script = "uid://6gp81uqd76gy"
+
+[sub_resource type="Resource" id="Resource_a1cfc"]
+script = ExtResource("3_nqgce")
+item = ExtResource("6_jd33o")
+probability = 0.15
+amount_of_drops = SubResource("Resource_jd33o")
+metadata/_custom_type_script = "uid://c7t2d4jjx2aeb"
+
+[resource]
+script = ExtResource("6_a1cfc")
+entries = Array[ExtResource("3_nqgce")]([SubResource("Resource_m28ev"), SubResource("Resource_0de7l"), SubResource("Resource_t46w6"), SubResource("Resource_a1cfc")])
+metadata/_custom_type_script = "uid://cnf626cpgukip"
