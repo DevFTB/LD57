@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://b6g64defbc7xg"]
+
+[ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_b5o5x"]
+[ext_resource type="Texture2D" uid="uid://dqe7f3goj7kt4" path="res://systems/upgrades/icons/multibomb_amount.png" id="2_nq1vm"]
+
+[resource]
+script = ExtResource("1_b5o5x")
+upgrade_type = 9
+mult = false
+tier_value_in_tooltip = true
+tooltip_string = "Increaes the amount of bombs thrown when throwing multiple bombs."
+display_name = "Multi-Bomb Amount"
+texture = ExtResource("2_nq1vm")
+num_tiers = 1
+tier_costs = Array[int]([20])
+tier_values = [1]
+current_level_str = "[color=grey]%s[/color]"
+value_str = "[color=green](+%s)[/color] "
+metadata/_custom_type_script = "uid://dycw7l33nfhy8"

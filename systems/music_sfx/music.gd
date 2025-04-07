@@ -53,3 +53,12 @@ func fade_out(audio_player : AudioStreamPlayer):
 func _remove_from_fade_array():
 	fading_tracks.remove_at(0)
 	pass
+
+func music_muted(_bool : bool):
+	for child in self.get_children():
+		if child is AudioStreamPlayer:
+			if _bool:
+				child.bus = &"Muted"
+			if not _bool:
+				child.bus = &"Music"
+		

@@ -1,11 +1,13 @@
-[gd_scene load_steps=50 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=54 format=4 uid="uid://dwd1eadkk13on"]
 
+[ext_resource type="Script" uid="uid://hbvbhincea3w" path="res://game.gd" id="1_4v2jo"]
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
-[ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="1_j5wjh"]
 [ext_resource type="TileSet" uid="uid://ci0bxhrhedi27" path="res://world/tileset/test_tileset.tres" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://dxicxe0tvx28m" path="res://world.gd" id="2_hve3p"]
+[ext_resource type="SpriteFrames" uid="uid://dputq1l47geed" path="res://entities/explosion_sprite_frames.tres" id="2_l1i01"]
 [ext_resource type="Script" uid="uid://bhk4kqmlpwyv0" path="res://world/levelgen.gd" id="3_lc2xo"]
+[ext_resource type="AudioStream" uid="uid://c800xef1mh8vm" path="res://systems/music_sfx/files/sfx/explosion.wav" id="3_r62pu"]
 [ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="4_hve3p"]
 [ext_resource type="PackedScene" uid="uid://bq84mpxun851f" path="res://entities/moab/moab_entity.tscn" id="4_j5wjh"]
 [ext_resource type="PackedScene" uid="uid://vp4hhi7lbt7d" path="res://world/buildings/winch.tscn" id="5_4v2jo"]
@@ -30,12 +32,252 @@
 [ext_resource type="PackedScene" uid="uid://dfb6tk3jaqp55" path="res://systems/music_sfx/music.tscn" id="23_qhcbd"]
 [ext_resource type="Script" uid="uid://d0eblir7jx7p" path="res://ui/HUD/global_stat_label.gd" id="24_vaj68"]
 [ext_resource type="AudioStream" uid="uid://bixi2inlened8" path="res://systems/music_sfx/files/sfx/ui/restock sound.wav" id="29_qpefm"]
+[ext_resource type="AudioStream" uid="uid://cwpt8xv753p0y" path="res://systems/music_sfx/files/sfx/ohshit.wav" id="33_iu0sx"]
 [ext_resource type="Resource" uid="uid://wylmsxcnfp00" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="34_l1i01"]
 [ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
 [ext_resource type="PackedScene" uid="uid://c4e86uoalfgiw" path="res://ui/HUD/hud.tscn" id="36_4v2jo"]
-[ext_resource type="PackedScene" uid="uid://m26fbyiig7bp" path="res://ui/upgrade/upgrade_tree.tscn" id="38_l1i01"]
+[ext_resource type="PackedScene" uid="uid://b2vtm14w5fe48" path="res://menu/game_over.tscn" id="37_4v2jo"]
+[ext_resource type="PackedScene" uid="uid://b3cnp6fsypd5" path="res://ui/upgrade/upgrade_tree.tscn" id="38_l1i01"]
 [ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="49_mljfx"]
+
+[sub_resource type="Animation" id="Animation_iu0sx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GUI/GameOver:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GUI/GameOver:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("World/MainCamera:zoom")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer/AnimatedSprite2D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GUI/GameOver:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("World/MainCamera/PointLight2D:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CanvasModulate:color")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.36968, 0.328359, 0.176195, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_aa0lp"]
+resource_name = "game_over"
+length = 10.0
+step = 0.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("World")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_tween_to_moab"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GUI/GameOver:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GUI/GameOver:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(4.35, 5.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("World/MoabEntity")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"self_destruct"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("World/MainCamera:zoom")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.5, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(0.4, 0.4)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimationPlayer/AnimatedSprite2D:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 4.5, 4.5001, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, false]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AnimationPlayer/AnimatedSprite2D")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(4.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"default", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("GUI/GameOver:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(4.35, 5.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("World/MainCamera/PointLight2D:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CanvasModulate:color")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.36968, 0.328359, 0.176195, 1), Color(0.875751, 0.823168, 0.630815, 1)]
+}
+tracks/10/type = "method"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("AnimationPlayer/AudioStreamPlayer")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(4.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iu0sx"]
+_data = {
+&"RESET": SubResource("Animation_iu0sx"),
+&"game_over": SubResource("Animation_aa0lp")
+}
 
 [sub_resource type="Resource" id="Resource_0de7l"]
 script = ExtResource("5_lwlx3")
@@ -91,35 +333,43 @@ ExtResource("35_klri6"): 100
 }
 metadata/_custom_type_script = "uid://b0ogai8s7l7sc"
 
-[sub_resource type="Gradient" id="Gradient_r62pu"]
-offsets = PackedFloat32Array(0, 0.406475, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0.798561, 0.798561, 0.798561, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_f1jbl"]
-gradient = SubResource("Gradient_r62pu")
-fill = 1
-fill_from = Vector2(0.517094, 0.470085)
-fill_to = Vector2(0.82906, 0.145299)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rvswv"]
 size = Vector2(536, 153)
 
 [sub_resource type="Environment" id="Environment_qhcbd"]
 
 [node name="Game" type="Node"]
+script = ExtResource("1_4v2jo")
+stat_bonus = 1000
 
-[node name="StatsManager" parent="." instance=ExtResource("1_f1jbl")]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_iu0sx")
+}
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimationPlayer"]
+visible = false
+z_index = 1
+position = Vector2(-208, -3288)
+sprite_frames = ExtResource("2_l1i01")
+autoplay = "default"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationPlayer"]
+stream = ExtResource("3_r62pu")
 
 [node name="MoabExplosionSystem" type="Node" parent="."]
 script = ExtResource("1_j5wjh")
-bomb_timer_starting_value = 305.0
+bomb_timer_starting_value = 180.0
+
+[node name="BombDangerSound" type="AudioStreamPlayer" parent="MoabExplosionSystem"]
+stream = ExtResource("33_iu0sx")
+bus = &"Sound FX"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1044, -1962)
-scale = Vector2(4.2875, 4.63333)
+scale = Vector2(100, 100)
 texture = ExtResource("11_qhcbd")
 
-[node name="World" type="Node2D" parent="." groups=["world"]]
+[node name="World" type="Node2D" parent="." node_paths=PackedStringArray("moab") groups=["world"]]
 script = ExtResource("2_hve3p")
 restock_inventory = SubResource("Resource_0de7l")
 hardness_ore_drops = Dictionary[int, ExtResource("6_qpefm")]({
@@ -127,6 +377,7 @@ hardness_ore_drops = Dictionary[int, ExtResource("6_qpefm")]({
 2: SubResource("Resource_kl2i7"),
 3: SubResource("Resource_qpefm")
 })
+moab = NodePath("MoabEntity")
 
 [node name="Winch" parent="World" instance=ExtResource("5_4v2jo")]
 position = Vector2(-3.945, -3300)
@@ -135,6 +386,7 @@ position = Vector2(-3.945, -3300)
 position = Vector2(-32, -3328)
 scale = Vector2(2, 2)
 script = ExtResource("7_lwlx3")
+max_shake_strength = 50.0
 
 [node name="PointLight2D" type="PointLight2D" parent="World/MainCamera"]
 position = Vector2(-17.5, -15)
@@ -201,24 +453,12 @@ fall_acceleration = 550
 [node name="BombInventoryComponent" parent="World/Player" index="4"]
 inventory = SubResource("Resource_lwlx3")
 
-[node name="MoabEntity" parent="World" node_paths=PackedStringArray("moab_explosion_system") instance=ExtResource("4_j5wjh")]
-position = Vector2(-208, -3288)
-moab_explosion_system = NodePath("../../MoabExplosionSystem")
-
-[node name="Sprite" parent="World/MoabEntity" index="0"]
-flip_h = true
-
-[node name="Path2D" parent="World/MoabEntity" index="3"]
-scale = Vector2(-1, 1)
-
-[node name="PointLight2D" type="PointLight2D" parent="World/MoabEntity"]
-position = Vector2(7.99998, 0)
-scale = Vector2(11.125, 5.75)
-color = Color(0.855623, 0.354928, 0.40821, 1)
-texture = SubResource("GradientTexture2D_f1jbl")
-
 [node name="Bat" parent="World" instance=ExtResource("9_qhcbd")]
 position = Vector2(-176, -3384)
+
+[node name="MoabEntity" parent="World" node_paths=PackedStringArray("moab_explosion_system") instance=ExtResource("4_j5wjh")]
+position = Vector2(-216, -3288)
+moab_explosion_system = NodePath("../../MoabExplosionSystem")
 
 [node name="Spawn" type="Node2D" parent="World"]
 position = Vector2(-32, -3328)
@@ -244,6 +484,10 @@ loot_table = ExtResource("15_m28ev")
 stream = ExtResource("29_qpefm")
 
 [node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="GameOver" parent="GUI" instance=ExtResource("37_4v2jo")]
+visible = false
+pivot_offset = Vector2(960, 540)
 
 [node name="Control" type="VBoxContainer" parent="GUI"]
 anchors_preset = 2
@@ -302,8 +546,8 @@ inventory_component = NodePath("../../../../../../../../World/Player/MineralInve
 [node name="Depth" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/Control2" index="0" node_paths=PackedStringArray("player")]
 player = NodePath("../../../../../../../World/Player")
 
-[node name="BombProgressBar" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/HBoxContainer" index="1" node_paths=PackedStringArray("bomb_explosion_system")]
-bomb_explosion_system = NodePath("../../../../../../../MoabExplosionSystem")
+[node name="BombProgressBar" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" index="1" node_paths=PackedStringArray("bomb_explosion_system")]
+bomb_explosion_system = NodePath("../../../../../../../../MoabExplosionSystem")
 
 [node name="ProgressBar" parent="GUI/HUD/VBoxContainer/HBoxContainer3/TextureRect" index="0" node_paths=PackedStringArray("player", "timer")]
 player = NodePath("../../../../../../World/Player")
@@ -362,5 +606,4 @@ color = Color(0.36968, 0.328359, 0.176195, 1)
 [connection signal="player_exited" from="World/Spawn/SpawnAreaPlayerDetector" to="World" method="_on_spawn_area_player_detector_player_exited"]
 
 [editable path="World/Player"]
-[editable path="World/MoabEntity"]
 [editable path="GUI/HUD"]

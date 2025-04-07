@@ -1,11 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://do0g7votir2b4"]
+[gd_scene load_steps=12 format=3 uid="uid://do0g7votir2b4"]
 
 [ext_resource type="Script" uid="uid://cn3mhruacmrcu" path="res://entities/throwables/bomb/throwable_bomb_entity.gd" id="1_vey3e"]
 [ext_resource type="Texture2D" uid="uid://c0nbm2a4tsd3w" path="res://entities/throwables/bomb/throwable_bomb.png" id="2_vdrfm"]
 [ext_resource type="PackedScene" uid="uid://duvgimajjq5gf" path="res://entities/common/hitbox_component.tscn" id="3_vdrfm"]
+[ext_resource type="AudioStream" uid="uid://b7c3irhhygw5d" path="res://systems/music_sfx/files/sfx/bomb hiss.wav" id="4_kyrvw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vdrfm"]
-bounce = 0.5
+bounce = 0.3
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j5wjh"]
 radius = 15.1327
@@ -114,3 +115,8 @@ shape = SubResource("CircleShape2D_vdrfm")
 
 [node name="RayCast" type="RayCast2D" parent="."]
 collision_mask = 5
+
+[node name="BombHiss" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_kyrvw")
+autoplay = true
+bus = &"Sound FX"
