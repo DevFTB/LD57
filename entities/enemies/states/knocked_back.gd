@@ -1,7 +1,7 @@
 extends EnemyState
 
-@export var knockback_velocity_multiplier: float = 300
-@export var knockback_time: float = 1
+@export var knockback_velocity_multiplier: float = 400
+@export var knockback_time: float = 0.4
 
 ## Called by the state machine when receiving unhandled input events.
 func handle_input(_event: InputEvent) -> void:
@@ -36,7 +36,11 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 	var knockback_amount = _data["knockback_amount"]
 	enemy.velocity = (enemy.global_position - knockback_origin).normalized() * knockback_velocity_multiplier * knockback_amount
 	var knockback_tween = get_tree().create_tween()
-	knockback_tween.parallel().tween_property(enemy, "velocity", Vector2.ZERO, knockback_time)
+	if enemy.enemy_stats.is_grounded:
+		enemy.velocity.y = max(0, enemy.velocity.y)
+		knockback_tween.parallel().tween_property(enemy, "velocity:x", 0, knockback_time)
+	else:
+		knockback_tween.parallel().tween_property(enemy, "velocity", Vector2.ZERO, knockback_time)
 	
 ## Called by the state machine before changing the active state. Use this function
 ## to clean up the state.
