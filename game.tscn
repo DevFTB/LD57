@@ -38,9 +38,9 @@
 [ext_resource type="Texture2D" uid="uid://dimkj68ybmkil" path="res://ui/HUD/fuel.png" id="30_082n1"]
 [ext_resource type="Script" uid="uid://c8up2ibn67q7f" path="res://ui/HUD/label_health_bar.gd" id="31_dhpj7"]
 [ext_resource type="Texture2D" uid="uid://d317cp0qhrmd4" path="res://ui/parchment.png" id="32_7knny"]
-[ext_resource type="Resource" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="34_l1i01"]
-[ext_resource type="Resource" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
-[ext_resource type="Resource" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
+[ext_resource type="Resource" uid="uid://wylmsxcnfp00" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="34_l1i01"]
+[ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
+[ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
 
 [sub_resource type="Gradient" id="Gradient_qhcbd"]
 offsets = PackedFloat32Array(0, 0.298561, 0.697842, 1)
