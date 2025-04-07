@@ -497,7 +497,7 @@ metadata/_custom_type_script = "uid://cvfc62vqgmxes"
 script = ExtResource("9_87ddb")
 area_2d = NodePath("../../World/Spawn/BombHintArea2D")
 player = NodePath("../../World/Player")
-hint_text = "You find in an entrance to a cave with a pocket full of ordinary bombs. Blast through this dirt by pressing [Left Click] to throw bombs. Don't get too close!.
+hint_text = "You find yourself in an entrance to a cave with a pocket full of ordinary bombs. Blast through this dirt by pressing [Left Click] to throw bombs. Don't get too close!.
 Hold [Left Click] to aim and charge your throw.a"
 hint_box = NodePath("../../GUI/HintContainer")
 metadata/_custom_type_script = "uid://cvfc62vqgmxes"
