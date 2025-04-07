@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=70 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="Script" uid="uid://hbvbhincea3w" path="res://game.gd" id="1_4v2jo"]
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
@@ -345,6 +345,11 @@ ExtResource("35_klri6"): 0
 }
 metadata/_custom_type_script = "uid://b0ogai8s7l7sc"
 
+[sub_resource type="Curve" id="Curve_tb2lt"]
+_limits = [1.0, 100.0, 0.0, 5.0]
+_data = [Vector2(0.0235571, 1), 0.0, 0.398794, 0, 0, Vector2(5, 100), 62.7556, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_87ddb"]
 radius = 128.0
 
@@ -552,6 +557,7 @@ inventory = SubResource("Resource_lwlx3")
 [node name="MoabEntity" parent="World" node_paths=PackedStringArray("moab_explosion_system") instance=ExtResource("4_j5wjh")]
 position = Vector2(-216, -3288)
 moab_explosion_system = NodePath("../../MoabExplosionSystem")
+feed_curve = SubResource("Curve_tb2lt")
 
 [node name="MoabHintArea" type="Area2D" parent="World/MoabEntity"]
 collision_layer = 0
