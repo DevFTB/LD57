@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://b6xkpnkwkffbg"]
 
 [ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_2rgr4"]
-[ext_resource type="Texture2D" uid="uid://kqpbfn6i6agw" path="res://systems/upgrades/icons/bomb_radius_icon.png" id="2_4u0uo"]
+[ext_resource type="Texture2D" uid="uid://deidhotvdscir" path="res://systems/upgrades/icons/bomb range.png" id="2_4u0uo"]
 
 [resource]
 script = ExtResource("1_2rgr4")

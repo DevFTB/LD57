@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://df3b6w0eshfhw"]
+[gd_scene load_steps=8 format=3 uid="uid://df3b6w0eshfhw"]
 
 [ext_resource type="Script" uid="uid://83gcc3c0wdlt" path="res://ui/upgrade/upgrade_button.gd" id="1_gwg2v"]
 [ext_resource type="Theme" uid="uid://dux51agncyd4f" path="res://ui/upgrade/upgrade_tooltip.tres" id="1_xvo5y"]
 [ext_resource type="Resource" uid="uid://cknalc1li3lyb" path="res://systems/upgrades/upgrade.tres" id="2_lcpy1"]
 [ext_resource type="PackedScene" uid="uid://bwxyn1ev8t08p" path="res://ui/upgrade/upgrade_tooltip.tscn" id="4_7rvsv"]
+[ext_resource type="AudioStream" uid="uid://btx1i8jilytcm" path="res://systems/music_sfx/files/sfx/ui/menu_click.wav" id="5_ixvn0"]
+[ext_resource type="AudioStream" uid="uid://dyooiorjh5m0i" path="res://systems/music_sfx/files/sfx/ui/menuerror.wav" id="6_vqhrs"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qdyvx"]
 font_color = Color(0.871201, 0.433732, 0.270906, 1)
@@ -57,6 +59,13 @@ horizontal_alignment = 1
 visible = false
 layout_mode = 2
 mouse_filter = 2
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_ixvn0")
+bus = &"Sound FX"
+
+[node name="ErrorSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_vqhrs")
 
 [connection signal="mouse_entered" from="Button" to="." method="display_tooltip"]
 [connection signal="mouse_exited" from="Button" to="." method="hide_tooltip"]

@@ -37,7 +37,8 @@ var bomb_damage_multiplier = 1
 var bomb_radius_multiplier = 1
 var jetpack_fuel_multiplier = 1
 var invulnerability_duration : float = 0
-
+var multi_bomb_chance_percent := 0.0
+var multi_bomb_amount := 1
 
 
 var _holding_throw := false
@@ -101,7 +102,10 @@ func on_upgrade(upgrade : Upgrade, tier):
 			health_component.reset()
 		PlayerUpgradeState.UpgradeType.INVULNERABILITY:
 			invulnerability_duration = upgrade_state.get_total_value(upgrade)
-
+		PlayerUpgradeState.UpgradeType.MULTIBOMB:
+			multi_bomb_chance_percent = upgrade_state.get_total_value(upgrade)
+		PlayerUpgradeState.UpgradeType.MULTIBOMB_AMOUNT:
+			multi_bomb_amount = upgrade_state.get_total_value(upgrade) + 1
 
 func set_movement_state(new_movement_state: MovementState) -> void:
 	current_movement_state = new_movement_state
@@ -220,6 +224,11 @@ func _on_throw_release(strength = 1.0) -> void:
 	# apply upgrades		
 	bomb_type.hardness = bomb_type.hardness * bomb_damage_multiplier
 	bomb_type.explosion_radius = bomb_type.explosion_radius * bomb_radius_multiplier
+	var multi_bomb = false
+	var thrown_bomb_amount := 1
+	if randf_range(0,100) <= multi_bomb_chance_percent:
+		multi_bomb = true
+		thrown_bomb_amount = 1 + multi_bomb_amount
 
 	var data := World.ThrowReleasedEventData.new()
 	data.position = global_position
@@ -234,7 +243,14 @@ func _on_throw_release(strength = 1.0) -> void:
 			if bomb_inventory_component.inventory.get_item_amount(selected_bomb_item) == 0:
 				switch_selected_bomb(0)
 	else:
-		throw_released.emit(data)
+		for i in range(0, thrown_bomb_amount):
+			if multi_bomb:
+				data.impulse.y *= randf_range(1-(multi_bomb_amount*0.1),1+(multi_bomb_amount*0.1))
+				data.position += Vector2(0,-15)
+				data.random_fuse = true
+				print("multithrow")
+			throw_released.emit(data)
+			
 
 #calculates depth based on spawn position
 func calculate_depth(current_y):
