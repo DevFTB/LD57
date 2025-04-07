@@ -15,7 +15,7 @@ signal hurt_entity(hurtbox_component, damage: int)
 func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 	hit_timer.timeout.connect(_on_hit_timer_timeout)
-	hurt_entity.connect(_print_hurt_entity)
+	#hurt_entity.connect(_print_hurt_entity)
 
 func _on_area_entered(area: Area2D) -> void:
 	if active and area is HurtboxComponent:
@@ -33,7 +33,7 @@ func damage_overlapping_hurtboxes() -> void:
 				var max_range = $CollisionShape2D.shape.radius
 				var distance_to_area: float = self.global_position.distance_to(area.global_position)
 
-				damage_amount = (1 - (distance_to_area / max_range)) * damage
+				damage_amount = clampf((1 - (distance_to_area / max_range)), 0.0, 1.0) * damage
 
 			area.apply_damage(damage_amount, get_parent())
 			hurt_entity.emit(area, damage)

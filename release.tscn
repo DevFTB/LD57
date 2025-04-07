@@ -7,5 +7,7 @@
 [node name="Player" parent="World" index="4"]
 unlocked_traversal_methods = Array[int]([1, 0])
 
+[connection signal="health_modified" from="World/Player/HealthComponent" to="World/Player" method="_on_health_component_health_modified"]
+
 [editable path="World/Player"]
 [editable path="GUI/HUD"]

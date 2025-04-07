@@ -6,6 +6,6 @@ signal damage_applied(amount: int, _source: Node)
 @export var health_component: HealthComponent
 
 func apply_damage(amount: int, _source: Node = null) -> void:
-	print(get_parent().name, " took ", amount, "damage")
+	#print(get_parent().name, " took ", amount, "damage")
 	health_component.take_damage(amount)
 	damage_applied.emit(amount, _source)

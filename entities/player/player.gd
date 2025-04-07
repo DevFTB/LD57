@@ -52,6 +52,8 @@ var current_depth := 0
 var blast_resistance := 0
 
 var world: Node
+var frozen := false
+
 var current_movement_state: MovementState = MovementState.FREE
 
 @onready var mineral_inventory_component: InventoryComponent = $MineralInventoryComponent
@@ -139,63 +141,66 @@ func free_movement(source: MovementState) -> void:
 		movement_state_changed.emit(current_movement_state)
 	
 func _physics_process(delta: float) -> void:
-	check_collisions()
-	
-	if not current_movement_state == MovementState.BLOCKED:
-		if can_climb:
-			rope_climb.handle_action(&"climb")
-		else:
-			if current_movement_state == MovementState.CLIMBING:
-				current_movement_state = MovementState.FREE
-		for method in unlocked_traversal_methods:
-			if method == TraversalMethod.GRAPPLE: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.GRAPPLE):
-				grapple_point.handle_action(&"traverse")
-			if method == TraversalMethod.JETPACK: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.JETPACK):
-				match jetpack.state:
-					jetpack.JetpackState.OFF:
-						if not is_on_floor():
+	if not frozen:
+		check_collisions()
+		if not current_movement_state == MovementState.BLOCKED:
+			if can_climb:
+				rope_climb.handle_action(&"climb")
+			else:
+				if current_movement_state == MovementState.CLIMBING:
+					current_movement_state = MovementState.FREE
+			for method in unlocked_traversal_methods:
+				if method == TraversalMethod.GRAPPLE: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.GRAPPLE):
+					grapple_point.handle_action(&"traverse")
+				if method == TraversalMethod.JETPACK: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.JETPACK):
+					match jetpack.state:
+						jetpack.JetpackState.OFF:
+							if not is_on_floor():
+								jetpack.handle_action(&"jump")
+						jetpack.JetpackState.ON:
 							jetpack.handle_action(&"jump")
-					jetpack.JetpackState.ON:
-						jetpack.handle_action(&"jump")
+			
+		match current_movement_state:
+			MovementState.FREE:
+				handle_jump()
+				handle_direction(delta)
+				handle_gravity(delta)
+			MovementState.GRAPPLE:
+				handle_grapple(delta)
+			MovementState.JETPACK:
+				handle_direction(delta)
+				handle_gravity(delta)
+				handle_jetpack(delta)
+			MovementState.BLOCKED:
+				pass
+			MovementState.CLIMBING:
+				handle_climbing(delta)
 		
-	match current_movement_state:
-		MovementState.FREE:
-			handle_jump()
-			handle_direction(delta)
-			handle_gravity(delta)
-		MovementState.GRAPPLE:
-			handle_grapple(delta)
-		MovementState.JETPACK:
-			handle_direction(delta)
-			handle_gravity(delta)
-			handle_jetpack(delta)
-		MovementState.BLOCKED:
-			pass
-		MovementState.CLIMBING:
-			handle_climbing(delta)
-	
-	apply_movement()
-	
-	current_depth = calculate_depth(global_position.y)
-	if not health_component.is_dead:
-		if Input.is_action_just_pressed("interact"):
-			interacted.emit()
-			
-		handle_bomb_switch(range(9))
+		apply_movement()
+		
+		current_depth = calculate_depth(global_position.y)
+		if not health_component.is_dead:
+			if Input.is_action_just_pressed("interact"):
+				interacted.emit()
+				
+			handle_bomb_switch(range(9))
 
-		if Input.is_action_just_pressed("throw"):
-			if can_throw == true:
-				initiate_throw()
+			if Input.is_action_just_pressed("throw"):
+				if can_throw == true:
+					initiate_throw()
 
-		if _holding_throw:
-			_throw_action_held_time += delta
-			
-			if Input.is_action_just_released("throw"):
-				var strength := throw_strength_curve.sample_baked(_throw_action_held_time)
-				_on_throw_release(strength)
+			if _holding_throw:
+				_throw_action_held_time += delta
+				
+				if Input.is_action_just_released("throw"):
+					var strength := throw_strength_curve.sample_baked(_throw_action_held_time)
+					_on_throw_release(strength)
 
-			if _throw_action_held_time > maximum_throw_hold_time:
-				_on_throw_release(1.0)
+				if _throw_action_held_time > maximum_throw_hold_time:
+					_on_throw_release(1.0)
+
+func freeze() -> void:
+	frozen = true
 
 func handle_bomb_switch(indexes: Array) -> void:
 	for i in indexes:

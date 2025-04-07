@@ -16,7 +16,6 @@ func set_health_component(hc: HealthComponent) -> void:
 	
 func _on_health_modified(_amount: int, current_health: int) -> void:
 	ratio = float(health_component.current_health) / float(health_component.maximum_health)
-	print("updated bar to ", current_health, " dealt this much damage ", _amount)
 	
 func _on_maximum_health_modified(maximum_health: int) -> void:
 	max_value = maximum_health

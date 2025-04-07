@@ -43,6 +43,7 @@ func heal(amount: int) -> void:
 
 func take_damage(amount: int) -> void:
 	if amount < 0:
+		print_stack()
 		push_warning("Damage shouldn't be negative")
 		return
 

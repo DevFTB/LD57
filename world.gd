@@ -21,10 +21,10 @@ class_name World extends Node2D
 
 @onready var block_break_scene = preload("res://systems/music_sfx/files/sfx/tile/block_break.tscn")
 
-enum camera_mode {FOLLOWING_PLAYER, SPAWN_ROOM_STATIC, FROZEN, INITIAL}
+enum CameraMode {FOLLOWING_PLAYER, SPAWN_ROOM_STATIC, FROZEN, INITIAL}
 var initial_camera_location: Vector2
 var queued_camera_mode
-var current_camera_mode = camera_mode.INITIAL
+var current_camera_mode = CameraMode.INITIAL
 
 
 class ThrowReleasedEventData:
@@ -40,30 +40,34 @@ func _ready() -> void:
 	
 func _physics_process(_delta):
 	match current_camera_mode:
-		camera_mode.FOLLOWING_PLAYER:
+		CameraMode.FOLLOWING_PLAYER:
 			var camera_tweener = get_tree().create_tween()
 			camera_tweener.parallel().tween_property(camera, "zoom", Vector2(base_zoom, base_zoom), 0.1)
 			camera_tweener.set_ease(Tween.EASE_IN)
 			camera_tweener.parallel().tween_property(camera, "global_position", player.global_position, 0.3)
-		camera_mode.SPAWN_ROOM_STATIC:
+		CameraMode.SPAWN_ROOM_STATIC:
 			pass
 
+func freeze() -> void:
+	current_camera_mode = CameraMode.FROZEN
+	player.freeze()
+	pass
 
 func switch_camera_mode(requested_camera_mode):
-	if requested_camera_mode is camera_mode:
+	if requested_camera_mode is CameraMode:
 		current_camera_mode = requested_camera_mode
 	else:
 		assert("Camera Error - " + str(requested_camera_mode) + " does not exist.")
 
 func process_camera():
 	match current_camera_mode:
-		camera_mode.SPAWN_ROOM_STATIC:
+		CameraMode.SPAWN_ROOM_STATIC:
 			var camera_tweener = get_tree().create_tween()
 			camera_tweener.set_ease(Tween.EASE_IN_OUT)
 			camera_tweener.set_trans(Tween.TRANS_CUBIC)
 			camera_tweener.parallel().tween_property(camera, "zoom", MainCamera.SPAWN_ZOOM, 1)
 			camera_tweener.parallel().tween_property(camera, "position", initial_camera_location + spawn_camera_offset, 1)
-		camera_mode.INITIAL:
+		CameraMode.INITIAL:
 			var camera_tweener = get_tree().create_tween()
 			camera_tweener.set_ease(Tween.EASE_IN_OUT)
 			camera_tweener.set_trans(Tween.TRANS_CUBIC)
@@ -228,7 +232,7 @@ func _on_spawn_area_player_detector_player_entered(_player):
 	player.health_component.is_invulnerable = true
 	player.health_component.heal(player.health_component.maximum_health)
 	#handle camera tween
-	switch_camera_mode(camera_mode.SPAWN_ROOM_STATIC)
+	switch_camera_mode(CameraMode.SPAWN_ROOM_STATIC)
 	process_camera()
 	restock_player(player)
 
@@ -248,11 +252,11 @@ func restock_player(player):
 func _on_spawn_area_player_detector_player_exited(_player):
 	player.health_component.is_invulnerable = false
 	#handle camera tween
-	switch_camera_mode(camera_mode.FOLLOWING_PLAYER)
+	switch_camera_mode(CameraMode.FOLLOWING_PLAYER)
 	process_camera()
 	#var camera_tweener = get_tree().create_tween()
 	restock_player(player)
 	#
 func _on_player_death():
-	switch_camera_mode(camera_mode.FROZEN)
+	switch_camera_mode(CameraMode.FROZEN)
 	process_camera()
