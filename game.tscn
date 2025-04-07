@@ -552,6 +552,9 @@ hardness_ore_drops = Dictionary[int, ExtResource("6_qpefm")]({
 })
 moab = NodePath("MoabEntity")
 
+[node name="RespawnPoint" type="Node2D" parent="World"]
+position = Vector2(-218, -3339)
+
 [node name="Winch" parent="World" instance=ExtResource("5_4v2jo")]
 position = Vector2(-3.945, -3300)
 

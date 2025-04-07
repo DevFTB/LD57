@@ -1075,6 +1075,21 @@ states/walk/position = Vector2(518, 100)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_afbqv"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_gx6sm"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_yqrof"), "walk", "jump", SubResource("AnimationNodeStateMachineTransition_we0b7"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_mtric"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_eyb6c"), "walk", "fall", SubResource("AnimationNodeStateMachineTransition_221hk"), "idle", "fall", SubResource("AnimationNodeStateMachineTransition_ghoj8"), "fall", "land", SubResource("AnimationNodeStateMachineTransition_t1t22"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_50fht"), "walk", "start_throw", SubResource("AnimationNodeStateMachineTransition_qpopc"), "idle", "start_throw", SubResource("AnimationNodeStateMachineTransition_wq0jh"), "start_throw", "release_throw", SubResource("AnimationNodeStateMachineTransition_gt4e4"), "release_throw", "idle", SubResource("AnimationNodeStateMachineTransition_3wlsy"), "fall", "start_throw", SubResource("AnimationNodeStateMachineTransition_b2kln"), "release_throw", "start_throw", SubResource("AnimationNodeStateMachineTransition_wuv6x"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_24ehl"), "death", "idle", SubResource("AnimationNodeStateMachineTransition_bwdx1")]
 graph_offset = Vector2(-185, -187)
 
+[sub_resource type="Animation" id="Animation_wq0jh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_qpopc"]
 resource_name = "invincible"
 length = 2.0
@@ -1091,21 +1106,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1.03526),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 0.34, 0.34, 1), Color(0.966958, 0.708992, 1.54018e-06, 1), Color(0.680611, 0.801062, 0.0607895, 1), Color(0, 0.760698, 0.965447, 1), Color(0.904089, 0.396169, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_wq0jh"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wq0jh"]
