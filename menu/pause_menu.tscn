@@ -96,7 +96,9 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "WASD to move
 Throw bomb: Left Click
+Switch bombs: [1] [2] [3] [4] [5]
 Grapple: Right Click
 Feed bob: [E]
 Open/close Upgrade Menu: [Tab]
-Climb rope: [W]"
+Climb rope: [W]
+"

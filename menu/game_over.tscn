@@ -7,7 +7,7 @@
 [sub_resource type="LabelSettings" id="LabelSettings_c4gva"]
 font_size = 72
 
-[node name="GameOver" type="Control"]
+[node name="GameOver" type="Control" node_paths=PackedStringArray("win_controls", "lose_controls")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -16,6 +16,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_641x1")
+win_controls = [NodePath("HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WinTitleLabel"), NodePath("HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/WinSubtitleLabel")]
+lose_controls = [NodePath("HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/FailTitleLabel"), NodePath("HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/FailSubtitleLabel")]
 
 [node name="TextureRect" type="TextureRect" parent="."]
 texture_filter = 1
