@@ -22,7 +22,4 @@ one_shot = true
 script = ExtResource("4_dx0db")
 bomb_type = ExtResource("5_fevhr")
 
-[node name="CollisionShape2D" parent="HurtboxComponent" index="1"]
-disabled = true
-
 [editable path="HitboxComponent"]

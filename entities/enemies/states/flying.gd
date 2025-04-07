@@ -11,8 +11,11 @@ func update(_delta: float) -> void:
 ## Called by the state machine on the engine's physics update tick.
 func physics_update(_delta: float) -> void:
 	enemy.move_and_slide()
-	var target_pos: Vector2 = enemy.nav.get_next_path_position() - enemy.global_position
+	var target_pos : Vector2 = player.global_position - enemy.global_position
+	if enemy.nav.get_next_path_position():
+		target_pos = enemy.nav.get_next_path_position() - enemy.global_position
 	var target_direction = target_pos.normalized()
+	
 	if enemy.animation_tree:
 		enemy.animation_tree.set("parameters/conditions/fly", true)
 		enemy.animation_tree.set("parameters/fly/blend_position",target_direction.x)
@@ -30,8 +33,7 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 	enemy.velocity.x = 0.0
 	if enemy.enemy_stats.is_grounded == false:
 		enemy.velocity.y = 0.0
-	pass
-
+	
 ## Called by the state machine before changing the active state. Use this function
 ## to clean up the state.
 func exit() -> void:

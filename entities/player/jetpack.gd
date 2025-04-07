@@ -34,6 +34,9 @@ func _ready() -> void:
 	particles.emitting = false
 	player.movement_state_changed.connect(_on_movement_state_changed)
 
+		
+func restock() -> void:
+	fuel = max_fuel
 
 func handle_action(key: StringName) -> void:
 	# Take control when jump action is pressed.

@@ -8,6 +8,7 @@ signal throw_released(data: World.ThrowReleasedEventData)
 signal depth_changed(depth)
 signal selected_bomb_changed(bomb: Item)
 
+signal traversal_method_unlocked(method: TraversalMethod)
 signal movement_state_changed(new_movement_state: MovementState)
 signal died
 
@@ -46,9 +47,10 @@ var current_movement_state: MovementState = MovementState.FREE
 @onready var bomb_cooldown: Timer = $BombCooldown
 @onready var grapple_point: GrapplePoint = $GrapplePoint
 @onready var jetpack: Jetpack = $Jetpack
-@onready var rope_climb : RopeClimb = $RopeClimb
+@onready var rope_climb: RopeClimb = $RopeClimb
 @onready var spawn_location: Vector2 = global_position
 @onready var winch = $"../Winch"
+@onready var holding_bomb = $Sprite2D/BombSprites
 
 func _ready() -> void:
 	throw_released.connect(StatsManager.add_to_stat.bind(StatsManager.Stat.BOMBS_THROWN, 1).unbind(1))
@@ -66,6 +68,12 @@ func _ready() -> void:
 	#connect signals
 	if health_component:
 		health_component.died.connect(_on_death)
+		
+func unlock_traversal_method(method: TraversalMethod) -> void:
+	if not unlocked_traversal_methods.has(method):
+		unlocked_traversal_methods.append(method)
+		traversal_method_unlocked.emit(method)
+	pass
 		
 func set_movement_state(new_movement_state: MovementState) -> void:
 	current_movement_state = new_movement_state
@@ -148,7 +156,7 @@ func handle_grapple(delta: float) -> void:
 func handle_jetpack(delta: float) -> void:
 	_frame_velocity = jetpack.calculate_frame_velocity(delta)
 
-func handle_climbing(delta:float) -> void:
+func handle_climbing(delta: float) -> void:
 	_frame_velocity = rope_climb.calculate_frame_velocity(delta)
 
 func _process(delta):
@@ -255,3 +263,9 @@ func _on_rope_entered(body):
 func _on_rope_exited(body):
 	if body is Player:
 		can_climb = false
+
+
+func _on_selected_bomb_changed(bomb):
+	for child in holding_bomb.get_children():
+		child.texture = bomb.texture
+	pass # Replace with function body.
