@@ -282,11 +282,11 @@ layout_mode = 2
 layout_mode = 2
 upgrade = ExtResource("21_2jcs7")
 
-[node name="Enemy" parent="." instance=ExtResource("6_2d1u3")]
-position = Vector2(-523, -3489)
-
 [node name="Enemy2" parent="." instance=ExtResource("33_x2fdu")]
 position = Vector2(514, -3361)
+
+[node name="Enemy" parent="." instance=ExtResource("6_2d1u3")]
+position = Vector2(-390, -3490)
 
 [connection signal="timeout" from="World/Spawner/SpawnTimer" to="World/Spawner" method="_on_spawn_timer_timeout"]
 

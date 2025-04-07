@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c5457i8ubkrc7"]
+[gd_scene load_steps=10 format=3 uid="uid://c5457i8ubkrc7"]
 
 [ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="1_0ymvm"]
 [ext_resource type="Resource" uid="uid://bynl6osvbjhk1" path="res://entities/enemies/spiky_ball/spiky_ball_stats.tres" id="2_hj171"]
 [ext_resource type="Script" uid="uid://duat2hmovvg3u" path="res://entities/enemies/spiky_ball/roll_sprite.gd" id="3_gww4m"]
+[ext_resource type="SpriteFrames" uid="uid://d2biarpa1c556" path="res://entities/enemies/spiky_ball/spiky_ball_blink.tres" id="3_nr6jm"]
 [ext_resource type="Script" uid="uid://lc66av2lel3h" path="res://entities/import_animation_player.gd" id="5_cq2da"]
 [ext_resource type="Texture2D" uid="uid://wrcjvvyk7ho1" path="res://entities/enemies/spiky_ball/spiky_ball_roll.png" id="6_nr6jm"]
 
@@ -106,14 +107,22 @@ _data = {
 [node name="Enemy" instance=ExtResource("1_0ymvm")]
 enemy_stats = ExtResource("2_hj171")
 
-[node name="Sprite" parent="." index="0"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
+scale = Vector2(0.32, 0.32)
+sprite_frames = ExtResource("3_nr6jm")
+autoplay = "default"
+frame_progress = 0.796897
+script = ExtResource("3_gww4m")
+
+[node name="Sprite" parent="." index="1"]
+visible = false
 scale = Vector2(0.32, 0.32)
 texture = ExtResource("6_nr6jm")
 hframes = 4
 frame = 1
 script = ExtResource("3_gww4m")
 
-[node name="AnimationPlayer" parent="." index="11"]
+[node name="AnimationPlayer" parent="." index="12"]
 libraries = {
 &"": SubResource("AnimationLibrary_cq2da")
 }
