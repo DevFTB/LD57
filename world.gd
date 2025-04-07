@@ -153,6 +153,8 @@ func _on_spawn_area_player_detector_player_entered(_player):
 		if amount_in_player_inventory < restock_amount:
 			var diff := restock_amount - amount_in_player_inventory
 			player.bomb_inventory_component.inventory.add_item(item, diff)
+			
+	player.jetpack.restock()
 	# TODO: play restock sound.
 
 
