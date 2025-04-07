@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://be4tedtvsf8on"]
+[gd_scene load_steps=88 format=3 uid="uid://be4tedtvsf8on"]
 
 [ext_resource type="Script" uid="uid://uex2tapn1k1y" path="res://entities/player/player.gd" id="1_merdl"]
 [ext_resource type="Texture2D" uid="uid://o2j8sch5klsg" path="res://entities/player/animations/idle.png" id="2_7thud"]
@@ -1075,6 +1075,69 @@ states/walk/position = Vector2(518, 100)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_afbqv"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_gx6sm"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_yqrof"), "walk", "jump", SubResource("AnimationNodeStateMachineTransition_we0b7"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_mtric"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_eyb6c"), "walk", "fall", SubResource("AnimationNodeStateMachineTransition_221hk"), "idle", "fall", SubResource("AnimationNodeStateMachineTransition_ghoj8"), "fall", "land", SubResource("AnimationNodeStateMachineTransition_t1t22"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_50fht"), "walk", "start_throw", SubResource("AnimationNodeStateMachineTransition_qpopc"), "idle", "start_throw", SubResource("AnimationNodeStateMachineTransition_wq0jh"), "start_throw", "release_throw", SubResource("AnimationNodeStateMachineTransition_gt4e4"), "release_throw", "idle", SubResource("AnimationNodeStateMachineTransition_3wlsy"), "fall", "start_throw", SubResource("AnimationNodeStateMachineTransition_b2kln"), "release_throw", "start_throw", SubResource("AnimationNodeStateMachineTransition_wuv6x"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_24ehl"), "death", "idle", SubResource("AnimationNodeStateMachineTransition_bwdx1")]
 graph_offset = Vector2(-185, -187)
 
+[sub_resource type="Animation" id="Animation_qpopc"]
+resource_name = "invincible"
+length = 2.0
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.4, 0.8, 1.2, 1.6, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1.03526),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.34, 0.34, 1), Color(0.966958, 0.708992, 1.54018e-06, 1), Color(0.680611, 0.801062, 0.0607895, 1), Color(0, 0.760698, 0.965447, 1), Color(0.904089, 0.396169, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_wq0jh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wq0jh"]
+_data = {
+&"RESET": SubResource("Animation_wq0jh"),
+&"invincible": SubResource("Animation_qpopc")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qpopc"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wq0jh"]
+animation = &"invincible"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vewsg"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2soq1"]
+advance_mode = 2
+advance_expression = "invulnerable"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8q4fm"]
+advance_mode = 2
+advance_expression = "not invulnerable"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_qpopc"]
+states/RESET/node = SubResource("AnimationNodeAnimation_qpopc")
+states/RESET/position = Vector2(351, 79)
+states/invincible/node = SubResource("AnimationNodeAnimation_wq0jh")
+states/invincible/position = Vector2(608, 73)
+transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_vewsg"), "RESET", "invincible", SubResource("AnimationNodeStateMachineTransition_2soq1"), "invincible", "RESET", SubResource("AnimationNodeStateMachineTransition_8q4fm")]
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_merdl")
@@ -1220,6 +1283,17 @@ bus = &"Sound FX"
 script = ExtResource("24_t1t22")
 climb_speed = 500.0
 
+[node name="InvinciblePlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_wq0jh")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="InvinciblePlayer"]
+root_node = NodePath("../..")
+tree_root = SubResource("AnimationNodeStateMachine_qpopc")
+advance_expression_base_node = NodePath("../..")
+anim_player = NodePath("..")
+
 [connection signal="selected_bomb_changed" from="." to="." method="_on_selected_bomb_changed"]
 [connection signal="timeout" from="BombCooldown" to="." method="_on_bomb_cooldown_timeout"]
-[connection signal="timeout" from="InvulnerabilityCooldown" to="." method="_on_bomb_cooldown_timeout"]
+[connection signal="timeout" from="InvulnerabilityCooldown" to="." method="_on_invulnerability_cooldown_timeout"]

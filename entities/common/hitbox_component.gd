@@ -5,7 +5,7 @@ signal hurt_entity(hurtbox_component, damage: int)
 
 @export var active: bool = true
 @export var damage: int = 1
-
+@export var damage_distance_curve : Curve
 @export var repeating := false
 @export var repeat_interval := 1.0
 @export var has_dmg_falloff := false
@@ -32,8 +32,8 @@ func damage_overlapping_hurtboxes() -> void:
 			if has_dmg_falloff:
 				var max_range = $CollisionShape2D.shape.radius
 				var distance_to_area: float = self.global_position.distance_to(area.global_position)
-
-				damage_amount = clampf((1 - (distance_to_area / max_range)), 0.0, 1.0) * damage
+				
+				damage_amount = damage_distance_curve.sample_baked(clampf((1 - (distance_to_area / max_range)), 0.0, 1.0)) * damage
 
 			area.apply_damage(damage_amount, get_parent())
 			hurt_entity.emit(area, damage)

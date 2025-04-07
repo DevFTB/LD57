@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://dwdep7v4xw104"]
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://dwdep7v4xw104"]
 
 [ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_w4ybb"]
+[ext_resource type="Texture2D" uid="uid://b2le3g8k6aix4" path="res://systems/upgrades/icons/jetpack_unlock.png" id="2_bmhx2"]
 
 [resource]
 script = ExtResource("1_w4ybb")
@@ -9,6 +10,7 @@ mult = true
 tier_value_in_tooltip = false
 tooltip_string = "Unlock the Jetpack. Press [SPACE] while in the air to activate."
 display_name = "Item"
+texture = ExtResource("2_bmhx2")
 num_tiers = 1
 tier_costs = Array[int]([100])
 tier_values = [true]
