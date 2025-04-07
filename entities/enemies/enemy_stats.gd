@@ -10,5 +10,9 @@ extends Resource
 @export var range: float = 0
 @export var is_grounded: bool = false
 
+@export var hurt_sound : AudioStream
+@export var death_sound : AudioStream
+@export var death_sprite : Texture2D
+
 var health: float:
 	set(value): clamp(value, 0, max_health)

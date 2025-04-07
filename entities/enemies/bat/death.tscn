@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://co4lgtrlxh8cq"]
+
+[ext_resource type="Script" uid="uid://dqfb5ev1qi2gq" path="res://entities/enemies/bat/death.gd" id="1_b4pp4"]
+[ext_resource type="AudioStream" uid="uid://crkn014vyg8b5" path="res://systems/music_sfx/files/sfx/enemies/bat death.wav" id="2_3ddy4"]
+[ext_resource type="Texture2D" uid="uid://pmstxd1ml6gm" path="res://entities/enemies/bat/bat.png" id="3_3ddy4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q0fkg"]
+radius = 15.0
+
+[node name="Death" type="RigidBody2D"]
+collision_layer = 37
+collision_mask = 37
+script = ExtResource("1_b4pp4")
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_3ddy4")
+autoplay = true
+bus = &"Sound FX"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_q0fkg")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.47451)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_3ddy4")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

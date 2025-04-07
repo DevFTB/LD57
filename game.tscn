@@ -153,6 +153,12 @@ jump_power = 380
 max_fall_speed = 10000
 fall_acceleration = 550
 
+[node name="BombSpriteLeft" parent="World/Player/Sprite2D/BombSprites" index="0"]
+position = Vector2(0, 0)
+
+[node name="BombSpriteRight" parent="World/Player/Sprite2D/BombSprites" index="1"]
+position = Vector2(0, 0)
+
 [node name="MoabEntity" parent="World" node_paths=PackedStringArray("moab_explosion_system") instance=ExtResource("4_j5wjh")]
 position = Vector2(-208, -3288)
 moab_explosion_system = NodePath("../../MoabExplosionSystem")
