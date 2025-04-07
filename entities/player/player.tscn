@@ -11,7 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://cnkpk86sygxlu" path="res://systems/music_sfx/files/sfx/jetpack/jetpack loop.wav" id="5_we0b7"]
 [ext_resource type="PackedScene" uid="uid://eenrl1ayi2xr" path="res://entities/common/hurtbox_component.tscn" id="6_8fjmc"]
 [ext_resource type="Script" uid="uid://lw70x0du5vba" path="res://entities/player/bomb_strength_progress_bar.gd" id="7_qiwj3"]
-[ext_resource type="Script" uid="uid://bacy6y0b6oowc" path="res://entities/player/bomb_sprites.gd" id="7_qpopc"]
+[ext_resource type="Script" path="res://entities/player/bomb_sprites.gd" id="7_qpopc"]
 [ext_resource type="Script" uid="uid://yprph7eiqbic" path="res://entities/player/grapple_point.gd" id="8_26q78"]
 [ext_resource type="Texture2D" uid="uid://b6753y8fi3avo" path="res://entities/player/grapple/grapple_hook.png" id="9_bectd"]
 [ext_resource type="Script" uid="uid://cc2j1e84os7o7" path="res://entities/player/jetpack.gd" id="10_wvtmh"]
@@ -25,7 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://dis0is1c00khw" path="res://systems/music_sfx/files/sfx/throw sound.wav" id="20_mtric"]
 [ext_resource type="AudioStream" uid="uid://gllb6uw3s25f" path="res://systems/music_sfx/files/sfx/player/damage.wav" id="21_eyb6c"]
 [ext_resource type="AudioStream" uid="uid://tpulestneq76" path="res://systems/music_sfx/files/sfx/player/death.wav" id="22_221hk"]
-[ext_resource type="Script" path="res://entities/player/rope_climb.gd" id="24_t1t22"]
+[ext_resource type="Script" uid="uid://bim3pfpf1ea4l" path="res://entities/player/rope_climb.gd" id="24_t1t22"]
 [ext_resource type="Texture2D" uid="uid://c0nbm2a4tsd3w" path="res://entities/throwables/bomb/throwable_bomb.png" id="26_wuv6x"]
 
 [sub_resource type="Curve" id="Curve_qiwj3"]
@@ -1082,7 +1082,7 @@ throw_cooldown = 0.6
 throw_force_curve = SubResource("Curve_qiwj3")
 throw_strength_curve = SubResource("Curve_26q78")
 maximum_throw_hold_time = 5.0
-unlocked_traversal_methods = Array[int]([1, 0])
+unlocked_traversal_methods = Array[int]([1])
 
 [node name="Jetpack" type="Node2D" parent="."]
 script = ExtResource("10_wvtmh")
@@ -1138,7 +1138,6 @@ inventory = ExtResource("4_bls4j")
 one_shot = true
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_fkugw")]
-maximum_health = 100
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_8fjmc")]
 collision_layer = 2

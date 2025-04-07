@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://dwdep7v4xw104"]
+
+[ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_w4ybb"]
+
+[resource]
+script = ExtResource("1_w4ybb")
+upgrade_type = 4
+mult = true
+tier_value_in_tooltip = false
+tooltip_string = "Unlock the Jetpack"
+display_name = "Item"
+num_tiers = 1
+tier_costs = Array[int]([100])
+tier_values = [true]
+current_level_str = "[color=grey]%s[/color]"
+value_str = "[color=green](+%s)[/color] "
+metadata/_custom_type_script = "uid://dycw7l33nfhy8"

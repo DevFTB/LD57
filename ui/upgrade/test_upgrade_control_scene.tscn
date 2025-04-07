@@ -20,6 +20,7 @@ offset_left = 43.0
 offset_top = 4.0
 offset_right = 83.0
 offset_bottom = 74.0
+max_level = null
 
 [node name="UpgradeButton2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_765ag")]
 offset_left = -7.0
@@ -29,6 +30,7 @@ offset_bottom = -61.0
 dependecies = {
 NodePath("../UpgradeButton"): 3
 }
+max_level = null
 
 [node name="UpgradeButton3" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_765ag")]
 offset_left = 92.0
@@ -38,6 +40,7 @@ offset_bottom = -61.0
 dependecies = {
 NodePath("../UpgradeButton"): 2
 }
+max_level = null
 
 [node name="UpgradeButton4" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_765ag")]
 offset_left = 46.0
@@ -48,3 +51,4 @@ dependecies = {
 NodePath("../UpgradeButton2"): 3,
 NodePath("../UpgradeButton3"): 4
 }
+max_level = null

@@ -10,7 +10,7 @@ signal health_modified(amount: int, new_health: int)
 signal died
 
 ## current_health cannot exceed this value by healing
-@export var maximum_health : int = 5
+@export var base_maximum_health : int = 5
 
 ## cannot take damage if invulnerable.
 @export var is_invulnerable : bool = false
@@ -18,7 +18,11 @@ signal died
 ## set to true when the current_health has dropped to or past 0.
 var is_dead : bool = false
 
+@onready var maximum_health : int = base_maximum_health
+
 @onready var current_health : int = maximum_health
+
+
 	
 
 func _ready() -> void:
