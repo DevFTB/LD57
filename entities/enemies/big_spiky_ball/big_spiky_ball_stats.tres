@@ -9,7 +9,6 @@
 script = ExtResource("4_vdydh")
 max_health = 600
 move_speed = 300
-damage = 50.0
 range = 0.0
 is_grounded = true
 hurt_sound = ExtResource("3_fkrrb")

@@ -10,7 +10,6 @@ resource_name = "flying_skeleton_stats"
 script = ExtResource("4_hfudw")
 max_health = 100
 move_speed = 600
-damage = 1.0
 range = 8.0
 is_grounded = false
 hurt_sound = ExtResource("3_b3cay")

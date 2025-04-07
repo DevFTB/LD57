@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dgi48dy0sn7la"]
+[gd_scene load_steps=10 format=3 uid="uid://dgi48dy0sn7la"]
 
 [ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="1_lr7i3"]
 [ext_resource type="Resource" uid="uid://ck0egrdd81y68" path="res://entities/enemies/flying_skeleton_bomber/flying_skeleton_bomber_stats.tres" id="2_8uurn"]
@@ -15,10 +15,6 @@ height = 15.8855
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sxbrf"]
 radius = 22.0
 height = 48.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dkh8h"]
-radius = 19.0
-height = 42.0
 
 [node name="Enemy2" instance=ExtResource("1_lr7i3")]
 enemy_stats = ExtResource("2_8uurn")
@@ -73,10 +69,6 @@ shape = SubResource("CapsuleShape2D_sxbrf")
 
 [node name="HitboxComponent" parent="." index="11"]
 position = Vector2(0, 29.6999)
-
-[node name="CollisionShape2D" parent="HitboxComponent" index="1"]
-position = Vector2(0, -28.6999)
-shape = SubResource("CapsuleShape2D_dkh8h")
 
 [node name="HealthBar" parent="." index="12"]
 offset_top = -50.3001

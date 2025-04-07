@@ -15,4 +15,5 @@ is_sticky = false
 explode_on_impact = false
 explosion_radius = 3
 entity_damage = 50
+bomb_velocity_modifier = 1.0
 metadata/_custom_type_script = "uid://dgalf5pstb0iw"

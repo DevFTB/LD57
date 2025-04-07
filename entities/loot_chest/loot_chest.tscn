@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cdp2qg6foouy2" path="res://world/loot/chest.png" id="2_cm3eg"]
 [ext_resource type="Script" uid="uid://do5gnx1cf4tjg" path="res://entities/common/health_component.gd" id="3_g0r7p"]
 [ext_resource type="Script" uid="uid://bh4wfgcuvhfeq" path="res://entities/common/hurtbox_component.gd" id="4_j5r8d"]
-[ext_resource type="Script" uid="uid://3o156l3yjpoa" path="res://entities/player/inventory_component.gd" id="5_3nwv4"]
+[ext_resource type="Script" path="res://entities/player/inventory_component.gd" id="5_3nwv4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_klri6"]
 size = Vector2(51, 50)

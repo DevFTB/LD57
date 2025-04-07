@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="6_8qn7j"]
 [ext_resource type="PackedScene" uid="uid://53ohv57t2ihg" path="res://entities/loot_chest/loot_chest.tscn" id="6_qhfyw"]
 [ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="7_cnkka"]
-[ext_resource type="Script" path="res://main_camera.gd" id="7_qhfyw"]
+[ext_resource type="Script" uid="uid://cv6y1hrey2gct" path="res://main_camera.gd" id="7_qhfyw"]
 [ext_resource type="Script" uid="uid://cnf626cpgukip" path="res://entities/loot_chest/loot_table.gd" id="7_x2fdu"]
 [ext_resource type="Resource" uid="uid://bag1idy6pkmv1" path="res://entities/loot_chest/loot_table_hardness_1.tres" id="8_3q0ia"]
 [ext_resource type="PackedScene" uid="uid://bq84mpxun851f" path="res://entities/moab/moab_entity.tscn" id="8_537hp"]
