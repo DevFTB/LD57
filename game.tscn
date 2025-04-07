@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=71 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
@@ -50,6 +50,8 @@
 [ext_resource type="Resource" uid="uid://wylmsxcnfp00" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="34_l1i01"]
 [ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
+[ext_resource type="Texture2D" uid="uid://bm4qbqxhx3vff" path="res://ui/depth.png" id="40_cfc7e"]
+[ext_resource type="Script" uid="uid://eky8k0h2e6jt" path="res://ui/HUD/depth.gd" id="41_gh0px"]
 [ext_resource type="Script" path="res://ui/grapple_ui.gd" id="43_m28ev"]
 
 [sub_resource type="Resource" id="Resource_0de7l"]
@@ -106,6 +108,11 @@ size = Vector2(536, 153)
 [sub_resource type="LabelSettings" id="LabelSettings_xfvwf"]
 font_size = 32
 outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cfc7e"]
+font_size = 20
+outline_size = 2
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iu0sx"]
@@ -417,6 +424,21 @@ label_settings = SubResource("LabelSettings_xfvwf")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Depth" type="TextureRect" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/Control/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("40_cfc7e")
+expand_mode = 2
+script = ExtResource("41_gh0px")
+
+[node name="Label" type="Label" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/Control/HBoxContainer/Depth"]
+layout_mode = 0
+offset_top = -8.0
+offset_right = 92.0
+offset_bottom = 84.0
+label_settings = SubResource("LabelSettings_cfc7e")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Bottom" type="HBoxContainer" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/Control/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -576,6 +598,7 @@ color = Color(0.36968, 0.328359, 0.176195, 1)
 
 [connection signal="timeout" from="World/Spawner/SpawnTimer" to="World/Spawner" method="_on_spawn_timer_timeout"]
 [connection signal="depth_changed" from="World/Player" to="Music" method="_on_player_depth_changed"]
+[connection signal="depth_changed" from="World/Player" to="GUI/NewHUD/VBoxContainer/HBoxContainer/Control/HBoxContainer/Depth" method="_on_player_depth_changed"]
 [connection signal="health_modified" from="World/Player/HealthComponent" to="World/Player" method="_on_health_component_health_modified"]
 [connection signal="player_entered" from="World/Spawn/SpawnAreaPlayerDetector" to="World" method="_on_spawn_area_player_detector_player_entered"]
 [connection signal="player_exited" from="World/Spawn/SpawnAreaPlayerDetector" to="World" method="_on_spawn_area_player_detector_player_exited"]

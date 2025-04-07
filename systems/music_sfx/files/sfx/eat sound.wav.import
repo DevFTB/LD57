@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b4fdju3oum6g"
+path="res://.godot/imported/eat sound.wav-775cba0566f3a2451ae993c6a76b6575.sample"
+
+[deps]
+
+source_file="res://systems/music_sfx/files/sfx/eat sound.wav"
+dest_files=["res://.godot/imported/eat sound.wav-775cba0566f3a2451ae993c6a76b6575.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
