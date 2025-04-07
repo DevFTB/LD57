@@ -14,4 +14,5 @@ is_grounded = false
 hurt_sound = ExtResource("2_wbyjn")
 death_sound = ExtResource("1_wbyjn")
 death_sprite = ExtResource("2_b3pg7")
+death_sprite_scale = Vector2(0.5, 0.5)
 metadata/_custom_type_script = "uid://bvi6ww4ywm8ge"
