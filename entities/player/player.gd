@@ -234,6 +234,7 @@ func _on_death():
 	var world: World = get_tree().get_first_node_in_group("world")
 	for item in inventory.get_items():
 		world.drop_item_entity(global_position, item, inventory.get_item_amount(item))
+		inventory.remove_item(item, inventory.get_item_amount(item))
 
 	$DeathSound.play()
 	died.emit()

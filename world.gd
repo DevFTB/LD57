@@ -7,6 +7,8 @@ const SPAWN_ZOOM = 1.8
 ## Everytime the player enters spawn their bomb inventory will have atleast this many of each item
 @export var restock_inventory: Inventory
 
+@export var hardness_ore_drops: Dictionary[int, RandomInt] = {}
+
 @onready var player: Player = $Player
 @onready var cave_blocks_tilemap: TileMapLayer = $Level/CaveBlocks
 @onready var ore_tilemap: TileMapLayer = $Level/OreIndicators
@@ -80,8 +82,9 @@ func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 		if has_ore:
 			var location = ore_tilemap.map_to_local(tile)
 			var item: Item = ore_tilemap.get_cell_tile_data(tile).get_custom_data("drop_item")
-			
-			var drop_amount := 1
+
+			var hardness: int = cave_blocks_tilemap.get_cell_tile_data(tile).get_custom_data("hardness")
+			var drop_amount: int = hardness_ore_drops.get(hardness, 1).sample()
 			
 			if item.id == &"bombpowder":
 				StatsManager.add_to_stat(StatsManager.Stat.BOMBPOWDER_MINED, drop_amount)
