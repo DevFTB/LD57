@@ -1,10 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dhe7eshas5k7h"]
+[gd_scene load_steps=2 format=3 uid="uid://dhe7eshas5k7h"]
 
 [ext_resource type="PackedScene" uid="uid://dwd1eadkk13on" path="res://game.tscn" id="1_uubav"]
-[ext_resource type="Texture2D" uid="uid://obnans8x4h0f" path="res://ui/bomb_timer/moab 1.png" id="2_vgb0l"]
-[ext_resource type="Texture2D" uid="uid://di8hppjk33q36" path="res://ui/bomb_timer/moab 2.png" id="3_vgb0l"]
-[ext_resource type="Texture2D" uid="uid://psaqm0aoode4" path="res://ui/bomb_timer/moab 3.png" id="4_vgb0l"]
-[ext_resource type="Texture2D" uid="uid://cjc30eoicedm3" path="res://ui/bomb_timer/moab 4.png" id="5_vgb0l"]
 
 [node name="Game" instance=ExtResource("1_uubav")]
 
@@ -14,21 +10,11 @@ bomb_timer_starting_value = 300.0
 [node name="Player" parent="World" index="4"]
 unlocked_traversal_methods = Array[int]([1, 0])
 
-[node name="BoomLevelTextureRect" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" index="0"]
-boom_level_textures = Dictionary[int, Texture2D]({
-0: ExtResource("2_vgb0l"),
-1: ExtResource("3_vgb0l"),
-2: ExtResource("4_vgb0l"),
-3: ExtResource("5_vgb0l")
-})
-
 [node name="UpgradeGUI" parent="GUI" index="5"]
 visible = false
 
 [node name="SubViewport" parent="GUI/UpgradeGUI" index="0"]
 render_target_update_mode = 0
-
-[connection signal="health_modified" from="World/Player/HealthComponent" to="World/Player" method="_on_health_component_health_modified"]
 
 [editable path="World/Player"]
 [editable path="GUI/HUD"]

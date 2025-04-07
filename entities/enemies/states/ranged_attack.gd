@@ -1,4 +1,5 @@
 extends EnemyState
+signal attacked()
 
 @onready var ranged_attack_timer = $RangedAttackTimer
 @export var ranged_attack: RangedAttack
@@ -38,6 +39,7 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 		
 func try_attack():
 	if ranged_attack_timer.is_stopped():
+		attacked.emit()
 		ranged_attack.attack()
 		ranged_attack_timer.start()
 
