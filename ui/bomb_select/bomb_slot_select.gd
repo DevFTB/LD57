@@ -12,6 +12,7 @@ var bomb_type: BombType:
 @onready var amount_label: Label = %AmountLabel
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 @onready var player_bomb_inventory: Inventory = player.bomb_inventory_component.inventory
+@onready var restock_inventory : Inventory = get_tree().get_first_node_in_group("world").restock_inventory
 
 func _ready() -> void:
 	slot_label.label_settings = slot_label.label_settings.duplicate()
@@ -23,15 +24,15 @@ func _ready() -> void:
 func update() -> void:
 	if bomb_item != null:
 		var amount_in_player_inventory := player_bomb_inventory.get_item_amount(bomb_item)
-
-		if amount_in_player_inventory < 1:
+		var amount_in_restock_inventory := restock_inventory.get_item_amount(bomb_item)
+		if amount_in_player_inventory < 1 and amount_in_restock_inventory < 1:
 			hide()
 		else:
 			show()
 
 		texture_rect.texture = bomb_item.texture
 		slot_label.text = str(slot_number)
-		amount_label.text = "∞" if not bomb_type.is_perishable else str(amount_in_player_inventory)
+		amount_label.text = "∞" if not bomb_type.is_perishable else str(amount_in_player_inventory) + "/" + str(amount_in_restock_inventory)
 		
 		texture_rect.modulate = Color(0, 0, 0, 200) if amount_in_player_inventory < 1 else Color.WHITE
 		slot_label.label_settings.font_color = Color.ORANGE if player.selected_bomb_item == bomb_item else Color.WHITE

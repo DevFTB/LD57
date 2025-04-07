@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://dmetufn204wq1"]
+
+[ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_53hk7"]
+[ext_resource type="Texture2D" uid="uid://j87bgvr41snu" path="res://entities/throwables/bomb/nuclear_bomb.png" id="2_3cvpk"]
+
+[resource]
+script = ExtResource("1_53hk7")
+upgrade_type = 14
+mult = false
+tier_value_in_tooltip = true
+tooltip_string = "Nuclear bombs when resupplying at base"
+display_name = "Nuclear Bombs"
+texture = ExtResource("2_3cvpk")
+num_tiers = 3
+tier_costs = Array[int]([100, 200, 500])
+tier_values = [1, 1, 1]
+current_level_str = "[color=grey]%s[/color]"
+value_str = "[color=green](+%s)[/color] "
+metadata/_custom_type_script = "uid://dycw7l33nfhy8"

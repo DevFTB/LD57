@@ -52,7 +52,7 @@ var blast_resistance := 0
 
 
 var upgrade_state: PlayerUpgradeState = PlayerUpgradeState.new()
-
+var world : Node
 var current_movement_state: MovementState = MovementState.FREE
 
 @onready var mineral_inventory_component: InventoryComponent = $MineralInventoryComponent
@@ -68,6 +68,7 @@ var current_movement_state: MovementState = MovementState.FREE
 @onready var holding_bomb = $Sprite2D/BombSprites
 
 func _ready() -> void:
+	
 	upgrade_state.upgraded.connect(on_upgrade)
 	throw_released.connect(StatsManager.add_to_stat.bind(StatsManager.Stat.BOMBS_THROWN, 1).unbind(1))
 	if winch:
@@ -84,7 +85,9 @@ func _ready() -> void:
 	#connect signals
 	if health_component:
 		health_component.died.connect(_on_death)
-		
+
+	world = get_tree().get_first_node_in_group("world")
+	
 func on_upgrade(upgrade : Upgrade, tier):
 	match upgrade.upgrade_type:
 		PlayerUpgradeState.UpgradeType.JETPACK:
@@ -110,6 +113,21 @@ func on_upgrade(upgrade : Upgrade, tier):
 			multi_bomb_amount = upgrade_state.get_total_value(upgrade) + 1
 		PlayerUpgradeState.UpgradeType.BLAST_RESISTANCE: # logarithmic scale
 			hurtbox_component.blast_resistance_factor= upgrade_state.get_total_value(upgrade)
+		PlayerUpgradeState.UpgradeType.STICKY_RESTOCK_AMOUNT:
+			modify_restock_inventory(preload("res://systems/inventory/items/item_sticky_bomb.tres"), upgrade_state.get_total_value(upgrade))
+		PlayerUpgradeState.UpgradeType.NUKE_RESTOCK_AMOUNT:
+			modify_restock_inventory(preload("res://systems/inventory/items/item_nuclear_bomb.tres"), upgrade_state.get_total_value(upgrade))
+		PlayerUpgradeState.UpgradeType.IMPACT_RESTOCK_AMOUNT:
+			modify_restock_inventory(preload("res://systems/inventory/items/item_impact_bomb.tres"), upgrade_state.get_total_value(upgrade))
+		PlayerUpgradeState.UpgradeType.SHRAPNEL_RESTOCK_AMOUNT:
+			modify_restock_inventory(preload("res://systems/inventory/items/item_shrapnel_bomb.tres"), upgrade_state.get_total_value(upgrade))
+
+func modify_restock_inventory(bomb_item : Item, amount : int):
+	var inventory: Inventory = world.restock_inventory
+	inventory.remove_item(bomb_item, inventory.get_item_amount(bomb_item))
+	inventory.add_item(bomb_item, amount)
+	world.restock_player(self)
+	
 
 func set_movement_state(new_movement_state: MovementState) -> void:
 	current_movement_state = new_movement_state
@@ -242,7 +260,13 @@ func _on_throw_release(strength = 1.0) -> void:
 	# Consume item from inventory if perishable
 	if bomb_type.is_perishable:
 		if bomb_inventory_component.inventory.has_item(selected_bomb_item):
-			throw_released.emit(data)
+			for i in range(0, thrown_bomb_amount):
+				if multi_bomb:
+					data.impulse.y *= randf_range(1-(multi_bomb_amount*0.1),1+(multi_bomb_amount*0.1))
+					data.position += Vector2(0,-15)
+					data.random_fuse = true
+					print("multithrow")
+				throw_released.emit(data)
 			bomb_inventory_component.inventory.remove_item(selected_bomb_item, 1)
 			if bomb_inventory_component.inventory.get_item_amount(selected_bomb_item) == 0:
 				switch_selected_bomb(0)

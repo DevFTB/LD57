@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b3cnp6fsypd5"]
+[gd_scene load_steps=18 format=3 uid="uid://b3cnp6fsypd5"]
 
 [ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="1_kku6u"]
 [ext_resource type="Script" uid="uid://08b32ubcmb2e" path="res://ui/upgrade/upgrade_tree.gd" id="1_m7apr"]
@@ -12,6 +12,10 @@
 [ext_resource type="Resource" uid="uid://dwdep7v4xw104" path="res://systems/upgrades/upgrade_jetpack.tres" id="7_pgr47"]
 [ext_resource type="Resource" uid="uid://dye4bvtjqdm26" path="res://systems/upgrades/upgrade_jetpack_fuel.tres" id="8_ev5ml"]
 [ext_resource type="Resource" uid="uid://b6g64defbc7xg" path="res://systems/upgrades/upgrade_multi_bomb_amount.tres" id="8_gi71y"]
+[ext_resource type="Resource" uid="uid://b71bvme7mcjv7" path="res://systems/upgrades/upgrade_stick_bomb_restock.tres" id="10_t5m0t"]
+[ext_resource type="Resource" uid="uid://dmetufn204wq1" path="res://systems/upgrades/upgrade_nuke_bomb_restock.tres" id="11_b4gpk"]
+[ext_resource type="Resource" uid="uid://lp27oeriponm" path="res://systems/upgrades/upgrade_shrapnel_bomb_restock.tres" id="11_vdv25"]
+[ext_resource type="Resource" uid="uid://cyic3f18h5328" path="res://systems/upgrades/upgrade_impact_amount.tres" id="12_qu11t"]
 
 [sub_resource type="Resource" id="Resource_t5m0t"]
 script = ExtResource("5_sj7n6")
@@ -184,10 +188,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1892.0
-offset_top = 2026.0
-offset_right = 1988.0
-offset_bottom = 2154.0
+offset_left = 1887.0
+offset_top = 2010.0
+offset_right = 1983.0
+offset_bottom = 2138.0
 upgrade = SubResource("Resource_t5m0t")
 dependecies = {
 NodePath("../Health3"): 3,
@@ -383,6 +387,178 @@ NodePath("."): 3
 max_level = 7
 tier = 2
 
+[node name="StickyRestock" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2297.0
+offset_top = 2568.0
+offset_right = 2393.0
+offset_bottom = 2696.0
+upgrade = ExtResource("10_t5m0t")
+max_level = 1
+
+[node name="StickyRestock2" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2298.0
+offset_top = 2398.0
+offset_right = 2394.0
+offset_bottom = 2526.0
+upgrade = ExtResource("10_t5m0t")
+dependecies = {
+NodePath("../StickyRestock"): 1
+}
+tier = 1
+
+[node name="StickyRestock3" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2298.0
+offset_top = 2225.0
+offset_right = 2394.0
+offset_bottom = 2353.0
+upgrade = ExtResource("10_t5m0t")
+dependecies = {
+NodePath("../StickyRestock2"): 3
+}
+tier = 2
+
+[node name="ShrapnelRestock" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2490.0
+offset_top = 2388.0
+offset_right = 2586.0
+offset_bottom = 2516.0
+upgrade = ExtResource("11_vdv25")
+dependecies = {
+NodePath("../StickyRestock"): 1
+}
+max_level = 1
+
+[node name="ShrapnelRestock2" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2481.0
+offset_top = 2216.0
+offset_right = 2577.0
+offset_bottom = 2344.0
+upgrade = ExtResource("11_vdv25")
+dependecies = {
+NodePath("../ShrapnelRestock"): 1
+}
+max_level = 5
+tier = 1
+
+[node name="ImpactRestock" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2687.0
+offset_top = 2389.0
+offset_right = 2783.0
+offset_bottom = 2517.0
+upgrade = ExtResource("12_qu11t")
+dependecies = {
+NodePath("../StickyRestock"): 1
+}
+max_level = 1
+
+[node name="ImpactRestock2" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2682.0
+offset_top = 2213.0
+offset_right = 2778.0
+offset_bottom = 2341.0
+upgrade = ExtResource("12_qu11t")
+dependecies = {
+NodePath("../ImpactRestock"): 1
+}
+max_level = 5
+tier = 1
+
+[node name="NukeRestock1" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2473.0
+offset_top = 1962.0
+offset_right = 2569.0
+offset_bottom = 2090.0
+upgrade = ExtResource("11_b4gpk")
+dependecies = {
+NodePath("../StickyRestock3"): 3,
+NodePath("../ShrapnelRestock2"): 5,
+NodePath("../ImpactRestock2"): 5
+}
+max_level = 1
+
+[node name="NukeRestock2" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2473.0
+offset_top = 1811.0
+offset_right = 2569.0
+offset_bottom = 1939.0
+upgrade = ExtResource("11_b4gpk")
+dependecies = {
+NodePath("../NukeRestock1"): 1
+}
+max_level = 1
+tier = 1
+
+[node name="NukeRestock3" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2464.0
+offset_top = 1659.0
+offset_right = 2560.0
+offset_bottom = 1787.0
+upgrade = ExtResource("11_b4gpk")
+dependecies = {
+NodePath("../NukeRestock2"): 1
+}
+tier = 2
+
 [node name="GrappleCD" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
@@ -420,10 +596,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2015.0
-offset_top = 2207.0
-offset_right = 2111.0
-offset_bottom = 2335.0
+offset_left = 2031.0
+offset_top = 2234.0
+offset_right = 2127.0
+offset_bottom = 2362.0
 upgrade = ExtResource("6_pgr47")
 dependecies = {
 NodePath("../GrappleCD2"): 2
@@ -437,10 +613,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2140.0
-offset_top = 2230.0
-offset_right = 2236.0
-offset_bottom = 2358.0
+offset_left = 2155.0
+offset_top = 2225.0
+offset_right = 2251.0
+offset_bottom = 2353.0
 upgrade = ExtResource("7_pgr47")
 dependecies = {
 NodePath("../GrappleCD2"): 3
@@ -454,10 +630,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2147.0
-offset_top = 2092.0
-offset_right = 2243.0
-offset_bottom = 2220.0
+offset_left = 2154.0
+offset_top = 2084.0
+offset_right = 2250.0
+offset_bottom = 2212.0
 upgrade = ExtResource("8_ev5ml")
 dependecies = {
 NodePath("../Jetpack"): 1
