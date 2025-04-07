@@ -27,9 +27,15 @@ func _ready() -> void:
 	explosion_timer.start()
 	
 func _on_body_entered(body: Node2D) -> void:
-	if bomb_type.is_sticky:
+	if bomb_type.explode_on_impact:
+		if body is TileMapLayer or body is Enemy:
+			explode()
+	elif bomb_type.is_sticky:
 		if body is TileMapLayer:
 			call_deferred("set", "freeze", true)
+		if body is Enemy:
+			call_deferred("set", "freeze", true)
+			body.call_deferred("stick", self)
 
 func explode() -> void:
 	exploded.emit()

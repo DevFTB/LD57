@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BombType" load_steps=4 format=3 uid="uid://buus3c8sckqo4"]
+
+[ext_resource type="Texture2D" uid="uid://j87bgvr41snu" path="res://entities/throwables/bomb/nuclear_bomb.png" id="1_dxttg"]
+[ext_resource type="PackedScene" uid="uid://do0g7votir2b4" path="res://entities/throwables/bomb/throwable_bomb_entity.tscn" id="2_t066l"]
+[ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="3_g0hyb"]
+
+[resource]
+script = ExtResource("3_g0hyb")
+id = &"sticky"
+bomb_icon = ExtResource("1_dxttg")
+bomb_scene = ExtResource("2_t066l")
+hardness = 6.0
+is_perishable = true
+is_sticky = false
+explode_on_impact = false
+explosion_radius = 15
+entity_damage = 500
+metadata/_custom_type_script = "uid://dgalf5pstb0iw"

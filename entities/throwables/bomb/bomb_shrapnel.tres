@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BombType" load_steps=4 format=3 uid="uid://bvlcb7f5gdp37"]
+
+[ext_resource type="Texture2D" uid="uid://dluvc0f6knj8p" path="res://entities/throwables/bomb/shapnel_bomb.png" id="1_4yol8"]
+[ext_resource type="PackedScene" uid="uid://do0g7votir2b4" path="res://entities/throwables/bomb/throwable_bomb_entity.tscn" id="2_v0e7y"]
+[ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="3_k5f5a"]
+
+[resource]
+script = ExtResource("3_k5f5a")
+id = &"shrapnel"
+bomb_icon = ExtResource("1_4yol8")
+bomb_scene = ExtResource("2_v0e7y")
+hardness = 1.0
+is_perishable = true
+is_sticky = false
+explode_on_impact = false
+explosion_radius = 4
+entity_damage = 200
+metadata/_custom_type_script = "uid://dgalf5pstb0iw"
