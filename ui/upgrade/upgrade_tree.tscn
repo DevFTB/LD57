@@ -7,10 +7,10 @@
 [ext_resource type="Resource" uid="uid://b6xkpnkwkffbg" path="res://systems/upgrades/upgrade_bomb_radius.tres" id="3_tsxcs"]
 [ext_resource type="Resource" uid="uid://c1q8kqvleqg17" path="res://systems/upgrades/upgrade_magnet.tres" id="4_pgr47"]
 [ext_resource type="Resource" uid="uid://bpwardgn02pyv" path="res://systems/upgrades/upgrade_grapple_range.tres" id="6_pgr47"]
-[ext_resource type="Resource" uid="uid://bu82hndi3k5kg" path="res://systems/upgrades/upgrade_multibomb.tres" id="7_fgdme"]
+[ext_resource type="Resource" path="res://systems/upgrades/upgrade_multibomb.tres" id="7_fgdme"]
 [ext_resource type="Resource" uid="uid://dwdep7v4xw104" path="res://systems/upgrades/upgrade_jetpack.tres" id="7_pgr47"]
 [ext_resource type="Resource" uid="uid://dye4bvtjqdm26" path="res://systems/upgrades/upgrade_jetpack_fuel.tres" id="8_ev5ml"]
-[ext_resource type="Resource" uid="uid://b6g64defbc7xg" path="res://systems/upgrades/upgrade_multi_bomb_amount.tres" id="8_gi71y"]
+[ext_resource type="Resource" path="res://systems/upgrades/upgrade_multi_bomb_amount.tres" id="8_gi71y"]
 
 [node name="UpgradeTree" type="ColorRect"]
 anchors_preset = 8

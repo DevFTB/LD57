@@ -37,7 +37,7 @@
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
 [ext_resource type="PackedScene" uid="uid://c4e86uoalfgiw" path="res://ui/HUD/hud.tscn" id="36_4v2jo"]
 [ext_resource type="PackedScene" uid="uid://b2vtm14w5fe48" path="res://menu/game_over.tscn" id="37_4v2jo"]
-[ext_resource type="PackedScene" uid="uid://m26fbyiig7bp" path="res://ui/upgrade/upgrade_tree.tscn" id="38_l1i01"]
+[ext_resource type="PackedScene" uid="uid://b3cnp6fsypd5" path="res://ui/upgrade/upgrade_tree.tscn" id="38_l1i01"]
 [ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="49_mljfx"]
 
 [sub_resource type="Animation" id="Animation_iu0sx"]
@@ -358,7 +358,6 @@ stream = ExtResource("3_r62pu")
 
 [node name="MoabExplosionSystem" type="Node" parent="."]
 script = ExtResource("1_j5wjh")
-bomb_timer_starting_value = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(100, 100)
