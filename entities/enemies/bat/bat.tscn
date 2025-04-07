@@ -144,6 +144,7 @@ texture = ExtResource("2_w0bok")
 hframes = 4
 
 [node name="HitboxComponent" parent="." index="9"]
+damage = 10
 repeating = true
 
 [node name="AnimationPlayer" parent="." index="11"]

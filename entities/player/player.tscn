@@ -1138,12 +1138,13 @@ inventory = ExtResource("4_bls4j")
 one_shot = true
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_fkugw")]
+base_maximum_health = 100
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_8fjmc")]
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("12_t1t22")
-blast_resistance_factor = 2.0
+blast_resistance_factor = 0.0
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]

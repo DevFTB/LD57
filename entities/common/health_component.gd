@@ -22,7 +22,6 @@ var is_dead : bool = false
 
 @onready var current_health : int = maximum_health
 
-
 	
 
 func _ready() -> void:
