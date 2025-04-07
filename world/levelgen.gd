@@ -278,7 +278,13 @@ func _ready() -> void:
 	generate_chunk(0, 0)
 	generate_chunk(-1, 0)
 	generate_chunk(1, 0)
-
+	
+	# generate a few more chunks, so it doesnt lag at the start in game
+	# NOTE: spawning chunks at the start seems less laggy than doing it later
+	generate_chunk(-1, 1)
+	generate_chunk(0, 1)
+	generate_chunk(1, 1)
+	
 const FEATHER := 20
 func bake_nav_mesh(mesh, point1, point2, point3, point4):
 	var new_navigation_mesh = NavigationPolygon.new()
