@@ -5,6 +5,12 @@ extends Node2D
 @export var ore_hardness_factor: float = 0.3
 @export var chunk_size: int = 32 ## nav mesh chunk size in tiles
 
+#@export var map_chunk_size = 64
+@export var loot_chests_per_chunk: int = 50
+@export var loot_chest_scene: PackedScene
+@export var loot_tables: Array[LootTable]
+
+
 @export_subgroup("Generation Extents")
 @export var min_x := -100
 @export var max_x := 100
@@ -25,6 +31,8 @@ var CAVE_THRESHOLD: float = -0.2
 # i think it will still work if threshold values are not unique... but make them unique anyway u stoopid
 var HARDNESS_THRESHOLDS: Array[float] = [0, 0.5]
 var HARDNESS_LAYER_NAME: String = "hardness"
+
+var generated_chunks: Dictionary[Vector2i, bool] = {}
 
 # works ok - cellular, freq 0.1, cave threshold -0.6
 # works ok - simplex, frequ 0.3, cave threshold -0.3
@@ -67,8 +75,8 @@ func noise_height_transform(y: int, noise_value: float, _height_factor: float = 
 func generate_cave_blocks(cave_noise: Noise, hardness_noise: Noise, resource_noise: Dictionary,
 	from_x: int, to_x: int, from_y: int, to_y: int) -> void:
 	# coords are tilemap coords
-	for x in range(from_x, to_x):
-		for y in range(from_y, to_y):
+	for x in range(from_x, to_x + 1):
+		for y in range(from_y, to_y + 1):
 			var is_cave: bool = cave_noise.get_noise_2d(x, y) > CAVE_THRESHOLD
 			if is_cave:
 				var hardness: int = HARDNESS_THRESHOLDS.find_custom(func(e: float): return e > noise_height_transform(y, hardness_noise.get_noise_2d(x, y), height_hardness_factor)) + 1
@@ -85,6 +93,49 @@ func generate_cave_blocks(cave_noise: Noise, hardness_noise: Noise, resource_noi
 				if ore_to_spawn != null:
 					_add_ore_block(ore_to_spawn, x, y)
 					
+func generate_chests(from_x: int, to_x: int, from_y: int, to_y: int, n:int) -> void:
+	# coords are tilemap coords
+	var allowable_locations = get_valid_chest_locations(from_x, to_x, from_y, to_y)
+	allowable_locations.shuffle()
+	for i in range(n):
+		if allowable_locations.is_empty():
+			print("No suitable locations to spawn chest")
+			break
+		var spawn_loc = allowable_locations.pop_back()
+		var spawn_loc_global = CAVE_BLOCK_TILEMAP.to_global(CAVE_BLOCK_TILEMAP.map_to_local(spawn_loc))
+		
+		spawn_chest(spawn_loc_global.x, spawn_loc_global.y, get_chest_tier(spawn_loc.x, spawn_loc.y))
+		
+func get_chest_tier(x: int, y: int):
+	# coords are tilemap coords
+	if y < -50:
+		return 0
+	elif y < 0:
+		return 1
+	else:
+		return 2
+		
+func spawn_chest(x: int, y: int, tier: int):
+	var loot_chest = loot_chest_scene.instantiate()
+	assert(tier < loot_tables.size(), "Tier " + str(tier) + " not in loot tables")
+	loot_chest.loot_table = loot_tables[tier]
+	add_child(loot_chest)
+	loot_chest.global_position = Vector2(x, y)
+	
+
+func get_valid_chest_locations(from_x: int, to_x: int, from_y: int, to_y: int) -> Array[Vector2i]:
+	var valid_chest_locations: Array[Vector2i] = []
+	for x in range(from_x, to_x + 1):
+		for y in range(from_y, to_y + 1):
+			if is_valid_chest_location(x, y):
+				valid_chest_locations.append(Vector2i(x, y))
+	
+	return valid_chest_locations
+
+func is_valid_chest_location(x, y):
+	var is_empty = CAVE_BLOCK_TILEMAP.get_cell_source_id(Vector2i(x, y)) == -1
+	var is_on_block = CAVE_BLOCK_TILEMAP.get_cell_source_id(Vector2i(x, y + 1)) != -1
+	return is_empty and is_on_block
 				
 func _add_cave_block(hardness: int, x: int, y: int) -> void:
 	assert(CAVE_BLOCK_HARDNESS_MAP.has(hardness), "Cave block hardness map doesnt have " + str(hardness))
@@ -119,6 +170,8 @@ func _get_cave_block_hardness_map() -> Dictionary:
 const START_CHUNKS := [Vector2i(0, -4), Vector2i(-1, -4)]
 func _ready() -> void:
 	HARDNESS_THRESHOLDS.sort()
+	# set globalscope seed
+	seed(random_seed)
 	
 	var cave_noise = _get_cave_noise()
 	var hardness_noise = _get_hardness_noise()
@@ -131,6 +184,7 @@ func _ready() -> void:
 	
 	
 	generate_cave_blocks(cave_noise, hardness_noise, resource_noise, min_x, max_x, min_y, max_y)
+	generate_chests(min_x, max_x, min_y, max_y, loot_chests_per_chunk)
 	
 	#for i in range(-100, 100):
 		#for j in range(-100, 100):
