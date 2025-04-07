@@ -1,5 +1,7 @@
 extends RangedAttack
 
+signal attacked
+
 @export var bomb_x_speed: int = 400
 @export var bomb_type: BombType
 
@@ -17,8 +19,8 @@ func attack():
 		
 		data.position = get_parent().enemy.global_position
 		var t = abs(player_position.x - data.position.x) / bomb_x_speed
-		var y_speed = ((player_position.y - data.position.y + 
-			(-ProjectSettings.get_setting("physics/2d/default_gravity") * (t ** 2)/2))/t)
+		var y_speed = ((player_position.y - data.position.y +
+			(-ProjectSettings.get_setting("physics/2d/default_gravity") * (t ** 2) / 2)) / t)
 		
 		# divide by mass of bomb, which is 1
 		#print(bomb_x_speed,y_speed)
@@ -29,3 +31,4 @@ func attack():
 		data.bomb_type = bomb_type
 		
 		world._spawn_bomb_with_velocity(data)
+		attacked.emit()
