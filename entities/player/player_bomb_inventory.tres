@@ -12,9 +12,9 @@ script = ExtResource("1_4wq8t")
 maximum_size = 2000
 starting_inventory = {
 ExtResource("2_2qu1l"): 1,
-ExtResource("3_lon2p"): 400,
-ExtResource("4_ugq1y"): 400,
-ExtResource("5_q16ju"): 400,
-ExtResource("6_7owr2"): 5
+ExtResource("3_lon2p"): 0,
+ExtResource("4_ugq1y"): 0,
+ExtResource("5_q16ju"): 0,
+ExtResource("6_7owr2"): 0
 }
 metadata/_custom_type_script = "uid://b0ogai8s7l7sc"
