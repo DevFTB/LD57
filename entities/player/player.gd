@@ -31,13 +31,13 @@ enum TraversalMethod {
 @export var base_magnet_range := 100
 @export var invulnerability_cooldown := 30
 
+@export var upgrade_state: PlayerUpgradeState = PlayerUpgradeState.new()
 
 var magnet_strength_multiplier = 1
 var bomb_damage_multiplier = 1
 var bomb_radius_multiplier = 1
 var jetpack_fuel_multiplier = 1
-var invulnerability_duration : float = 0
-
+var invulnerability_duration: float = 0
 
 
 var _holding_throw := false
@@ -48,8 +48,6 @@ var can_pickup := true
 var can_climb := false
 var current_depth := 0
 
-
-var upgrade_state: PlayerUpgradeState = PlayerUpgradeState.new()
 
 var current_movement_state: MovementState = MovementState.FREE
 
@@ -82,7 +80,7 @@ func _ready() -> void:
 	if health_component:
 		health_component.died.connect(_on_death)
 		
-func on_upgrade(upgrade : Upgrade, tier):
+func on_upgrade(upgrade: Upgrade, tier):
 	match upgrade.upgrade_type:
 		PlayerUpgradeState.UpgradeType.JETPACK:
 			unlocked_traversal_methods.append(TraversalMethod.JETPACK)

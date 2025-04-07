@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://c4e86uoalfgiw"]
+[gd_scene load_steps=35 format=3 uid="uid://c4e86uoalfgiw"]
 
 [ext_resource type="Texture2D" uid="uid://d317cp0qhrmd4" path="res://ui/parchment.png" id="1_mki3y"]
 [ext_resource type="Texture2D" uid="uid://d4hqng7ebmhnc" path="res://ui/HUD/health_under.png" id="2_gifym"]
@@ -11,11 +11,16 @@
 [ext_resource type="Resource" uid="uid://bfwwxfc0kwllo" path="res://systems/inventory/items/item_bombpowder.tres" id="10_c2qag"]
 [ext_resource type="Resource" uid="uid://bsytuw721i88d" path="res://systems/inventory/items/item_upgradium.tres" id="11_2grvh"]
 [ext_resource type="Texture2D" uid="uid://b8vkgx0epv747" path="res://entities/moab/moab_sprite_sheet.png" id="12_m3kpf"]
+[ext_resource type="Script" uid="uid://cg2pmlrf8nc4r" path="res://ui/HUD/boom_status_texture_rect.gd" id="12_mki3y"]
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="13_05i5p"]
+[ext_resource type="Texture2D" uid="uid://cqkl475g6eq2c" path="res://ui/HUD/explosion.png" id="13_gifym"]
+[ext_resource type="Texture2D" uid="uid://bjtjugm88gtk5" path="res://world/loot/chest.png" id="14_27arm"]
 [ext_resource type="PackedScene" uid="uid://bbvhdbp0joc6q" path="res://ui/bomb_select/bomb_slot_select_scene.tscn" id="14_ui12q"]
 [ext_resource type="Resource" uid="uid://2rch3ef2vr66" path="res://systems/inventory/items/item_basic_bomb.tres" id="15_yxxc1"]
 [ext_resource type="Resource" uid="uid://44skluikbcii" path="res://systems/inventory/items/item_sticky_bomb.tres" id="16_n8ty0"]
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="17_g746x"]
+[ext_resource type="Script" uid="uid://bug36t5k3k5mf" path="res://ui/HUD/amount_to_next_level_label.gd" id="17_ko6kn"]
+[ext_resource type="Texture2D" uid="uid://belkv520udyak" path="res://systems/inventory/items/texture_bombpowder.png" id="17_xyxuj"]
 [ext_resource type="Resource" uid="uid://wylmsxcnfp00" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="18_uaqyj"]
 [ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="19_iikl3"]
 [ext_resource type="Texture2D" uid="uid://2nhewmpeakjh" path="res://ui/HUD/hook.png" id="20_h7hnh"]
@@ -138,6 +143,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.02
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 128)
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
@@ -170,11 +176,16 @@ label_settings = SubResource("LabelSettings_cfc7e")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="Control" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="HBoxContainer" type="Control" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 75.135)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BoomLevelTextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 z_index = 1
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 1
@@ -189,8 +200,15 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_iu0sx")
 expand_mode = 2
 stretch_mode = 5
+script = ExtResource("12_mki3y")
+boom_level_textures = Dictionary[int, Texture2D]({
+0: SubResource("AtlasTexture_iu0sx"),
+1: ExtResource("20_h7hnh"),
+2: ExtResource("14_27arm"),
+3: ExtResource("13_gifym")
+})
 
-[node name="BombProgressBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("bomb_progress_bar", "time_display")]
+[node name="BombProgressBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("bomb_progress_bar", "time_display")]
 clip_contents = true
 custom_minimum_size = Vector2(192, 24)
 layout_mode = 1
@@ -209,7 +227,7 @@ script = ExtResource("13_05i5p")
 bomb_progress_bar = NodePath(".")
 time_display = NodePath("TimeDisplay")
 
-[node name="TimeDisplay" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer/HBoxContainer/BombProgressBar"]
+[node name="TimeDisplay" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/BombProgressBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -218,6 +236,30 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AmountToNextLevelLabel" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1"
+script = ExtResource("17_ko6kn")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = ExtResource("17_xyxuj")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "till next boom level"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 64)
