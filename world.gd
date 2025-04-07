@@ -175,8 +175,6 @@ func drop_item_entity(location: Vector2, item: Item, amount: int, max_stacks := 
 		else:
 			chunks.append(small_piece_size)
 
-	prints(amount, chunks)
-
 	for i in range(amount):
 		var new_entity: ItemEntity = ITEM_ENTITY.instantiate()
 		new_entity.item = item

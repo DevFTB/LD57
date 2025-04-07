@@ -10,7 +10,6 @@ extends StaticBody2D
 
 func _ready() -> void:
 	health_component.died.connect(die)
-	print(loot_table)
 
 const ITEM_ENTITY = preload("res://entities/item/item_entity.tscn")
 func die() -> void:
