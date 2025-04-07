@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=51 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
@@ -14,7 +14,7 @@
 [ext_resource type="Script" uid="uid://6gp81uqd76gy" path="res://entities/loot_chest/random_float.gd" id="6_qpefm"]
 [ext_resource type="Script" path="res://main_camera.gd" id="7_lwlx3"]
 [ext_resource type="Script" uid="uid://cnf626cpgukip" path="res://entities/loot_chest/loot_table.gd" id="8_87ddb"]
-[ext_resource type="Script" path="res://enemy_spawner.gd" id="9_kq12w"]
+[ext_resource type="Script" uid="uid://b0mdeooldsu15" path="res://enemy_spawner.gd" id="9_kq12w"]
 [ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="9_qhcbd"]
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="9_rvswv"]
 [ext_resource type="Resource" uid="uid://bibv5en88eckk" path="res://entities/loot_chest/loot_table_hardness_2.tres" id="10_mljfx"]
@@ -27,8 +27,9 @@
 [ext_resource type="Resource" uid="uid://2rch3ef2vr66" path="res://systems/inventory/items/item_basic_bomb.tres" id="14_xa8c5"]
 [ext_resource type="Resource" uid="uid://44skluikbcii" path="res://systems/inventory/items/item_sticky_bomb.tres" id="15_5b14r"]
 [ext_resource type="Resource" uid="uid://bag1idy6pkmv1" path="res://entities/loot_chest/loot_table_hardness_1.tres" id="15_m28ev"]
+[ext_resource type="PackedScene" uid="uid://bmj7bdrt80xsx" path="res://entities/enemies/big_spiky_ball/big_spiky_ball_enemy.tscn" id="21_iu0sx"]
 [ext_resource type="PackedScene" uid="uid://dfb6tk3jaqp55" path="res://systems/music_sfx/music.tscn" id="23_qhcbd"]
-[ext_resource type="Script" path="res://ui/HUD/global_stat_label.gd" id="24_vaj68"]
+[ext_resource type="Script" uid="uid://d0eblir7jx7p" path="res://ui/HUD/global_stat_label.gd" id="24_vaj68"]
 [ext_resource type="AudioStream" uid="uid://bixi2inlened8" path="res://systems/music_sfx/files/sfx/ui/restock sound.wav" id="29_qpefm"]
 [ext_resource type="Resource" uid="uid://wylmsxcnfp00" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="34_l1i01"]
 [ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
@@ -166,9 +167,11 @@ script = ExtResource("9_kq12w")
 enemies = Dictionary[PackedScene, int]({
 ExtResource("9_qhcbd"): 1,
 ExtResource("11_t46w6"): 2,
-ExtResource("12_m28ev"): 4
+ExtResource("12_m28ev"): 3,
+ExtResource("21_iu0sx"): 8
 })
 occupied_tilemap = NodePath("../Level/CaveBlocks")
+max_enemy_points_per_rect = 13
 
 [node name="SpawnTimer" type="Timer" parent="World/Spawner"]
 wait_time = 5.0
