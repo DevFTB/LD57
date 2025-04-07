@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://vp4hhi7lbt7d" path="res://world/buildings/winch.tscn" id="5_4v2jo"]
 [ext_resource type="TileSet" uid="uid://1s8d18ai2k57" path="res://world/tileset/ore_tileset.tres" id="5_e36ub"]
 [ext_resource type="Script" uid="uid://b0ogai8s7l7sc" path="res://systems/inventory/inventory.gd" id="5_lwlx3"]
+[ext_resource type="Script" uid="uid://6gp81uqd76gy" path="res://entities/loot_chest/random_float.gd" id="6_qpefm"]
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="7_eow3j"]
 [ext_resource type="Script" uid="uid://cv6y1hrey2gct" path="res://main_camera.gd" id="7_lwlx3"]
 [ext_resource type="Script" uid="uid://cnf626cpgukip" path="res://entities/loot_chest/loot_table.gd" id="8_87ddb"]
@@ -61,6 +62,24 @@ script = ExtResource("5_lwlx3")
 maximum_size = -1
 starting_inventory = {}
 metadata/_custom_type_script = "uid://b0ogai8s7l7sc"
+
+[sub_resource type="Resource" id="Resource_fcpvs"]
+script = ExtResource("6_qpefm")
+min_value = 1
+max_value = 2
+metadata/_custom_type_script = "uid://6gp81uqd76gy"
+
+[sub_resource type="Resource" id="Resource_kl2i7"]
+script = ExtResource("6_qpefm")
+min_value = 2
+max_value = 3
+metadata/_custom_type_script = "uid://6gp81uqd76gy"
+
+[sub_resource type="Resource" id="Resource_qpefm"]
+script = ExtResource("6_qpefm")
+min_value = 3
+max_value = 5
+metadata/_custom_type_script = "uid://6gp81uqd76gy"
 
 [sub_resource type="Gradient" id="Gradient_qhcbd"]
 offsets = PackedFloat32Array(0, 0.298561, 0.697842, 1)
@@ -151,6 +170,11 @@ texture = ExtResource("11_qhcbd")
 [node name="World" type="Node2D" parent="." groups=["world"]]
 script = ExtResource("2_hve3p")
 restock_inventory = SubResource("Resource_0de7l")
+hardness_ore_drops = Dictionary[int, ExtResource("6_qpefm")]({
+1: SubResource("Resource_fcpvs"),
+2: SubResource("Resource_kl2i7"),
+3: SubResource("Resource_qpefm")
+})
 
 [node name="Winch" parent="World" instance=ExtResource("5_4v2jo")]
 position = Vector2(-3.945, -3300)
@@ -594,6 +618,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="PauseMenu" parent="GUI" instance=ExtResource("49_mljfx")]
+visible = false
 
 [node name="Music" parent="." instance=ExtResource("23_qhcbd")]
 

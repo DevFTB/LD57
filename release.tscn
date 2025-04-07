@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://cd8oj31rnkhdm"]
+[gd_scene load_steps=70 format=4 uid="uid://cd8oj31rnkhdm"]
 
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_cg2fx"]
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="2_pv1fl"]
@@ -10,6 +10,7 @@
 [ext_resource type="TileSet" uid="uid://ci0bxhrhedi27" path="res://world/tileset/test_tileset.tres" id="7_cq58n"]
 [ext_resource type="TileSet" uid="uid://1s8d18ai2k57" path="res://world/tileset/ore_tileset.tres" id="8_fcpvs"]
 [ext_resource type="Script" uid="uid://b0mdeooldsu15" path="res://enemy_spawner.gd" id="9_kl2i7"]
+[ext_resource type="Script" uid="uid://6gp81uqd76gy" path="res://entities/loot_chest/random_float.gd" id="9_p1nfb"]
 [ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="10_gl4cv"]
 [ext_resource type="PackedScene" uid="uid://c5457i8ubkrc7" path="res://entities/enemies/spiky_ball/spiky_ball_enemy.tscn" id="11_1kf84"]
 [ext_resource type="PackedScene" uid="uid://53ohv57t2ihg" path="res://entities/loot_chest/loot_chest.tscn" id="11_bh1tp"]
@@ -60,6 +61,24 @@ ExtResource("39_yfehs"): 2,
 ExtResource("40_4crvc"): 2
 }
 metadata/_custom_type_script = "uid://b0ogai8s7l7sc"
+
+[sub_resource type="Resource" id="Resource_fcpvs"]
+script = ExtResource("9_p1nfb")
+min_value = 1
+max_value = 2
+metadata/_custom_type_script = "uid://6gp81uqd76gy"
+
+[sub_resource type="Resource" id="Resource_kl2i7"]
+script = ExtResource("9_p1nfb")
+min_value = 2
+max_value = 3
+metadata/_custom_type_script = "uid://6gp81uqd76gy"
+
+[sub_resource type="Resource" id="Resource_qpefm"]
+script = ExtResource("9_p1nfb")
+min_value = 3
+max_value = 5
+metadata/_custom_type_script = "uid://6gp81uqd76gy"
 
 [sub_resource type="Gradient" id="Gradient_qhcbd"]
 offsets = PackedFloat32Array(0, 0.298561, 0.697842, 1)
@@ -133,6 +152,11 @@ texture = ExtResource("3_r4pmf")
 [node name="World" type="Node2D" parent="." groups=["world"]]
 script = ExtResource("4_r8f4e")
 restock_inventory = SubResource("Resource_cg2fx")
+hardness_ore_drops = Dictionary[int, ExtResource("9_p1nfb")]({
+1: SubResource("Resource_fcpvs"),
+2: SubResource("Resource_kl2i7"),
+3: SubResource("Resource_qpefm")
+})
 
 [node name="Winch" parent="World" instance=ExtResource("5_bv7pd")]
 position = Vector2(-3.945, -3300)
