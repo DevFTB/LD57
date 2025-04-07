@@ -356,6 +356,7 @@ upgrade = ExtResource("7_fgdme")
 dependecies = {
 NodePath("../Damage3"): 3
 }
+max_level = 5
 tier = 1
 
 [node name="MultiBombAmount1" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]

@@ -202,11 +202,12 @@ func generate_chunk(chunk_x: int, chunk_y: int):
 	
 	# base chunk
 	if chunk_x == 0 and chunk_y == -1:
-		generate_unbreakable_blocks(min_x, max_x, min_y, max_y)
+		#generate_unbreakable_blocks(min_x, max_x, min_y, max_y)
 		generate_chunk_navmesh(min_x, max_x, min_y, max_y)
 	# above ground, generate all unbreakable blocks
 	if chunk_y < 0:
-		generate_unbreakable_blocks(min_x, max_x, min_y, max_y)
+		if not chunk_x >= -1 and not chunk_x<= 1:
+			generate_unbreakable_blocks(min_x, max_x, min_y, max_y)
 	# else normal cave chunk
 	else:
 		generate_cave_blocks(cave_noise, hardness_noise, resource_noise, min_x, max_x, min_y, max_y)
