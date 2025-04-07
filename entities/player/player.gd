@@ -25,14 +25,17 @@ enum TraversalMethod {
 @export var throw_force_curve: Curve
 @export var throw_strength_curve: Curve
 @export var maximum_throw_hold_time := 1.0
-@export var blast_resistance_factor := 0.5
+@export var blast_resistance_factor := 1
 @export var unlocked_traversal_methods: Array[TraversalMethod] = []
 @export var base_magnet_range := 100
+@export var invulnerability_cooldown := 30
+
 
 var magnet_strength_multiplier = 1
 var bomb_damage_multiplier = 1
 var bomb_radius_multiplier = 1
 var jetpack_fuel_multiplier = 1
+var invulnerability_duration : float = 0
 
 var _holding_throw := false
 var _throw_action_held_time := 0.0
@@ -88,7 +91,12 @@ func on_upgrade(upgrade : Upgrade, tier):
 			jetpack.fuel_multiplier = upgrade_state.get_total_value(upgrade)
 		PlayerUpgradeState.UpgradeType.MAGNET:
 			magnet_strength_multiplier = upgrade_state.get_total_value(upgrade)
-		
+		PlayerUpgradeState.UpgradeType.HEALTH:
+			health_component.set_maximum_health(health_component.base_maximum_health + upgrade_state.get_total_value(upgrade))
+			health_component.reset()
+		PlayerUpgradeState.UpgradeType.INVULNERABILITY:
+			invulnerability_duration = upgrade_state.get_total_value(upgrade)
+
 
 func set_movement_state(new_movement_state: MovementState) -> void:
 	current_movement_state = new_movement_state

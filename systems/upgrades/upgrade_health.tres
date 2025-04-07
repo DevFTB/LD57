@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_h5orl")
 upgrade_type = 3
-mult = true
+mult = false
 tier_value_in_tooltip = true
 tooltip_string = "more health"
 display_name = "Item"
