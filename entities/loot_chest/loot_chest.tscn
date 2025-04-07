@@ -45,7 +45,6 @@ shape = SubResource("RectangleShape2D_klri6")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_g0r7p")
-maximum_health = 10
 metadata/_custom_type_script = "uid://do5gnx1cf4tjg"
 
 [node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]

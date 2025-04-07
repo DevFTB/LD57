@@ -10,6 +10,7 @@ class_name World extends Node2D
 @export var shake_intensity := 2.0
 
 @export var hardness_ore_drops: Dictionary[int, RandomInt] = {}
+@export var moab: Node2D
 
 @onready var player: Player = $Player
 @onready var cave_blocks_tilemap: TileMapLayer = $Level/CaveBlocks
@@ -60,13 +61,13 @@ func process_camera():
 			var camera_tweener = get_tree().create_tween()
 			camera_tweener.set_ease(Tween.EASE_IN_OUT)
 			camera_tweener.set_trans(Tween.TRANS_CUBIC)
-			camera_tweener.parallel().tween_property(camera, "zoom", Vector2(spawn_zoom, spawn_zoom), 1)
+			camera_tweener.parallel().tween_property(camera, "zoom", MainCamera.SPAWN_ZOOM, 1)
 			camera_tweener.parallel().tween_property(camera, "position", initial_camera_location + spawn_camera_offset, 1)
 		camera_mode.INITIAL:
 			var camera_tweener = get_tree().create_tween()
 			camera_tweener.set_ease(Tween.EASE_IN_OUT)
 			camera_tweener.set_trans(Tween.TRANS_CUBIC)
-			camera_tweener.tween_property(camera, "zoom", Vector2(spawn_zoom, spawn_zoom), 1)
+			camera_tweener.tween_property(camera, "zoom", MainCamera.SPAWN_ZOOM, 1)
 			camera_tweener.parallel().tween_property(camera, "position", initial_camera_location + spawn_camera_offset, 1)
 	pass
 
@@ -80,7 +81,9 @@ func _spawn_bomb_with_velocity(data: ThrowReleasedEventData) -> void:
 	if data.random_fuse:
 		new_bomb.random_explosion_delay = true
 	new_bomb.exploded.connect(_on_bomb_exploded.bind(new_bomb))
-
+	
+func _tween_to_moab() -> void:
+	camera.focus_on(moab, 2.0)
 
 func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 	camera.random_camera_shake_strength = bomb.bomb_type.explosion_radius * bomb.bomb_type.hardness * shake_intensity

@@ -13,6 +13,8 @@ enum Stat {
 	UPGRADIUM_MINED,
 }
 
+const BOOM_LEVELS = [50, 500, 2500]
+
 
 var dict: Dictionary[int, int] = {}
 
@@ -33,3 +35,11 @@ func surpass_stat(stat: Stat, value: int) -> void:
 
 func get_stat(stat: Stat) -> int:
 	return dict.get_or_add(stat, 0)
+
+func get_boom_level() -> int:
+	var boom_level := BOOM_LEVELS.find_custom(func(lvl: int) -> bool: return get_stat(Stat.BOMBPOWDER_OFFERED) < lvl)
+	
+	if boom_level == -1:
+		return 3
+	else:
+		return boom_level

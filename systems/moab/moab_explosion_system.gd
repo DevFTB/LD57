@@ -1,6 +1,8 @@
 extends Node
 class_name MoabExplosionSystem
 
+signal timeout
+
 @export var time_scale: float = 1.0
 @export var bomb_timer_starting_value: float = 300.0 # time in seconds for bomb to explode
 @export var bomb_danger_seconds_left = 60.0 # time in seconds for danger mode
@@ -19,17 +21,20 @@ var seconds_left: float:
 var is_running := true
 var _total_time_passed := 0.0
 
+var has_timed_out := false
+
 func _ready():
 	bomb_max_value = bomb_timer_starting_value
 	bomb_timer = bomb_timer_starting_value
 
 
 func _process(delta):
-	if is_running:
-		bomb_timer -= delta * time_scale
-	
-	# if bomb_timer <= 0:
-	# 	print("Game is over, bomb explodied sadge")
+	if not has_timed_out:
+		if is_running:
+			bomb_timer -= delta * time_scale
+			if bomb_timer <= 0:
+				has_timed_out = true
+				timeout.emit()
 		
 	_total_time_passed += delta
 	

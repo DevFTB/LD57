@@ -1,0 +1,135 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2vtm14w5fe48"]
+
+[ext_resource type="Script" uid="uid://0d6wvm58o7md" path="res://menu/game_over_menu.gd" id="1_641x1"]
+[ext_resource type="Script" uid="uid://d0eblir7jx7p" path="res://ui/HUD/global_stat_label.gd" id="2_rkkr6"]
+[ext_resource type="Texture2D" uid="uid://cqkl475g6eq2c" path="res://ui/HUD/explosion.png" id="3_uh3ar"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c4gva"]
+font_size = 72
+
+[node name="GameOver" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_641x1")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_uh3ar")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -453.5
+offset_top = -193.0
+offset_right = 453.5
+offset_bottom = 193.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game over"
+label_settings = SubResource("LabelSettings_c4gva")
+
+[node name="Label2" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Big Boom Bob is no more..."
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="GameOverRetryButton" type="Button" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+text = "Retry"
+
+[node name="GameOverExitButton" type="Button" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+text = "Exit to Main Menu"
+
+[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Control" type="VBoxContainer" parent="HBoxContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/PanelContainer2/MarginContainer/Control"]
+layout_mode = 2
+script = ExtResource("2_rkkr6")
+title = "Bombs Thrown"
+
+[node name="Label2" type="Label" parent="HBoxContainer/PanelContainer2/MarginContainer/Control"]
+layout_mode = 2
+script = ExtResource("2_rkkr6")
+stat = 1
+title = "Tiles Broken"
+
+[node name="Label3" type="Label" parent="HBoxContainer/PanelContainer2/MarginContainer/Control"]
+layout_mode = 2
+script = ExtResource("2_rkkr6")
+stat = 2
+title = "Enemies Killed"
+
+[node name="Label4" type="Label" parent="HBoxContainer/PanelContainer2/MarginContainer/Control"]
+layout_mode = 2
+script = ExtResource("2_rkkr6")
+stat = 3
+title = "Bombpowder Offered"
+
+[node name="Label5" type="Label" parent="HBoxContainer/PanelContainer2/MarginContainer/Control"]
+layout_mode = 2
+script = ExtResource("2_rkkr6")
+stat = 4
+title = "Max Depth Reached"
+
+[node name="Label6" type="Label" parent="HBoxContainer/PanelContainer2/MarginContainer/Control"]
+layout_mode = 2
+script = ExtResource("2_rkkr6")
+stat = 5
+title = "Deaths"
