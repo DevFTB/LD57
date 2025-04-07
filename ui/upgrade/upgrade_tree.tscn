@@ -72,6 +72,41 @@ NodePath("../Magnet"): 3
 }
 tier = 1
 
+[node name="Magnet3" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1614.0
+offset_top = 1968.0
+offset_right = 1710.0
+offset_bottom = 2096.0
+upgrade = ExtResource("4_pgr47")
+dependecies = {
+NodePath("../Magnet2"): 3
+}
+tier = 2
+
+[node name="Magnet4" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1612.0
+offset_top = 1793.0
+offset_right = 1708.0
+offset_bottom = 1921.0
+upgrade = ExtResource("4_pgr47")
+dependecies = {
+NodePath("../Magnet3"): 3
+}
+max_level = 1
+tier = 3
+
 [node name="Health2" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
@@ -173,6 +208,23 @@ NodePath("../Radius3"): 3
 }
 max_level = 7
 tier = 3
+
+[node name="Radius5" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1341.0
+offset_top = 1781.0
+offset_right = 1437.0
+offset_bottom = 1909.0
+upgrade = ExtResource("3_tsxcs")
+dependecies = {
+NodePath("../Radius4"): 3
+}
+tier = 4
 
 [node name="Damage1" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
@@ -297,10 +349,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2484.0
-offset_top = 2095.0
-offset_right = 2548.0
-offset_bottom = 2186.0
+offset_left = 2486.0
+offset_top = 2043.0
+offset_right = 2582.0
+offset_bottom = 2171.0
 upgrade = ExtResource("8_ev5ml")
 dependecies = {
 NodePath("../Jetpack"): 1
@@ -313,10 +365,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2656.0
-offset_top = 2039.0
-offset_right = 2720.0
-offset_bottom = 2130.0
+offset_left = 2488.0
+offset_top = 1879.0
+offset_right = 2584.0
+offset_bottom = 2007.0
 upgrade = ExtResource("8_ev5ml")
 dependecies = {
 NodePath("../JetpackFuel"): 3

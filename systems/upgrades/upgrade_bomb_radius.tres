@@ -13,6 +13,6 @@ display_name = "Bomb Radius"
 texture = ExtResource("2_4u0uo")
 num_tiers = 5
 tier_costs = Array[int]([1, 5, 10, 20, 50])
-tier_values = [1.1, 1.1, 1.2, 1.2, 1.5]
+tier_values = [1.05, 1.075, 1.1, 1.15, 1.25]
 current_level_str = "[color=grey]%s[/color]"
 value_str = "[color=green](+%s)[/color] "

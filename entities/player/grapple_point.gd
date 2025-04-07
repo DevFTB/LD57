@@ -12,10 +12,10 @@ enum GrappleState {
 @export var player_pull_speed: float = 1000.0
 
 ## The maximum distance at which a hook can attached to the tilemap
-@export var max_attachment_distance := 1500.0
+@export var max_attachment_distance := 300.0
 
 ## How fast the grapple point flys through the world
-@export var grapple_point_speed: float = 400.0
+@export var grapple_point_speed: float = 250.0
 
 ## The distance at which the grapple hook stops pulling to avoid janky collisions.
 @export var grapple_min_pull_distance := 60
@@ -61,7 +61,7 @@ func _draw():
 func throw(direction: Vector2) -> void:
 	if not cooldown_active:
 		position = player.position
-		velocity = direction * player_pull_speed
+		velocity = direction * player_pull_speed * grapple_range_multiplier
 		set_state(GrappleState.SEARCHING)
 		grapple_cooldown.start()
 	
@@ -87,7 +87,7 @@ func calculate_frame_velocity(_delta: float) -> Vector2:
 	var distance := player.position.distance_to(position)
 	
 	if distance > grapple_min_pull_distance:
-		return direction * grapple_point_speed
+		return direction * grapple_point_speed * grapple_range_multiplier
 	else:
 		return Vector2()
 

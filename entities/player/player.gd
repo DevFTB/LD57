@@ -27,7 +27,9 @@ enum TraversalMethod {
 @export var maximum_throw_hold_time := 1.0
 @export var blast_resistance_factor := 0.5
 @export var unlocked_traversal_methods: Array[TraversalMethod] = []
+@export var base_magnet_range := 100
 
+var magnet_strength_multiplier = 1
 var bomb_damage_multiplier = 1
 var bomb_radius_multiplier = 1
 var jetpack_fuel_multiplier = 1
@@ -84,7 +86,9 @@ func on_upgrade(upgrade : Upgrade, tier):
 			grapple_point.grapple_range_multiplier = upgrade_state.get_total_value(upgrade)
 		PlayerUpgradeState.UpgradeType.JETPACK_FUEL:
 			jetpack.fuel_multiplier = upgrade_state.get_total_value(upgrade)
-
+		PlayerUpgradeState.UpgradeType.MAGNET:
+			magnet_strength_multiplier = upgrade_state.get_total_value(upgrade)
+		
 
 func set_movement_state(new_movement_state: MovementState) -> void:
 	current_movement_state = new_movement_state
@@ -273,3 +277,7 @@ func _on_rope_entered(body):
 func _on_rope_exited(body):
 	if body is Player:
 		can_climb = false
+
+
+func get_magnet_range():
+	return base_magnet_range * magnet_strength_multiplier

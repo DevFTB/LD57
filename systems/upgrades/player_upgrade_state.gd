@@ -4,7 +4,7 @@ class_name PlayerUpgradeState
 signal upgraded(upgrade: Upgrade, tier)
 
 enum UpgradeType {
-	BOMB_RADIUS, BOMB_HARDNESS, GRAPPLE_RANGE, HEALTH, JETPACK, MAGNET, JETPACK_FUEL
+	BOMB_RADIUS, BOMB_HARDNESS, GRAPPLE_RANGE, HEALTH, JETPACK, MAGNET, JETPACK_FUEL, INVULNERABILITY
 }
 
 @export var upgrades : Dictionary[UpgradeType, Upgrade]
