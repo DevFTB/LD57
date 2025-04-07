@@ -98,8 +98,8 @@ func get_valid_spawnpoints(min_x: int, max_x: int, min_y: int, max_y: int) -> Ar
 	var valid_spawnpoints: Array[Vector2] = []
 	var top_left = occupied_tilemap.local_to_map(occupied_tilemap.to_local(Vector2(min_x, min_y)))
 	var bottom_right = occupied_tilemap.local_to_map(occupied_tilemap.to_local(Vector2(max_x, max_y)))
-	for x in range(top_left.x, bottom_right.x):
-		for y in range(top_left.y, bottom_right.y):
+	for x in range(top_left.x, bottom_right.x + 1):
+		for y in range(top_left.y, bottom_right.y + 1):
 			if is_valid_spawnpoint(x, y):
 				var tilemap_coords = Vector2i(x, y)
 				valid_spawnpoints.append(occupied_tilemap.to_global(occupied_tilemap.map_to_local(tilemap_coords)))

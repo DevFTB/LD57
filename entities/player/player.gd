@@ -8,6 +8,7 @@ signal throw_released(data: World.ThrowReleasedEventData)
 signal depth_changed(depth)
 signal selected_bomb_changed(bomb: Item)
 
+signal traversal_method_unlocked(method: TraversalMethod)
 signal movement_state_changed(new_movement_state: MovementState)
 signal died
 
@@ -67,6 +68,12 @@ func _ready() -> void:
 	#connect signals
 	if health_component:
 		health_component.died.connect(_on_death)
+		
+func unlock_traversal_method(method: TraversalMethod) -> void:
+	if not unlocked_traversal_methods.has(method):
+		unlocked_traversal_methods.append(method)
+		traversal_method_unlocked.emit(method)
+	pass
 		
 func set_movement_state(new_movement_state: MovementState) -> void:
 	current_movement_state = new_movement_state

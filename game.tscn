@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=64 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
@@ -15,11 +15,15 @@
 [ext_resource type="TileSet" uid="uid://1s8d18ai2k57" path="res://world/tileset/ore_tileset.tres" id="5_e36ub"]
 [ext_resource type="Script" uid="uid://b0ogai8s7l7sc" path="res://systems/inventory/inventory.gd" id="5_lwlx3"]
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="7_eow3j"]
+[ext_resource type="Script" uid="uid://cnf626cpgukip" path="res://entities/loot_chest/loot_table.gd" id="8_87ddb"]
+[ext_resource type="Resource" uid="uid://diae5nc080sux" path="res://entities/player/player_bomb_inventory.tres" id="8_mfdv2"]
 [ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="9_215e1"]
-[ext_resource type="Script" path="res://enemy_spawner.gd" id="9_kq12w"]
+[ext_resource type="Script" uid="uid://b0mdeooldsu15" path="res://enemy_spawner.gd" id="9_kq12w"]
 [ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="9_qhcbd"]
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="9_rvswv"]
+[ext_resource type="Resource" uid="uid://bibv5en88eckk" path="res://entities/loot_chest/loot_table_hardness_2.tres" id="10_mljfx"]
 [ext_resource type="Texture2D" uid="uid://1r3chexcrwx" path="res://world/level_bg.png" id="11_qhcbd"]
+[ext_resource type="Resource" uid="uid://c6xty2mdlfahl" path="res://entities/loot_chest/loot_table_hardness_3.tres" id="11_qpefm"]
 [ext_resource type="PackedScene" uid="uid://c5457i8ubkrc7" path="res://entities/enemies/spiky_ball/spiky_ball_enemy.tscn" id="11_t46w6"]
 [ext_resource type="PackedScene" uid="uid://dqawvbjg7bayk" path="res://entities/enemies/skeleton_bomber/skeleton_bomber_enemy.tscn" id="12_m28ev"]
 [ext_resource type="Script" uid="uid://motjp37ct4o3" path="res://ui/HUD/fuel_bar.gd" id="13_36jdj"]
@@ -46,6 +50,7 @@
 [ext_resource type="Resource" uid="uid://wylmsxcnfp00" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="34_l1i01"]
 [ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
+[ext_resource type="Script" uid="uid://bw4n7aeli48jj" path="res://ui/grapple_ui.gd" id="43_m28ev"]
 
 [sub_resource type="Resource" id="Resource_0de7l"]
 script = ExtResource("5_lwlx3")
@@ -156,6 +161,8 @@ texture_scale = 2.84
 
 [node name="Level" type="Node2D" parent="World"]
 script = ExtResource("3_lc2xo")
+loot_chest_scene = ExtResource("13_klri6")
+loot_tables = Array[ExtResource("8_87ddb")]([ExtResource("15_m28ev"), ExtResource("10_mljfx"), ExtResource("11_qpefm")])
 
 [node name="CaveBlocks" type="TileMapLayer" parent="World/Level" groups=["navigation_polygon_source_geometry_group"]]
 texture_filter = 1
@@ -529,7 +536,7 @@ texture = ExtResource("28_dhpj7")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="ProgressBar" type="ProgressBar" parent="GUI/NewHUD/VBoxContainer/HBoxContainer3/TextureRect" node_paths=PackedStringArray("timer")]
+[node name="ProgressBar" type="ProgressBar" parent="GUI/NewHUD/VBoxContainer/HBoxContainer3/TextureRect" node_paths=PackedStringArray("player", "timer")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -539,10 +546,11 @@ grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_dhpj7")
 fill_mode = 3
 show_percentage = false
-script = ExtResource("13_bnpwn")
+script = ExtResource("43_m28ev")
+player = NodePath("../../../../../../World/Player")
 timer = NodePath("../../../../../../World/Player/GrapplePoint/GrappleCooldown")
 
-[node name="FuelBar" type="TextureProgressBar" parent="GUI/NewHUD/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("jetpack")]
+[node name="FuelBar" type="TextureProgressBar" parent="GUI/NewHUD/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("player")]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 fill_mode = 3
@@ -551,7 +559,7 @@ texture_under = SubResource("AtlasTexture_xex6t")
 texture_over = SubResource("AtlasTexture_082n1")
 texture_progress = SubResource("AtlasTexture_aa0lp")
 script = ExtResource("13_36jdj")
-jetpack = NodePath("../../../../../World/Player/Jetpack")
+player = NodePath("../../../../../World/Player")
 
 [node name="Control" type="Control" parent="GUI/NewHUD/VBoxContainer"]
 layout_mode = 2
