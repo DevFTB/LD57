@@ -34,7 +34,7 @@ enum TraversalMethod {
 @export var upgrade_state: PlayerUpgradeState = PlayerUpgradeState.new()
 
 var magnet_strength_multiplier = 1
-var bomb_damage_multiplier = 1
+var hardness_upgrade_level = 0
 var bomb_radius_multiplier = 1
 var jetpack_fuel_multiplier = 1
 var invulnerability_duration: float = 0
@@ -102,8 +102,9 @@ func on_upgrade(upgrade: Upgrade, tier):
 		PlayerUpgradeState.UpgradeType.JETPACK:
 			traversal_method_unlocked.emit(TraversalMethod.JETPACK)
 			unlocked_traversal_methods.append(TraversalMethod.JETPACK)
+			jetpack.fuel_changed.emit(jetpack.fuel)
 		PlayerUpgradeState.UpgradeType.BOMB_HARDNESS:
-			bomb_damage_multiplier = upgrade_state.get_total_value(upgrade)
+			hardness_upgrade_level = upgrade_state.get_total_value(upgrade)
 		PlayerUpgradeState.UpgradeType.BOMB_RADIUS:
 			bomb_radius_multiplier = upgrade_state.get_total_value(upgrade)
 		PlayerUpgradeState.UpgradeType.GRAPPLE_RANGE:
@@ -112,6 +113,7 @@ func on_upgrade(upgrade: Upgrade, tier):
 			grapple_point.grapple_cooldown_reduction = upgrade_state.get_total_value(upgrade)
 		PlayerUpgradeState.UpgradeType.JETPACK_FUEL:
 			jetpack.fuel_multiplier = upgrade_state.get_total_value(upgrade)
+			jetpack.fuel_changed.emit(jetpack.fuel)
 		PlayerUpgradeState.UpgradeType.MAGNET:
 			magnet_strength_multiplier = upgrade_state.get_total_value(upgrade)
 		PlayerUpgradeState.UpgradeType.HEALTH:
@@ -284,8 +286,9 @@ func _on_throw_release(strength = 1.0) -> void:
 	var bomb_type: BombType = (selected_bomb_item.get_data_component(Item.DataCompontents.BOMB_DATA_COMPONENT)).duplicate()
 	
 	# apply upgrades		
-	bomb_type.hardness = bomb_type.hardness * bomb_damage_multiplier
-	bomb_type.explosion_radius = bomb_type.explosion_radius * bomb_radius_multiplier
+	bomb_type.hardness = bomb_type.hardness + hardness_upgrade_level
+	if bomb_type.id != "nuclear":
+		bomb_type.explosion_radius = bomb_type.explosion_radius * bomb_radius_multiplier
 	var multi_bomb = false
 	var thrown_bomb_amount := 1
 	if randf_range(0, 100) <= multi_bomb_chance_percent:

@@ -8,7 +8,7 @@ enum JetpackState {
 }
 ## The current amount of fuel in the jetpack.
 
-@export var base_fuel: float = 100.0
+@export var base_fuel: float = 5.0
 
 ## How fast the jetpack burns fuel.
 @export var fuel_burn_rate: float = 1.0
@@ -36,7 +36,7 @@ func _ready() -> void:
 	particles.emitting = false
 	player.movement_state_changed.connect(_on_movement_state_changed)
 
-		
+
 func restock() -> void:
 	fuel = get_max_fuel()
 
@@ -53,7 +53,8 @@ func handle_action(key: StringName) -> void:
 func _physics_process(delta: float) -> void:
 	# Burn fuel when on.
 	if state == JetpackState.ON:
-		fuel = move_toward(fuel, 0, fuel_burn_rate * delta)
+		if fuel <= 0:	player.set_movement_state(Player.MovementState.FREE)
+		fuel -= fuel_burn_rate * delta 
 
 ## Calculates the velocity for the player when it's using this traversal method.
 func calculate_frame_velocity(delta: float) -> Vector2:
