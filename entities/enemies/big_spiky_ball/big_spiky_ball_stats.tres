@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=5 format=3 uid="uid://dr17kl8e3idh"]
+
+[ext_resource type="AudioStream" uid="uid://dm7gwvyvkgf04" path="res://systems/music_sfx/files/sfx/enemies/spiky balldeath.wav" id="1_hio1u"]
+[ext_resource type="Texture2D" uid="uid://cn5ls7yn2sm3x" path="res://entities/enemies/spiky_ball/spiky_ball_death.png" id="2_ctdyt"]
+[ext_resource type="AudioStream" uid="uid://b4eriulf3y3ng" path="res://systems/music_sfx/files/sfx/enemies/spiky ball.wav" id="3_fkrrb"]
+[ext_resource type="Script" uid="uid://bvi6ww4ywm8ge" path="res://entities/enemies/enemy_stats.gd" id="4_vdydh"]
+
+[resource]
+script = ExtResource("4_vdydh")
+max_health = 600
+move_speed = 300
+damage = 50.0
+range = 0.0
+is_grounded = true
+hurt_sound = ExtResource("3_fkrrb")
+death_sound = ExtResource("1_hio1u")
+death_sprite = ExtResource("2_ctdyt")
+death_sprite_scale = Vector2(1, 1)
+metadata/_custom_type_script = "uid://bvi6ww4ywm8ge"

@@ -48,7 +48,7 @@ func _spawn_death_scene() -> void:
 	get_tree().get_first_node_in_group("world").add_child(death)
 	death.global_position = self.global_position
 	var death_initial_velocity = Vector2(randf_range(-100, 100), randf_range(-100, -300))
-	death.set_properties(enemy_stats.death_sound, enemy_stats.death_sprite, death_initial_velocity)
+	death.set_properties(enemy_stats.death_sound, enemy_stats.death_sprite, death_initial_velocity, enemy_stats.death_sprite_scale)
 
 
 func stick(entity: Node2D) -> void:
