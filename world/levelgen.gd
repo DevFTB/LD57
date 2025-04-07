@@ -12,7 +12,7 @@ class_name LevelGen extends Node2D
 # must be a multiple of 32 due to navmesh stuffs
 @export var map_chunk_size = 64
 
-@export var loot_chests_per_chunk: int = 30
+@export var loot_chests_per_chunk: int = 20
 @export var loot_chest_scene: PackedScene
 @export var loot_tables: Array[LootTable]
 
@@ -225,15 +225,14 @@ func generate_chunk_navmesh(min_x: int, max_x: int, min_y: int, max_y: int) -> v
 			create_navmesh(x, y)
 
 func create_navmesh(left_x: int, top_y: int):
-	# TODO: check not off by one error?
-	var right_x = left_x + navmesh_chunk_size - 1
-	var bottom_y = top_y + navmesh_chunk_size - 1
+	var right_x = left_x + navmesh_chunk_size
+	var bottom_y = top_y + navmesh_chunk_size
 	var new_nav_region = NavigationRegion2D.new()
 	
 	# TODO: local coords, not global an issue?
 	$NavMeshes.add_child(new_nav_region)
 	call_deferred("bake_nav_mesh", new_nav_region,
-		CAVE_BLOCK_TILEMAP.map_to_local(Vector2(left_x, right_x)),
+		CAVE_BLOCK_TILEMAP.map_to_local(Vector2(left_x, top_y)),
 		CAVE_BLOCK_TILEMAP.map_to_local(Vector2(left_x, bottom_y)),
 		CAVE_BLOCK_TILEMAP.map_to_local(Vector2(right_x, bottom_y)),
 		CAVE_BLOCK_TILEMAP.map_to_local(Vector2(right_x, top_y)))
@@ -275,8 +274,10 @@ func _ready() -> void:
 	
 	# base chunk
 	generate_chunk(0, -1)
-	# first chunk below
+	# generate initial chunks below, so spawns are respected
 	generate_chunk(0, 0)
+	generate_chunk(-1, 0)
+	generate_chunk(1, 0)
 
 const FEATHER := 20
 func bake_nav_mesh(mesh, point1, point2, point3, point4):
@@ -291,5 +292,4 @@ func bake_nav_mesh(mesh, point1, point2, point3, point4):
 # probably doesnt need to be run every frame, but not very expensive anyways
 func _process(delta: float) -> void:
 	var player_chunk = get_player_chunk()
-	print(player_chunk)
 	check_chunk_update(player_chunk.x, player_chunk.y)
