@@ -18,7 +18,6 @@ func _ready() -> void:
 	timer.start()
 
 func poll() -> void:
-	prints(name, are_conditions_satisfied(), times_shown)
 	if (not repeating and times_shown < 1) or repeating:
 		if are_conditions_satisfied() and not hint_box.busy:
 			display()
