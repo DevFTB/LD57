@@ -1,11 +1,18 @@
-[gd_resource type="Resource" script_class="EnemyStats" load_steps=2 format=3 uid="uid://c6fb7g3i00wft"]
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=5 format=3 uid="uid://c6fb7g3i00wft"]
 
 [ext_resource type="Script" uid="uid://bvi6ww4ywm8ge" path="res://entities/enemies/enemy_stats.gd" id="1_rrn3n"]
+[ext_resource type="AudioStream" uid="uid://crkn014vyg8b5" path="res://systems/music_sfx/files/sfx/enemies/bat death.wav" id="1_wbyjn"]
+[ext_resource type="Texture2D" uid="uid://cdpa4ykb6cxs8" path="res://entities/enemies/bat/bat_death_icon.png" id="2_b3pg7"]
+[ext_resource type="AudioStream" uid="uid://cfipcy817qbsn" path="res://systems/music_sfx/files/sfx/enemies/bat hurt.wav" id="2_wbyjn"]
 
 [resource]
 script = ExtResource("1_rrn3n")
-max_health = 100
+max_health = 40
 move_speed = 500
 damage = 10.0
+range = 0.0
 is_grounded = false
+hurt_sound = ExtResource("2_wbyjn")
+death_sound = ExtResource("1_wbyjn")
+death_sprite = ExtResource("2_b3pg7")
 metadata/_custom_type_script = "uid://bvi6ww4ywm8ge"
