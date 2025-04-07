@@ -8,6 +8,7 @@ signal throw_released(data: World.ThrowReleasedEventData)
 signal depth_changed(depth)
 signal selected_bomb_changed(bomb: Item)
 
+signal traversal_method_unlocked(method: TraversalMethod)
 signal movement_state_changed(new_movement_state: MovementState)
 signal died
 
@@ -37,6 +38,8 @@ var bomb_radius_multiplier = 1
 var jetpack_fuel_multiplier = 1
 var invulnerability_duration : float = 0
 
+
+
 var _holding_throw := false
 var _throw_action_held_time := 0.0
 var selected_bomb_item: Item
@@ -44,6 +47,7 @@ var can_throw := true
 var can_pickup := true
 var can_climb := false
 var current_depth := 0
+
 
 var upgrade_state: PlayerUpgradeState = PlayerUpgradeState.new()
 
@@ -55,9 +59,10 @@ var current_movement_state: MovementState = MovementState.FREE
 @onready var bomb_cooldown: Timer = $BombCooldown
 @onready var grapple_point: GrapplePoint = $GrapplePoint
 @onready var jetpack: Jetpack = $Jetpack
-@onready var rope_climb : RopeClimb = $RopeClimb
+@onready var rope_climb: RopeClimb = $RopeClimb
 @onready var spawn_location: Vector2 = global_position
 @onready var winch = $"../Winch"
+@onready var holding_bomb = $Sprite2D/BombSprites
 
 func _ready() -> void:
 	upgrade_state.upgraded.connect(on_upgrade)
@@ -180,7 +185,7 @@ func handle_grapple(delta: float) -> void:
 func handle_jetpack(delta: float) -> void:
 	_frame_velocity = jetpack.calculate_frame_velocity(delta)
 
-func handle_climbing(delta:float) -> void:
+func handle_climbing(delta: float) -> void:
 	_frame_velocity = rope_climb.calculate_frame_velocity(delta)
 
 func _process(delta):
@@ -252,16 +257,12 @@ func _on_death():
 	if _holding_throw:
 		_on_throw_release(0)
 	var inventory: Inventory = mineral_inventory_component.inventory
-	var dropped_item_scene = preload("res://entities/item/item_entity.tscn")
+
+	var world: World = get_tree().get_first_node_in_group("world")
 	for item in inventory.get_items():
-		for i in range(inventory.get_item_amount(item)):
-			var dropped_item = dropped_item_scene.instantiate()
-			dropped_item.item = item
-			dropped_item.quantity = 1
-			inventory.remove_item(item, dropped_item.quantity)
-			get_tree().get_first_node_in_group("world").call_deferred("add_child", dropped_item)
-			dropped_item.global_position = self.global_position + Vector2(randi_range(-10, 10), randi_range(-10, 10))
-			dropped_item.linear_velocity = Vector2(randf_range(-300, 300), randf_range(-300, 300))
+		world.call_deferred("drop_item_entity", global_position, item, inventory.get_item_amount(item))
+		inventory.remove_item(item, inventory.get_item_amount(item))
+
 	$DeathSound.play()
 	died.emit()
 
@@ -272,6 +273,7 @@ func reset_player() -> void:
 	velocity = Vector2.ZERO
 	global_position = spawn_location
 	set_movement_state(MovementState.FREE)
+	
 
 func _play_hurt_sounds() -> void:
 	$HurtSound.pitch_scale = randf_range(0.9, 1.1)
@@ -286,6 +288,11 @@ func _on_rope_exited(body):
 	if body is Player:
 		can_climb = false
 
+
+func _on_selected_bomb_changed(bomb):
+	for child in holding_bomb.get_children():
+		child.texture = bomb.texture
+	pass # Replace with function body.
 
 func get_magnet_range():
 	return base_magnet_range * magnet_strength_multiplier

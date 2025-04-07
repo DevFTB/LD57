@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://be4tedtvsf8on"]
+[gd_scene load_steps=79 format=3 uid="uid://be4tedtvsf8on"]
 
 [ext_resource type="Script" uid="uid://uex2tapn1k1y" path="res://entities/player/player.gd" id="1_merdl"]
 [ext_resource type="Texture2D" uid="uid://o2j8sch5klsg" path="res://entities/player/animations/idle.png" id="2_7thud"]
@@ -11,11 +11,12 @@
 [ext_resource type="AudioStream" uid="uid://cnkpk86sygxlu" path="res://systems/music_sfx/files/sfx/jetpack/jetpack loop.wav" id="5_we0b7"]
 [ext_resource type="PackedScene" uid="uid://eenrl1ayi2xr" path="res://entities/common/hurtbox_component.tscn" id="6_8fjmc"]
 [ext_resource type="Script" uid="uid://lw70x0du5vba" path="res://entities/player/bomb_strength_progress_bar.gd" id="7_qiwj3"]
+[ext_resource type="Script" uid="uid://bacy6y0b6oowc" path="res://entities/player/bomb_sprites.gd" id="7_qpopc"]
 [ext_resource type="Script" uid="uid://yprph7eiqbic" path="res://entities/player/grapple_point.gd" id="8_26q78"]
 [ext_resource type="Texture2D" uid="uid://b6753y8fi3avo" path="res://entities/player/grapple/grapple_hook.png" id="9_bectd"]
 [ext_resource type="Script" uid="uid://cc2j1e84os7o7" path="res://entities/player/jetpack.gd" id="10_wvtmh"]
 [ext_resource type="Texture2D" uid="uid://chpbvtny8msu7" path="res://entities/player/animations/walk.png" id="12_a1qjk"]
-[ext_resource type="Script" path="res://entities/common/entity_hurtbox_component.gd" id="12_t1t22"]
+[ext_resource type="Script" uid="uid://c7vkf6rmxkfse" path="res://entities/common/entity_hurtbox_component.gd" id="12_t1t22"]
 [ext_resource type="Texture2D" uid="uid://deinxf2hul2ko" path="res://entities/player/animations/jump.png" id="13_j3ovn"]
 [ext_resource type="AudioStream" uid="uid://dg6cyqp7qwmm7" path="res://systems/music_sfx/files/sfx/throw selection sound.wav" id="13_we0b7"]
 [ext_resource type="Texture2D" uid="uid://bf5qhstojbd5w" path="res://entities/player/animations/throw.png" id="14_afbqv"]
@@ -24,7 +25,8 @@
 [ext_resource type="AudioStream" uid="uid://dis0is1c00khw" path="res://systems/music_sfx/files/sfx/throw sound.wav" id="20_mtric"]
 [ext_resource type="AudioStream" uid="uid://gllb6uw3s25f" path="res://systems/music_sfx/files/sfx/player/damage.wav" id="21_eyb6c"]
 [ext_resource type="AudioStream" uid="uid://tpulestneq76" path="res://systems/music_sfx/files/sfx/player/death.wav" id="22_221hk"]
-[ext_resource type="Script" uid="uid://bim3pfpf1ea4l" path="res://entities/player/rope_climb.gd" id="24_t1t22"]
+[ext_resource type="Script" path="res://entities/player/rope_climb.gd" id="24_t1t22"]
+[ext_resource type="Texture2D" uid="uid://c0nbm2a4tsd3w" path="res://entities/throwables/bomb/throwable_bomb.png" id="26_wuv6x"]
 
 [sub_resource type="Curve" id="Curve_qiwj3"]
 _limits = [0.0, 1000.0, 0.0, 1.0]
@@ -286,6 +288,18 @@ tracks/7/keys = {
 "method": &"reset_player"
 }]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Sprite2D/BombSprites:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_gx6sm"]
 resource_name = "fall"
@@ -350,6 +364,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [3]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D/BombSprites:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_221hk"]
@@ -417,6 +443,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [0, 1]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D/BombSprites:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_a1qjk"]
 resource_name = "idle"
@@ -482,6 +520,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [0, 1, 2, 3]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D/BombSprites:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_j3ovn"]
 resource_name = "jump"
@@ -545,6 +595,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 1, 2]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D/BombSprites:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_yqrof"]
@@ -610,6 +672,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [4]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D/BombSprites:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_3wlsy"]
 resource_name = "release_throw"
@@ -673,6 +747,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [3, 4, 5, 6, 7]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D/BombSprites:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_afbqv"]
@@ -738,6 +824,42 @@ tracks/4/keys = {
 "update": 1,
 "values": [0, 1, 2, 7]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D/BombSprites/BombSpriteLeft:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.100063, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(80, 115), Vector2(89.545, -4.27)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite2D/BombSprites/BombSpriteRight:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.100063, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(-80, 115), Vector2(-89.545, -4.27)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Sprite2D/BombSprites:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.100063, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, true]
+}
 
 [sub_resource type="Animation" id="Animation_7thud"]
 resource_name = "walk"
@@ -802,6 +924,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D/BombSprites:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bectd"]
@@ -939,7 +1073,7 @@ states/start_throw/position = Vector2(639, 262)
 states/walk/node = SubResource("AnimationNodeAnimation_3wlsy")
 states/walk/position = Vector2(518, 100)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_afbqv"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_gx6sm"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_yqrof"), "walk", "jump", SubResource("AnimationNodeStateMachineTransition_we0b7"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_mtric"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_eyb6c"), "walk", "fall", SubResource("AnimationNodeStateMachineTransition_221hk"), "idle", "fall", SubResource("AnimationNodeStateMachineTransition_ghoj8"), "fall", "land", SubResource("AnimationNodeStateMachineTransition_t1t22"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_50fht"), "walk", "start_throw", SubResource("AnimationNodeStateMachineTransition_qpopc"), "idle", "start_throw", SubResource("AnimationNodeStateMachineTransition_wq0jh"), "start_throw", "release_throw", SubResource("AnimationNodeStateMachineTransition_gt4e4"), "release_throw", "idle", SubResource("AnimationNodeStateMachineTransition_3wlsy"), "fall", "start_throw", SubResource("AnimationNodeStateMachineTransition_b2kln"), "release_throw", "start_throw", SubResource("AnimationNodeStateMachineTransition_wuv6x"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_24ehl"), "death", "idle", SubResource("AnimationNodeStateMachineTransition_bwdx1")]
-graph_offset = Vector2(-20, -27)
+graph_offset = Vector2(-185, -187)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
@@ -974,6 +1108,20 @@ position = Vector2(0, -40)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_7thud")
 hframes = 3
+
+[node name="BombSprites" type="Node2D" parent="Sprite2D"]
+visible = false
+script = ExtResource("7_qpopc")
+
+[node name="BombSpriteLeft" type="Sprite2D" parent="Sprite2D/BombSprites"]
+visible = false
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("26_wuv6x")
+
+[node name="BombSpriteRight" type="Sprite2D" parent="Sprite2D/BombSprites"]
+visible = false
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("26_wuv6x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_mwb40")
@@ -1021,6 +1169,7 @@ bus = &"Sound FX"
 top_level = true
 collision_layer = 0
 script = ExtResource("8_26q78")
+max_attachment_distance = 600.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrapplePoint"]
 shape = SubResource("CircleShape2D_bectd")
@@ -1067,4 +1216,5 @@ bus = &"Sound FX"
 script = ExtResource("24_t1t22")
 climb_speed = 150.0
 
+[connection signal="selected_bomb_changed" from="." to="." method="_on_selected_bomb_changed"]
 [connection signal="timeout" from="BombCooldown" to="." method="_on_bomb_cooldown_timeout"]

@@ -14,3 +14,5 @@ texture = ExtResource("2_bc300")
 num_tiers = 5
 tier_costs = Array[int]([2, 5, 10, 20, 100])
 tier_values = [1.1, 1.12, 1.15, 1.2, 1.5]
+current_level_str = "[color=grey]%s[/color]"
+value_str = "[color=green](+%s)[/color] "

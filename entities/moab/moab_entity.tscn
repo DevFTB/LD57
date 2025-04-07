@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://bq84mpxun851f"]
+[gd_scene load_steps=22 format=3 uid="uid://bq84mpxun851f"]
 
 [ext_resource type="Script" uid="uid://ce42cdw34mrhe" path="res://entities/moab/moab_entity.gd" id="1_075v3"]
 [ext_resource type="Texture2D" uid="uid://b8vkgx0epv747" path="res://entities/moab/moab_sprite_sheet.png" id="2_3f07h"]
 [ext_resource type="PackedScene" uid="uid://bhol6hs31mkio" path="res://world/detectors/player_detector_2d.tscn" id="3_exw8j"]
 [ext_resource type="Texture2D" uid="uid://ykh7j3qor4u" path="res://entities/moab/moab_eating.png" id="5_8kar1"]
+[ext_resource type="AudioStream" uid="uid://b4fdju3oum6g" path="res://systems/music_sfx/files/sfx/eat sound.wav" id="5_ksfch"]
 
 [sub_resource type="Animation" id="Animation_v21hs"]
 length = 0.001
@@ -256,3 +257,8 @@ rotates = false
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Path2D/PathFollow2D"]
 lifetime = 0.6
 process_material = SubResource("ParticleProcessMaterial_3f07h")
+
+[node name="EatSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_ksfch")
+volume_db = 10.0
+bus = &"Sound FX"
