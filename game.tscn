@@ -12,7 +12,7 @@
 [ext_resource type="TileSet" uid="uid://1s8d18ai2k57" path="res://world/tileset/ore_tileset.tres" id="5_e36ub"]
 [ext_resource type="Script" uid="uid://b0ogai8s7l7sc" path="res://systems/inventory/inventory.gd" id="5_lwlx3"]
 [ext_resource type="Script" uid="uid://6gp81uqd76gy" path="res://entities/loot_chest/random_float.gd" id="6_qpefm"]
-[ext_resource type="Script" path="res://main_camera.gd" id="7_lwlx3"]
+[ext_resource type="Script" uid="uid://cv6y1hrey2gct" path="res://main_camera.gd" id="7_lwlx3"]
 [ext_resource type="Script" uid="uid://cnf626cpgukip" path="res://entities/loot_chest/loot_table.gd" id="8_87ddb"]
 [ext_resource type="Script" path="res://enemy_spawner.gd" id="9_kq12w"]
 [ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="9_qhcbd"]
@@ -135,6 +135,7 @@ position = Vector2(-3.945, -3300)
 position = Vector2(-32, -3328)
 scale = Vector2(2, 2)
 script = ExtResource("7_lwlx3")
+max_shake_strength = 50.0
 
 [node name="PointLight2D" type="PointLight2D" parent="World/MainCamera"]
 position = Vector2(-17.5, -15)
