@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=4 uid="uid://cd8oj31rnkhdm"]
+[gd_scene load_steps=65 format=4 uid="uid://cd8oj31rnkhdm"]
 
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_cg2fx"]
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="2_pv1fl"]
@@ -12,9 +12,14 @@
 [ext_resource type="Script" uid="uid://b0mdeooldsu15" path="res://enemy_spawner.gd" id="9_kl2i7"]
 [ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="10_gl4cv"]
 [ext_resource type="PackedScene" uid="uid://c5457i8ubkrc7" path="res://entities/enemies/spiky_ball/spiky_ball_enemy.tscn" id="11_1kf84"]
+[ext_resource type="PackedScene" uid="uid://53ohv57t2ihg" path="res://entities/loot_chest/loot_chest.tscn" id="11_bh1tp"]
 [ext_resource type="PackedScene" uid="uid://dqawvbjg7bayk" path="res://entities/enemies/skeleton_bomber/skeleton_bomber_enemy.tscn" id="12_g081t"]
+[ext_resource type="Script" uid="uid://cnf626cpgukip" path="res://entities/loot_chest/loot_table.gd" id="12_r8f4e"]
+[ext_resource type="Resource" uid="uid://bag1idy6pkmv1" path="res://entities/loot_chest/loot_table_hardness_1.tres" id="13_bv7pd"]
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="13_ckd1k"]
 [ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="14_c4xu6"]
+[ext_resource type="Resource" uid="uid://bibv5en88eckk" path="res://entities/loot_chest/loot_table_hardness_2.tres" id="14_p1nfb"]
+[ext_resource type="Resource" uid="uid://c6xty2mdlfahl" path="res://entities/loot_chest/loot_table_hardness_3.tres" id="15_cq58n"]
 [ext_resource type="PackedScene" uid="uid://bq84mpxun851f" path="res://entities/moab/moab_entity.tscn" id="15_e4cdu"]
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="16_74ptf"]
 [ext_resource type="Script" uid="uid://b3r1glubcsdwt" path="res://ui/upgrade/upgrade_gui.gd" id="19_uvk23"]
@@ -146,6 +151,8 @@ texture_scale = 2.84
 
 [node name="Level" type="Node2D" parent="World"]
 script = ExtResource("6_p1nfb")
+loot_chest_scene = ExtResource("11_bh1tp")
+loot_tables = Array[ExtResource("12_r8f4e")]([ExtResource("13_bv7pd"), ExtResource("14_p1nfb"), ExtResource("15_cq58n")])
 
 [node name="CaveBlocks" type="TileMapLayer" parent="World/Level" groups=["navigation_polygon_source_geometry_group"]]
 texture_filter = 1
