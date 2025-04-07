@@ -3,7 +3,10 @@ extends Node2D
 # dict of enemy scene to enemy points
 @export var enemies: Dictionary[PackedScene, int]
 @export var occupied_tilemap: TileMapLayer
+@export var prioritise_strong_point_threshold: int = 6
 #@export var spawn_point_test_indicator: TileMapLayer
+@export var min_enemy_points_per_rect: int = 3
+@export var max_enemy_points_per_rect: int = 11
 
 @onready var spawn_timer = $SpawnTimer
 # TODO: will player be readied first - might rely on order of tree...
@@ -40,8 +43,17 @@ func _ready() -> void:
 	# NOTE: SPAWNER NODE MUST BE BELOW LEVEL NODE OTHERWISE FIRST SPAWN WON'T RESPECT OBSTACLES
 	spawn_enemies()
 	
+# i've decided to implement this in terms of tilemap y, but depth value might be preferred going forward?
 func get_expected_enemy_points(spawn_rect: Rect2):
-	return 4
+	var tilemap_y = occupied_tilemap.local_to_map(occupied_tilemap.to_local(spawn_rect.position + player.global_position)).y
+	# the smaller the smoother - takes longer to get from one end to another
+	var SMOOTHING_FACTOR = 1.0/50
+	
+	var sigmoid = func(x, smoothing_factor): return 1/(1.0+exp(-smoothing_factor * x))
+	
+	var enemy_points = float(max_enemy_points_per_rect - min_enemy_points_per_rect) * sigmoid.call(tilemap_y, SMOOTHING_FACTOR) + min_enemy_points_per_rect
+	
+	return int(enemy_points)
 
 func spawn_enemies():
 	refresh_enemy_dict()
@@ -51,15 +63,18 @@ func spawn_enemies():
 	$SpawnZones.global_position = player.global_position
 	
 	for spawn_rect in spawn_rects:
-		var extra_points_req = get_expected_enemy_points(spawn_rect) - get_spawn_rect_points(spawn_rect)
+		var expected_enemy_points = get_expected_enemy_points(spawn_rect)
+		#print(expected_enemy_points)
+		var extra_points_req = expected_enemy_points - get_spawn_rect_points(spawn_rect)
 		#print("extra points req", extra_points_req)
 		if extra_points_req > 0:
 			var global_rect = Rect2(spawn_rect.position + player.global_position, spawn_rect.size)
+			var prioritise_strong = true if expected_enemy_points >= prioritise_strong_point_threshold else false
 			spawn_enemies_in_area(extra_points_req, global_rect.position.x,
-			global_rect.end.x, global_rect.position.y,global_rect.end.y)
+			global_rect.end.x, global_rect.position.y,global_rect.end.y, prioritise_strong)
 			
 
-func spawn_enemies_in_area(points: int, min_x: int, max_x: int, min_y: int, max_y: int) -> void:
+func spawn_enemies_in_area(points: int, min_x: int, max_x: int, min_y: int, max_y: int, prioritise_strong:bool=false) -> void:
 	var valid_spawnpoints = get_valid_spawnpoints(min_x, max_x, min_y, max_y)
 	if valid_spawnpoints.size() == 0:
 		print("no valid spawnpoints!")
@@ -71,8 +86,10 @@ func spawn_enemies_in_area(points: int, min_x: int, max_x: int, min_y: int, max_
 		if enemy_options.size() == 0:
 			break
 		
-		# TODO: pick heigher point enemies with a higher weighting where possible
-		var new_enemy = enemy_options.pick_random()
+		# valid enemy with max points if prioritise_strong else random enemy
+		var new_enemy = (enemy_options.reduce(func(m, e): return e if enemies[e] > enemies[m] else m)
+			if prioritise_strong else enemy_options.pick_random())
+			
 		var spawn_pos = valid_spawnpoints.pick_random()
 		spawn_enemy(new_enemy, spawn_pos.x, spawn_pos.y)
 		points_left -= enemies[new_enemy]

@@ -66,8 +66,8 @@ position = Vector2(128, -3280)
 script = ExtResource("3_e2ivd")
 enemies = Dictionary[PackedScene, int]({
 ExtResource("4_bgsfg"): 1,
-ExtResource("6_2d1u3"): 1,
-ExtResource("9_pnepw"): 2
+ExtResource("6_2d1u3"): 2,
+ExtResource("9_pnepw"): 4
 })
 occupied_tilemap = NodePath("../Level/CaveBlocks")
 
