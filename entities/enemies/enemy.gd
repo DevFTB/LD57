@@ -30,6 +30,7 @@ func _ready():
 	health_component.maximum_health = enemy_stats.max_health
 	health_component.current_health = health_component.maximum_health
 	health_component.died.connect(die)
+	
 
 func _process(_delta: float) -> void:
 	pass

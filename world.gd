@@ -209,16 +209,17 @@ func drop_item_entity(location: Vector2, item: Item, amount: int, max_stacks := 
 			chunks.append(small_piece_size + 1)
 		else:
 			chunks.append(small_piece_size)
-
+			
 	for i in range(chunks.size()):
-		var new_entity: ItemEntity = ITEM_ENTITY.instantiate()
-		new_entity.item = item
-		new_entity.quantity = chunks[i]
-		
-		add_child(new_entity)
-		var offset_vector := Vector2.ONE.rotated(randf() * 2 * PI)
-		new_entity.position = location + offset_vector * 4
-		new_entity.apply_central_impulse(offset_vector * 100)
+		if chunks[i] > 0:
+			var new_entity: ItemEntity = ITEM_ENTITY.instantiate()
+			new_entity.item = item
+			new_entity.quantity = chunks[i]
+			
+			add_child(new_entity)
+			var offset_vector := Vector2.ONE.rotated(randf() * 2 * PI)
+			new_entity.position = location + offset_vector * 4
+			new_entity.apply_central_impulse(offset_vector * 100)
 
 func _on_spawn_area_player_detector_player_entered(_player):
 	player.health_component.is_invulnerable = true

@@ -3,6 +3,7 @@ extends Node2D
 
 signal consumed_item
 
+
 const BOMBPOWDER_ITEM = preload("uid://bfwwxfc0kwllo")
 const UPGRADIUM_ITEM = preload("uid://bsytuw721i88d")
 
