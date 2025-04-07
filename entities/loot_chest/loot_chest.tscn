@@ -4,13 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://cdp2qg6foouy2" path="res://world/loot/chest.png" id="2_cm3eg"]
 [ext_resource type="Script" uid="uid://do5gnx1cf4tjg" path="res://entities/common/health_component.gd" id="3_g0r7p"]
 [ext_resource type="Script" uid="uid://bh4wfgcuvhfeq" path="res://entities/common/hurtbox_component.gd" id="4_j5r8d"]
-[ext_resource type="Script" uid="uid://3o156l3yjpoa" path="res://entities/player/inventory_component.gd" id="5_3nwv4"]
+[ext_resource type="Script" path="res://entities/player/inventory_component.gd" id="5_3nwv4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_klri6"]
 size = Vector2(51, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_alovd"]
-size = Vector2(59, 55)
+size = Vector2(32, 28)
 
 [sub_resource type="Animation" id="Animation_t46w6"]
 resource_name = "die"
@@ -39,12 +39,14 @@ _data = {
 script = ExtResource("1_alovd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.125, 0.125)
+scale = Vector2(0.07, 0.07)
 texture = ExtResource("2_cm3eg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-1.5, 7)
 shape = SubResource("RectangleShape2D_klri6")
+disabled = true
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_g0r7p")
@@ -58,12 +60,11 @@ health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://bh4wfgcuvhfeq"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(-0.5, 5.5)
+position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_alovd")
 
 [node name="InventoryComponent" type="Node" parent="."]
 script = ExtResource("5_3nwv4")
-metadata/_custom_type_script = "uid://3o156l3yjpoa"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

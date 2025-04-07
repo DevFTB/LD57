@@ -14,6 +14,7 @@ extends Resource
 @export var hurt_sound: AudioStream
 @export var death_sound: AudioStream
 @export var death_sprite: Texture2D
+@export var death_sprite_scale: Vector2 = Vector2(0.5, 0.5)
 
 var health: float:
 	set(value): clamp(value, 0, max_health)

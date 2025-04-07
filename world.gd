@@ -149,7 +149,7 @@ func _destroy_tiles(explosion_tiles: Array[Vector2i], rebake := true, animate :=
 			var item: Item = ore_tilemap.get_cell_tile_data(tile).get_custom_data("drop_item")
 
 			var hardness: int = cave_blocks_tilemap.get_cell_tile_data(tile).get_custom_data("hardness")
-			var drop_amount: int = hardness_ore_drops.get(hardness, 1).sample()
+			var drop_amount: int = hardness_ore_drops[hardness].sample() if hardness_ore_drops.has(hardness) else 1
 			
 			if item.id == &"bombpowder":
 				StatsManager.add_to_stat(StatsManager.Stat.BOMBPOWDER_MINED, drop_amount)

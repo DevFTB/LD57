@@ -6,7 +6,7 @@ extends Node2D
 @export var prioritise_strong_point_threshold: int = 6
 #@export var spawn_point_test_indicator: TileMapLayer
 @export var min_enemy_points_per_rect: int = 3
-@export var max_enemy_points_per_rect: int = 11
+@export var max_enemy_points_per_rect: int = 14
 
 @onready var spawn_timer = $SpawnTimer
 # TODO: will player be readied first - might rely on order of tree...

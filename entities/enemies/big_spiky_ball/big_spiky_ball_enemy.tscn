@@ -1,29 +1,20 @@
-[gd_scene load_steps=11 format=3 uid="uid://c5457i8ubkrc7"]
+[gd_scene load_steps=12 format=3 uid="uid://bmj7bdrt80xsx"]
 
-[ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="1_0ymvm"]
-[ext_resource type="Resource" uid="uid://bynl6osvbjhk1" path="res://entities/enemies/spiky_ball/spiky_ball_stats.tres" id="2_hj171"]
-[ext_resource type="Script" uid="uid://duat2hmovvg3u" path="res://entities/enemies/spiky_ball/roll_sprite.gd" id="3_gww4m"]
-[ext_resource type="SpriteFrames" uid="uid://d2biarpa1c556" path="res://entities/enemies/spiky_ball/spiky_ball_blink.tres" id="3_nr6jm"]
-[ext_resource type="Script" uid="uid://lc66av2lel3h" path="res://entities/import_animation_player.gd" id="5_cq2da"]
-[ext_resource type="Texture2D" uid="uid://wrcjvvyk7ho1" path="res://entities/enemies/spiky_ball/spiky_ball_roll.png" id="6_nr6jm"]
+[ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="1_cbirw"]
+[ext_resource type="Resource" uid="uid://dr17kl8e3idh" path="res://entities/enemies/big_spiky_ball/big_spiky_ball_stats.tres" id="2_pwns4"]
+[ext_resource type="Texture2D" uid="uid://wrcjvvyk7ho1" path="res://entities/enemies/spiky_ball/spiky_ball_roll.png" id="3_8dwip"]
+[ext_resource type="Texture2D" uid="uid://cn48ht7cov3i5" path="res://entities/enemies/big_spiky_ball/angry spiky.png" id="3_pwns4"]
+[ext_resource type="Script" uid="uid://duat2hmovvg3u" path="res://entities/enemies/spiky_ball/roll_sprite.gd" id="4_bb0dk"]
+[ext_resource type="Script" uid="uid://lc66av2lel3h" path="res://entities/import_animation_player.gd" id="5_ax23s"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_cq2da"]
-radius = 35.0571
+[sub_resource type="CircleShape2D" id="CircleShape2D_ciwp5"]
+radius = 45.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pwns4"]
+radius = 50.6
 
 [sub_resource type="Animation" id="Animation_nr6jm"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.32, 0.32)]
-}
 
 [sub_resource type="Animation" id="Animation_cq2da"]
 length = 2.0
@@ -38,7 +29,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ExtResource("6_nr6jm")]
+"values": [ExtResource("3_8dwip")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -98,7 +89,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.32, 0.32)]
+"values": [Vector2(0.64, 0.64)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cq2da"]
@@ -107,35 +98,36 @@ _data = {
 &"roll": SubResource("Animation_cq2da")
 }
 
-[node name="Enemy" instance=ExtResource("1_0ymvm")]
-enemy_stats = ExtResource("2_hj171")
+[node name="Enemy2" instance=ExtResource("1_cbirw")]
+enemy_stats = ExtResource("2_pwns4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
-scale = Vector2(0.32, 0.32)
-sprite_frames = ExtResource("3_nr6jm")
-autoplay = "default"
-frame_progress = 0.796897
-script = ExtResource("3_gww4m")
+[node name="Sprite" parent="." index="0"]
+scale = Vector2(0.64, 0.64)
+texture = ExtResource("3_pwns4")
+script = ExtResource("4_bb0dk")
+rotation_speed = 6
+roll_accel = 12
 
-[node name="Sprite" parent="." index="1"]
-visible = false
-scale = Vector2(0.32, 0.32)
-texture = ExtResource("6_nr6jm")
-hframes = 4
-frame = 1
-script = ExtResource("3_gww4m")
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_ciwp5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="1"]
-shape = SubResource("CircleShape2D_cq2da")
+[node name="Running" parent="StateMachine" index="2"]
+jump_power = 400.0
 
-[node name="AnimationPlayer" parent="." index="12"]
+[node name="KnockedBack" parent="StateMachine" index="4"]
+knockback_velocity_multiplier = 200.0
+
+[node name="CollisionShape2D" parent="HurtboxComponent" index="1"]
+shape = SubResource("CircleShape2D_pwns4")
+
+[node name="AnimationPlayer" parent="." index="11"]
 libraries = {
 &"": SubResource("AnimationLibrary_cq2da")
 }
-script = ExtResource("5_cq2da")
+script = ExtResource("5_ax23s")
 sprite_path = "Sprite"
 action_name = "roll"
-sprite_sheet = ExtResource("6_nr6jm")
+sprite_sheet = ExtResource("3_8dwip")
 size = Vector2i(4, 1)
 time_spacing = 0.25
 

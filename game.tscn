@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=62 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="Script" uid="uid://hbvbhincea3w" path="res://game.gd" id="1_4v2jo"]
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
@@ -29,6 +29,8 @@
 [ext_resource type="Resource" uid="uid://2rch3ef2vr66" path="res://systems/inventory/items/item_basic_bomb.tres" id="14_xa8c5"]
 [ext_resource type="Resource" uid="uid://44skluikbcii" path="res://systems/inventory/items/item_sticky_bomb.tres" id="15_5b14r"]
 [ext_resource type="Resource" uid="uid://bag1idy6pkmv1" path="res://entities/loot_chest/loot_table_hardness_1.tres" id="15_m28ev"]
+[ext_resource type="PackedScene" uid="uid://dgi48dy0sn7la" path="res://entities/enemies/flying_skeleton_bomber/flying_skeleton_bomber_enemy.tscn" id="18_xex6t"]
+[ext_resource type="PackedScene" uid="uid://bmj7bdrt80xsx" path="res://entities/enemies/big_spiky_ball/big_spiky_ball_enemy.tscn" id="21_iu0sx"]
 [ext_resource type="PackedScene" uid="uid://dfb6tk3jaqp55" path="res://systems/music_sfx/music.tscn" id="23_qhcbd"]
 [ext_resource type="Script" uid="uid://d0eblir7jx7p" path="res://ui/HUD/global_stat_label.gd" id="24_vaj68"]
 [ext_resource type="AudioStream" uid="uid://bixi2inlened8" path="res://systems/music_sfx/files/sfx/ui/restock sound.wav" id="29_qpefm"]
@@ -426,7 +428,9 @@ script = ExtResource("9_kq12w")
 enemies = Dictionary[PackedScene, int]({
 ExtResource("9_qhcbd"): 1,
 ExtResource("11_t46w6"): 2,
-ExtResource("12_m28ev"): 4
+ExtResource("12_m28ev"): 4,
+ExtResource("21_iu0sx"): 8,
+ExtResource("18_xex6t"): 4
 })
 occupied_tilemap = NodePath("../Level/CaveBlocks")
 

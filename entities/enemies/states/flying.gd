@@ -24,8 +24,8 @@ func physics_update(_delta: float) -> void:
 	
 	if enemy.is_ranged and enemy.global_position.distance_to(enemy.nav.get_final_position()) < enemy.enemy_stats.range:
 		finished.emit(RANGED_ATTACKING)
-	elif enemy.global_position.distance_to(enemy.nav.get_final_position()) <= 20:
-		finished.emit(IDLE)
+	#elif enemy.global_position.distance_to(enemy.nav.get_final_position()) <= 20:
+		#finished.emit(IDLE)
 
 ## Called by the state machine upon changing the active state. The `data` parameter
 ## is a dictionary with arbitrary data the state can use to initialize itself.
