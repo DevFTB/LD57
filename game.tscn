@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=61 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
@@ -16,11 +16,14 @@
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="7_eow3j"]
 [ext_resource type="Resource" uid="uid://diae5nc080sux" path="res://entities/player/player_bomb_inventory.tres" id="8_mfdv2"]
 [ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="9_215e1"]
+[ext_resource type="Script" uid="uid://b0mdeooldsu15" path="res://enemy_spawner.gd" id="9_kq12w"]
 [ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="9_qhcbd"]
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="9_rvswv"]
 [ext_resource type="Texture2D" uid="uid://1r3chexcrwx" path="res://world/level_bg.png" id="11_qhcbd"]
+[ext_resource type="PackedScene" uid="uid://c5457i8ubkrc7" path="res://entities/enemies/spiky_ball/spiky_ball_enemy.tscn" id="11_t46w6"]
+[ext_resource type="PackedScene" uid="uid://dqawvbjg7bayk" path="res://entities/enemies/skeleton_bomber/skeleton_bomber_enemy.tscn" id="12_m28ev"]
 [ext_resource type="Script" uid="uid://motjp37ct4o3" path="res://ui/HUD/fuel_bar.gd" id="13_36jdj"]
-[ext_resource type="Script" uid="uid://ulg81k7glw1a" path="res://ui/timer_progress_bar.gd" id="13_bnpwn"]
+[ext_resource type="Script" path="res://ui/timer_progress_bar.gd" id="13_bnpwn"]
 [ext_resource type="PackedScene" uid="uid://bbvhdbp0joc6q" path="res://ui/bomb_select/bomb_slot_select_scene.tscn" id="13_i2p71"]
 [ext_resource type="PackedScene" uid="uid://53ohv57t2ihg" path="res://entities/loot_chest/loot_chest.tscn" id="13_klri6"]
 [ext_resource type="PackedScene" uid="uid://p0ipn2tylswi" path="res://ui/inventory/inventory_item_display.tscn" id="13_qhcbd"]
@@ -53,6 +56,9 @@ gradient = SubResource("Gradient_qhcbd")
 fill = 1
 fill_from = Vector2(0.517094, 0.470085)
 fill_to = Vector2(0.863248, 0.196581)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lwlx3"]
+size = Vector2(1469.63, 868.875)
 
 [sub_resource type="Curve" id="Curve_lc2xo"]
 _limits = [0.0, 1000.0, 0.0, 1.0]
@@ -141,6 +147,30 @@ tile_set = ExtResource("2_e2o6t")
 tile_set = ExtResource("5_e36ub")
 
 [node name="NavMeshes" type="Node2D" parent="World/Level"]
+
+[node name="Spawner" type="Node2D" parent="World" node_paths=PackedStringArray("occupied_tilemap")]
+position = Vector2(128, -3280)
+script = ExtResource("9_kq12w")
+enemies = Dictionary[PackedScene, int]({
+ExtResource("9_qhcbd"): 1,
+ExtResource("11_t46w6"): 2,
+ExtResource("12_m28ev"): 4
+})
+occupied_tilemap = NodePath("../Level/CaveBlocks")
+
+[node name="SpawnTimer" type="Timer" parent="World/Spawner"]
+wait_time = 5.0
+autostart = true
+
+[node name="SpawnZones" type="Node2D" parent="World/Spawner"]
+
+[node name="LeftSpawn" type="CollisionShape2D" parent="World/Spawner/SpawnZones"]
+position = Vector2(-738, 1083)
+shape = SubResource("RectangleShape2D_lwlx3")
+
+[node name="RightSpawn" type="CollisionShape2D" parent="World/Spawner/SpawnZones"]
+position = Vector2(735, 1083)
+shape = SubResource("RectangleShape2D_lwlx3")
 
 [node name="Player" parent="World" instance=ExtResource("1_80nbo")]
 position = Vector2(128, -3280)
@@ -519,6 +549,7 @@ size_flags_vertical = 3
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.36968, 0.328359, 0.176195, 1)
 
+[connection signal="timeout" from="World/Spawner/SpawnTimer" to="World/Spawner" method="_on_spawn_timer_timeout"]
 [connection signal="depth_changed" from="World/Player" to="Music" method="_on_player_depth_changed"]
 [connection signal="health_modified" from="World/Player/HealthComponent" to="World/Player" method="_on_health_component_health_modified"]
 [connection signal="player_entered" from="World/Spawn/SpawnAreaPlayerDetector" to="World" method="_on_spawn_area_player_detector_player_entered"]
