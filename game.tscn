@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=67 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
@@ -49,6 +49,7 @@
 [ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
 [ext_resource type="Script" uid="uid://bw4n7aeli48jj" path="res://ui/grapple_ui.gd" id="43_m28ev"]
+[ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="49_mljfx"]
 
 [sub_resource type="Resource" id="Resource_0de7l"]
 script = ExtResource("5_lwlx3")
@@ -562,6 +563,8 @@ player = NodePath("../../../../../World/Player")
 [node name="Control" type="Control" parent="GUI/NewHUD/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="PauseMenu" parent="GUI" instance=ExtResource("49_mljfx")]
 
 [node name="Music" parent="." instance=ExtResource("23_qhcbd")]
 

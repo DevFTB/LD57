@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=4 uid="uid://cd8oj31rnkhdm"]
+[gd_scene load_steps=66 format=4 uid="uid://cd8oj31rnkhdm"]
 
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_cg2fx"]
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="2_pv1fl"]
@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://d317cp0qhrmd4" path="res://ui/parchment.png" id="24_w1n21"]
 [ext_resource type="Texture2D" uid="uid://d4hqng7ebmhnc" path="res://ui/HUD/health_under.png" id="25_mtqbp"]
 [ext_resource type="Texture2D" uid="uid://bjhukgdcwwab7" path="res://ui/HUD/health_over.png" id="26_74ehv"]
+[ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="26_bv7pd"]
 [ext_resource type="Texture2D" uid="uid://de1ldfvaoh7a" path="res://ui/HUD/health_fill.png" id="27_eat3c"]
 [ext_resource type="Script" uid="uid://c8up2ibn67q7f" path="res://ui/HUD/label_health_bar.gd" id="28_abi6w"]
 [ext_resource type="PackedScene" uid="uid://p0ipn2tylswi" path="res://ui/inventory/inventory_item_display.tscn" id="29_s5yec"]
@@ -543,6 +544,10 @@ player = NodePath("../../../../../World/Player")
 [node name="Control" type="Control" parent="GUI/NewHUD/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="PauseMenu" parent="GUI" instance=ExtResource("26_bv7pd")]
+process_mode = 3
+visible = false
 
 [node name="Music" parent="." instance=ExtResource("46_q8u1n")]
 
