@@ -85,6 +85,7 @@ func _spawn_bomb_with_velocity(data: ThrowReleasedEventData) -> void:
 func _tween_to_moab() -> void:
 	camera.focus_on(moab, 2.0)
 
+
 func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 	camera.random_camera_shake_strength = bomb.bomb_type.explosion_radius * bomb.bomb_type.hardness * shake_intensity
 	camera.apply_shake()

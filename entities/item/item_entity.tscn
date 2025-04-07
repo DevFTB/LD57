@@ -13,6 +13,9 @@ bounce = 0.5
 [sub_resource type="CircleShape2D" id="CircleShape2D_hb5m1"]
 radius = 24.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_qtltb"]
+radius = 61.0082
+
 [node name="ItemEntity" type="RigidBody2D"]
 collision_layer = 32
 collision_mask = 33
@@ -36,3 +39,14 @@ metadata/_custom_type_script = "uid://1x04lpb258os"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectorArea2D"]
 shape = SubResource("CircleShape2D_hb5m1")
+
+[node name="CombinationArea2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombinationArea2D"]
+shape = SubResource("CircleShape2D_qtltb")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
