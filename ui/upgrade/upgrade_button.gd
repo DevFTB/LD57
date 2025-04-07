@@ -47,6 +47,9 @@ func _on_pressed():
 	if can_upgrade():
 		player.mineral_inventory_component.inventory.remove_item(ITEM_UPGRADIUM, upgrade.tier_costs[tier])
 		player.upgrade_state.increment_upgrade_tier_level(upgrade, tier)
+		$ClickSound.play()
+	else:
+		$ErrorSound.play()
 		
 func maxed():
 	return player.upgrade_state.get_tier_level(upgrade, tier) == max_level

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nfi4v3bb6elw"
-path="res://.godot/imported/bomb_strength.png-bc92da7d272fa9a3ed1a89af64ab4997.ctex"
+uid="uid://beie1d46fhe16"
+path="res://.godot/imported/multibomb_chance.png-e9557fa157aebe90e934fd386bd2d9ad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://systems/upgrades/icons/bomb_strength.png"
-dest_files=["res://.godot/imported/bomb_strength.png-bc92da7d272fa9a3ed1a89af64ab4997.ctex"]
+source_file="res://systems/upgrades/icons/multibomb_chance.png"
+dest_files=["res://.godot/imported/multibomb_chance.png-e9557fa157aebe90e934fd386bd2d9ad.ctex"]
 
 [params]
 

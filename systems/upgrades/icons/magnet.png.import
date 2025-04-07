@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kqpbfn6i6agw"
-path="res://.godot/imported/bomb_radius_icon.png-775ddecd943e63f3fa2274749ff9c9b8.ctex"
+uid="uid://jew7osclytcg"
+path="res://.godot/imported/magnet.png-afe1fb84be8f816a5539277435a005cc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://systems/upgrades/icons/bomb_radius_icon.png"
-dest_files=["res://.godot/imported/bomb_radius_icon.png-775ddecd943e63f3fa2274749ff9c9b8.ctex"]
+source_file="res://systems/upgrades/icons/magnet.png"
+dest_files=["res://.godot/imported/magnet.png-afe1fb84be8f816a5539277435a005cc.ctex"]
 
 [params]
 

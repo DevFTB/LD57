@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://bu82hndi3k5kg"]
+
+[ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_7ee0l"]
+[ext_resource type="Texture2D" uid="uid://beie1d46fhe16" path="res://systems/upgrades/icons/multibomb_chance.png" id="2_8mvbj"]
+
+[resource]
+script = ExtResource("1_7ee0l")
+upgrade_type = 8
+mult = false
+tier_value_in_tooltip = true
+tooltip_string = "Chance to multiply your basic bombs."
+display_name = "Multi-bomb"
+texture = ExtResource("2_8mvbj")
+num_tiers = 2
+tier_costs = Array[int]([10])
+tier_values = [10.0]
+current_level_str = "[color=grey]%s[/color]"
+value_str = "[color=green](+%s)[/color] "
+metadata/_custom_type_script = "uid://dycw7l33nfhy8"
