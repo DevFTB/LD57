@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://b6nkhnlvgtk7s"]
 
 [ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_7enb1"]
-[ext_resource type="Texture2D" uid="uid://nfi4v3bb6elw" path="res://systems/upgrades/icons/bomb_strength.png" id="2_bc300"]
+[ext_resource type="Texture2D" uid="uid://ctav8k3nq5nkg" path="res://systems/upgrades/icons/bomb_strength.png" id="2_bc300"]
 
 [resource]
 script = ExtResource("1_7enb1")
