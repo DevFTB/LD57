@@ -1,7 +1,6 @@
 class_name World extends Node2D
 
 
-
 @export var spawn_camera_offset: Vector2 = Vector2(0, -30)
 
 ## Everytime the player enters spawn their bomb inventory will have atleast this many of each item
@@ -21,8 +20,8 @@ class_name World extends Node2D
 
 @onready var block_break_scene = preload("res://systems/music_sfx/files/sfx/tile/block_break.tscn")
 
-enum camera_mode {FOLLOWING_PLAYER,SPAWN_ROOM_STATIC,FROZEN,INITIAL}
-var initial_camera_location : Vector2
+enum camera_mode {FOLLOWING_PLAYER, SPAWN_ROOM_STATIC, FROZEN, INITIAL}
+var initial_camera_location: Vector2
 var queued_camera_mode
 var current_camera_mode = camera_mode.INITIAL
 
@@ -37,11 +36,11 @@ func _ready() -> void:
 	player.health_component.died.connect(_on_player_death)
 	initial_camera_location = camera.position
 	
-func _physics_process(delta):
+func _physics_process(_delta):
 	match current_camera_mode:
 		camera_mode.FOLLOWING_PLAYER:
 			var camera_tweener = get_tree().create_tween()
-			camera_tweener.parallel().tween_property(camera, "zoom", Vector2(base_zoom,base_zoom), 0.1)
+			camera_tweener.parallel().tween_property(camera, "zoom", Vector2(base_zoom, base_zoom), 0.1)
 			camera_tweener.set_ease(Tween.EASE_IN)
 			camera_tweener.parallel().tween_property(camera, "global_position", player.global_position, 0.3)
 		camera_mode.SPAWN_ROOM_STATIC:
@@ -60,13 +59,13 @@ func process_camera():
 			var camera_tweener = get_tree().create_tween()
 			camera_tweener.set_ease(Tween.EASE_IN_OUT)
 			camera_tweener.set_trans(Tween.TRANS_CUBIC)
-			camera_tweener.parallel().tween_property(camera, "zoom", Vector2(spawn_zoom,spawn_zoom), 1)
+			camera_tweener.parallel().tween_property(camera, "zoom", Vector2(spawn_zoom, spawn_zoom), 1)
 			camera_tweener.parallel().tween_property(camera, "position", initial_camera_location + spawn_camera_offset, 1)
 		camera_mode.INITIAL:
 			var camera_tweener = get_tree().create_tween()
 			camera_tweener.set_ease(Tween.EASE_IN_OUT)
 			camera_tweener.set_trans(Tween.TRANS_CUBIC)
-			camera_tweener.tween_property(camera, "zoom", Vector2(spawn_zoom,spawn_zoom), 1)
+			camera_tweener.tween_property(camera, "zoom", Vector2(spawn_zoom, spawn_zoom), 1)
 			camera_tweener.parallel().tween_property(camera, "position", initial_camera_location + spawn_camera_offset, 1)
 	pass
 
@@ -81,7 +80,7 @@ func _spawn_bomb_with_velocity(data: ThrowReleasedEventData) -> void:
 	new_bomb.exploded.connect(_on_bomb_exploded.bind(new_bomb))
 
 func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
-	camera.random_camera_shake_strength = bomb.bomb_type.explosion_radius*bomb.bomb_type.hardness * shake_intensity
+	camera.random_camera_shake_strength = bomb.bomb_type.explosion_radius * bomb.bomb_type.hardness * shake_intensity
 	camera.apply_shake()
 	var explosion_radius := bomb.bomb_type.explosion_radius
 
@@ -175,8 +174,6 @@ func drop_item_entity(location: Vector2, item: Item, amount: int, max_stacks := 
 			chunks.append(small_piece_size + 1)
 		else:
 			chunks.append(small_piece_size)
-
-	prints(amount, chunks)
 
 	for i in range(amount):
 		var new_entity: ItemEntity = ITEM_ENTITY.instantiate()

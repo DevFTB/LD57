@@ -1,10 +1,12 @@
 extends Control
 
-@export var inventory: Inventory
+@export var inventory_component: InventoryComponent
 @export var item: Item
 
 @export var texture_rect: TextureRect
 @export var label: Label
+
+@onready var inventory: Inventory = inventory_component.inventory
 
 func _ready() -> void:
 	if inventory.has_item(item):

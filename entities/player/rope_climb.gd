@@ -1,8 +1,6 @@
 extends Node2D
 class_name RopeClimb
 
-signal fuel_changed
-
 enum ClimbingState {
 	OFF, ON
 }
@@ -32,9 +30,9 @@ func handle_action(key: StringName) -> void:
 		
 
 ## Calculates the velocity for the player when it's using this traversal method.
-func calculate_frame_velocity(delta: float) -> Vector2:
+func calculate_frame_velocity(_delta: float) -> Vector2:
 	if state == ClimbingState.ON:
-		var new_frame_velocity = Vector2(0,-climb_speed)
+		var new_frame_velocity = Vector2(0, -climb_speed)
 		return new_frame_velocity
 	else:
 		return Vector2()

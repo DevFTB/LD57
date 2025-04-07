@@ -20,9 +20,9 @@ func create_rect2_from_collisionshape2d(collisionshape2d: CollisionShape2D):
 	var half_x = float(collisionshape2d.shape.size.x) / 2
 	var half_y = float(collisionshape2d.shape.size.y) / 2
 	
-	var position = Vector2(collisionshape2d.position.x - half_x, collisionshape2d.position.y - half_y)
+	var pos = Vector2(collisionshape2d.position.x - half_x, collisionshape2d.position.y - half_y)
 	
-	return Rect2(position, collisionshape2d.shape.size)
+	return Rect2(pos, collisionshape2d.shape.size)
 
 func is_enemy_in_spawn_rect(enemy: Enemy, spawn_rect: Rect2):
 	var global_spawn_rect = Rect2(spawn_rect.position + player.global_position, spawn_rect.size)
@@ -47,9 +47,9 @@ func _ready() -> void:
 func get_expected_enemy_points(spawn_rect: Rect2):
 	var tilemap_y = occupied_tilemap.local_to_map(occupied_tilemap.to_local(spawn_rect.position + player.global_position)).y
 	# the smaller the smoother - takes longer to get from one end to another
-	var SMOOTHING_FACTOR = 1.0/50
+	var SMOOTHING_FACTOR = 1.0 / 50
 	
-	var sigmoid = func(x, smoothing_factor): return 1/(1.0+exp(-smoothing_factor * x))
+	var sigmoid = func(x, smoothing_factor): return 1 / (1.0 + exp(-smoothing_factor * x))
 	
 	var enemy_points = float(max_enemy_points_per_rect - min_enemy_points_per_rect) * sigmoid.call(tilemap_y, SMOOTHING_FACTOR) + min_enemy_points_per_rect
 	
@@ -71,10 +71,10 @@ func spawn_enemies():
 			var global_rect = Rect2(spawn_rect.position + player.global_position, spawn_rect.size)
 			var prioritise_strong = true if expected_enemy_points >= prioritise_strong_point_threshold else false
 			spawn_enemies_in_area(extra_points_req, global_rect.position.x,
-			global_rect.end.x, global_rect.position.y,global_rect.end.y, prioritise_strong)
+			global_rect.end.x, global_rect.position.y, global_rect.end.y, prioritise_strong)
 			
 
-func spawn_enemies_in_area(points: int, min_x: int, max_x: int, min_y: int, max_y: int, prioritise_strong:bool=false) -> void:
+func spawn_enemies_in_area(points: int, min_x: int, max_x: int, min_y: int, max_y: int, prioritise_strong: bool = false) -> void:
 	var valid_spawnpoints = get_valid_spawnpoints(min_x, max_x, min_y, max_y)
 	if valid_spawnpoints.size() == 0:
 		print("no valid spawnpoints!")
@@ -107,7 +107,7 @@ func get_valid_spawnpoints(min_x: int, max_x: int, min_y: int, max_y: int) -> Ar
 				
 	return valid_spawnpoints
 	
-func is_valid_spawnpoint(tilemap_x: int,tilemap_y: int) -> bool:
+func is_valid_spawnpoint(tilemap_x: int, tilemap_y: int) -> bool:
 	# checks 3x3 block around spawnpoint
 	# remember that ranges dont include the last one LOL
 	for i in range(-1, 2):
@@ -137,7 +137,6 @@ func refresh_enemy_dict():
 			temp_enemy_dict[e] = current_enemies[e]
 	current_enemies = temp_enemy_dict
 		
-
 
 func _on_spawn_timer_timeout() -> void:
 	spawn_enemies()

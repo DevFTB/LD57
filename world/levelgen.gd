@@ -108,7 +108,7 @@ func generate_cave_blocks(cave_noise: Noise, hardness_noise: Noise, resource_noi
 				if ore_to_spawn != null:
 					_add_ore_block(ore_to_spawn, x, y)
 					
-func generate_chests(from_x: int, to_x: int, from_y: int, to_y: int, n:int) -> void:
+func generate_chests(from_x: int, to_x: int, from_y: int, to_y: int, n: int) -> void:
 	# coords are tilemap coords
 	var allowable_locations = get_valid_chest_locations(from_x, to_x, from_y, to_y)
 	allowable_locations.shuffle()
@@ -121,7 +121,7 @@ func generate_chests(from_x: int, to_x: int, from_y: int, to_y: int, n:int) -> v
 		
 		spawn_chest(spawn_loc_global.x, spawn_loc_global.y, get_chest_tier(spawn_loc.x, spawn_loc.y))
 		
-func get_chest_tier(x: int, y: int):
+func get_chest_tier(_x: int, y: int):
 	# coords are tilemap coords
 	if y < -50:
 		return 0

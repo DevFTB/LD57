@@ -18,9 +18,7 @@ func _process(_delta: float) -> void:
 	#print(playback.get_current_node())
 
 func _on_player_health_modified(amount: int, _new_value: int) -> void:
-	print("tri", amount)
 	if amount < 0:
-		print("hurt")
 		playback.travel("hurt")
 
 func _on_player_died() -> void:

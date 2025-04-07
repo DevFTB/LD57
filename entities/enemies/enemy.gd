@@ -39,12 +39,17 @@ func _physics_process(_delta: float) -> void:
 
 func die():
 	StatsManager.add_to_stat(StatsManager.Stat.ENEMIES_KILLED, 1)
+	call_deferred("_spawn_death_scene")
+	
+	queue_free()
+	
+func _spawn_death_scene() -> void:
 	var death = death_scene.instantiate()
 	get_tree().get_first_node_in_group("world").add_child(death)
 	death.global_position = self.global_position
-	var death_initial_velocity = Vector2(randf_range(-100,100), randf_range(-100,-300))
+	var death_initial_velocity = Vector2(randf_range(-100, 100), randf_range(-100, -300))
 	death.set_properties(enemy_stats.death_sound, enemy_stats.death_sprite, death_initial_velocity)
-	queue_free()
+
 
 func stick(entity: Node2D) -> void:
 	var _global_position := entity.global_position
@@ -86,7 +91,7 @@ func _on_refresh_timer_timeout():
 			else:
 				state_machine._transition_to_next_state("Flying")
 
-func _on_health_component_health_modified(amount, new_health):
+func _on_health_component_health_modified(amount, _new_health):
 	if amount < 0:
 		$HurtSound.pitch_scale = randf_range(0.9, 1.1)
 		$HurtSound.play()
