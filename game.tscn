@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=76 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://b0ogai8s7l7sc" path="res://systems/inventory/inventory.gd" id="5_lwlx3"]
 [ext_resource type="Script" uid="uid://6gp81uqd76gy" path="res://entities/loot_chest/random_float.gd" id="6_qpefm"]
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="7_eow3j"]
-[ext_resource type="Script" uid="uid://cv6y1hrey2gct" path="res://main_camera.gd" id="7_lwlx3"]
+[ext_resource type="Script" path="res://main_camera.gd" id="7_lwlx3"]
 [ext_resource type="Script" uid="uid://cnf626cpgukip" path="res://entities/loot_chest/loot_table.gd" id="8_87ddb"]
 [ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="9_215e1"]
 [ext_resource type="Script" uid="uid://b0mdeooldsu15" path="res://enemy_spawner.gd" id="9_kq12w"]
@@ -52,8 +52,7 @@
 [ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
 [ext_resource type="Texture2D" uid="uid://bm4qbqxhx3vff" path="res://ui/depth.png" id="40_cfc7e"]
-[ext_resource type="Script" uid="uid://eky8k0h2e6jt" path="res://ui/HUD/depth.gd" id="41_gh0px"]
-[ext_resource type="Script" path="res://ui/grapple_ui.gd" id="43_m28ev"]
+[ext_resource type="Script" path="res://ui/HUD/depth.gd" id="41_gh0px"]
 [ext_resource type="Script" uid="uid://bw4n7aeli48jj" path="res://ui/grapple_ui.gd" id="43_m28ev"]
 [ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="49_mljfx"]
 
@@ -626,8 +625,8 @@ visible = false
 color = Color(0.36968, 0.328359, 0.176195, 1)
 
 [connection signal="timeout" from="World/Spawner/SpawnTimer" to="World/Spawner" method="_on_spawn_timer_timeout"]
-[connection signal="depth_changed" from="World/Player" to="Music" method="_on_player_depth_changed"]
 [connection signal="depth_changed" from="World/Player" to="GUI/NewHUD/VBoxContainer/HBoxContainer/Control/HBoxContainer/Depth" method="_on_player_depth_changed"]
+[connection signal="depth_changed" from="World/Player" to="Music" method="_on_player_depth_changed"]
 [connection signal="health_modified" from="World/Player/HealthComponent" to="World/Player" method="_on_health_component_health_modified"]
 [connection signal="player_entered" from="World/Spawn/SpawnAreaPlayerDetector" to="World" method="_on_spawn_area_player_detector_player_entered"]
 [connection signal="player_exited" from="World/Spawn/SpawnAreaPlayerDetector" to="World" method="_on_spawn_area_player_detector_player_exited"]

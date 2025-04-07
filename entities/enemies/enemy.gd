@@ -91,7 +91,7 @@ func _on_refresh_timer_timeout():
 			else:
 				state_machine._transition_to_next_state("Flying")
 
-func _on_health_component_health_modified(amount, new_health):
+func _on_health_component_health_modified(amount, _new_health):
 	if amount < 0:
 		$HurtSound.pitch_scale = randf_range(0.9, 1.1)
 		$HurtSound.play()
