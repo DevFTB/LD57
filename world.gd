@@ -47,6 +47,9 @@ func _physics_process(_delta):
 			camera_tweener.parallel().tween_property(camera, "global_position", player.global_position, 0.3)
 		CameraMode.SPAWN_ROOM_STATIC:
 			pass
+		CameraMode.FROZEN:
+			if not player.health_component.is_dead:
+				current_camera_mode = CameraMode.FOLLOWING_PLAYER
 
 func freeze() -> void:
 	current_camera_mode = CameraMode.FROZEN
@@ -229,6 +232,7 @@ func _on_spawn_area_player_detector_player_entered(_player):
 	player.health_component.heal(player.health_component.maximum_health)
 	#handle camera tween
 	switch_camera_mode(CameraMode.SPAWN_ROOM_STATIC)
+	player.spawn_location = $RespawnPoint.position
 	process_camera()
 	restock_player(player)
 
