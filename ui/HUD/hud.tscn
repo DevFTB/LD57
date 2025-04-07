@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://c4e86uoalfgiw"]
+[gd_scene load_steps=44 format=3 uid="uid://c4e86uoalfgiw"]
 
 [ext_resource type="Texture2D" uid="uid://d317cp0qhrmd4" path="res://ui/parchment.png" id="1_mki3y"]
 [ext_resource type="Texture2D" uid="uid://di1qrf568wfoh" path="res://ui/HUD/heart_under.png" id="2_mki3y"]
@@ -34,6 +34,98 @@ outline_color = Color(0, 0, 0, 1)
 font_size = 20
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_5q00s"]
+resource_name = "pulse"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.995222, 0.289264, 0.341955, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_a2w4y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_q2pla"]
+resource_name = "idle"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a2w4y"]
+_data = {
+&"RESET": SubResource("Animation_a2w4y"),
+&"idle": SubResource("Animation_q2pla"),
+&"pulse": SubResource("Animation_5q00s")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5q00s"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a2w4y"]
+animation = &"pulse"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q2pla"]
+advance_mode = 2
+advance_expression = "value < 60"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4hsu2"]
+advance_mode = 2
+advance_expression = "value >= 60"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5q00s"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5q00s"]
+states/idle/node = SubResource("AnimationNodeAnimation_5q00s")
+states/idle/position = Vector2(351, 92)
+states/pulse/node = SubResource("AnimationNodeAnimation_a2w4y")
+states/pulse/position = Vector2(569, 96)
+transitions = ["idle", "pulse", SubResource("AnimationNodeStateMachineTransition_q2pla"), "pulse", "idle", SubResource("AnimationNodeStateMachineTransition_4hsu2"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_5q00s")]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dhpj7"]
 
@@ -224,6 +316,17 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/BombProgressBar"]
+libraries = {
+&"": SubResource("AnimationLibrary_a2w4y")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/BombProgressBar/AnimationPlayer"]
+root_node = NodePath("../..")
+tree_root = SubResource("AnimationNodeStateMachine_5q00s")
+advance_expression_base_node = NodePath("../..")
+anim_player = NodePath("..")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2

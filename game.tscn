@@ -452,6 +452,7 @@ stream = ExtResource("3_r62pu")
 
 [node name="MoabExplosionSystem" type="Node" parent="."]
 script = ExtResource("1_j5wjh")
+bomb_timer_starting_value = 62.0
 
 [node name="BombDangerSound" type="AudioStreamPlayer" parent="MoabExplosionSystem"]
 stream = ExtResource("33_iu0sx")
