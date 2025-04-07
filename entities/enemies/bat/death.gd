@@ -1,8 +1,7 @@
 extends RigidBody2D
-
 class_name Death
 
-func set_properties(death_sound : AudioStream,texture : Texture2D, initial_velocity : Vector2):
+func set_properties(death_sound: AudioStream, texture: Texture2D, initial_velocity: Vector2):
 	$DeathSound.stream = death_sound
 	$DeathSound.play()
 	$Sprite.texture = texture
