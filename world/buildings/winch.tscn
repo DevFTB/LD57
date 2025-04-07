@@ -26,7 +26,8 @@ end_cap_mode = 1
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("CanvasItemMaterial_l1i01")
-scale = Vector2(1.3125, 1.3125)
+position = Vector2(8, -65)
+scale = Vector2(0.657, 0.657)
 texture = ExtResource("2_g25fp")
 
 [node name="Area2D" type="Area2D" parent="."]

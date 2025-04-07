@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://do0g7votir2b4"]
+[gd_scene load_steps=11 format=3 uid="uid://do0g7votir2b4"]
 
 [ext_resource type="Script" uid="uid://cn3mhruacmrcu" path="res://entities/throwables/bomb/throwable_bomb_entity.gd" id="1_vey3e"]
 [ext_resource type="Texture2D" uid="uid://c0nbm2a4tsd3w" path="res://entities/throwables/bomb/throwable_bomb.png" id="2_vdrfm"]
@@ -9,7 +9,7 @@
 bounce = 0.25
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j5wjh"]
-radius = 32.0
+radius = 20.0
 
 [sub_resource type="Animation" id="Animation_o053b"]
 length = 0.001
@@ -62,13 +62,10 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kyrvw"]
-radius = 20.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_vdrfm"]
-radius = 0.01
+radius = 15.0
 
 [node name="ThrowableBomb" type="RigidBody2D"]
-collision_layer = 16
+collision_layer = 20
 collision_mask = 5
 physics_material_override = SubResource("PhysicsMaterial_vdrfm")
 contact_monitor = true
@@ -76,6 +73,7 @@ max_contacts_reported = 1
 script = ExtResource("1_vey3e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 1)
 shape = SubResource("CircleShape2D_j5wjh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -91,6 +89,7 @@ libraries = {
 one_shot = true
 
 [node name="BodyHitbox" parent="." instance=ExtResource("3_vdrfm")]
+position = Vector2(-1, 1)
 collision_layer = 0
 collision_mask = 70
 active = false
@@ -98,19 +97,19 @@ damage = 0
 has_dmg_falloff = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="BodyHitbox"]
-position = Vector2(-2, 2)
 shape = SubResource("CircleShape2D_kyrvw")
-debug_color = Color(0.555087, 0.474972, 0.790413, 0.42)
 
 [node name="ExplosionHitboxComponent" parent="." instance=ExtResource("3_vdrfm")]
+position = Vector2(-1, 1)
 collision_layer = 0
 collision_mask = 70
 active = false
 damage = 0
 has_dmg_falloff = true
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="ExplosionHitboxComponent"]
-shape = SubResource("CircleShape2D_vdrfm")
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="ExplosionHitboxComponent"]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_kyrvw")
 
 [node name="RayCast" type="RayCast2D" parent="."]
 collision_mask = 5

@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://lw70x0du5vba" path="res://entities/player/bomb_strength_progress_bar.gd" id="7_qiwj3"]
 [ext_resource type="Script" uid="uid://bacy6y0b6oowc" path="res://entities/player/bomb_sprites.gd" id="7_qpopc"]
 [ext_resource type="Script" uid="uid://yprph7eiqbic" path="res://entities/player/grapple_point.gd" id="8_26q78"]
-[ext_resource type="Texture2D" uid="uid://b6753y8fi3avo" path="res://entities/player/grapple/grapple_hook.png" id="9_bectd"]
+[ext_resource type="Texture2D" uid="uid://wjd54yt4gdly" path="res://entities/player/grapple/grapple_hook.png" id="9_bectd"]
 [ext_resource type="Script" uid="uid://cc2j1e84os7o7" path="res://entities/player/jetpack.gd" id="10_wvtmh"]
 [ext_resource type="Texture2D" uid="uid://chpbvtny8msu7" path="res://entities/player/animations/walk.png" id="12_a1qjk"]
 [ext_resource type="Script" uid="uid://c7vkf6rmxkfse" path="res://entities/common/entity_hurtbox_component.gd" id="12_t1t22"]
@@ -1175,6 +1175,7 @@ max_attachment_distance = 600.0
 shape = SubResource("CircleShape2D_bectd")
 
 [node name="GrappleHookSprite" type="Sprite2D" parent="GrapplePoint"]
+scale = Vector2(0.165, 0.165)
 texture = ExtResource("9_bectd")
 
 [node name="GrappleCooldown" type="Timer" parent="GrapplePoint"]

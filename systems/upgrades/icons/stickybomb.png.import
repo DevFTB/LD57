@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://de1ldfvaoh7a"
-path="res://.godot/imported/health_fill.png-28b2b3c5518ac59e9ccbfdf542918d04.ctex"
+uid="uid://d2edxrdfuel3p"
+path="res://.godot/imported/stickybomb.png-d742456e174c32eb9a53d38558caa0ba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/HUD/health_fill.png"
-dest_files=["res://.godot/imported/health_fill.png-28b2b3c5518ac59e9ccbfdf542918d04.ctex"]
+source_file="res://systems/upgrades/icons/stickybomb.png"
+dest_files=["res://.godot/imported/stickybomb.png-d742456e174c32eb9a53d38558caa0ba.ctex"]
 
 [params]
 

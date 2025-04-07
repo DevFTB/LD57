@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duvvlmeraqx5n"
-path="res://.godot/imported/Health.png-229e82ecab22297070ec2abae2f2480a.ctex"
+uid="uid://prxk4ot05q6q"
+path="res://.godot/imported/blast_resistance.png-c90fd059ce03d8e54ebdce6cc872422f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://systems/upgrades/icons/Health.png"
-dest_files=["res://.godot/imported/Health.png-229e82ecab22297070ec2abae2f2480a.ctex"]
+source_file="res://systems/upgrades/icons/blast_resistance.png"
+dest_files=["res://.godot/imported/blast_resistance.png-c90fd059ce03d8e54ebdce6cc872422f.ctex"]
 
 [params]
 
