@@ -91,5 +91,6 @@ func _on_hitbox_component_hurt_entity(hurtbox_component: HurtboxComponent) -> vo
 
 
 func _on_hurtbox_component_damage_applied(amount, _source):
-	do_knockback(_source.global_position, amount / 20)
+	if amount > 5:
+		do_knockback(_source.global_position, amount / 20)
 	pass # Replace with function body.

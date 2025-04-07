@@ -49,6 +49,7 @@ var current_movement_state: MovementState = MovementState.FREE
 @onready var rope_climb : RopeClimb = $RopeClimb
 @onready var spawn_location: Vector2 = global_position
 @onready var winch = $"../Winch"
+@onready var holding_bomb = $BombSprite
 
 func _ready() -> void:
 	throw_released.connect(StatsManager.add_to_stat.bind(StatsManager.Stat.BOMBS_THROWN, 1).unbind(1))
@@ -255,3 +256,8 @@ func _on_rope_entered(body):
 func _on_rope_exited(body):
 	if body is Player:
 		can_climb = false
+
+
+func _on_selected_bomb_changed(bomb):
+	holding_bomb.texture = bomb.texture
+	pass # Replace with function body.
