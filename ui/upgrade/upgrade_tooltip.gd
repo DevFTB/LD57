@@ -10,5 +10,5 @@ func config(desc, level, cost):
 	cost_label.clear()
 	level_label.clear()
 	desc_label.append_text("[color=white]%s[/color]" % [desc])
-	cost_label.append_text("[color=yellow]%s[/color]" % [cost])
+	cost_label.append_text("[color=yellow]%s upgradium[/color]" % [cost])
 	level_label.append_text("[color=red]%s[/color]" % [level])

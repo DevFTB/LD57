@@ -5,11 +5,12 @@
 
 [resource]
 script = ExtResource("1_7enb1")
+upgrade_type = 1
+mult = true
 tier_value_in_tooltip = true
-tooltip_string = "%d extra bomb hardness"
-type = 1
+tooltip_string = "more bomb hardness"
 display_name = "Bomb Hardness"
 texture = ExtResource("2_bc300")
 num_tiers = 5
 tier_costs = Array[int]([2, 5, 10, 20, 100])
-tier_values = [1, 2, 3, 4, 5]
+tier_values = [1.1, 1.12, 1.15, 1.2, 1.5]

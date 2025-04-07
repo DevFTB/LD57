@@ -1,6 +1,7 @@
 extends Control
 
 @export var spawn_area_detector: PlayerDetectorArea2D
+@onready var upgrade_tree : UpgradeTree = $SubViewport/UpgradeTree
 
 var toggleable := true
 
@@ -15,6 +16,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_released("toggle_upgrade_gui"):
 		if toggleable:
+			if not visible:
+				upgrade_tree.global_position = upgrade_tree.initial_pos
 			visible = not visible
 			get_tree().paused = visible
 

@@ -13,7 +13,7 @@ grow_vertical = 2
 script = ExtResource("1_7i34j")
 
 [node name="Panel" type="Panel" parent="."]
-custom_minimum_size = Vector2(150, 100)
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -52,6 +52,7 @@ text = "asda"
 [node name="Level" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
 bbcode_enabled = true
 text = "asda
 "

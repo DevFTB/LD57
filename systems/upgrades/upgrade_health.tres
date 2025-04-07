@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://pn1yg60fm2h1"]
+
+[ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_h5orl"]
+
+[resource]
+script = ExtResource("1_h5orl")
+upgrade_type = 3
+mult = true
+tier_value_in_tooltip = true
+tooltip_string = "more health"
+display_name = "Item"
+num_tiers = 5
+tier_costs = Array[int]([5, 10, 20, 50, 100])
+tier_values = [10, 10, 25, 25, 50]
+current_level_str = "[color=grey]%s[/color]"
+value_str = "[color=green](+%s)[/color] "
+metadata/_custom_type_script = "uid://dycw7l33nfhy8"

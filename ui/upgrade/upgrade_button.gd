@@ -44,7 +44,7 @@ const ITEM_UPGRADIUM = preload("res://systems/inventory/items/item_upgradium.tre
 
 func _on_pressed():
 	if can_upgrade(): 
-		player.mineral_inventory_component.inventory.remove_item(ITEM_UPGRADIUM, 1)
+		player.mineral_inventory_component.inventory.remove_item(ITEM_UPGRADIUM, upgrade.tier_costs[tier])
 		player.upgrade_state.increment_upgrade_tier_level(upgrade, tier)
 		
 func maxed():
@@ -53,7 +53,8 @@ func maxed():
 
 func can_upgrade():
 	# TODO: Check money is enough and take money
-	var has_items := player.mineral_inventory_component.inventory.has_item(ITEM_UPGRADIUM, 1)
+	#var has_items := player.mineral_inventory_component.inventory.has_item(ITEM_UPGRADIUM, upgrade.tier_costs[tier])
+	var has_items := player.mineral_inventory_component.inventory.has_item(ITEM_UPGRADIUM, 0)
 	return dependencies_satisfied() and not maxed() and has_items
 
 func dependencies_satisfied(force_min=0) -> bool:
@@ -79,7 +80,7 @@ func _draw():
 		draw_line(dependency.get_position()+Vector2(dependency.size.x/2,0)-self.get_position(), Vector2(self.get_size().x/2, self.get_size().y), Color.BLACK, 3)
 
 func update_tooltip():
-	tooltip.config(upgrade.get_text(tier), LEVEL_FORMAT_STRING % [current_level, max_level], "1")
+	tooltip.config(upgrade.get_text(tier, current_level), LEVEL_FORMAT_STRING % [current_level, max_level], upgrade.tier_costs[tier])
 
 func display_tooltip():
 	tooltip.visible = true

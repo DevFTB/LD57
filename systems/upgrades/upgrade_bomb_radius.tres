@@ -5,11 +5,14 @@
 
 [resource]
 script = ExtResource("1_2rgr4")
+upgrade_type = 0
+mult = true
 tier_value_in_tooltip = true
-tooltip_string = "%d extra bomb radius"
-type = 0
+tooltip_string = "more bomb radius"
 display_name = "Bomb Radius"
 texture = ExtResource("2_4u0uo")
 num_tiers = 5
 tier_costs = Array[int]([1, 5, 10, 20, 50])
-tier_values = [1, 2, 3, 4, 5]
+tier_values = [1.1, 1.1, 1.2, 1.2, 1.5]
+current_level_str = "[color=grey]%s[/color]"
+value_str = "[color=green](+%s)[/color] "

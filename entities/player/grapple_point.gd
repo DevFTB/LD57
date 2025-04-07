@@ -21,6 +21,7 @@ enum GrappleState {
 @export var grapple_min_pull_distance := 60
 
 var grapple_state: GrappleState
+var grapple_range_multiplier = 1
 
 var cooldown_active: bool:
 	get:
@@ -38,7 +39,7 @@ func _physics_process(_delta: float) -> void:
 	queue_redraw()
 
 	if grapple_state == GrappleState.SEARCHING:
-		if position.distance_to(player.position) > max_attachment_distance:
+		if position.distance_to(player.position) > max_attachment_distance * grapple_range_multiplier:
 			cancel()
 		elif get_slide_collision_count() > 0:
 			# if it hits a tilemap while searching, attach to it.

@@ -8,4 +8,4 @@ func _ready() -> void:
 
 func update() -> void:
 	value = jetpack.fuel
-	max_value = jetpack.max_fuel
+	max_value = jetpack.get_max_fuel()

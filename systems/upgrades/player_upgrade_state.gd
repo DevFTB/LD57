@@ -1,6 +1,14 @@
 extends Resource
 class_name PlayerUpgradeState
 
+signal upgraded(upgrade: Upgrade, tier)
+
+enum UpgradeType {
+	BOMB_RADIUS, BOMB_HARDNESS, GRAPPLE_RANGE, HEALTH, JETPACK, MAGNET, JETPACK_FUEL
+}
+
+@export var upgrades : Dictionary[UpgradeType, Upgrade]
+
 var upgrade_tier_levels: Dictionary[Upgrade, Array]
 
 func get_tier_level(upgrade: Upgrade, tier) -> int:
@@ -11,16 +19,20 @@ func get_tier_level(upgrade: Upgrade, tier) -> int:
 	return levels[tier]
 
 func get_tier_value(upgrade: Upgrade, tier) -> Variant:
+	if upgrade.mult: return ((upgrade.tier_values[tier] - 1) * get_tier_level(upgrade, tier)) + 1
 	return upgrade.tier_values[tier] * get_tier_level(upgrade, tier)
 
 func increment_upgrade_tier_level(upgrade: Upgrade, tier) -> void:
 	var current_tier := get_tier_level(upgrade, tier)
 	upgrade_tier_levels.get(upgrade)[tier] += 1
 	emit_changed()
-	
+	upgraded.emit(upgrade, tier)
+
 func get_total_value(upgrade: Upgrade) -> Variant:
-	var sum = 0
+	var cumulative = 0
+	if upgrade.mult: cumulative = 1
 	for tier in range(upgrade.num_tiers):
-		sum += get_tier_value(upgrade, tier)
-	return sum
+		if upgrade.mult: cumulative = cumulative * get_tier_value(upgrade, tier)
+		else: cumulative += get_tier_value(upgrade, tier)
+	return cumulative
 		

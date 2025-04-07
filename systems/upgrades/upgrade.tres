@@ -4,7 +4,13 @@
 
 [resource]
 script = ExtResource("1_mtqcl")
-type = 0
+upgrade_type = null
+mult = null
+tier_value_in_tooltip = true
+tooltip_string = ""
 display_name = ""
 num_tiers = 5
-tier_value_map = Dictionary[int, Variant]({})
+tier_costs = Array[int]([])
+tier_values = []
+current_level_str = "[color=grey]%s[/color]"
+value_str = "[color=green](+%s)[/color] "

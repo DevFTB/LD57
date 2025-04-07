@@ -8,7 +8,7 @@ enum JetpackState {
 }
 ## The current amount of fuel in the jetpack.
 
-@export var max_fuel: float = 100.0
+@export var base_fuel: float = 100.0
 
 ## How fast the jetpack burns fuel.
 @export var fuel_burn_rate: float = 1.0
@@ -20,6 +20,8 @@ enum JetpackState {
 @export var maximum_speed := 1000.0
 
 var state: JetpackState = JetpackState.OFF
+
+var fuel_multiplier = 1
 
 @onready var player: Player = get_parent()
 
@@ -69,6 +71,8 @@ func activiate() -> void:
 	$JetpackStart.play()
 	$JetpackLoop.play()
 
+func get_max_fuel():
+	return base_fuel * fuel_multiplier
 
 func cancel() -> void:
 	state = JetpackState.OFF
