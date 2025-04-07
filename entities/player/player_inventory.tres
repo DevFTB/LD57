@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1_4wq8t")
-maximum_size = 50
+maximum_size = 1000
 starting_inventory = {
 ExtResource("2_5l1br"): 10,
 ExtResource("3_2qf1j"): 5
