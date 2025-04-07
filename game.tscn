@@ -7,7 +7,10 @@
 [ext_resource type="Script" uid="uid://dxicxe0tvx28m" path="res://world.gd" id="2_hve3p"]
 [ext_resource type="SpriteFrames" uid="uid://dputq1l47geed" path="res://entities/explosion_sprite_frames.tres" id="2_l1i01"]
 [ext_resource type="Script" uid="uid://bhk4kqmlpwyv0" path="res://world/levelgen.gd" id="3_lc2xo"]
+<<<<<<< Updated upstream
 [ext_resource type="Script" uid="uid://b3ixyl0rewrho" path="res://systems/hints/item_collection_hint.gd" id="3_lwlx3"]
+=======
+>>>>>>> Stashed changes
 [ext_resource type="AudioStream" uid="uid://c800xef1mh8vm" path="res://systems/music_sfx/files/sfx/explosion.wav" id="3_r62pu"]
 [ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="4_hve3p"]
 [ext_resource type="PackedScene" uid="uid://bq84mpxun851f" path="res://entities/moab/moab_entity.tscn" id="4_j5wjh"]
@@ -44,6 +47,7 @@
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
 [ext_resource type="PackedScene" uid="uid://c4e86uoalfgiw" path="res://ui/HUD/hud.tscn" id="36_4v2jo"]
 [ext_resource type="PackedScene" uid="uid://cc5dkwrsnplny" path="res://menu/game_over.tscn" id="37_4v2jo"]
+<<<<<<< Updated upstream
 [ext_resource type="PackedScene" uid="uid://b3cnp6fsypd5" path="res://ui/upgrade/upgrade_tree.tscn" id="38_l1i01"]
 [ext_resource type="Script" uid="uid://c7t2d4jjx2aeb" path="res://entities/loot_chest/loot_table_entry.gd" id="40_gh0px"]
 [ext_resource type="Resource" uid="uid://bfwwxfc0kwllo" path="res://systems/inventory/items/item_bombpowder.tres" id="41_v33yl"]
@@ -53,6 +57,13 @@
 [ext_resource type="Script" uid="uid://b7n44vpq265gx" path="res://systems/hints/depth_based_hint.gd" id="45_t46w6"]
 [ext_resource type="Texture2D" uid="uid://psaqm0aoode4" path="res://ui/bomb_timer/moab 3.png" id="46_gh0px"]
 [ext_resource type="Texture2D" uid="uid://cjc30eoicedm3" path="res://ui/bomb_timer/moab 4.png" id="47_v33yl"]
+=======
+[ext_resource type="Texture2D" uid="uid://2nhewmpeakjh" path="res://ui/HUD/hook.png" id="37_kq12w"]
+[ext_resource type="PackedScene" uid="uid://b3cnp6fsypd5" path="res://ui/upgrade/upgrade_tree.tscn" id="38_l1i01"]
+[ext_resource type="Texture2D" uid="uid://cdp2qg6foouy2" path="res://world/loot/chest.png" id="38_t46w6"]
+[ext_resource type="Texture2D" uid="uid://bu5fijvptxlny" path="res://ui/HUD/explosion.png" id="39_m28ev"]
+[ext_resource type="Texture2D" uid="uid://b8vkgx0epv747" path="res://entities/moab/moab_sprite_sheet.png" id="40_lwlx3"]
+>>>>>>> Stashed changes
 [ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="49_mljfx"]
 
 [sub_resource type="Animation" id="Animation_iu0sx"]
@@ -371,6 +382,7 @@ ExtResource("35_klri6"): 0
 }
 metadata/_custom_type_script = "uid://b0ogai8s7l7sc"
 
+<<<<<<< Updated upstream
 [sub_resource type="Curve" id="Curve_tb2lt"]
 _limits = [1.0, 100.0, 0.0, 5.0]
 _data = [Vector2(0.0235571, 1), 0.0, 0.398794, 0, 0, Vector2(5, 100), 62.7556, 0.0, 0, 0]
@@ -379,6 +391,8 @@ point_count = 2
 [sub_resource type="CircleShape2D" id="CircleShape2D_87ddb"]
 radius = 128.0
 
+=======
+>>>>>>> Stashed changes
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rvswv"]
 size = Vector2(536, 176)
 
@@ -389,24 +403,6 @@ size = Vector2(263, 192)
 size = Vector2(192, 224)
 
 [sub_resource type="Environment" id="Environment_qhcbd"]
-
-[sub_resource type="Resource" id="Resource_mljfx"]
-script = ExtResource("6_qpefm")
-min_value = 5
-max_value = 10
-metadata/_custom_type_script = "uid://6gp81uqd76gy"
-
-[sub_resource type="Resource" id="Resource_m28ev"]
-script = ExtResource("40_gh0px")
-item = ExtResource("41_v33yl")
-probability = 1.0
-amount_of_drops = SubResource("Resource_mljfx")
-metadata/_custom_type_script = "uid://c7t2d4jjx2aeb"
-
-[sub_resource type="Resource" id="Resource_vuohh"]
-script = ExtResource("8_87ddb")
-entries = Array[ExtResource("40_gh0px")]([SubResource("Resource_m28ev")])
-metadata/_custom_type_script = "uid://cnf626cpgukip"
 
 [node name="Game" type="Node"]
 script = ExtResource("1_4v2jo")
@@ -507,6 +503,15 @@ wait_time_threshold = 60.0
 hint_text = "Time is running out! Get back to base and feed Big Boom Bob bombpowder before he catastrophically melts down."
 hint_box = NodePath("../../GUI/HintContainer")
 metadata/_custom_type_script = "uid://cvfc62vqgmxes"
+=======
+[sub_resource type="AtlasTexture" id="AtlasTexture_0de7l"]
+atlas = ExtResource("40_lwlx3")
+region = Rect2(1291, 193, 511, 545)
+
+[node name="Game" type="Node"]
+script = ExtResource("1_4v2jo")
+stat_bonus = 1000
+>>>>>>> Stashed changes
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -611,7 +616,7 @@ position = Vector2(798.685, -3872.68)
 collision_mask = 3
 available_bomb_types = Array[ExtResource("4_hve3p")]([null])
 throw_force_curve = SubResource("Curve_lc2xo")
-unlocked_traversal_methods = Array[int]([1, 0])
+unlocked_traversal_methods = Array[int]([1, 0, 2])
 max_speed = 200
 acceleration = 5000
 ground_deceleration = 800
@@ -623,6 +628,7 @@ fall_acceleration = 550
 [node name="BombInventoryComponent" parent="World/Player" index="4"]
 inventory = SubResource("Resource_lwlx3")
 
+<<<<<<< Updated upstream
 [node name="InvulnerabilityDuration" type="Timer" parent="World/Player"]
 one_shot = true
 
@@ -638,6 +644,14 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/MoabEntity/MoabHintArea"]
 shape = SubResource("CircleShape2D_87ddb")
+=======
+[node name="Bat" parent="World" instance=ExtResource("9_qhcbd")]
+position = Vector2(-176, -3384)
+>>>>>>> Stashed changes
+
+[node name="MoabEntity" parent="World" node_paths=PackedStringArray("moab_explosion_system") instance=ExtResource("4_j5wjh")]
+position = Vector2(-216, -3288)
+moab_explosion_system = NodePath("../../MoabExplosionSystem")
 
 [node name="Spawn" type="Node2D" parent="World"]
 position = Vector2(-32, -3328)
@@ -681,6 +695,10 @@ loot_table = SubResource("Resource_vuohh")
 stream = ExtResource("29_qpefm")
 
 [node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="GameOver" parent="GUI" instance=ExtResource("37_4v2jo")]
+visible = false
+pivot_offset = Vector2(960, 540)
 
 [node name="Control" type="VBoxContainer" parent="GUI"]
 anchors_preset = 2
@@ -741,17 +759,27 @@ player = NodePath("../../../../../../../World/Player")
 
 [node name="BoomLevelTextureRect" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" index="0"]
 boom_level_textures = Dictionary[int, Texture2D]({
+<<<<<<< Updated upstream
 0: ExtResource("44_tb2lt"),
 1: ExtResource("45_cfc7e"),
 2: ExtResource("46_gh0px"),
 3: ExtResource("47_v33yl")
+=======
+0: SubResource("AtlasTexture_0de7l"),
+1: ExtResource("37_kq12w"),
+2: ExtResource("38_t46w6"),
+3: ExtResource("39_m28ev")
+>>>>>>> Stashed changes
 })
 
 [node name="BombProgressBar" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" index="1" node_paths=PackedStringArray("bomb_explosion_system")]
 bomb_explosion_system = NodePath("../../../../../../../../MoabExplosionSystem")
+<<<<<<< Updated upstream
 
 [node name="HBoxContainer2" parent="GUI/HUD/VBoxContainer/HBoxContainer2" index="0" node_paths=PackedStringArray("inventory_component")]
 inventory_component = NodePath("../../../../../World/Player/BombInventoryComponent")
+=======
+>>>>>>> Stashed changes
 
 [node name="ProgressBar" parent="GUI/HUD/VBoxContainer/HBoxContainer3/TextureRect" index="0" node_paths=PackedStringArray("player", "timer")]
 player = NodePath("../../../../../../World/Player")

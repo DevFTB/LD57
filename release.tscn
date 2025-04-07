@@ -1,14 +1,345 @@
 [gd_scene load_steps=2 format=3 uid="uid://dhe7eshas5k7h"]
 
+<<<<<<< Updated upstream
 [ext_resource type="PackedScene" uid="uid://dwd1eadkk13on" path="res://game.tscn" id="1_uubav"]
+=======
+[ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_cg2fx"]
+[ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="2_pv1fl"]
+[ext_resource type="Texture2D" uid="uid://1r3chexcrwx" path="res://world/level_bg.png" id="3_r4pmf"]
+[ext_resource type="Script" uid="uid://dxicxe0tvx28m" path="res://world.gd" id="4_r8f4e"]
+[ext_resource type="Script" uid="uid://b0ogai8s7l7sc" path="res://systems/inventory/inventory.gd" id="5_bh1tp"]
+[ext_resource type="PackedScene" uid="uid://vp4hhi7lbt7d" path="res://world/buildings/winch.tscn" id="5_bv7pd"]
+[ext_resource type="Script" uid="uid://bhk4kqmlpwyv0" path="res://world/levelgen.gd" id="6_p1nfb"]
+[ext_resource type="TileSet" uid="uid://ci0bxhrhedi27" path="res://world/tileset/test_tileset.tres" id="7_cq58n"]
+[ext_resource type="TileSet" uid="uid://1s8d18ai2k57" path="res://world/tileset/ore_tileset.tres" id="8_fcpvs"]
+[ext_resource type="Script" uid="uid://b0mdeooldsu15" path="res://enemy_spawner.gd" id="9_kl2i7"]
+[ext_resource type="Script" uid="uid://6gp81uqd76gy" path="res://entities/loot_chest/random_float.gd" id="9_p1nfb"]
+[ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="10_gl4cv"]
+[ext_resource type="PackedScene" uid="uid://c5457i8ubkrc7" path="res://entities/enemies/spiky_ball/spiky_ball_enemy.tscn" id="11_1kf84"]
+[ext_resource type="PackedScene" uid="uid://53ohv57t2ihg" path="res://entities/loot_chest/loot_chest.tscn" id="11_bh1tp"]
+[ext_resource type="PackedScene" uid="uid://dqawvbjg7bayk" path="res://entities/enemies/skeleton_bomber/skeleton_bomber_enemy.tscn" id="12_g081t"]
+[ext_resource type="Script" uid="uid://cnf626cpgukip" path="res://entities/loot_chest/loot_table.gd" id="12_r8f4e"]
+[ext_resource type="Resource" uid="uid://bag1idy6pkmv1" path="res://entities/loot_chest/loot_table_hardness_1.tres" id="13_bv7pd"]
+[ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="13_ckd1k"]
+[ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="14_c4xu6"]
+[ext_resource type="Resource" uid="uid://bibv5en88eckk" path="res://entities/loot_chest/loot_table_hardness_2.tres" id="14_p1nfb"]
+[ext_resource type="Resource" uid="uid://c6xty2mdlfahl" path="res://entities/loot_chest/loot_table_hardness_3.tres" id="15_cq58n"]
+[ext_resource type="PackedScene" uid="uid://bq84mpxun851f" path="res://entities/moab/moab_entity.tscn" id="15_e4cdu"]
+[ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="16_74ptf"]
+[ext_resource type="Script" uid="uid://b3r1glubcsdwt" path="res://ui/upgrade/upgrade_gui.gd" id="19_uvk23"]
+[ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="20_ks5ok"]
+[ext_resource type="Resource" uid="uid://b6nkhnlvgtk7s" path="res://systems/upgrades/upgrade_bomb_hardness.tres" id="21_a1as6"]
+[ext_resource type="Resource" uid="uid://b6xkpnkwkffbg" path="res://systems/upgrades/upgrade_bomb_radius.tres" id="22_i2mqt"]
+[ext_resource type="Script" uid="uid://d0eblir7jx7p" path="res://ui/HUD/global_stat_label.gd" id="23_ikfu8"]
+[ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="26_bv7pd"]
+[ext_resource type="PackedScene" uid="uid://c4e86uoalfgiw" path="res://ui/HUD/hud.tscn" id="33_krr1o"]
+[ext_resource type="PackedScene" uid="uid://b2vtm14w5fe48" path="res://menu/game_over.tscn" id="35_a5ivc"]
+[ext_resource type="AudioStream" uid="uid://bixi2inlened8" path="res://systems/music_sfx/files/sfx/ui/restock sound.wav" id="35_enyai"]
+[ext_resource type="Resource" uid="uid://44skluikbcii" path="res://systems/inventory/items/item_sticky_bomb.tres" id="38_js5np"]
+[ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="39_yfehs"]
+[ext_resource type="Resource" uid="uid://wylmsxcnfp00" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="40_4crvc"]
+[ext_resource type="PackedScene" uid="uid://dfb6tk3jaqp55" path="res://systems/music_sfx/music.tscn" id="46_q8u1n"]
+>>>>>>> Stashed changes
 
 [node name="Game" instance=ExtResource("1_uubav")]
 
+<<<<<<< Updated upstream
 [node name="UpgradeGUI" parent="GUI" index="5"]
 visible = false
 
 [node name="SubViewport" parent="GUI/UpgradeGUI" index="0"]
 render_target_update_mode = 0
+=======
+[sub_resource type="Resource" id="Resource_fcpvs"]
+script = ExtResource("9_p1nfb")
+min_value = 1
+max_value = 2
+metadata/_custom_type_script = "uid://6gp81uqd76gy"
+
+[sub_resource type="Resource" id="Resource_kl2i7"]
+script = ExtResource("9_p1nfb")
+min_value = 2
+max_value = 3
+metadata/_custom_type_script = "uid://6gp81uqd76gy"
+
+[sub_resource type="Resource" id="Resource_qpefm"]
+script = ExtResource("9_p1nfb")
+min_value = 3
+max_value = 5
+metadata/_custom_type_script = "uid://6gp81uqd76gy"
+
+[sub_resource type="Gradient" id="Gradient_qhcbd"]
+offsets = PackedFloat32Array(0, 0.298561, 0.697842, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.978008, 0.978008, 0.978008, 1, 0.436611, 0.436611, 0.436611, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_l1i01"]
+gradient = SubResource("Gradient_qhcbd")
+fill = 1
+fill_from = Vector2(0.517094, 0.470085)
+fill_to = Vector2(0.863248, 0.196581)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lwlx3"]
+size = Vector2(1469.63, 868.875)
+
+[sub_resource type="Curve" id="Curve_lc2xo"]
+_limits = [0.0, 1000.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1000), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rvswv"]
+size = Vector2(536, 224)
+
+[sub_resource type="Environment" id="Environment_qhcbd"]
+
+[node name="Game" type="Node"]
+
+[node name="StatsManager" parent="." instance=ExtResource("1_cg2fx")]
+
+[node name="MoabExplosionSystem" type="Node" parent="."]
+script = ExtResource("2_pv1fl")
+bomb_timer_starting_value = 305.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1044, -1962)
+scale = Vector2(4.2875, 4.63333)
+texture = ExtResource("3_r4pmf")
+
+[node name="World" type="Node2D" parent="." groups=["world"]]
+script = ExtResource("4_r8f4e")
+restock_inventory = SubResource("Resource_cg2fx")
+hardness_ore_drops = Dictionary[int, ExtResource("9_p1nfb")]({
+1: SubResource("Resource_fcpvs"),
+2: SubResource("Resource_kl2i7"),
+3: SubResource("Resource_qpefm")
+})
+
+[node name="Winch" parent="World" instance=ExtResource("5_bv7pd")]
+position = Vector2(-3.945, -3300)
+
+[node name="MainCamera" type="Camera2D" parent="World"]
+position = Vector2(-32, -3328)
+scale = Vector2(2, 2)
+
+[node name="PointLight2D" type="PointLight2D" parent="World/MainCamera"]
+position = Vector2(-17.5, -15)
+scale = Vector2(11.125, 5.75)
+color = Color(0.57872, 0.35134, 0.22798, 1)
+energy = 2.77
+blend_mode = 2
+texture = SubResource("GradientTexture2D_l1i01")
+texture_scale = 2.84
+
+[node name="Level" type="Node2D" parent="World"]
+script = ExtResource("6_p1nfb")
+loot_chest_scene = ExtResource("11_bh1tp")
+loot_tables = Array[ExtResource("12_r8f4e")]([ExtResource("13_bv7pd"), ExtResource("14_p1nfb"), ExtResource("15_cq58n")])
+
+[node name="CaveBlocks" type="TileMapLayer" parent="World/Level" groups=["navigation_polygon_source_geometry_group"]]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAD2/5P/AQAAAAEAAAD2/5T/AQAAAAEAAAD2/5X/AQAAAAEAAAD2/5b/AQAAAAEAAAD2/5f/AQAAAAEAAAD2/5j/AQAAAAEAAAD2/5n/AQAAAAEAAAD2/5r/AQAAAAEAAAD2/5v/AQAAAAEAAAD3/5P/AQAAAAEAAAD4/5P/AQAAAAEAAAD5/5P/AQAAAAEAAAD6/5P/AQAAAAEAAAD7/5P/AQAAAAEAAAD8/5P/AQAAAAEAAAD9/5P/AQAAAAEAAAD+/5P/AQAAAAEAAAD//5P/AQAAAAEAAAAAAJP/AQAAAAEAAAABAJP/AQAAAAEAAAACAJP/AQAAAAEAAAADAJP/AQAAAAEAAAAEAJP/AQAAAAEAAAAFAJP/AQAAAAEAAAAGAJP/AQAAAAEAAAAHAJP/AQAAAAEAAAAIAJP/AQAAAAEAAAAIAJT/AQAAAAEAAAAIAJX/AQAAAAEAAAAIAJb/AQAAAAEAAAAIAJf/AQAAAAEAAAAIAJj/AQAAAAEAAAAIAJn/AQAAAAEAAAAIAJr/AQAAAAEAAAAIAJv/AQAAAAEAAADq/4z/AQAAAAEAAADq/43/AQAAAAEAAADq/47/AQAAAAEAAADq/4//AQAAAAEAAADq/5D/AQAAAAEAAADq/5H/AQAAAAEAAADq/5L/AQAAAAEAAADq/5P/AQAAAAEAAADq/5T/AQAAAAEAAADq/5X/AQAAAAEAAADq/5b/AQAAAAEAAADq/5f/AQAAAAEAAADq/5j/AQAAAAEAAADq/5n/AQAAAAEAAADq/5r/AQAAAAEAAADq/5v/AQAAAAEAAADr/4z/AQAAAAEAAADr/43/AQAAAAEAAADr/47/AQAAAAEAAADr/4//AQAAAAEAAADr/5D/AQAAAAEAAADr/5H/AQAAAAEAAADr/5L/AQAAAAEAAADr/5P/AQAAAAEAAADr/5T/AQAAAAEAAADr/5X/AQAAAAEAAADr/5b/AQAAAAEAAADr/5f/AQAAAAEAAADr/5j/AQAAAAEAAADr/5n/AQAAAAEAAADr/5r/AQAAAAEAAADr/5v/AQAAAAEAAADs/4z/AQAAAAEAAADs/43/AQAAAAEAAADs/47/AQAAAAEAAADs/4//AQAAAAEAAADs/5D/AQAAAAEAAADs/5H/AQAAAAEAAADs/5L/AQAAAAEAAADs/5P/AQAAAAEAAADs/5T/AQAAAAEAAADs/5X/AQAAAAEAAADs/5b/AQAAAAEAAADs/5f/AQAAAAEAAADs/5j/AQAAAAEAAADs/5n/AQAAAAEAAADs/5r/AQAAAAEAAADs/5v/AQAAAAEAAADt/4z/AQAAAAEAAADt/43/AQAAAAEAAADt/47/AQAAAAEAAADt/4//AQAAAAEAAADt/5D/AQAAAAEAAADt/5H/AQAAAAEAAADt/5L/AQAAAAEAAADt/5P/AQAAAAEAAADt/5T/AQAAAAEAAADt/5X/AQAAAAEAAADt/5b/AQAAAAEAAADt/5f/AQAAAAEAAADt/5j/AQAAAAEAAADt/5n/AQAAAAEAAADt/5r/AQAAAAEAAADt/5v/AQAAAAEAAADu/4z/AQAAAAEAAADu/43/AQAAAAEAAADu/47/AQAAAAEAAADu/4//AQAAAAEAAADu/5D/AQAAAAEAAADu/5H/AQAAAAEAAADu/5L/AQAAAAEAAADu/5P/AQAAAAEAAADu/5T/AQAAAAEAAADu/5X/AQAAAAEAAADu/5b/AQAAAAEAAADu/5f/AQAAAAEAAADu/5j/AQAAAAEAAADu/5n/AQAAAAEAAADu/5r/AQAAAAEAAADu/5v/AQAAAAEAAADv/4z/AQAAAAEAAADv/43/AQAAAAEAAADv/47/AQAAAAEAAADv/4//AQAAAAEAAADv/5D/AQAAAAEAAADv/5H/AQAAAAEAAADv/5L/AQAAAAEAAADv/5P/AQAAAAEAAADv/5T/AQAAAAEAAADv/5X/AQAAAAEAAADv/5b/AQAAAAEAAADv/5f/AQAAAAEAAADv/5j/AQAAAAEAAADv/5n/AQAAAAEAAADv/5r/AQAAAAEAAADv/5v/AQAAAAEAAADw/4z/AQAAAAEAAADw/43/AQAAAAEAAADw/47/AQAAAAEAAADw/4//AQAAAAEAAADw/5D/AQAAAAEAAADw/5H/AQAAAAEAAADw/5L/AQAAAAEAAADw/5P/AQAAAAEAAADw/5T/AQAAAAEAAADw/5X/AQAAAAEAAADw/5b/AQAAAAEAAADw/5f/AQAAAAEAAADw/5j/AQAAAAEAAADw/5n/AQAAAAEAAADw/5r/AQAAAAEAAADw/5v/AQAAAAEAAADx/4z/AQAAAAEAAADx/43/AQAAAAEAAADx/47/AQAAAAEAAADx/4//AQAAAAEAAADx/5D/AQAAAAEAAADx/5H/AQAAAAEAAADx/5L/AQAAAAEAAADx/5P/AQAAAAEAAADx/5T/AQAAAAEAAADx/5X/AQAAAAEAAADx/5b/AQAAAAEAAADx/5f/AQAAAAEAAADx/5j/AQAAAAEAAADx/5n/AQAAAAEAAADx/5r/AQAAAAEAAADx/5v/AQAAAAEAAADy/4z/AQAAAAEAAADy/43/AQAAAAEAAADy/47/AQAAAAEAAADy/4//AQAAAAEAAADy/5D/AQAAAAEAAADy/5H/AQAAAAEAAADy/5L/AQAAAAEAAADy/5P/AQAAAAEAAADy/5T/AQAAAAEAAADy/5X/AQAAAAEAAADy/5b/AQAAAAEAAADy/5f/AQAAAAEAAADy/5j/AQAAAAEAAADy/5n/AQAAAAEAAADy/5r/AQAAAAEAAADy/5v/AQAAAAEAAADz/4z/AQAAAAEAAADz/43/AQAAAAEAAADz/47/AQAAAAEAAADz/4//AQAAAAEAAADz/5D/AQAAAAEAAADz/5H/AQAAAAEAAADz/5L/AQAAAAEAAADz/5P/AQAAAAEAAADz/5T/AQAAAAEAAADz/5X/AQAAAAEAAADz/5b/AQAAAAEAAADz/5f/AQAAAAEAAADz/5j/AQAAAAEAAADz/5n/AQAAAAEAAADz/5r/AQAAAAEAAADz/5v/AQAAAAEAAAD0/4z/AQAAAAEAAAD0/43/AQAAAAEAAAD0/47/AQAAAAEAAAD0/4//AQAAAAEAAAD0/5D/AQAAAAEAAAD0/5H/AQAAAAEAAAD0/5L/AQAAAAEAAAD0/5P/AQAAAAEAAAD0/5T/AQAAAAEAAAD0/5X/AQAAAAEAAAD0/5b/AQAAAAEAAAD0/5f/AQAAAAEAAAD0/5j/AQAAAAEAAAD0/5n/AQAAAAEAAAD0/5r/AQAAAAEAAAD0/5v/AQAAAAEAAAD1/4z/AQAAAAEAAAD1/43/AQAAAAEAAAD1/47/AQAAAAEAAAD1/4//AQAAAAEAAAD1/5D/AQAAAAEAAAD1/5H/AQAAAAEAAAD1/5L/AQAAAAEAAAD1/5P/AQAAAAEAAAD1/5T/AQAAAAEAAAD1/5X/AQAAAAEAAAD1/5b/AQAAAAEAAAD1/5f/AQAAAAEAAAD1/5j/AQAAAAEAAAD1/5n/AQAAAAEAAAD1/5r/AQAAAAEAAAD1/5v/AQAAAAEAAAD2/4z/AQAAAAEAAAD2/43/AQAAAAEAAAD2/47/AQAAAAEAAAD2/4//AQAAAAEAAAD2/5D/AQAAAAEAAAD2/5H/AQAAAAEAAAD2/5L/AQAAAAEAAAD3/4z/AQAAAAEAAAD3/43/AQAAAAEAAAD3/47/AQAAAAEAAAD3/4//AQAAAAEAAAD3/5D/AQAAAAEAAAD3/5H/AQAAAAEAAAD3/5L/AQAAAAEAAAD4/4z/AQAAAAEAAAD4/43/AQAAAAEAAAD4/47/AQAAAAEAAAD4/4//AQAAAAEAAAD4/5D/AQAAAAEAAAD4/5H/AQAAAAEAAAD4/5L/AQAAAAEAAAD5/4z/AQAAAAEAAAD5/43/AQAAAAEAAAD5/47/AQAAAAEAAAD5/4//AQAAAAEAAAD5/5D/AQAAAAEAAAD5/5H/AQAAAAEAAAD5/5L/AQAAAAEAAAD6/4z/AQAAAAEAAAD6/43/AQAAAAEAAAD6/47/AQAAAAEAAAD6/4//AQAAAAEAAAD6/5D/AQAAAAEAAAD6/5H/AQAAAAEAAAD6/5L/AQAAAAEAAAD7/4z/AQAAAAEAAAD7/43/AQAAAAEAAAD7/47/AQAAAAEAAAD7/4//AQAAAAEAAAD7/5D/AQAAAAEAAAD7/5H/AQAAAAEAAAD7/5L/AQAAAAEAAAD8/4z/AQAAAAEAAAD8/43/AQAAAAEAAAD8/47/AQAAAAEAAAD8/4//AQAAAAEAAAD8/5D/AQAAAAEAAAD8/5H/AQAAAAEAAAD8/5L/AQAAAAEAAAD9/4z/AQAAAAEAAAD9/43/AQAAAAEAAAD9/47/AQAAAAEAAAD9/4//AQAAAAEAAAD9/5D/AQAAAAEAAAD9/5H/AQAAAAEAAAD9/5L/AQAAAAEAAAD+/4z/AQAAAAEAAAD+/43/AQAAAAEAAAD+/47/AQAAAAEAAAD+/4//AQAAAAEAAAD+/5D/AQAAAAEAAAD+/5H/AQAAAAEAAAD+/5L/AQAAAAEAAAD//4z/AQAAAAEAAAD//43/AQAAAAEAAAD//47/AQAAAAEAAAD//4//AQAAAAEAAAD//5D/AQAAAAEAAAD//5H/AQAAAAEAAAD//5L/AQAAAAEAAAAAAIz/AQAAAAEAAAAAAI3/AQAAAAEAAAAAAI7/AQAAAAEAAAAAAI//AQAAAAEAAAAAAJD/AQAAAAEAAAAAAJH/AQAAAAEAAAAAAJL/AQAAAAEAAAABAIz/AQAAAAEAAAABAI3/AQAAAAEAAAABAI7/AQAAAAEAAAABAI//AQAAAAEAAAABAJD/AQAAAAEAAAABAJH/AQAAAAEAAAABAJL/AQAAAAEAAAACAIz/AQAAAAEAAAACAI3/AQAAAAEAAAACAI7/AQAAAAEAAAACAI//AQAAAAEAAAACAJD/AQAAAAEAAAACAJH/AQAAAAEAAAACAJL/AQAAAAEAAAADAIz/AQAAAAEAAAADAI3/AQAAAAEAAAADAI7/AQAAAAEAAAADAI//AQAAAAEAAAADAJD/AQAAAAEAAAADAJH/AQAAAAEAAAADAJL/AQAAAAEAAAAEAIz/AQAAAAEAAAAEAI3/AQAAAAEAAAAEAI7/AQAAAAEAAAAEAI//AQAAAAEAAAAEAJD/AQAAAAEAAAAEAJH/AQAAAAEAAAAEAJL/AQAAAAEAAAAFAIz/AQAAAAEAAAAFAI3/AQAAAAEAAAAFAI7/AQAAAAEAAAAFAI//AQAAAAEAAAAFAJD/AQAAAAEAAAAFAJH/AQAAAAEAAAAFAJL/AQAAAAEAAAAGAIz/AQAAAAEAAAAGAI3/AQAAAAEAAAAGAI7/AQAAAAEAAAAGAI//AQAAAAEAAAAGAJD/AQAAAAEAAAAGAJH/AQAAAAEAAAAGAJL/AQAAAAEAAAAHAIz/AQAAAAEAAAAHAI3/AQAAAAEAAAAHAI7/AQAAAAEAAAAHAI//AQAAAAEAAAAHAJD/AQAAAAEAAAAHAJH/AQAAAAEAAAAHAJL/AQAAAAEAAAAIAIz/AQAAAAEAAAAIAI3/AQAAAAEAAAAIAI7/AQAAAAEAAAAIAI//AQAAAAEAAAAIAJD/AQAAAAEAAAAIAJH/AQAAAAEAAAAIAJL/AQAAAAEAAAAJAIz/AQAAAAEAAAAJAI3/AQAAAAEAAAAJAI7/AQAAAAEAAAAJAI//AQAAAAEAAAAJAJD/AQAAAAEAAAAJAJH/AQAAAAEAAAAJAJL/AQAAAAEAAAAKAIz/AQAAAAEAAAAKAI3/AQAAAAEAAAAKAI7/AQAAAAEAAAAKAI//AQAAAAEAAAAKAJD/AQAAAAEAAAAKAJH/AQAAAAEAAAAKAJL/AQAAAAEAAAALAIz/AQAAAAEAAAALAI3/AQAAAAEAAAALAI7/AQAAAAEAAAALAI//AQAAAAEAAAALAJD/AQAAAAEAAAALAJH/AQAAAAEAAAALAJL/AQAAAAEAAAAMAIz/AQAAAAEAAAAMAI3/AQAAAAEAAAAMAI7/AQAAAAEAAAAMAI//AQAAAAEAAAAMAJD/AQAAAAEAAAAMAJH/AQAAAAEAAAAMAJL/AQAAAAEAAAANAIz/AQAAAAEAAAANAI3/AQAAAAEAAAANAI7/AQAAAAEAAAANAI//AQAAAAEAAAANAJD/AQAAAAEAAAANAJH/AQAAAAEAAAANAJL/AQAAAAEAAAAOAIz/AQAAAAEAAAAOAI3/AQAAAAEAAAAOAI7/AQAAAAEAAAAOAI//AQAAAAEAAAAOAJD/AQAAAAEAAAAOAJH/AQAAAAEAAAAOAJL/AQAAAAEAAAAPAIz/AQAAAAEAAAAPAI3/AQAAAAEAAAAPAI7/AQAAAAEAAAAPAI//AQAAAAEAAAAPAJD/AQAAAAEAAAAPAJH/AQAAAAEAAAAPAJL/AQAAAAEAAAAQAIz/AQAAAAEAAAAQAI3/AQAAAAEAAAAQAI7/AQAAAAEAAAAQAI//AQAAAAEAAAAQAJD/AQAAAAEAAAAQAJH/AQAAAAEAAAAQAJL/AQAAAAEAAAARAIz/AQAAAAEAAAARAI3/AQAAAAEAAAARAI7/AQAAAAEAAAARAI//AQAAAAEAAAARAJD/AQAAAAEAAAARAJH/AQAAAAEAAAARAJL/AQAAAAEAAAASAIz/AQAAAAEAAAASAI3/AQAAAAEAAAASAI7/AQAAAAEAAAASAI//AQAAAAEAAAASAJD/AQAAAAEAAAASAJH/AQAAAAEAAAASAJL/AQAAAAEAAAAJAJP/AQAAAAEAAAAJAJT/AQAAAAEAAAAJAJX/AQAAAAEAAAAJAJb/AQAAAAEAAAAJAJf/AQAAAAEAAAAJAJj/AQAAAAEAAAAJAJn/AQAAAAEAAAAJAJr/AQAAAAEAAAAJAJv/AQAAAAEAAAAKAJP/AQAAAAEAAAAKAJT/AQAAAAEAAAAKAJX/AQAAAAEAAAAKAJb/AQAAAAEAAAAKAJf/AQAAAAEAAAAKAJj/AQAAAAEAAAAKAJn/AQAAAAEAAAAKAJr/AQAAAAEAAAAKAJv/AQAAAAEAAAALAJP/AQAAAAEAAAALAJT/AQAAAAEAAAALAJX/AQAAAAEAAAALAJb/AQAAAAEAAAALAJf/AQAAAAEAAAALAJj/AQAAAAEAAAALAJn/AQAAAAEAAAALAJr/AQAAAAEAAAALAJv/AQAAAAEAAAAMAJP/AQAAAAEAAAAMAJT/AQAAAAEAAAAMAJX/AQAAAAEAAAAMAJb/AQAAAAEAAAAMAJf/AQAAAAEAAAAMAJj/AQAAAAEAAAAMAJn/AQAAAAEAAAAMAJr/AQAAAAEAAAAMAJv/AQAAAAEAAAANAJP/AQAAAAEAAAANAJT/AQAAAAEAAAANAJX/AQAAAAEAAAANAJb/AQAAAAEAAAANAJf/AQAAAAEAAAANAJj/AQAAAAEAAAANAJn/AQAAAAEAAAANAJr/AQAAAAEAAAANAJv/AQAAAAEAAAAOAJP/AQAAAAEAAAAOAJT/AQAAAAEAAAAOAJX/AQAAAAEAAAAOAJb/AQAAAAEAAAAOAJf/AQAAAAEAAAAOAJj/AQAAAAEAAAAOAJn/AQAAAAEAAAAOAJr/AQAAAAEAAAAOAJv/AQAAAAEAAAAPAJP/AQAAAAEAAAAPAJT/AQAAAAEAAAAPAJX/AQAAAAEAAAAPAJb/AQAAAAEAAAAPAJf/AQAAAAEAAAAPAJj/AQAAAAEAAAAPAJn/AQAAAAEAAAAPAJr/AQAAAAEAAAAPAJv/AQAAAAEAAAAQAJP/AQAAAAEAAAAQAJT/AQAAAAEAAAAQAJX/AQAAAAEAAAAQAJb/AQAAAAEAAAAQAJf/AQAAAAEAAAAQAJj/AQAAAAEAAAAQAJn/AQAAAAEAAAAQAJr/AQAAAAEAAAAQAJv/AQAAAAEAAAARAJP/AQAAAAEAAAARAJT/AQAAAAEAAAARAJX/AQAAAAEAAAARAJb/AQAAAAEAAAARAJf/AQAAAAEAAAARAJj/AQAAAAEAAAARAJn/AQAAAAEAAAARAJr/AQAAAAEAAAARAJv/AQAAAAEAAAASAJP/AQAAAAEAAAASAJT/AQAAAAEAAAASAJX/AQAAAAEAAAASAJb/AQAAAAEAAAASAJf/AQAAAAEAAAASAJj/AQAAAAEAAAASAJn/AQAAAAEAAAASAJr/AQAAAAEAAAASAJv/AQAAAAEAAAATAIz/AQAAAAEAAAATAI3/AQAAAAEAAAATAI7/AQAAAAEAAAATAI//AQAAAAEAAAATAJD/AQAAAAEAAAATAJH/AQAAAAEAAAATAJL/AQAAAAEAAAATAJP/AQAAAAEAAAATAJT/AQAAAAEAAAATAJX/AQAAAAEAAAATAJb/AQAAAAEAAAATAJf/AQAAAAEAAAATAJj/AQAAAAEAAAATAJn/AQAAAAEAAAATAJr/AQAAAAEAAAATAJv/AQAAAAEAAAAUAIz/AQAAAAEAAAAUAI3/AQAAAAEAAAAUAI7/AQAAAAEAAAAUAI//AQAAAAEAAAAUAJD/AQAAAAEAAAAUAJH/AQAAAAEAAAAUAJL/AQAAAAEAAAAUAJP/AQAAAAEAAAAUAJT/AQAAAAEAAAAUAJX/AQAAAAEAAAAUAJb/AQAAAAEAAAAUAJf/AQAAAAEAAAAUAJj/AQAAAAEAAAAUAJn/AQAAAAEAAAAUAJr/AQAAAAEAAAAUAJv/AQAAAAEAAAAVAIz/AQAAAAEAAAAVAI3/AQAAAAEAAAAVAI7/AQAAAAEAAAAVAI//AQAAAAEAAAAVAJD/AQAAAAEAAAAVAJH/AQAAAAEAAAAVAJL/AQAAAAEAAAAVAJP/AQAAAAEAAAAVAJT/AQAAAAEAAAAVAJX/AQAAAAEAAAAVAJb/AQAAAAEAAAAVAJf/AQAAAAEAAAAVAJj/AQAAAAEAAAAVAJn/AQAAAAEAAAAVAJr/AQAAAAEAAAAVAJv/AQAAAAEAAAD3/5v/AQAAAAEAAAD4/5v/AQAAAAEAAAD5/5v/AQAAAAEAAAD6/5v/AQAAAAEAAAD7/5v/AQAAAAEAAAD8/5v/AQAAAAEAAAACAJv/AQAAAAEAAAADAJv/AQAAAAEAAAAEAJv/AQAAAAEAAAAFAJv/AQAAAAEAAAAGAJv/AQAAAAEAAAAHAJv/AQAAAAEAAAA=")
+tile_set = ExtResource("7_cq58n")
+
+[node name="OreIndicators" type="TileMapLayer" parent="World/Level"]
+tile_set = ExtResource("8_fcpvs")
+
+[node name="NavMeshes" type="Node2D" parent="World/Level"]
+
+[node name="Spawner" type="Node2D" parent="World" node_paths=PackedStringArray("occupied_tilemap")]
+position = Vector2(128, -3280)
+script = ExtResource("9_kl2i7")
+enemies = Dictionary[PackedScene, int]({
+ExtResource("10_gl4cv"): 1,
+ExtResource("11_1kf84"): 2,
+ExtResource("12_g081t"): 4
+})
+occupied_tilemap = NodePath("../Level/CaveBlocks")
+
+[node name="SpawnTimer" type="Timer" parent="World/Spawner"]
+wait_time = 5.0
+autostart = true
+
+[node name="SpawnZones" type="Node2D" parent="World/Spawner"]
+
+[node name="LeftSpawn" type="CollisionShape2D" parent="World/Spawner/SpawnZones"]
+position = Vector2(-738, 1083)
+shape = SubResource("RectangleShape2D_lwlx3")
+
+[node name="RightSpawn" type="CollisionShape2D" parent="World/Spawner/SpawnZones"]
+position = Vector2(735, 1083)
+shape = SubResource("RectangleShape2D_lwlx3")
+
+[node name="Player" parent="World" instance=ExtResource("13_ckd1k")]
+position = Vector2(128, -3280)
+collision_mask = 3
+available_bomb_types = Array[ExtResource("14_c4xu6")]([null])
+throw_force_curve = SubResource("Curve_lc2xo")
+max_speed = 200
+acceleration = 5000
+ground_deceleration = 800
+air_deceleration = 500
+jump_power = 380
+max_fall_speed = 10000
+fall_acceleration = 550
+
+[node name="MoabEntity" parent="World" node_paths=PackedStringArray("moab_explosion_system") instance=ExtResource("15_e4cdu")]
+position = Vector2(-208, -3288)
+moab_explosion_system = NodePath("../../MoabExplosionSystem")
+
+[node name="Sprite" parent="World/MoabEntity" index="0"]
+flip_h = true
+
+[node name="Spawn" type="Node2D" parent="World"]
+position = Vector2(-32, -3328)
+
+[node name="SpawnAreaPlayerDetector" type="Area2D" parent="World/Spawn"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("16_74ptf")
+metadata/_custom_type_script = "uid://1x04lpb258os"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Spawn/SpawnAreaPlayerDetector"]
+position = Vector2(12, -16)
+shape = SubResource("RectangleShape2D_rvswv")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = SubResource("Environment_qhcbd")
+
+[node name="RestockSound" type="AudioStreamPlayer" parent="World"]
+stream = ExtResource("35_enyai")
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="UpgradeGUI" type="Control" parent="GUI" node_paths=PackedStringArray("spawn_area_detector")]
+visible = false
+layout_mode = 3
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -448.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("19_uvk23")
+spawn_area_detector = NodePath("../../World/Spawn/SpawnAreaPlayerDetector")
+
+[node name="NinePatchRect" type="ColorRect" parent="GUI/UpgradeGUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0.193653, 0.193653, 0.193653, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/UpgradeGUI"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="UpgradeButton" parent="GUI/UpgradeGUI/HBoxContainer" instance=ExtResource("20_ks5ok")]
+layout_mode = 2
+upgrade = ExtResource("21_a1as6")
+
+[node name="Control" type="Control" parent="GUI/UpgradeGUI/HBoxContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="UpgradeButton2" parent="GUI/UpgradeGUI/HBoxContainer" instance=ExtResource("20_ks5ok")]
+layout_mode = 2
+upgrade = ExtResource("22_i2mqt")
+
+[node name="Control" type="VBoxContainer" parent="GUI"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -192.0
+offset_right = 128.0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="GUI/Control"]
+layout_mode = 2
+script = ExtResource("23_ikfu8")
+title = "Bombs Thrown"
+
+[node name="Label2" type="Label" parent="GUI/Control"]
+layout_mode = 2
+script = ExtResource("23_ikfu8")
+stat = 1
+title = "Tiles Broken"
+
+[node name="Label3" type="Label" parent="GUI/Control"]
+layout_mode = 2
+script = ExtResource("23_ikfu8")
+stat = 2
+title = "Enemies Killed"
+
+[node name="Label4" type="Label" parent="GUI/Control"]
+layout_mode = 2
+script = ExtResource("23_ikfu8")
+stat = 3
+title = "Bombpowder Offered"
+
+[node name="Label5" type="Label" parent="GUI/Control"]
+layout_mode = 2
+script = ExtResource("23_ikfu8")
+stat = 4
+title = "Max Depth Reached"
+
+[node name="Label6" type="Label" parent="GUI/Control"]
+layout_mode = 2
+script = ExtResource("23_ikfu8")
+stat = 5
+title = "Deaths"
+
+[node name="PauseMenu" parent="GUI" instance=ExtResource("26_bv7pd")]
+visible = false
+
+[node name="HUD" parent="GUI" instance=ExtResource("33_krr1o")]
+
+[node name="HealthBar" parent="GUI/HUD/VBoxContainer/HBoxContainer/Control/HBoxContainer" index="0" node_paths=PackedStringArray("health_component")]
+health_component = NodePath("../../../../../../../World/Player/HealthComponent")
+
+[node name="BombpowderDisplay" parent="GUI/HUD/VBoxContainer/HBoxContainer/Control/HBoxContainer/Bottom" index="0" node_paths=PackedStringArray("inventory_component")]
+inventory_component = NodePath("../../../../../../../../World/Player/MineralInventoryComponent")
+
+[node name="UpgradiumDisplay" parent="GUI/HUD/VBoxContainer/HBoxContainer/Control/HBoxContainer/Bottom" index="2" node_paths=PackedStringArray("inventory_component")]
+inventory_component = NodePath("../../../../../../../../World/Player/MineralInventoryComponent")
+
+[node name="Depth" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/Control2" index="0" node_paths=PackedStringArray("player")]
+player = NodePath("../../../../../../../World/Player")
+
+[node name="BombProgressBar" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" index="1" node_paths=PackedStringArray("bomb_explosion_system")]
+bomb_explosion_system = NodePath("../../../../../../../../MoabExplosionSystem")
+
+[node name="ProgressBar" parent="GUI/HUD/VBoxContainer/HBoxContainer3/TextureRect" index="0" node_paths=PackedStringArray("player", "timer")]
+player = NodePath("../../../../../../World/Player")
+timer = NodePath("../../../../../../World/Player/GrapplePoint/GrappleCooldown")
+
+[node name="FuelBar" parent="GUI/HUD/VBoxContainer/HBoxContainer3" index="1" node_paths=PackedStringArray("player")]
+player = NodePath("../../../../../World/Player")
+
+[node name="GameOver" parent="GUI" instance=ExtResource("35_a5ivc")]
+
+[node name="Music" parent="." instance=ExtResource("46_q8u1n")]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.36968, 0.328359, 0.176195, 1)
+
+[connection signal="timeout" from="World/Spawner/SpawnTimer" to="World/Spawner" method="_on_spawn_timer_timeout"]
+[connection signal="depth_changed" from="World/Player" to="Music" method="_on_player_depth_changed"]
+[connection signal="health_modified" from="World/Player/HealthComponent" to="World/Player" method="_on_health_component_health_modified"]
+[connection signal="player_entered" from="World/Spawn/SpawnAreaPlayerDetector" to="World" method="_on_spawn_area_player_detector_player_entered"]
+[connection signal="player_exited" from="World/Spawn/SpawnAreaPlayerDetector" to="World" method="_on_spawn_area_player_detector_player_exited"]
+>>>>>>> Stashed changes
 
 [connection signal="health_modified" from="World/Player/HealthComponent" to="World/Player" method="_on_health_component_health_modified"]
 

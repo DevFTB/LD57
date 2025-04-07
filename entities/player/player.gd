@@ -59,6 +59,14 @@ var frozen := false
 var invulnerable := false
 
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+var upgrade_state: PlayerUpgradeState = PlayerUpgradeState.new()
+var world : Node
+=======
+>>>>>>> origin/main
+>>>>>>> Stashed changes
 var current_movement_state: MovementState = MovementState.FREE
 
 @onready var mineral_inventory_component: InventoryComponent = $MineralInventoryComponent
@@ -94,10 +102,19 @@ func _ready() -> void:
 	#connect signals
 	if health_component:
 		health_component.died.connect(_on_death)
+<<<<<<< HEAD
 
 	world = get_tree().get_first_node_in_group("world")
 	
+<<<<<<< Updated upstream
 func on_upgrade(upgrade: Upgrade, tier):
+=======
+func on_upgrade(upgrade : Upgrade, tier):
+=======
+		
+func on_upgrade(upgrade: Upgrade, tier):
+>>>>>>> origin/main
+>>>>>>> Stashed changes
 	match upgrade.upgrade_type:
 		PlayerUpgradeState.UpgradeType.JETPACK:
 			traversal_method_unlocked.emit(TraversalMethod.JETPACK)
@@ -126,7 +143,12 @@ func on_upgrade(upgrade: Upgrade, tier):
 		PlayerUpgradeState.UpgradeType.MULTIBOMB_AMOUNT:
 			multi_bomb_amount = upgrade_state.get_total_value(upgrade) + 1
 		PlayerUpgradeState.UpgradeType.BLAST_RESISTANCE: # logarithmic scale
+<<<<<<< Updated upstream
 			hurtbox_component.blast_resistance_factor = upgrade_state.get_total_value(upgrade)
+=======
+<<<<<<< HEAD
+			hurtbox_component.blast_resistance_factor= upgrade_state.get_total_value(upgrade)
+>>>>>>> Stashed changes
 		PlayerUpgradeState.UpgradeType.STICKY_RESTOCK_AMOUNT:
 			modify_restock_inventory(preload("res://systems/inventory/items/item_sticky_bomb.tres"), upgrade_state.get_total_value(upgrade))
 		PlayerUpgradeState.UpgradeType.NUKE_RESTOCK_AMOUNT:
@@ -141,6 +163,13 @@ func modify_restock_inventory(bomb_item: Item, amount: int):
 	inventory.remove_item(bomb_item, inventory.get_item_amount(bomb_item))
 	inventory.add_item(bomb_item, amount)
 	world.restock_player(self)
+<<<<<<< Updated upstream
+=======
+	
+=======
+			hurtbox_component.blast_resistance_factor = upgrade_state.get_total_value(upgrade)
+>>>>>>> origin/main
+>>>>>>> Stashed changes
 
 func set_movement_state(new_movement_state: MovementState) -> void:
 	current_movement_state = new_movement_state

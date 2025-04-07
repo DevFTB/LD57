@@ -13,7 +13,15 @@ hardness = 4.0
 is_perishable = true
 is_sticky = true
 explode_on_impact = false
+<<<<<<< Updated upstream
 explosion_radius = 4
+=======
+<<<<<<< HEAD
+explosion_radius = 3
+=======
+explosion_radius = 4
+>>>>>>> origin/main
+>>>>>>> Stashed changes
 entity_damage = 50
 bomb_velocity_modifier = 1.0
 metadata/_custom_type_script = "uid://dgalf5pstb0iw"

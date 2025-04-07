@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://p0ipn2tylswi" path="res://ui/inventory/inventory_item_display.tscn" id="8_q2pla"]
 [ext_resource type="Resource" uid="uid://bfwwxfc0kwllo" path="res://systems/inventory/items/item_bombpowder.tres" id="10_c2qag"]
 [ext_resource type="Resource" uid="uid://bsytuw721i88d" path="res://systems/inventory/items/item_upgradium.tres" id="11_2grvh"]
+<<<<<<< Updated upstream
 [ext_resource type="Script" uid="uid://cg2pmlrf8nc4r" path="res://ui/HUD/boom_status_texture_rect.gd" id="12_mki3y"]
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="13_05i5p"]
 [ext_resource type="Texture2D" uid="uid://bu5fijvptxlny" path="res://ui/HUD/explosion.png" id="13_gifym"]
@@ -18,6 +19,22 @@
 [ext_resource type="Script" uid="uid://bug36t5k3k5mf" path="res://ui/HUD/amount_to_next_level_label.gd" id="17_ko6kn"]
 [ext_resource type="Texture2D" uid="uid://belkv520udyak" path="res://systems/inventory/items/texture_bombpowder.png" id="17_xyxuj"]
 [ext_resource type="Script" uid="uid://c8smtvlmix3im" path="res://ui/bomb_select/bomb_slot_select_bar.gd" id="18_a2w4y"]
+=======
+[ext_resource type="Texture2D" uid="uid://bu5fijvptxlny" path="res://ui/HUD/explosion.png" id="11_mki3y"]
+[ext_resource type="Texture2D" uid="uid://b8vkgx0epv747" path="res://entities/moab/moab_sprite_sheet.png" id="12_m3kpf"]
+[ext_resource type="Script" uid="uid://cg2pmlrf8nc4r" path="res://ui/HUD/boom_status_texture_rect.gd" id="12_mki3y"]
+[ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="13_05i5p"]
+[ext_resource type="Texture2D" path="res://ui/HUD/explosion.png" id="13_gifym"]
+[ext_resource type="Texture2D" path="res://world/loot/chest.png" id="14_27arm"]
+[ext_resource type="PackedScene" uid="uid://bbvhdbp0joc6q" path="res://ui/bomb_select/bomb_slot_select_scene.tscn" id="14_ui12q"]
+[ext_resource type="Resource" uid="uid://2rch3ef2vr66" path="res://systems/inventory/items/item_basic_bomb.tres" id="15_yxxc1"]
+[ext_resource type="Resource" uid="uid://44skluikbcii" path="res://systems/inventory/items/item_sticky_bomb.tres" id="16_n8ty0"]
+[ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="17_g746x"]
+[ext_resource type="Script" uid="uid://bug36t5k3k5mf" path="res://ui/HUD/amount_to_next_level_label.gd" id="17_ko6kn"]
+[ext_resource type="Texture2D" uid="uid://belkv520udyak" path="res://systems/inventory/items/texture_bombpowder.png" id="17_xyxuj"]
+[ext_resource type="Resource" uid="uid://wylmsxcnfp00" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="18_uaqyj"]
+[ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="19_iikl3"]
+>>>>>>> Stashed changes
 [ext_resource type="Texture2D" uid="uid://2nhewmpeakjh" path="res://ui/HUD/hook.png" id="20_h7hnh"]
 [ext_resource type="Texture2D" uid="uid://bdnh8n7dj826g" path="res://ui/HUD/empty fuel.png" id="21_mki3y"]
 [ext_resource type="Script" uid="uid://bw4n7aeli48jj" path="res://ui/grapple_ui.gd" id="21_s7ar1"]
@@ -278,7 +295,11 @@ offset_top = -64.0
 offset_right = 97.0
 offset_bottom = 64.0
 grow_vertical = 2
+<<<<<<< Updated upstream
 texture = ExtResource("13_gifym")
+=======
+texture = ExtResource("11_mki3y")
+>>>>>>> Stashed changes
 expand_mode = 2
 stretch_mode = 5
 script = ExtResource("12_mki3y")

@@ -2,16 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
+<<<<<<< Updated upstream
 uid="uid://dkypt6vsrswei"
 path="res://.godot/imported/health.png-003446be76acd2344598a5e8479ae441.ctex"
+=======
+uid="uid://duvvlmeraqx5n"
+path="res://.godot/imported/Health.png-229e82ecab22297070ec2abae2f2480a.ctex"
+>>>>>>> Stashed changes
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
+<<<<<<< Updated upstream
 source_file="res://systems/upgrades/icons/health.png"
 dest_files=["res://.godot/imported/health.png-003446be76acd2344598a5e8479ae441.ctex"]
+=======
+source_file="res://systems/upgrades/icons/Health.png"
+dest_files=["res://.godot/imported/Health.png-229e82ecab22297070ec2abae2f2480a.ctex"]
+>>>>>>> Stashed changes
 
 [params]
 

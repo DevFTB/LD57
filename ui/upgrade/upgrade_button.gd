@@ -1,8 +1,12 @@
-@tool
+#@tool
 extends Control
 class_name UpgradeButton
 
+<<<<<<< Updated upstream
 @export_tool_button("generate") var generate_button = generate
+=======
+#@export_tool_button("generate") var generate_button = generate
+>>>>>>> Stashed changes
 @export var upgrade: Upgrade
 @export var dependecies: Dictionary[UpgradeButton, int]
 @export var max_level = 3
@@ -80,9 +84,15 @@ func mouse_entered():
 func mouse_exited():
 	hide_tooltip()
 
+<<<<<<< Updated upstream
 #func _draw():
 	#for dependency in dependecies:
 		#draw_line(dependency.get_position() + Vector2(dependency.size.x / 2, 0) - self.get_position(), Vector2(self.get_size().x / 2, self.get_size().y), Color.BLACK, 3)
+=======
+func _draw():
+	for dependency in dependecies:
+		draw_line(dependency.get_position() + Vector2(dependency.size.x / 2, 0) - self.get_position(), Vector2(self.get_size().x / 2, self.get_size().y), Color.BLACK, 3)
+>>>>>>> Stashed changes
 
 func update_tooltip():
 	tooltip.config(upgrade.get_text(tier, current_level), LEVEL_FORMAT_STRING % [current_level, max_level], upgrade.tier_costs[tier])

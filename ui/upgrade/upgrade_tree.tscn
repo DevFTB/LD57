@@ -152,7 +152,11 @@ NodePath("../Health2"): 3
 max_level = 7
 tier = 2
 
+<<<<<<< Updated upstream
 [node name="Health4" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+=======
+[node name="BlastResistance" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+>>>>>>> Stashed changes
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
@@ -429,6 +433,7 @@ NodePath("../Damage2"): 3
 max_level = 7
 tier = 2
 
+<<<<<<< HEAD
 [node name="StickyRestock" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
@@ -613,7 +618,14 @@ NodePath("../NukeRestock2"): 1
 max_level = 1
 tier = 2
 
+<<<<<<< Updated upstream
 [node name="GrappleRange" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
+=======
+[node name="GrappleCD" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
+=======
+[node name="GrappleCD" parent="." instance=ExtResource("1_kku6u")]
+>>>>>>> origin/main
+>>>>>>> Stashed changes
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
@@ -626,7 +638,11 @@ offset_right = 2436.0
 offset_bottom = 2717.0
 upgrade = ExtResource("6_pgr47")
 
+<<<<<<< Updated upstream
 [node name="GrappleRange2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+=======
+[node name="GrappleCD2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+>>>>>>> Stashed changes
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
@@ -644,7 +660,11 @@ NodePath("../GrappleRange"): 3
 }
 tier = 1
 
+<<<<<<< Updated upstream
 [node name="GrappleRange3" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+=======
+[node name="GrappleCD3" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+>>>>>>> Stashed changes
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
@@ -661,7 +681,11 @@ NodePath("../GrappleRange2"): 3
 }
 tier = 2
 
+<<<<<<< Updated upstream
 [node name="GrappleCD1" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+=======
+[node name="Jetpack" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+>>>>>>> Stashed changes
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0

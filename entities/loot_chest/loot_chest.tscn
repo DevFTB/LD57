@@ -10,7 +10,7 @@
 size = Vector2(51, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_alovd"]
-size = Vector2(32, 28)
+size = Vector2(59, 55)
 
 [sub_resource type="Animation" id="Animation_t46w6"]
 resource_name = "die"
@@ -60,7 +60,7 @@ health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://bh4wfgcuvhfeq"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(0, 3)
+position = Vector2(-0.5, 5.5)
 shape = SubResource("RectangleShape2D_alovd")
 
 [node name="InventoryComponent" type="Node" parent="."]

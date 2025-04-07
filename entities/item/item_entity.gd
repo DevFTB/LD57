@@ -15,6 +15,7 @@ var pickup_sound_scene = preload("res://systems/music_sfx/files/sfx/ui/pickup_so
 @onready var original_sprite_scale := sprite_2d.scale
 @onready var node_2d: Node2D = $Node2D
 
+const MAGNET_STRENGTH = 500
 var player: Player
 
 

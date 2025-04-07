@@ -16,7 +16,6 @@ const CONSUME_AMOUNT := 1
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var playback: AnimationNodeStateMachinePlayback = $AnimationPlayer/AnimationTree.get("parameters/playback")
 @onready var path_follow: PathFollow2D = $Path2D/PathFollow2D
-
 func _ready() -> void:
 	player_detector.player_interacted.connect(_on_player_interacted)
 	animation_player.play("idle")

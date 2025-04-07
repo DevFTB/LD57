@@ -9,7 +9,11 @@
 bounce = 0.25
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j5wjh"]
+<<<<<<< Updated upstream
 radius = 16.0
+=======
+radius = 15.1327
+>>>>>>> Stashed changes
 
 [sub_resource type="Animation" id="Animation_o053b"]
 length = 0.001
@@ -62,7 +66,11 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kyrvw"]
+<<<<<<< Updated upstream
 radius = 16.0
+=======
+radius = 15.1327
+>>>>>>> Stashed changes
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ga8vi"]
 radius = 0.01
@@ -76,7 +84,11 @@ max_contacts_reported = 1
 script = ExtResource("1_vey3e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+<<<<<<< Updated upstream
 position = Vector2(-4, 2)
+=======
+position = Vector2(-3, 1)
+>>>>>>> Stashed changes
 shape = SubResource("CircleShape2D_j5wjh")
 debug_color = Color(0.0275242, 0, 0.622222, 0.42)
 

@@ -1,7 +1,11 @@
 [gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://pn1yg60fm2h1"]
 
 [ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_h5orl"]
+<<<<<<< Updated upstream
 [ext_resource type="Texture2D" uid="uid://dkypt6vsrswei" path="res://systems/upgrades/icons/health.png" id="2_4ww3f"]
+=======
+[ext_resource type="Texture2D" uid="uid://duvvlmeraqx5n" path="res://systems/upgrades/icons/health.png" id="2_4ww3f"]
+>>>>>>> Stashed changes
 
 [resource]
 script = ExtResource("1_h5orl")
