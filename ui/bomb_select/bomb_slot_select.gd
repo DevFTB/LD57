@@ -2,7 +2,6 @@ extends Control
 
 @export var slot_number := 1
 @export var bomb_item: Item
-@export var player_bomb_inventory: Inventory
 
 var bomb_type: BombType:
 	get:
@@ -12,6 +11,7 @@ var bomb_type: BombType:
 @onready var slot_label: Label = %SlotLabel
 @onready var amount_label: Label = %AmountLabel
 @onready var player: Player = get_tree().get_first_node_in_group("player")
+@onready var player_bomb_inventory: Inventory = player.bomb_inventory_component.inventory
 
 func _ready() -> void:
 	slot_label.label_settings = slot_label.label_settings.duplicate()
@@ -28,6 +28,7 @@ func update() -> void:
 			hide()
 		else:
 			show()
+
 		texture_rect.texture = bomb_item.texture
 		slot_label.text = str(slot_number)
 		amount_label.text = "∞" if not bomb_type.is_perishable else str(amount_in_player_inventory)

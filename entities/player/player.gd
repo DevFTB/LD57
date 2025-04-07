@@ -46,7 +46,7 @@ var current_movement_state: MovementState = MovementState.FREE
 @onready var bomb_cooldown: Timer = $BombCooldown
 @onready var grapple_point: GrapplePoint = $GrapplePoint
 @onready var jetpack: Jetpack = $Jetpack
-@onready var rope_climb : RopeClimb = $RopeClimb
+@onready var rope_climb: RopeClimb = $RopeClimb
 @onready var spawn_location: Vector2 = global_position
 @onready var winch = $"../Winch"
 
@@ -148,7 +148,7 @@ func handle_grapple(delta: float) -> void:
 func handle_jetpack(delta: float) -> void:
 	_frame_velocity = jetpack.calculate_frame_velocity(delta)
 
-func handle_climbing(delta:float) -> void:
+func handle_climbing(delta: float) -> void:
 	_frame_velocity = rope_climb.calculate_frame_velocity(delta)
 
 func _process(delta):

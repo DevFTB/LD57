@@ -4,6 +4,9 @@ const BASE_ZOOM = 1.5
 const SPAWN_ZOOM = 1.8
 @export var spawn_camera_offset: Vector2 = Vector2(0, -30)
 
+## Everytime the player enters spawn their bomb inventory will have atleast this many of each item
+@export var restock_inventory: Inventory
+
 @onready var player: Player = $Player
 @onready var cave_blocks_tilemap: TileMapLayer = $Level/CaveBlocks
 @onready var ore_tilemap: TileMapLayer = $Level/OreIndicators
@@ -131,7 +134,6 @@ func drop_ore(location: Vector2, item: Item, amount: int) -> void:
 		var offset_vector := Vector2.ONE.rotated(randf() * 2 * PI)
 		new_entity.position = location + offset_vector * 4
 		new_entity.apply_central_impulse(offset_vector * 100)
-	
 
 func _on_spawn_area_player_detector_player_entered(_player):
 	player.health_component.is_invulnerable = true
@@ -143,6 +145,15 @@ func _on_spawn_area_player_detector_player_entered(_player):
 	camera_tweener.set_trans(Tween.TRANS_CUBIC)
 	camera_tweener.tween_property(camera, "zoom", Vector2.ONE * SPAWN_ZOOM, 1)
 	camera_tweener.parallel().tween_property(camera, "position", initial_camera_location + spawn_camera_offset, 1)
+
+	# restock player
+	for item in restock_inventory.get_items():
+		var amount_in_player_inventory := player.bomb_inventory_component.inventory.get_item_amount(item)
+		var restock_amount := restock_inventory.get_item_amount(item)
+		if amount_in_player_inventory < restock_amount:
+			var diff := restock_amount - amount_in_player_inventory
+			player.bomb_inventory_component.inventory.add_item(item, diff)
+	# TODO: play restock sound.
 
 
 func _on_spawn_area_player_detector_player_exited(_player):

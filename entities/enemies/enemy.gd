@@ -16,7 +16,7 @@ var last_moved_direction: Vector2 = Vector2.RIGHT
 @onready var nav := $NavigationAgent2D
 @onready var los = $LineOfSight
 @onready var state_machine = $StateMachine
-@onready var animation_tree = $AnimationPlayer/AnimationTree
+@onready var animation_tree = get_node_or_null("AnimationPlayer/AnimationTree")
 @onready var is_ranged = enemy_stats.range != 0
 
 
