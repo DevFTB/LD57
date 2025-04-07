@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d4hqng7ebmhnc"
-path="res://.godot/imported/health_under.png-b4793ed7c9cd71bc0500e833577dace3.ctex"
+uid="uid://bu5fijvptxlny"
+path="res://.godot/imported/explosion.png-d5da18402deb34981733f908a5ccd9f9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/HUD/health_under.png"
-dest_files=["res://.godot/imported/health_under.png-b4793ed7c9cd71bc0500e833577dace3.ctex"]
+source_file="res://ui/HUD/explosion.png"
+dest_files=["res://.godot/imported/explosion.png-d5da18402deb34981733f908a5ccd9f9.ctex"]
 
 [params]
 

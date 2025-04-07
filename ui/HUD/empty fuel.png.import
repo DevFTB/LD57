@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wjd54yt4gdly"
-path="res://.godot/imported/grapple_hook.png-10401e6f5cdf57559c8f23697a8e835e.ctex"
+uid="uid://bdnh8n7dj826g"
+path="res://.godot/imported/empty fuel.png-b62304bce2f5a3684c9010aa5f30cff3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/grapple/grapple_hook.png"
-dest_files=["res://.godot/imported/grapple_hook.png-10401e6f5cdf57559c8f23697a8e835e.ctex"]
+source_file="res://ui/HUD/empty fuel.png"
+dest_files=["res://.godot/imported/empty fuel.png-b62304bce2f5a3684c9010aa5f30cff3.ctex"]
 
 [params]
 

@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://pn1yg60fm2h1"]
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://pn1yg60fm2h1"]
 
 [ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_h5orl"]
+[ext_resource type="Texture2D" uid="uid://depgngnc75g77" path="res://systems/upgrades/icons/health.png" id="2_4ww3f"]
 
 [resource]
 script = ExtResource("1_h5orl")
@@ -9,6 +10,7 @@ mult = false
 tier_value_in_tooltip = true
 tooltip_string = "more health"
 display_name = "Item"
+texture = ExtResource("2_4ww3f")
 num_tiers = 5
 tier_costs = Array[int]([5, 10, 20, 50, 100])
 tier_values = [10, 10, 25, 25, 50]

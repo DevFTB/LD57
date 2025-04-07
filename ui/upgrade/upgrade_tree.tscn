@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://b3cnp6fsypd5"]
+[gd_scene load_steps=10 format=3 uid="uid://m26fbyiig7bp"]
 
 [ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="1_kku6u"]
-[ext_resource type="Script" uid="uid://08b32ubcmb2e" path="res://ui/upgrade/upgrade_tree.gd" id="1_m7apr"]
+[ext_resource type="Script" path="res://ui/upgrade/upgrade_tree.gd" id="1_m7apr"]
 [ext_resource type="Resource" uid="uid://b6nkhnlvgtk7s" path="res://systems/upgrades/upgrade_bomb_hardness.tres" id="2_m7apr"]
 [ext_resource type="Resource" uid="uid://pn1yg60fm2h1" path="res://systems/upgrades/upgrade_health.tres" id="3_m7apr"]
 [ext_resource type="Resource" uid="uid://b6xkpnkwkffbg" path="res://systems/upgrades/upgrade_bomb_radius.tres" id="3_tsxcs"]
@@ -37,6 +37,7 @@ offset_left = 1937.0
 offset_top = 2556.0
 offset_right = 2001.0
 offset_bottom = 2647.0
+scale = Vector2(1.01893, 1)
 upgrade = ExtResource("3_m7apr")
 
 [node name="Magnet" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
