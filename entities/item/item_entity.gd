@@ -17,8 +17,9 @@ var player: Player
 
 
 func _ready() -> void:
-	sprite_2d.scale = Vector2.ONE * scale_curve.sample_baked(min(quantity, scale_curve.max_domain))
 	sprite_2d.texture = item.texture
+	sprite_2d.scale *= Vector2.ONE * scale_curve.sample_baked(min(quantity, scale_curve.max_domain))
+	print(sprite_2d.scale)
 	player_detector.player_entered.connect(_on_player_entered)
 	player = get_tree().get_first_node_in_group("player")
 	if timer:
@@ -52,9 +53,10 @@ func _on_player_entered(player: Player) -> void:
 		sound.global_position = global_position
 		queue_free()
 
-func _process(delta: float) -> void:
-	var player_vector = player.global_position - global_position
-	var magnet_range = player.get_magnet_range()
-	var distance = player_vector.length()
-	if distance < player.get_magnet_range():
-		apply_central_force(player_vector * MAGNET_STRENGTH * player.magnet_strength_multiplier / distance)
+func _physics_process(delta: float) -> void:
+	if player:
+		var player_vector = player.global_position - global_position
+		var magnet_range = player.get_magnet_range()
+		var distance = player_vector.length()
+		if distance < player.get_magnet_range():
+			apply_central_force(player_vector * MAGNET_STRENGTH * player.magnet_strength_multiplier / distance)
