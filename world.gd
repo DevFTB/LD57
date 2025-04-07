@@ -16,8 +16,9 @@ const SPAWN_ZOOM = 1.8
 
 @onready var block_break_scene = preload("res://systems/music_sfx/files/sfx/tile/block_break.tscn")
 
-var camera_following_player: bool = false
-var initial_camera_location
+enum camera_mode {FOLLOWING_PLAYER,SHAKING,SPAWN_ROOM_STATIC,FROZEN}
+var initial_camera_location : Vector2
+var current_camera_mode = camera_mode.FROZEN
 
 class ThrowReleasedEventData:
 	var position: Vector2
@@ -30,10 +31,21 @@ func _ready() -> void:
 	initial_camera_location = camera.position
 	
 func _physics_process(_delta):
-	if camera_following_player:
-		var camera_tweener = get_tree().create_tween()
-		camera_tweener.tween_property(camera, "global_position", player.global_position, 0.3)
-
+	match current_camera_mode:
+		camera_mode.FOLLOWING_PLAYER:
+			var camera_tweener = get_tree().create_tween()
+			camera_tweener.tween_property(camera, "zoom", Vector2.ONE * BASE_ZOOM, 1)
+			camera_tweener.set_ease(Tween.EASE_IN)
+			#camera_tweener.parallel().tween_property(camera, "position", initial_camera_location, 1)
+			camera_tweener.parallel().tween_property(camera, "global_position", player.global_position, 0.3)
+		camera_mode.SHAKING:
+			pass
+		camera_mode.SPAWN_ROOM_STATIC:
+			var camera_tweener = get_tree().create_tween()
+			camera_tweener.set_ease(Tween.EASE_IN_OUT)
+			camera_tweener.set_trans(Tween.TRANS_CUBIC)
+			camera_tweener.tween_property(camera, "zoom", Vector2.ONE * SPAWN_ZOOM, 1)
+			camera_tweener.parallel().tween_property(camera, "position", initial_camera_location + spawn_camera_offset, 1)
 
 func _spawn_bomb_with_velocity(data: ThrowReleasedEventData) -> void:
 	var new_bomb := data.bomb_type.bomb_scene.instantiate() as ThrowableBomb
@@ -139,12 +151,8 @@ func _on_spawn_area_player_detector_player_entered(_player):
 	player.health_component.is_invulnerable = true
 	player.health_component.heal(player.health_component.maximum_health)
 	#handle camera tween
-	camera_following_player = false
-	var camera_tweener = get_tree().create_tween()
-	camera_tweener.set_ease(Tween.EASE_IN_OUT)
-	camera_tweener.set_trans(Tween.TRANS_CUBIC)
-	camera_tweener.tween_property(camera, "zoom", Vector2.ONE * SPAWN_ZOOM, 1)
-	camera_tweener.parallel().tween_property(camera, "position", initial_camera_location + spawn_camera_offset, 1)
+	current_camera_mode = camera_mode.SPAWN_ROOM_STATIC
+
 
 	# restock player
 	for item in restock_inventory.get_items():
@@ -161,11 +169,9 @@ func _on_spawn_area_player_detector_player_entered(_player):
 func _on_spawn_area_player_detector_player_exited(_player):
 	player.health_component.is_invulnerable = false
 	#handle camera tween
-	camera_following_player = true
-	var camera_tweener = get_tree().create_tween()
-	camera_tweener.set_ease(Tween.EASE_IN)
-	camera_tweener.tween_property(camera, "zoom", Vector2.ONE * BASE_ZOOM, 1)
-	camera_tweener.parallel().tween_property(camera, "position", initial_camera_location, 1)
-	
+	current_camera_mode = camera_mode.FOLLOWING_PLAYER
+	#var camera_tweener = get_tree().create_tween()
+
+	#
 func _on_player_death():
-	camera_following_player = false
+	current_camera_mode = camera_mode.FROZEN

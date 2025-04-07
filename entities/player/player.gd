@@ -29,6 +29,8 @@ enum TraversalMethod {
 @export var blast_resistance_factor := 0.5
 @export var unlocked_traversal_methods: Array[TraversalMethod] = []
 
+
+
 var _holding_throw := false
 var _throw_action_held_time := 0.0
 var selected_bomb_item: Item
@@ -36,6 +38,7 @@ var can_throw := true
 var can_pickup := true
 var can_climb := false
 var current_depth := 0
+
 
 var upgrade_state: PlayerUpgradeState = PlayerUpgradeState.new()
 
@@ -144,6 +147,7 @@ func _physics_process(delta: float) -> void:
 
 			if _throw_action_held_time > maximum_throw_hold_time:
 				_on_throw_release(1.0)
+	
 func handle_bomb_switch(indexes: Array) -> void:
 	for i in indexes:
 		var action := "select_bomb_%d" % (i + 1)
@@ -250,6 +254,7 @@ func reset_player() -> void:
 	velocity = Vector2.ZERO
 	global_position = spawn_location
 	set_movement_state(MovementState.FREE)
+	
 
 func _play_hurt_sounds() -> void:
 	$HurtSound.pitch_scale = randf_range(0.9, 1.1)
