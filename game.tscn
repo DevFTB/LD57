@@ -37,7 +37,7 @@
 [ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
 [ext_resource type="PackedScene" uid="uid://c4e86uoalfgiw" path="res://ui/HUD/hud.tscn" id="36_4v2jo"]
-[ext_resource type="PackedScene" uid="uid://cc5dkwrsnplny" path="res://menu/game_over.tscn" id="37_4v2jo"]
+[ext_resource type="PackedScene" uid="uid://b2vtm14w5fe48" path="res://menu/game_over.tscn" id="37_4v2jo"]
 [ext_resource type="Texture2D" uid="uid://2nhewmpeakjh" path="res://ui/HUD/hook.png" id="37_kq12w"]
 [ext_resource type="PackedScene" uid="uid://b3cnp6fsypd5" path="res://ui/upgrade/upgrade_tree.tscn" id="38_l1i01"]
 [ext_resource type="Texture2D" uid="uid://cdp2qg6foouy2" path="res://world/loot/chest.png" id="38_t46w6"]
@@ -330,10 +330,10 @@ script = ExtResource("5_lwlx3")
 maximum_size = 2000
 starting_inventory = {
 ExtResource("14_xa8c5"): 1,
-ExtResource("15_5b14r"): 100,
-ExtResource("35_r62pu"): 100,
-ExtResource("34_l1i01"): 100,
-ExtResource("35_klri6"): 100
+ExtResource("15_5b14r"): 0,
+ExtResource("35_r62pu"): 0,
+ExtResource("34_l1i01"): 0,
+ExtResource("35_klri6"): 0
 }
 metadata/_custom_type_script = "uid://b0ogai8s7l7sc"
 

@@ -9,6 +9,7 @@ var pickup_sound_scene = preload("res://systems/music_sfx/files/sfx/ui/pickup_so
 @onready var player_detector: PlayerDetectorArea2D = $PlayerDetectorArea2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var combination_area_2d: Area2D = $CombinationArea2D
+@onready var timer = $ExplosionTimer
 
 const MAGNET_STRENGTH = 500
 var player: Player
@@ -17,10 +18,9 @@ func _ready() -> void:
 	sprite_2d.texture = item.texture
 	player_detector.player_entered.connect(_on_player_entered)
 	player = get_tree().get_first_node_in_group("player")
-
-
-	$Timer.wait_time += randf()
-	$Timer.timeout.connect(consume, ConnectFlags.CONNECT_DEFERRED)
+	if timer:
+		timer.wait_time += randf()
+		timer.timeout.connect(consume, ConnectFlags.CONNECT_DEFERRED)
 
 func get_consumed() -> void:
 	if consumed > 0:

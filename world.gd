@@ -230,10 +230,13 @@ func _on_spawn_area_player_detector_player_entered(_player):
 	#handle camera tween
 	switch_camera_mode(camera_mode.SPAWN_ROOM_STATIC)
 	process_camera()
+	restock_player(player)
 
-	# restock player
+
+func restock_player(player):
+		# restock player
 	for item in restock_inventory.get_items():
-		var amount_in_player_inventory := player.bomb_inventory_component.inventory.get_item_amount(item)
+		var amount_in_player_inventory : int = player.bomb_inventory_component.inventory.get_item_amount(item)
 		var restock_amount := restock_inventory.get_item_amount(item)
 		if amount_in_player_inventory < restock_amount:
 			var diff := restock_amount - amount_in_player_inventory
@@ -242,14 +245,13 @@ func _on_spawn_area_player_detector_player_entered(_player):
 	player.jetpack.restock()
 	$RestockSound.play()
 
-
 func _on_spawn_area_player_detector_player_exited(_player):
 	player.health_component.is_invulnerable = false
 	#handle camera tween
 	switch_camera_mode(camera_mode.FOLLOWING_PLAYER)
 	process_camera()
 	#var camera_tweener = get_tree().create_tween()
-
+	restock_player(player)
 	#
 func _on_player_death():
 	switch_camera_mode(camera_mode.FROZEN)

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://b71bvme7mcjv7"]
+
+[ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_d21uk"]
+[ext_resource type="Texture2D" uid="uid://c57v25cl0tews" path="res://entities/throwables/bomb/sticky_bomb.png" id="2_ml7xm"]
+
+[resource]
+script = ExtResource("1_d21uk")
+upgrade_type = 11
+mult = false
+tier_value_in_tooltip = true
+tooltip_string = "Sticky bombs when resupplying at base"
+display_name = "Sticky Bombs"
+texture = ExtResource("2_ml7xm")
+num_tiers = 3
+tier_costs = Array[int]([5, 10, 20])
+tier_values = [2, 2, 4]
+current_level_str = "[color=grey]%s[/color]"
+value_str = "[color=green](+%s)[/color] "
+metadata/_custom_type_script = "uid://dycw7l33nfhy8"
