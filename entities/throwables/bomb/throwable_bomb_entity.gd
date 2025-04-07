@@ -30,6 +30,7 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	explosion_timer.timeout.connect(explode)
 	explosion_timer.start()
+	animation_player.play("flash")
 
 func _physics_process(_delta):
 	ray_cast.target_position = linear_velocity * -0.05
