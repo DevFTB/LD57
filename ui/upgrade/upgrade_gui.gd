@@ -12,8 +12,8 @@ func _ready() -> void:
 		push_error("No spawn area detector assigned to upgrade GUI")
 	visible = false
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_released("toggle_upgrade_gui"):
+func _process(delta: float) -> void:
+	if Input.is_action_just_released("toggle_upgrade_gui"):
 		if toggleable:
 			visible = not visible
 			get_tree().paused = visible
@@ -21,4 +21,4 @@ func _input(event: InputEvent) -> void:
 func set_toggleable(value: bool) -> void:
 	toggleable = value
 	if not toggleable:
-		hide()
+		visible = false

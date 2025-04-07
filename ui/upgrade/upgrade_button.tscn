@@ -30,6 +30,7 @@ tooltip = NodePath("UpgradeTooltip")
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_vertical = 3
+focus_mode = 0
 mouse_filter = 1
 expand_icon = true
 
