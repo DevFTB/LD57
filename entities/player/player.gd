@@ -75,6 +75,7 @@ var current_movement_state: MovementState = MovementState.FREE
 @onready var invulnerability_cooldown_timer: Timer = $InvulnerabilityCooldown
 @onready var invulnerability_duration_timer: Timer = $InvulnerabilityDuration
 
+const SURFACE_Y := -3232
 
 func _ready() -> void:
 	upgrade_state.upgraded.connect(on_upgrade)
@@ -319,7 +320,8 @@ func _on_throw_release(strength = 1.0) -> void:
 
 #calculates depth based on spawn position
 func calculate_depth(current_y):
-	var depth = (current_y - spawn_location.y) / 32 * 0.5
+	var depth = (current_y - SURFACE_Y) / 32 * 0.5
+
 	if depth != current_depth:
 		StatsManager.surpass_stat(StatsManager.Stat.MAX_DEPTH, current_depth)
 		depth_changed.emit(depth)

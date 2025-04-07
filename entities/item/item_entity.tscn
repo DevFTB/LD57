@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://bkh5wheo7tg4h"]
+[gd_scene load_steps=9 format=3 uid="uid://bkh5wheo7tg4h"]
 
 [ext_resource type="Script" uid="uid://cks8634iddsry" path="res://entities/item/item_entity.gd" id="1_qtltb"]
-[ext_resource type="Resource" uid="uid://bfwwxfc0kwllo" path="res://systems/inventory/items/item_bombpowder.tres" id="2_66d2l"]
 [ext_resource type="Script" uid="uid://w41hm7cs2i53" path="res://entities/item/auto_resize_sprite2d.gd" id="3_66d2l"]
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="3_a2vk7"]
 
@@ -9,9 +8,9 @@
 bounce = 0.5
 
 [sub_resource type="Curve" id="Curve_66d2l"]
-_limits = [1.0, 3.0, 0.0, 100.0]
-_data = [Vector2(0, 1), 0.0, 0.0638348, 0, 0, Vector2(100, 3), -0.000609968, 0.0, 0, 0]
-point_count = 2
+_limits = [1.0, 2.5, 0.0, 100.0]
+_data = [Vector2(0, 1), 0.0, 0.0548864, 0, 0, Vector2(5.88235, 2.10391), 0.0, 0.0, 0, 0, Vector2(100, 2.49264), 0.00199482, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e36ub"]
 
@@ -29,13 +28,13 @@ can_sleep = false
 lock_rotation = true
 script = ExtResource("1_qtltb")
 scale_curve = SubResource("Curve_66d2l")
-item = ExtResource("2_66d2l")
-quantity = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_e36ub")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
 script = ExtResource("3_66d2l")
 
 [node name="PlayerDetectorArea2D" type="Area2D" parent="."]

@@ -1,9 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://cp4wn6jygcpbr"]
+[gd_scene load_steps=4 format=3 uid="uid://cp4wn6jygcpbr"]
 
 [ext_resource type="Script" uid="uid://cf6rl5tnd1tuo" path="res://menu/pause_menu.gd" id="1_inj1j"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_87ddb"]
 font_size = 72
+
+[sub_resource type="LabelSettings" id="LabelSettings_inj1j"]
+font_size = 32
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -15,52 +18,85 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_inj1j")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -246.0
-offset_top = -88.5
-offset_right = 246.0
-offset_bottom = 88.5
+offset_left = -270.0
+offset_top = -193.0
+offset_right = 270.0
+offset_bottom = 193.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 64
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Game Paused"
 label_settings = SubResource("LabelSettings_87ddb")
 
-[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "The explosions cease for a moment..."
 horizontal_alignment = 1
 
-[node name="Spacer" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Spacer" type="Control" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="PauseMenuResumeButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PauseMenuResumeButton" type="Button" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 72)
 layout_mode = 2
 text = "Resume"
 
-[node name="PauseMenuExitButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PauseMenuExitButton" type="Button" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 72)
 layout_mode = 2
 text = "Exit"
+
+[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Controls"
+label_settings = SubResource("LabelSettings_inj1j")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "WASD to move
+Throw bomb: Left Click
+Grapple: Right Click
+Feed bob: [E]
+Open/close Upgrade Menu: [Tab]
+Climb rope: [W]"
