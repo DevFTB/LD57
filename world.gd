@@ -24,7 +24,7 @@ class_name World extends Node2D
 enum CameraMode {FOLLOWING_PLAYER, SPAWN_ROOM_STATIC, FROZEN, INITIAL}
 var initial_camera_location: Vector2
 var queued_camera_mode
-var current_camera_mode = CameraMode.INITIAL
+var current_camera_mode = CameraMode.FOLLOWING_PLAYER
 
 
 class ThrowReleasedEventData:
@@ -68,11 +68,7 @@ func process_camera():
 			camera_tweener.parallel().tween_property(camera, "zoom", MainCamera.SPAWN_ZOOM, 1)
 			camera_tweener.parallel().tween_property(camera, "position", initial_camera_location + spawn_camera_offset, 1)
 		CameraMode.INITIAL:
-			var camera_tweener = get_tree().create_tween()
-			camera_tweener.set_ease(Tween.EASE_IN_OUT)
-			camera_tweener.set_trans(Tween.TRANS_CUBIC)
-			camera_tweener.tween_property(camera, "zoom", MainCamera.SPAWN_ZOOM, 1)
-			camera_tweener.parallel().tween_property(camera, "position", initial_camera_location + spawn_camera_offset, 1)
+			current_camera_mode = CameraMode.FOLLOWING_PLAYER
 	pass
 
 func _spawn_bomb_with_velocity(data: ThrowReleasedEventData) -> void:
