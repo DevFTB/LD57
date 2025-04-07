@@ -2,7 +2,7 @@ class_name LevelGen extends Node2D
 
 @export var random_seed: int = randi()
 @export var height_hardness_factor: float = 0.5
-@export var ore_hardness_factor: float = 0.3
+@export var ore_hardness_factor: float = 0.2
 @export var navmesh_chunk_size: int = 32 ## nav mesh chunk size in tiles
 
 @export_subgroup("Spawn Area Details")
@@ -12,7 +12,7 @@ class_name LevelGen extends Node2D
 # must be a multiple of 32 due to navmesh stuffs
 @export var map_chunk_size = 64
 
-@export var loot_chests_per_chunk: int = 20
+@export var loot_chests_per_chunk: int = 10
 @export var loot_chest_scene: PackedScene
 @export var loot_tables: Array[LootTable]
 
@@ -24,7 +24,7 @@ class_name LevelGen extends Node2D
 # ordering determines which ones get priority when spawning
 # resources must match to the row on the ore indicators atlas
 enum Resources {BOMB_POWDER, UPGRADIUM}
-@export var resource_threshold = [0.5, 0.5]
+@export var resource_threshold = [0.4, 0.5]
 
 @onready var CAVE_BLOCK_TILEMAP: TileMapLayer = $CaveBlocks
 @onready var ORE_INDICATOR_TILEMAP: TileMapLayer = $OreIndicators
@@ -84,7 +84,7 @@ func _get_resource_map(resource: Resources) -> Noise:
 func noise_height_transform(y: int, noise_value: float, _height_factor: float = 0.5,
 	min_added: float = -2.0, max_added: float = 2.0, y_offset: float = 0.0) -> float:
 	# maps from noise_value [-1, 1] to [-1, 1]
-	var transform_term = clamp((height_hardness_factor * (y + y_offset) / 100), min_added, max_added)
+	var transform_term = clamp((_height_factor * (y + y_offset) / 100), min_added, max_added)
 	return clamp(noise_value + transform_term, -1.0, 1.0)
 	
 func generate_cave_blocks(cave_noise: Noise, hardness_noise: Noise, resource_noise: Dictionary,

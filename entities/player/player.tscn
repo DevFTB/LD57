@@ -1215,7 +1215,7 @@ bus = &"Sound FX"
 
 [node name="RopeClimb" type="Node2D" parent="."]
 script = ExtResource("24_t1t22")
-climb_speed = 150.0
+climb_speed = 500.0
 
 [connection signal="selected_bomb_changed" from="." to="." method="_on_selected_bomb_changed"]
 [connection signal="timeout" from="BombCooldown" to="." method="_on_bomb_cooldown_timeout"]
