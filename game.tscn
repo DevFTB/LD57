@@ -376,12 +376,12 @@ ExtResource("35_klri6"): 0
 metadata/_custom_type_script = "uid://b0ogai8s7l7sc"
 
 [sub_resource type="Curve" id="Curve_tb2lt"]
-_limits = [1.0, 100.0, 0.0, 5.0]
-_data = [Vector2(0.0235571, 1), 0.0, 0.398794, 0, 0, Vector2(5, 100), 62.7556, 0.0, 0, 0]
+_limits = [1.0, 75.5281, 0.0, 5.0]
+_data = [Vector2(0.0235571, 1), 0.0, 0.398794, 0, 0, Vector2(5, 75.5281), 43.4808, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_87ddb"]
-radius = 128.0
+radius = 189.095
 
 [sub_resource type="LabelSettings" id="LabelSettings_bqa6y"]
 font = ExtResource("39_vuohh")
@@ -643,6 +643,9 @@ inventory = SubResource("Resource_lwlx3")
 [node name="GrapplePoint" parent="World/Player" index="10"]
 grapple_point_speed = 250.0
 
+[node name="RopeClimb" parent="World/Player" index="15"]
+climb_speed = 300.0
+
 [node name="InvulnerabilityDuration" type="Timer" parent="World/Player"]
 one_shot = true
 
@@ -657,6 +660,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/MoabEntity/MoabHintArea"]
+position = Vector2(61.225, 0)
 shape = SubResource("CircleShape2D_87ddb")
 
 [node name="Spawn" type="Node2D" parent="World"]
@@ -871,6 +875,8 @@ scale = Vector2(0.685, 0.685)
 
 [node name="Music" parent="." instance=ExtResource("23_qhcbd")]
 process_mode = 3
+depth_for_track2 = 100
+depth_for_track3 = 250
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.36968, 0.328359, 0.176195, 1)
