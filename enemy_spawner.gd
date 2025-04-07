@@ -1,8 +1,9 @@
-extends Node
+extends Node2D
 
 # dict of enemy scene to enemy points
 @export var enemies: Dictionary[PackedScene, int]
 @export var occupied_tilemap: TileMapLayer
+#@export var spawn_point_test_indicator: TileMapLayer
 
 @onready var spawn_timer = $SpawnTimer
 # TODO: will player be readied first - might rely on order of tree...
@@ -35,6 +36,8 @@ func get_spawn_rect_points(spawn_rect: Rect2):
 	return points
 
 func _ready() -> void:
+	#global_position = Vector2(0, 0)
+	# NOTE: SPAWNER NODE MUST BE BELOW LEVEL NODE OTHERWISE FIRST SPAWN WON'T RESPECT OBSTACLES
 	spawn_enemies()
 	
 func get_expected_enemy_points(spawn_rect: Rect2):
@@ -42,14 +45,14 @@ func get_expected_enemy_points(spawn_rect: Rect2):
 
 func spawn_enemies():
 	refresh_enemy_dict()
-	print("total enemies", current_enemies.keys().size())
+	#print("total enemies", current_enemies.keys().size())
 	
 	# debugging purposes only to show shapes
 	$SpawnZones.global_position = player.global_position
 	
 	for spawn_rect in spawn_rects:
 		var extra_points_req = get_expected_enemy_points(spawn_rect) - get_spawn_rect_points(spawn_rect)
-		print("extra points req", extra_points_req)
+		#print("extra points req", extra_points_req)
 		if extra_points_req > 0:
 			var global_rect = Rect2(spawn_rect.position + player.global_position, spawn_rect.size)
 			spawn_enemies_in_area(extra_points_req, global_rect.position.x,
@@ -80,18 +83,29 @@ func get_valid_spawnpoints(min_x: int, max_x: int, min_y: int, max_y: int) -> Ar
 	var bottom_right = occupied_tilemap.local_to_map(occupied_tilemap.to_local(Vector2(max_x, max_y)))
 	for x in range(top_left.x, bottom_right.x):
 		for y in range(top_left.y, bottom_right.y):
-			var tilemap_coords = Vector2i(x, y)
-			var cell = occupied_tilemap.get_cell_source_id(tilemap_coords)
-			if cell == -1:
+			if is_valid_spawnpoint(x, y):
+				var tilemap_coords = Vector2i(x, y)
 				valid_spawnpoints.append(occupied_tilemap.to_global(occupied_tilemap.map_to_local(tilemap_coords)))
-	
+				#spawn_point_test_indicator.set_cell(tilemap_coords, 0, Vector2i(0, 1))
+				
 	return valid_spawnpoints
+	
+func is_valid_spawnpoint(tilemap_x: int,tilemap_y: int) -> bool:
+	# checks 3x3 block around spawnpoint
+	# remember that ranges dont include the last one LOL
+	for i in range(-1, 2):
+		for j in range(-1, 2):
+			var tilemap_coords = Vector2i(tilemap_x + i, tilemap_y + j)
+			if occupied_tilemap.get_cell_source_id(tilemap_coords) != -1:
+				return false
+	
+	return true
 	
 	
 func spawn_enemy(enemy: PackedScene, x: int, y: int):
-	#print("spawn", enemy, x, y)
 	var enemy_node: Enemy = enemy.instantiate()
 	add_child(enemy_node)
+	
 	enemy_node.global_position = Vector2(x, y)
 	current_enemies[enemy_node] = enemies[enemy]
 
