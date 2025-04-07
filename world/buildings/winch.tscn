@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://vp4hhi7lbt7d"]
+
+[ext_resource type="Script" uid="uid://b5pxdmf6g5x6f" path="res://world/buildings/winch.gd" id="1_wlnin"]
+[ext_resource type="Texture2D" uid="uid://og0i3l10w8n2" path="res://world/buildings/rope texture.png" id="2_aintc"]
+[ext_resource type="Texture2D" uid="uid://h24jur4qw52j" path="res://world/assets/winch.png" id="2_g25fp"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l1i01"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_g25fp"]
+a = Vector2(-11, -65)
+b = Vector2(-10, 78)
+
+[node name="Winch" type="Node2D"]
+script = ExtResource("1_wlnin")
+
+[node name="Line2D" type="Line2D" parent="."]
+modulate = Color(0.513726, 0.509804, 0.458824, 0.921569)
+texture_repeat = 2
+scale = Vector2(1.3125, 1.3125)
+points = PackedVector2Array(-7, -49.524, -7.61905, 51.8095)
+width = 16.0
+texture = ExtResource("2_aintc")
+texture_mode = 1
+begin_cap_mode = 1
+end_cap_mode = 1
+
+[node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_l1i01")
+scale = Vector2(1.3125, 1.3125)
+texture = ExtResource("2_g25fp")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("SegmentShape2D_g25fp")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://62qa0lv1bhdx"]
+[gd_scene load_steps=9 format=3 uid="uid://62qa0lv1bhdx"]
 
 [ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="1_otgj8"]
 [ext_resource type="Texture2D" uid="uid://pmstxd1ml6gm" path="res://entities/enemies/bat/bat.png" id="2_w0bok"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://dvj8glwqavlfj" path="res://entities/enemies/bat/bat_animation_tree.tres" id="3_0iyqo"]
 [ext_resource type="Script" uid="uid://8yq7eg5mbxvw" path="res://entities/enemies/enemy_animation_tree.gd" id="3_lmyjq"]
 
 [sub_resource type="Animation" id="Animation_w0bok"]
@@ -30,9 +31,21 @@ tracks/1/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-0.47, 0.47)]
+}
 
 [sub_resource type="Animation" id="Animation_otgj8"]
-resource_name = "fly"
+resource_name = "fly_left"
 length = 0.4
 loop_mode = 1
 step = 0.1
@@ -60,32 +73,78 @@ tracks/1/keys = {
 "update": 1,
 "values": [0, 1, 2, 3]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.47, 0.47), Vector2(0.47, 0.47)]
+}
+
+[sub_resource type="Animation" id="Animation_lj33s"]
+resource_name = "fly_right"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-0.47, 0.47), Vector2(-0.47, 0.47)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w0bok"]
 _data = {
 &"RESET": SubResource("Animation_w0bok"),
-&"fly": SubResource("Animation_otgj8")
+&"fly_left": SubResource("Animation_otgj8"),
+&"fly_right": SubResource("Animation_lj33s")
 }
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w0bok"]
-animation = &"fly"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lmyjq"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_w0bok"]
-states/Start/position = Vector2(191, 115)
-states/fly/node = SubResource("AnimationNodeAnimation_w0bok")
-states/fly/position = Vector2(385, 115)
-transitions = ["Start", "fly", SubResource("AnimationNodeStateMachineTransition_lmyjq")]
 
 [node name="Enemy" instance=ExtResource("1_otgj8")]
 
 [node name="Sprite" parent="." index="0"]
 position = Vector2(8, 0)
-scale = Vector2(0.47, 0.47)
+scale = Vector2(-0.47, 0.47)
 texture = ExtResource("2_w0bok")
 hframes = 4
+
+[node name="HitboxComponent" parent="." index="9"]
+repeating = true
 
 [node name="AnimationPlayer" parent="." index="11"]
 libraries = {
@@ -94,8 +153,11 @@ libraries = {
 
 [node name="AnimationTree" type="AnimationTree" parent="AnimationPlayer" index="0" node_paths=PackedStringArray("enemy", "sprite")]
 root_node = NodePath("../..")
-tree_root = SubResource("AnimationNodeStateMachine_w0bok")
+tree_root = ExtResource("3_0iyqo")
 anim_player = NodePath("..")
+parameters/fly/blend_position = 0.157576
 script = ExtResource("3_lmyjq")
 enemy = NodePath("../..")
 sprite = NodePath("../../Sprite")
+
+[editable path="HitboxComponent"]

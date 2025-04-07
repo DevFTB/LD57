@@ -36,9 +36,3 @@ func _transition_to_next_state(target_state_path: String, data: Dictionary = {})
 	state.exit()
 	state = get_node(target_state_path)
 	state.enter(previous_state_path, data)
-
-
-func _on_hitbox_component_hurt_entity(hurtbox_component: HurtboxComponent) -> void:
-	if hurtbox_component.get_parent().is_in_group("player") and state != $KnockedBack:
-		print("Knocked back")
-		_transition_to_next_state("KnockedBack", {"player_position": hurtbox_component.get_parent().global_position})

@@ -1,12 +1,14 @@
 extends Node2D
 class_name Jetpack
 
+signal fuel_changed
+
 enum JetpackState {
 	OFF, ON
 }
-
 ## The current amount of fuel in the jetpack.
-@export var fuel: float = 100.0
+
+@export var max_fuel: float = 100.0
 
 ## How fast the jetpack burns fuel.
 @export var fuel_burn_rate: float = 1.0
@@ -23,24 +25,26 @@ var state: JetpackState = JetpackState.OFF
 
 @onready var particles: GPUParticles2D = $GPUParticles2D
 
+@onready var fuel: float = 100.0:
+	set(value):
+		fuel = value
+		fuel_changed.emit(fuel)
+
 func _ready() -> void:
 	particles.emitting = false
+	player.movement_state_changed.connect(_on_movement_state_changed)
+
 
 func handle_action(key: StringName) -> void:
-	# Take control when traverse action is pressed.
+	# Take control when jump action is pressed.
 	if Input.is_action_just_pressed(key):
-		state = JetpackState.ON
-		player.current_movement_state = Player.MovementState.JETPACK
-		particles.emitting = true
-		$JetpackStart.play()
-		$JetpackLoop.play()
+		activiate()
+		player.set_movement_state(Player.MovementState.JETPACK)
+		
 	elif Input.is_action_just_released(key):
-		state = JetpackState.OFF
-		player.current_movement_state = Player.MovementState.FREE
-		particles.emitting = false
-		$JetpackLoop.stop()
-
-
+		cancel()
+		player.free_movement(Player.MovementState.JETPACK)
+		
 func _physics_process(delta: float) -> void:
 	# Burn fuel when on.
 	if state == JetpackState.ON:
@@ -55,6 +59,23 @@ func calculate_frame_velocity(delta: float) -> Vector2:
 		return new_frame_velocity
 	else:
 		return Vector2()
-	
+
 func add_fuel(amount: float) -> void:
 	fuel += amount
+
+func activiate() -> void:
+	state = JetpackState.ON
+	particles.emitting = true
+	$JetpackStart.play()
+	$JetpackLoop.play()
+
+
+func cancel() -> void:
+	state = JetpackState.OFF
+	particles.emitting = false
+	$JetpackLoop.stop()
+
+func _on_movement_state_changed(new_state: Player.MovementState) -> void:
+	# If the movement state is set to different state while this state is active, gracefully cancel.
+	if new_state != Player.MovementState.JETPACK and state == JetpackState.ON:
+		cancel()

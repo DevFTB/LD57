@@ -1,6 +1,6 @@
 extends CharacterBody2D
 class_name GrapplePoint
-signal attached
+signal attached()
 
 enum GrappleState {
 	INACTIVE, # Not thrown
@@ -31,6 +31,7 @@ var cooldown_active: bool:
 
 func _ready() -> void:
 	set_state(GrappleState.INACTIVE)
+	player.movement_state_changed.connect(_on_movement_state_changed)
 
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
@@ -47,6 +48,7 @@ func _physics_process(_delta: float) -> void:
 				if collider is TileMapLayer:
 					velocity = Vector2.ZERO
 					set_state(GrappleState.ATTACHED)
+					player.set_movement_state(Player.MovementState.GRAPPLE)
 					attached.emit()
 				
 func _draw():
@@ -64,13 +66,18 @@ func throw(direction: Vector2) -> void:
 	
 ## Handles traversal actions from the player
 func handle_action(key: StringName) -> void:
-	if Input.is_action_just_released(key):
+	if Input.is_action_just_pressed(key):
 		match grapple_state:
 			GrappleState.INACTIVE:
 				throw(player.global_position.direction_to(player.get_global_mouse_position()))
 			_:
 				cancel()
-				player.current_movement_state = Player.MovementState.FREE
+	if Input.is_action_just_released(key):
+		match grapple_state:
+			GrappleState.SEARCHING:
+				cancel()
+			GrappleState.ATTACHED:
+				cancel()
 
 ## Calculates the velocity for the player when it's using this traversal method.
 func calculate_frame_velocity(_delta: float) -> Vector2:
@@ -86,6 +93,7 @@ func calculate_frame_velocity(_delta: float) -> Vector2:
 ## Cancel the search.
 func cancel() -> void:
 	set_state(GrappleState.INACTIVE)
+	player.free_movement(Player.MovementState.GRAPPLE)
 	velocity = Vector2.ZERO
 
 ## Sets the state and visibility of the grapple hook.	
@@ -96,3 +104,8 @@ func set_state(new_state: GrappleState) -> void:
 			hide()
 		_:
 			show()
+
+func _on_movement_state_changed(new_state: Player.MovementState) -> void:
+	# If the movement state is set to different state while this state is active, gracefully cancel.
+	if new_state != Player.MovementState.GRAPPLE and grapple_state == GrappleState.ATTACHED:
+		cancel()

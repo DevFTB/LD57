@@ -20,6 +20,6 @@ func _on_throw_initiated():
 	random_sfx_pitch = randf_range(-0.15, 0.15)
 	sfx.play()
 	
-func _on_throw_released(data):
+func _on_throw_released(_data):
 	sfx.stop()
 	hide()

@@ -11,6 +11,8 @@ func _ready() -> void:
 	sprite_2d.texture = item.texture
 	player_detector.player_entered.connect(_on_player_entered)
 
+
 func _on_player_entered(player: Player) -> void:
-	player.mineral_inventory_component.inventory.add_item(item, quantity)
-	queue_free()
+	if player.can_pickup:
+		player.mineral_inventory_component.inventory.add_item(item, quantity)
+		queue_free()
