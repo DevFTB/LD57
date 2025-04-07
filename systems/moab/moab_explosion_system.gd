@@ -14,7 +14,7 @@ var bomb_timer: float:
 	set(value):
 		bomb_timer = clampf(value, 0, bomb_max_value)
 
-var seconds_left: float:
+var time_left: float:
 	get:
 		return bomb_timer / time_scale
 
@@ -38,14 +38,14 @@ func _process(delta):
 		
 	_total_time_passed += delta
 	
-	if seconds_left < bomb_danger_seconds_left:
+	if time_left < bomb_danger_seconds_left:
 		if current_danger_mode == false:
 			current_danger_mode = true
 			var bomb_tween = get_tree().create_tween()
 			$BombDangerSound.play()
 			$"../Music".music_muted(true)
-		$BombDangerSound.pitch_scale = 1.5 - (seconds_left / bomb_danger_seconds_left)
-	elif seconds_left >= bomb_danger_seconds_left : 
+		$BombDangerSound.pitch_scale = 1.5 - (time_left / bomb_danger_seconds_left)
+	elif time_left >= bomb_danger_seconds_left:
 		current_danger_mode = false
 		$BombDangerSound.stop()
 		$BombDangerSound.pitch_scale = 0.5
