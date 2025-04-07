@@ -565,6 +565,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="PauseMenu" parent="GUI" instance=ExtResource("49_mljfx")]
+visible = false
 
 [node name="Music" parent="." instance=ExtResource("23_qhcbd")]
 
