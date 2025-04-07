@@ -144,3 +144,4 @@ select_bomb_9={
 2d_physics/layer_4="trigger"
 2d_physics/layer_5="bomb"
 2d_physics/layer_6="items"
+2d_physics/layer_7="breakable"

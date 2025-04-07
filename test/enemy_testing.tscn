@@ -1,9 +1,13 @@
-[gd_scene load_steps=26 format=4 uid="uid://8fcjad7sd4gq"]
+[gd_scene load_steps=33 format=4 uid="uid://8fcjad7sd4gq"]
 
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="1_ctw1c"]
+[ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_j8dkt"]
 [ext_resource type="Script" uid="uid://dxicxe0tvx28m" path="res://world.gd" id="2_2d1u3"]
+[ext_resource type="Script" uid="uid://b0mdeooldsu15" path="res://enemy_spawner.gd" id="3_e2ivd"]
 [ext_resource type="Script" uid="uid://bhk4kqmlpwyv0" path="res://world/levelgen.gd" id="3_pnepw"]
+[ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="4_bgsfg"]
 [ext_resource type="TileSet" uid="uid://ci0bxhrhedi27" path="res://world/tileset/test_tileset.tres" id="4_e2ivd"]
+[ext_resource type="PackedScene" uid="uid://vp4hhi7lbt7d" path="res://world/buildings/winch.tscn" id="4_ora6h"]
 [ext_resource type="TileSet" uid="uid://1s8d18ai2k57" path="res://world/tileset/ore_tileset.tres" id="5_bgsfg"]
 [ext_resource type="PackedScene" uid="uid://c5457i8ubkrc7" path="res://entities/enemies/spiky_ball/spiky_ball_enemy.tscn" id="6_2d1u3"]
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="6_8qn7j"]
@@ -24,6 +28,19 @@
 [ext_resource type="Resource" uid="uid://b6nkhnlvgtk7s" path="res://systems/upgrades/upgrade_bomb_hardness.tres" id="20_2obmt"]
 [ext_resource type="Resource" uid="uid://b6xkpnkwkffbg" path="res://systems/upgrades/upgrade_bomb_radius.tres" id="21_2jcs7"]
 
+[sub_resource type="Gradient" id="Gradient_qhcbd"]
+offsets = PackedFloat32Array(0, 0.298561, 0.697842, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.978008, 0.978008, 0.978008, 1, 0.436611, 0.436611, 0.436611, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6a2be"]
+gradient = SubResource("Gradient_qhcbd")
+fill = 1
+fill_from = Vector2(0.517094, 0.470085)
+fill_to = Vector2(0.863248, 0.196581)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2ivd"]
+size = Vector2(1469.63, 868.875)
+
 [sub_resource type="Curve" id="Curve_lc2xo"]
 _limits = [0.0, 1000.0, 0.0, 1.0]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1000), 0.0, 0.0, 0, 0]
@@ -34,12 +51,31 @@ size = Vector2(536, 224)
 
 [node name="Game" type="Node"]
 
+[node name="StatsManager" parent="." instance=ExtResource("1_j8dkt")]
+
 [node name="MoabExplosionSystem" type="Node" parent="."]
 script = ExtResource("1_ctw1c")
 bomb_timer_starting_value = 305.0
 
 [node name="World" type="Node2D" parent="." groups=["world"]]
 script = ExtResource("2_2d1u3")
+
+[node name="Winch" parent="World" instance=ExtResource("4_ora6h")]
+position = Vector2(-3.945, -3300)
+
+[node name="MainCamera" type="Camera2D" parent="World"]
+position = Vector2(-32, -3328)
+scale = Vector2(2, 2)
+zoom = Vector2(0.5, 0.5)
+
+[node name="PointLight2D" type="PointLight2D" parent="World/MainCamera"]
+position = Vector2(-17.5, -15)
+scale = Vector2(11.125, 5.75)
+color = Color(0.57872, 0.35134, 0.22798, 1)
+energy = 2.77
+blend_mode = 2
+texture = SubResource("GradientTexture2D_6a2be")
+texture_scale = 2.84
 
 [node name="Level" type="Node2D" parent="World"]
 script = ExtResource("3_pnepw")
@@ -51,9 +87,36 @@ tile_set = ExtResource("4_e2ivd")
 [node name="OreIndicators" type="TileMapLayer" parent="World/Level"]
 tile_set = ExtResource("5_bgsfg")
 
+[node name="TestSpawnPointIndicator" type="TileMapLayer" parent="World/Level"]
+tile_set = ExtResource("5_bgsfg")
+
 [node name="NavMeshes" type="Node2D" parent="World/Level"]
 
-[node name="Player" parent="World" groups=["player"] instance=ExtResource("6_8qn7j")]
+[node name="Spawner" type="Node2D" parent="World" node_paths=PackedStringArray("occupied_tilemap")]
+position = Vector2(128, -3280)
+script = ExtResource("3_e2ivd")
+enemies = Dictionary[PackedScene, int]({
+ExtResource("4_bgsfg"): 1,
+ExtResource("6_2d1u3"): 2,
+ExtResource("9_pnepw"): 4
+})
+occupied_tilemap = NodePath("../Level/CaveBlocks")
+
+[node name="SpawnTimer" type="Timer" parent="World/Spawner"]
+wait_time = 5.0
+autostart = true
+
+[node name="SpawnZones" type="Node2D" parent="World/Spawner"]
+
+[node name="LeftSpawn" type="CollisionShape2D" parent="World/Spawner/SpawnZones"]
+position = Vector2(-738, 1083)
+shape = SubResource("RectangleShape2D_e2ivd")
+
+[node name="RightSpawn" type="CollisionShape2D" parent="World/Spawner/SpawnZones"]
+position = Vector2(735, 1083)
+shape = SubResource("RectangleShape2D_e2ivd")
+
+[node name="Player" parent="World" instance=ExtResource("6_8qn7j")]
 position = Vector2(128, -3280)
 collision_mask = 3
 available_bomb_types = Array[ExtResource("7_cnkka")]([null])
@@ -68,6 +131,7 @@ fall_acceleration = 550
 
 [node name="HealthComponent" parent="World/Player" index="6"]
 maximum_health = 50
+is_invulnerable = true
 
 [node name="MoabEntity" parent="World" node_paths=PackedStringArray("moab_explosion_system") instance=ExtResource("8_537hp")]
 position = Vector2(-192, -3256)
@@ -214,5 +278,7 @@ layout_mode = 2
 [node name="UpgradeButton2" parent="GUI/UpgradeGUI/HBoxContainer" instance=ExtResource("19_tdh2o")]
 layout_mode = 2
 upgrade = ExtResource("21_2jcs7")
+
+[connection signal="timeout" from="World/Spawner/SpawnTimer" to="World/Spawner" method="_on_spawn_timer_timeout"]
 
 [editable path="World/Player"]

@@ -1111,7 +1111,6 @@ hframes = 3
 
 [node name="BombSprites" type="Node2D" parent="Sprite2D"]
 visible = false
-scale = Vector2(1, 1)
 script = ExtResource("7_qpopc")
 
 [node name="BombSpriteLeft" type="Sprite2D" parent="Sprite2D/BombSprites"]

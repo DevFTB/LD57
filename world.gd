@@ -88,7 +88,8 @@ func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 
 			# TODO: Add variable drop amounts
 			ore_tilemap.erase_cell(tile)
-			drop_ore(location, item, drop_amount)
+
+			call_deferred("drop_ore", location, item, drop_amount)
 			
 		#tile destroy animation
 		var break_location = cave_blocks_tilemap.map_to_local(tile)
@@ -130,7 +131,7 @@ func drop_ore(location: Vector2, item: Item, amount: int) -> void:
 		var offset_vector := Vector2.ONE.rotated(randf() * 2 * PI)
 		new_entity.position = location + offset_vector * 4
 		new_entity.apply_central_impulse(offset_vector * 100)
-
+	
 
 func _on_spawn_area_player_detector_player_entered(_player):
 	player.health_component.is_invulnerable = true

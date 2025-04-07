@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="1_0ymvm"]
 [ext_resource type="Resource" uid="uid://bynl6osvbjhk1" path="res://entities/enemies/spiky_ball/spiky_ball_stats.tres" id="2_hj171"]
 [ext_resource type="Script" uid="uid://duat2hmovvg3u" path="res://entities/enemies/spiky_ball/roll_sprite.gd" id="3_gww4m"]
-[ext_resource type="Script" uid="uid://lc66av2lel3h" path="res://entities/import_animation_player.gd" id="5_cq2da"]
+[ext_resource type="Script" path="res://entities/import_animation_player.gd" id="5_cq2da"]
 [ext_resource type="Texture2D" uid="uid://wrcjvvyk7ho1" path="res://entities/enemies/spiky_ball/spiky_ball_roll.png" id="6_nr6jm"]
 
 [sub_resource type="Animation" id="Animation_nr6jm"]

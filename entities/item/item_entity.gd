@@ -14,5 +14,8 @@ func _ready() -> void:
 
 func _on_player_entered(player: Player) -> void:
 	if player.can_pickup:
-		player.mineral_inventory_component.inventory.add_item(item, quantity)
+		if item.id.contains("bomb"):
+			player.bomb_inventory_component.inventory.add_item(item, quantity)
+		else:
+			player.mineral_inventory_component.inventory.add_item(item, quantity)
 		queue_free()
