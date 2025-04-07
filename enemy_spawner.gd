@@ -14,6 +14,7 @@ extends Node2D
 @onready var current_enemies: Dictionary[Enemy, int] = {}
 # Children of spawnzones must be collisionshape2d with rectangleshape2ds
 @onready var spawn_rects = $SpawnZones.get_children().map(create_rect2_from_collisionshape2d)
+@onready var rng = RandomNumberGenerator.new()
 
 func create_rect2_from_collisionshape2d(collisionshape2d: CollisionShape2D):
 	assert(collisionshape2d.shape is RectangleShape2D, "Shape of spawnzone is not rectangleshape2d")
@@ -86,9 +87,13 @@ func spawn_enemies_in_area(points: int, min_x: int, max_x: int, min_y: int, max_
 		if enemy_options.size() == 0:
 			break
 		
-		# valid enemy with max points if prioritise_strong else random enemy
-		var new_enemy = (enemy_options.reduce(func(m, e): return e if enemies[e] > enemies[m] else m)
-			if prioritise_strong else enemy_options.pick_random())
+		# weight spawns based on points if prioritise_strong else random enemy
+		var new_enemy
+		if prioritise_strong:
+			var enemy_points = enemy_options.map(func(e): return enemies[e])
+			new_enemy = enemy_options[rng.rand_weighted(enemy_points)]
+		else:
+			new_enemy = enemy_options.pick_random()
 			
 		var spawn_pos = valid_spawnpoints.pick_random()
 		spawn_enemy(new_enemy, spawn_pos.x, spawn_pos.y)

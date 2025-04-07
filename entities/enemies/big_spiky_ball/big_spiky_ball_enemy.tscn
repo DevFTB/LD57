@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bmj7bdrt80xsx"]
+[gd_scene load_steps=13 format=3 uid="uid://bmj7bdrt80xsx"]
 
 [ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="1_cbirw"]
 [ext_resource type="Resource" uid="uid://dr17kl8e3idh" path="res://entities/enemies/big_spiky_ball/big_spiky_ball_stats.tres" id="2_pwns4"]
@@ -11,7 +11,10 @@
 radius = 45.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pwns4"]
-radius = 50.6
+radius = 60.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jxac4"]
+radius = 69.0
 
 [sub_resource type="Animation" id="Animation_nr6jm"]
 length = 0.001
@@ -122,6 +125,9 @@ shape = SubResource("CircleShape2D_pwns4")
 
 [node name="HitboxComponent" parent="." index="9"]
 damage = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="1"]
+shape = SubResource("CircleShape2D_jxac4")
 
 [node name="AnimationPlayer" parent="." index="11"]
 libraries = {
