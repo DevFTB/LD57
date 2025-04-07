@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=57 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
@@ -20,12 +20,14 @@
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="9_rvswv"]
 [ext_resource type="Texture2D" uid="uid://1r3chexcrwx" path="res://world/level_bg.png" id="11_qhcbd"]
 [ext_resource type="Script" uid="uid://motjp37ct4o3" path="res://ui/HUD/fuel_bar.gd" id="13_36jdj"]
-[ext_resource type="Script" path="res://ui/timer_progress_bar.gd" id="13_bnpwn"]
+[ext_resource type="Script" uid="uid://ulg81k7glw1a" path="res://ui/timer_progress_bar.gd" id="13_bnpwn"]
 [ext_resource type="PackedScene" uid="uid://bbvhdbp0joc6q" path="res://ui/bomb_select/bomb_slot_select_scene.tscn" id="13_i2p71"]
+[ext_resource type="PackedScene" uid="uid://53ohv57t2ihg" path="res://entities/loot_chest/loot_chest.tscn" id="13_klri6"]
 [ext_resource type="PackedScene" uid="uid://p0ipn2tylswi" path="res://ui/inventory/inventory_item_display.tscn" id="13_qhcbd"]
 [ext_resource type="Script" uid="uid://b3r1glubcsdwt" path="res://ui/upgrade/upgrade_gui.gd" id="14_e8heu"]
 [ext_resource type="Resource" uid="uid://2rch3ef2vr66" path="res://systems/inventory/items/item_basic_bomb.tres" id="14_xa8c5"]
 [ext_resource type="Resource" uid="uid://44skluikbcii" path="res://systems/inventory/items/item_sticky_bomb.tres" id="15_5b14r"]
+[ext_resource type="Resource" uid="uid://bag1idy6pkmv1" path="res://entities/loot_chest/loot_table_hardness_1.tres" id="15_m28ev"]
 [ext_resource type="Resource" uid="uid://bsytuw721i88d" path="res://systems/inventory/items/item_upgradium.tres" id="16_i2p71"]
 [ext_resource type="Resource" uid="uid://bfwwxfc0kwllo" path="res://systems/inventory/items/item_bombpowder.tres" id="16_vaj68"]
 [ext_resource type="PackedScene" uid="uid://dfb6tk3jaqp55" path="res://systems/music_sfx/music.tscn" id="23_qhcbd"]
@@ -38,9 +40,9 @@
 [ext_resource type="Texture2D" uid="uid://dimkj68ybmkil" path="res://ui/HUD/fuel.png" id="30_082n1"]
 [ext_resource type="Script" uid="uid://c8up2ibn67q7f" path="res://ui/HUD/label_health_bar.gd" id="31_dhpj7"]
 [ext_resource type="Texture2D" uid="uid://d317cp0qhrmd4" path="res://ui/parchment.png" id="32_7knny"]
-[ext_resource type="Resource" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="34_l1i01"]
-[ext_resource type="Resource" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
-[ext_resource type="Resource" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
+[ext_resource type="Resource" uid="uid://wylmsxcnfp00" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="34_l1i01"]
+[ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
+[ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
 
 [sub_resource type="Gradient" id="Gradient_qhcbd"]
 offsets = PackedFloat32Array(0, 0.298561, 0.697842, 1)
@@ -145,6 +147,7 @@ position = Vector2(128, -3280)
 collision_mask = 3
 available_bomb_types = Array[ExtResource("4_hve3p")]([null])
 throw_force_curve = SubResource("Curve_lc2xo")
+unlocked_traversal_methods = Array[int]([1, 0, 2])
 max_speed = 200
 acceleration = 5000
 ground_deceleration = 800
@@ -187,6 +190,10 @@ shape = SubResource("RectangleShape2D_rvswv")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource("Environment_qhcbd")
+
+[node name="LootChest" parent="World" instance=ExtResource("13_klri6")]
+position = Vector2(224, -3264)
+loot_table = ExtResource("15_m28ev")
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
