@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="1_cbirw"]
 [ext_resource type="Resource" uid="uid://dr17kl8e3idh" path="res://entities/enemies/big_spiky_ball/big_spiky_ball_stats.tres" id="2_pwns4"]
 [ext_resource type="Texture2D" uid="uid://wrcjvvyk7ho1" path="res://entities/enemies/spiky_ball/spiky_ball_roll.png" id="3_8dwip"]
-[ext_resource type="Texture2D" uid="uid://h4enmesx6df4" path="res://entities/enemies/big_spiky_ball/big_spiky_ball_roll.png" id="3_pwns4"]
+[ext_resource type="Texture2D" uid="uid://cn48ht7cov3i5" path="res://entities/enemies/big_spiky_ball/angry spiky.png" id="3_pwns4"]
 [ext_resource type="Script" uid="uid://duat2hmovvg3u" path="res://entities/enemies/spiky_ball/roll_sprite.gd" id="4_bb0dk"]
 [ext_resource type="Script" uid="uid://lc66av2lel3h" path="res://entities/import_animation_player.gd" id="5_ax23s"]
 
@@ -107,8 +107,6 @@ enemy_stats = ExtResource("2_pwns4")
 [node name="Sprite" parent="." index="0"]
 scale = Vector2(0.64, 0.64)
 texture = ExtResource("3_pwns4")
-hframes = 4
-frame = 1
 script = ExtResource("4_bb0dk")
 rotation_speed = 6
 roll_accel = 12
