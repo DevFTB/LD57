@@ -1,4 +1,5 @@
 extends Control
+class_name BombSlotSelect
 
 @export var slot_number := 1
 @export var bomb_item: Item
@@ -12,7 +13,7 @@ var bomb_type: BombType:
 @onready var amount_label: Label = %AmountLabel
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 @onready var player_bomb_inventory: Inventory = player.bomb_inventory_component.inventory
-@onready var restock_inventory : Inventory = get_tree().get_first_node_in_group("world").restock_inventory
+@onready var restock_inventory: Inventory = get_tree().get_first_node_in_group("world").restock_inventory
 
 func _ready() -> void:
 	slot_label.label_settings = slot_label.label_settings.duplicate()
