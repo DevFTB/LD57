@@ -84,7 +84,11 @@ func _on_refresh_timer_timeout():
 		sees_player = false
 	#start navigation agent
 	if seen_player:
-		nav.target_position = player.global_position
+		# dirty hack, ususally navs towards player, but for flying skeleton bomber
+		# we want it to bomb from above
+		var is_flying_skeleton_bomber = enemy_stats.resource_name == "flying_skeleton_stats"
+		var flying_skeleton_target = player.global_position + Vector2(0, -224)
+		nav.target_position = player.global_position if not is_flying_skeleton_bomber else flying_skeleton_target
 		if nav.is_target_reachable() and state_machine.state == $StateMachine/Idle:
 			if enemy_stats.is_grounded:
 				state_machine._transition_to_next_state("Running")

@@ -1,0 +1,88 @@
+[gd_scene load_steps=11 format=3 uid="uid://dgi48dy0sn7la"]
+
+[ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="1_lr7i3"]
+[ext_resource type="Resource" uid="uid://ck0egrdd81y68" path="res://entities/enemies/flying_skeleton_bomber/flying_skeleton_bomber_stats.tres" id="2_8uurn"]
+[ext_resource type="Texture2D" uid="uid://xpyms36itybw" path="res://entities/enemies/flying_skeleton_bomber/skelebebe.png" id="3_8dvak"]
+[ext_resource type="SpriteFrames" uid="uid://dlc7vxvp7wl8s" path="res://entities/enemies/flying_skeleton_bomber/hat.tres" id="3_8uurn"]
+[ext_resource type="Script" uid="uid://6tjmeeuhgjyc" path="res://entities/enemies/flying_skeleton_bomber/directional_sprite.gd" id="4_8dvak"]
+[ext_resource type="Script" uid="uid://cr1qbqndeqoj5" path="res://entities/enemies/flying_skeleton_bomber/drop_bomb.gd" id="5_lr7i3"]
+[ext_resource type="Resource" uid="uid://br4sg3mkhd41y" path="res://entities/enemies/skeleton_bomber/bomb_skeleton.tres" id="5_sxbrf"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8dvak"]
+radius = 8.37957
+height = 21.1806
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sxbrf"]
+radius = 22.0
+height = 48.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dkh8h"]
+radius = 19.0
+height = 42.0
+
+[node name="Enemy" instance=ExtResource("1_lr7i3")]
+enemy_stats = ExtResource("2_8uurn")
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2(1, -4)
+scale = Vector2(0.320667, 0.32)
+texture = ExtResource("3_8dvak")
+hframes = 8
+script = ExtResource("4_8dvak")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
+position = Vector2(2.82, -9.35508)
+scale = Vector2(0.316279, 0.318925)
+sprite_frames = ExtResource("3_8uurn")
+autoplay = "default"
+script = ExtResource("4_8dvak")
+
+[node name="PlayerRaycast" type="RayCast2D" parent="." index="2"]
+position = Vector2(0, 7)
+target_position = Vector2(0, 1000)
+collision_mask = 3
+
+[node name="CollisionShape2D" parent="." index="3"]
+position = Vector2(-1, 1)
+scale = Vector2(1.43205, 1.13311)
+shape = SubResource("CapsuleShape2D_8dvak")
+
+[node name="RangedAttacking" parent="StateMachine" index="5" node_paths=PackedStringArray("ranged_attack")]
+ranged_attack = NodePath("BombAttack")
+
+[node name="RangedAttackTimer" parent="StateMachine/RangedAttacking" index="0"]
+one_shot = true
+
+[node name="BombAttack" type="Node" parent="StateMachine/RangedAttacking" index="1" node_paths=PackedStringArray("player_raycast")]
+script = ExtResource("5_lr7i3")
+bomb_type = ExtResource("5_sxbrf")
+player_raycast = NodePath("../../../PlayerRaycast")
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="7"]
+position = Vector2(1, 1)
+
+[node name="LineOfSight" parent="." index="8"]
+position = Vector2(0, 29.6999)
+
+[node name="HurtboxComponent" parent="." index="10"]
+position = Vector2(0, 29.6999)
+
+[node name="CollisionShape2D" parent="HurtboxComponent" index="1"]
+position = Vector2(0, -28.6999)
+shape = SubResource("CapsuleShape2D_sxbrf")
+
+[node name="HitboxComponent" parent="." index="11"]
+position = Vector2(0, 29.6999)
+
+[node name="CollisionShape2D" parent="HitboxComponent" index="1"]
+position = Vector2(0, -28.6999)
+shape = SubResource("CapsuleShape2D_dkh8h")
+
+[node name="HealthBar" parent="." index="12"]
+offset_top = -50.3001
+offset_bottom = -23.3001
+
+[node name="HurtSound" parent="." index="14"]
+position = Vector2(0, 29.6999)
+
+[editable path="HitboxComponent"]

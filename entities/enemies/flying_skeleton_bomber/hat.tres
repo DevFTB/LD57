@@ -1,0 +1,25 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://dlc7vxvp7wl8s"]
+
+[ext_resource type="Texture2D" uid="uid://b0lgjc8e0kwws" path="res://entities/enemies/flying_skeleton_bomber/skelebebe hat.png" id="1_8jdd3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fl5yr"]
+atlas = ExtResource("1_8jdd3")
+region = Rect2(0, 0, 256, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u153d"]
+atlas = ExtResource("1_8jdd3")
+region = Rect2(256, 0, 256, 512)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fl5yr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u153d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
