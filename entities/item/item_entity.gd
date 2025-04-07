@@ -1,6 +1,8 @@
 extends RigidBody2D
 class_name ItemEntity
 
+const MAGNET_STRENGTH = 500
+@export var scale_curve: Curve
 @export var item: Item
 @export var quantity: int = 1
 var consumed := 0
@@ -11,10 +13,11 @@ var pickup_sound_scene = preload("res://systems/music_sfx/files/sfx/ui/pickup_so
 @onready var combination_area_2d: Area2D = $CombinationArea2D
 @onready var timer = $Timer
 
-const MAGNET_STRENGTH = 500
 var player: Player
 
+
 func _ready() -> void:
+	sprite_2d.scale = Vector2.ONE * scale_curve.sample_baked(min(quantity, scale_curve.max_domain))
 	sprite_2d.texture = item.texture
 	player_detector.player_entered.connect(_on_player_entered)
 	player = get_tree().get_first_node_in_group("player")
