@@ -92,7 +92,7 @@ func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 			# TODO: Add variable drop amounts
 			ore_tilemap.erase_cell(tile)
 
-			call_deferred("drop_ore", location, item, drop_amount)
+			call_deferred("drop_item_entity", location, item, drop_amount)
 			
 		#tile destroy animation
 		var break_location = cave_blocks_tilemap.map_to_local(tile)
@@ -117,13 +117,28 @@ func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 						nav_mesh.bake_navigation_polygon()
 
 const ITEM_ENTITY := preload("uid://bkh5wheo7tg4h")
-func drop_ore(location: Vector2, item: Item, amount: int) -> void:
+
+func drop_item_entity(location: Vector2, item: Item, amount: int, max_stacks := 10) -> void:
 	if item == null:
 		push_warning("Cannot drop null item!")
 		return
 	if amount < 1:
 		push_warning("Cannot drop zero or negative amount")
 		return
+	
+	var chunks: Array[int] = []
+	
+	@warning_ignore("integer_division")
+	var small_piece_size := floori(amount / max_stacks)
+	var amount_of_large_pieces = amount % max_stacks
+	
+	for i in range(max_stacks):
+		if i < amount_of_large_pieces:
+			chunks.append(small_piece_size + 1)
+		else:
+			chunks.append(small_piece_size)
+
+	prints(amount, chunks)
 
 	for i in range(amount):
 		var new_entity: ItemEntity = ITEM_ENTITY.instantiate()
@@ -134,6 +149,7 @@ func drop_ore(location: Vector2, item: Item, amount: int) -> void:
 		var offset_vector := Vector2.ONE.rotated(randf() * 2 * PI)
 		new_entity.position = location + offset_vector * 4
 		new_entity.apply_central_impulse(offset_vector * 100)
+	
 
 func _on_spawn_area_player_detector_player_entered(_player):
 	player.health_component.is_invulnerable = true
