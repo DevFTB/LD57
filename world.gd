@@ -1,11 +1,20 @@
 class_name World extends Node2D
 
+const BASE_ZOOM = 1.5
+const SPAWN_ZOOM = 1.8
+@export var spawn_camera_offset: Vector2 = Vector2(0, -30)
+
 @onready var player: Player = $Player
 @onready var cave_blocks_tilemap: TileMapLayer = $Level/CaveBlocks
 @onready var ore_tilemap: TileMapLayer = $Level/OreIndicators
 @onready var nav_meshes = $Level/NavMeshes
+@onready var camera = $MainCamera
+@onready var winch = $Winch
 
 @onready var block_break_scene = preload("res://systems/music_sfx/files/sfx/tile/block_break.tscn")
+
+var camera_following_player: bool = false
+var initial_camera_location
 
 class ThrowReleasedEventData:
 	var position: Vector2
@@ -14,6 +23,13 @@ class ThrowReleasedEventData:
 	
 func _ready() -> void:
 	player.throw_released.connect(_spawn_bomb_with_velocity)
+	player.health_component.died.connect(_on_player_death)
+	initial_camera_location = camera.position
+	
+func _physics_process(_delta):
+	if camera_following_player:
+		var camera_tweener = get_tree().create_tween()
+		camera_tweener.tween_property(camera, "global_position", player.global_position, 0.3)
 
 
 func _spawn_bomb_with_velocity(data: ThrowReleasedEventData) -> void:
@@ -62,9 +78,17 @@ func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 			var location = ore_tilemap.map_to_local(tile)
 			var item: Item = ore_tilemap.get_cell_tile_data(tile).get_custom_data("drop_item")
 			
+			var drop_amount := 1
+			
+			if item.id == &"bombpowder":
+				StatsManager.add_to_stat(StatsManager.Stat.BOMBPOWDER_MINED, drop_amount)
+
+			if item.id == &"upgradium":
+				StatsManager.add_to_stat(StatsManager.Stat.UPGRADIUM_MINED, drop_amount)
+
 			# TODO: Add variable drop amounts
 			ore_tilemap.erase_cell(tile)
-			drop_ore(location, item, 1)
+			drop_ore(location, item, drop_amount)
 			
 		#tile destroy animation
 		var break_location = cave_blocks_tilemap.map_to_local(tile)
@@ -75,6 +99,7 @@ func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 		# destroy tile
 		cave_blocks_tilemap.erase_cell(tile)
 
+	StatsManager.add_to_stat(StatsManager.Stat.TILES_BROKEN, explosion_tiles.size())
 	
 	for nav_mesh in nav_meshes.get_children():
 		var baked_nav_mesh: Array = []
@@ -105,3 +130,28 @@ func drop_ore(location: Vector2, item: Item, amount: int) -> void:
 		var offset_vector := Vector2.ONE.rotated(randf() * 2 * PI)
 		new_entity.position = location + offset_vector * 4
 		new_entity.apply_central_impulse(offset_vector * 100)
+
+
+func _on_spawn_area_player_detector_player_entered(_player):
+	player.health_component.is_invulnerable = true
+	player.health_component.heal(player.health_component.maximum_health)
+	#handle camera tween
+	camera_following_player = false
+	var camera_tweener = get_tree().create_tween()
+	camera_tweener.set_ease(Tween.EASE_IN_OUT)
+	camera_tweener.set_trans(Tween.TRANS_CUBIC)
+	camera_tweener.tween_property(camera, "zoom", Vector2.ONE * SPAWN_ZOOM, 1)
+	camera_tweener.parallel().tween_property(camera, "position", initial_camera_location + spawn_camera_offset, 1)
+
+
+func _on_spawn_area_player_detector_player_exited(_player):
+	player.health_component.is_invulnerable = false
+	#handle camera tween
+	camera_following_player = true
+	var camera_tweener = get_tree().create_tween()
+	camera_tweener.set_ease(Tween.EASE_IN)
+	camera_tweener.tween_property(camera, "zoom", Vector2.ONE * BASE_ZOOM, 1)
+	camera_tweener.parallel().tween_property(camera, "position", initial_camera_location, 1)
+	
+func _on_player_death():
+	camera_following_player = false

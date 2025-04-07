@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BombType" load_steps=4 format=3 uid="uid://d3sppwja1wkps"]
+
+[ext_resource type="Texture2D" uid="uid://drtqquwv0qjtg" path="res://entities/throwables/bomb/impact_bomb.png" id="1_igou8"]
+[ext_resource type="PackedScene" uid="uid://do0g7votir2b4" path="res://entities/throwables/bomb/throwable_bomb_entity.tscn" id="2_ug71q"]
+[ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="3_1iivu"]
+
+[resource]
+script = ExtResource("3_1iivu")
+id = &"impact"
+bomb_icon = ExtResource("1_igou8")
+bomb_scene = ExtResource("2_ug71q")
+hardness = 3.0
+is_perishable = true
+is_sticky = false
+explode_on_impact = true
+explosion_radius = 2
+entity_damage = 100
+metadata/_custom_type_script = "uid://dgalf5pstb0iw"

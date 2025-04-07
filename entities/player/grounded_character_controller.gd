@@ -68,7 +68,7 @@ func _process(delta: float) -> void:
 	gather_input()
 	
 func _physics_process(delta: float) -> void:
-	check_collsions()
+	check_collisions()
 	
 	handle_jump()
 	handle_direction(delta)
@@ -76,7 +76,7 @@ func _physics_process(delta: float) -> void:
 	
 	apply_movement()
 	
-func check_collsions() -> void:
+func check_collisions() -> void:
 	if is_on_ceiling():
 		_frame_velocity.y = maxf(0, _frame_velocity.y)
 	
@@ -115,6 +115,8 @@ func execute_jump() -> void:
 	
 	jumped.emit()
 	
+
+
 func handle_direction(delta: float) -> void:
 	if is_zero_approx(_frame_input.move.x):
 		var deceleration := ground_deceleration if _grounded else air_deceleration

@@ -12,6 +12,7 @@ const CONSUME_AMOUNT := 1
 
 @onready var player_detector: PlayerDetectorArea2D = $PlayerDetector2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var playback: AnimationNodeStateMachinePlayback = $AnimationPlayer/AnimationTree.get("parameters/playback")
 @onready var path_follow: PathFollow2D = $Path2D/PathFollow2D
 
 func _ready() -> void:
@@ -24,9 +25,11 @@ func _physics_process(_delta: float) -> void:
 func _on_player_interacted(player: Player) -> void:
 	var player_inventory: Inventory = player.mineral_inventory_component.inventory
 	
-	if player_inventory.has_item(BOMBPOWDER_ITEM):
+	if player_inventory.has_item(BOMBPOWDER_ITEM, CONSUME_AMOUNT):
 		player_inventory.remove_item(BOMBPOWDER_ITEM, CONSUME_AMOUNT)
 		moab_explosion_system.add_to_timer(CONSUME_AMOUNT)
 		
-		animation_player.play("consume")
+		StatsManager.add_to_stat(StatsManager.Stat.BOMBPOWDER_OFFERED, CONSUME_AMOUNT)
+		
+		playback.travel("consume")
 		consumed_item.emit()

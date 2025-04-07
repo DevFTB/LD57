@@ -19,12 +19,11 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		players_in_area.append(body)
 		body.interacted.connect(player_interacted.emit.bind(body))
-
 		player_entered.emit(body)
+
 		
 func _on_body_exited(body: Node2D) -> void:
 	if body is Player:
 		players_in_area.erase(body)
 		body.interacted.disconnect(player_interacted.emit.bind(body))
-
 		player_exited.emit(body)
