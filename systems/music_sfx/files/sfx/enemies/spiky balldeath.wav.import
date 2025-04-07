@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dm7gwvyvkgf04"
+path="res://.godot/imported/spiky balldeath.wav-185a088c3044a6aacf0c2245a93d1c84.sample"
+
+[deps]
+
+source_file="res://systems/music_sfx/files/sfx/enemies/spiky balldeath.wav"
+dest_files=["res://.godot/imported/spiky balldeath.wav-185a088c3044a6aacf0c2245a93d1c84.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
