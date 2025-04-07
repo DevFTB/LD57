@@ -113,7 +113,7 @@ size = Vector2(536, 153)
 
 [node name="MoabExplosionSystem" type="Node" parent="."]
 script = ExtResource("1_j5wjh")
-bomb_timer_starting_value = 120.0
+bomb_timer_starting_value = 30.0
 
 [node name="BombDangerSound" type="AudioStreamPlayer" parent="MoabExplosionSystem"]
 stream = ExtResource("33_iu0sx")

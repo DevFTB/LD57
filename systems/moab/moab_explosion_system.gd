@@ -38,13 +38,12 @@ func _process(delta):
 			current_danger_mode = true
 			var bomb_tween = get_tree().create_tween()
 			$BombDangerSound.play()
-			bomb_tween.tween_property($BombDangerSound, "pitch_scale", 1.8, seconds_left)
 			$"../Music".music_muted(true)
-		print("DANGER")
+		$BombDangerSound.pitch_scale = 1.5 - (seconds_left / bomb_danger_seconds_left)
 	elif seconds_left >= bomb_danger_seconds_left : 
 		current_danger_mode = false
 		$BombDangerSound.stop()
-		$BombDangerSound.pitch_scale = 1
+		$BombDangerSound.pitch_scale = 0.5
 		$"../Music".music_muted(false)
 
 
