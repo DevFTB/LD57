@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=69 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="Script" uid="uid://hbvbhincea3w" path="res://game.gd" id="1_4v2jo"]
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
@@ -585,10 +585,6 @@ stream = ExtResource("29_qpefm")
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
-[node name="GameOver" parent="GUI" instance=ExtResource("37_4v2jo")]
-visible = false
-pivot_offset = Vector2(960, 540)
-
 [node name="Control" type="VBoxContainer" parent="GUI"]
 anchors_preset = 2
 anchor_top = 1.0
@@ -664,6 +660,9 @@ timer = NodePath("../../../../../../World/Player/BombCooldown")
 [node name="FuelBar" parent="GUI/HUD/VBoxContainer/HBoxContainer3" index="1" node_paths=PackedStringArray("player")]
 player = NodePath("../../../../../World/Player")
 
+[node name="Control" parent="GUI/HUD/VBoxContainer" index="3"]
+mouse_filter = 2
+
 [node name="HintContainer" parent="GUI" instance=ExtResource("42_m28ev")]
 anchors_preset = 7
 anchor_left = 0.5
@@ -676,6 +675,10 @@ offset_right = 256.0
 offset_bottom = -19.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="GameOver" parent="GUI" instance=ExtResource("37_4v2jo")]
+visible = false
+pivot_offset = Vector2(960, 540)
 
 [node name="PauseMenu" parent="GUI" instance=ExtResource("49_mljfx")]
 visible = false
