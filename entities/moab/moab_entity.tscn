@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bq84mpxun851f"]
+[gd_scene load_steps=28 format=3 uid="uid://bq84mpxun851f"]
 
 [ext_resource type="Script" uid="uid://ce42cdw34mrhe" path="res://entities/moab/moab_entity.gd" id="1_075v3"]
 [ext_resource type="Texture2D" uid="uid://b8vkgx0epv747" path="res://entities/moab/moab_sprite_sheet.png" id="2_3f07h"]
@@ -55,6 +55,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("5_8kar1")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_8kar1"]
@@ -162,15 +174,72 @@ tracks/3/keys = {
 "values": [Vector2i(0, 0), Vector2i(1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_ksfch"]
+resource_name = "death"
+length = 4.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [14]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_8kar1")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hndvo"]
 _data = {
 &"RESET": SubResource("Animation_v21hs"),
 &"consume": SubResource("Animation_8kar1"),
+&"death": SubResource("Animation_ksfch"),
 &"idle": SubResource("Animation_tplae")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v21hs"]
 animation = &"consume"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ksfch"]
+animation = &"death"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8kar1"]
 animation = &"idle"
@@ -184,13 +253,19 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7e0m7"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n5q78"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_v21hs"]
 states/Start/position = Vector2(168, 142)
 states/consume/node = SubResource("AnimationNodeAnimation_v21hs")
-states/consume/position = Vector2(441, 189)
+states/consume/position = Vector2(467, 207)
+states/death/node = SubResource("AnimationNodeAnimation_ksfch")
+states/death/position = Vector2(570, 71)
 states/idle/node = SubResource("AnimationNodeAnimation_8kar1")
 states/idle/position = Vector2(305, 189)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_ksfch"), "idle", "consume", SubResource("AnimationNodeStateMachineTransition_v21hs"), "consume", "idle", SubResource("AnimationNodeStateMachineTransition_8kar1")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_ksfch"), "idle", "consume", SubResource("AnimationNodeStateMachineTransition_v21hs"), "consume", "idle", SubResource("AnimationNodeStateMachineTransition_8kar1"), "idle", "death", SubResource("AnimationNodeStateMachineTransition_7e0m7"), "consume", "death", SubResource("AnimationNodeStateMachineTransition_n5q78")]
 
 [sub_resource type="Curve2D" id="Curve2D_3f07h"]
 _data = {
@@ -227,11 +302,21 @@ scale_max = 8.0
 scale_curve = SubResource("CurveTexture_v21hs")
 color_ramp = SubResource("GradientTexture1D_3f07h")
 
-[node name="BombTimer" type="Node2D"]
+[sub_resource type="Gradient" id="Gradient_r62pu"]
+offsets = PackedFloat32Array(0, 0.406475, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.798561, 0.798561, 0.798561, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ksfch"]
+gradient = SubResource("Gradient_r62pu")
+fill = 1
+fill_from = Vector2(0.517094, 0.470085)
+fill_to = Vector2(0.82906, 0.145299)
+
+[node name="MoabEntity" type="Node2D"]
 script = ExtResource("1_075v3")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.265, 0.265)
+scale = Vector2(-0.265, 0.265)
 texture = ExtResource("5_8kar1")
 hframes = 2
 
@@ -248,6 +333,8 @@ tree_root = SubResource("AnimationNodeStateMachine_v21hs")
 anim_player = NodePath("..")
 
 [node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-12, -2)
+scale = Vector2(-1, 1)
 curve = SubResource("Curve2D_3f07h")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
@@ -262,3 +349,9 @@ process_material = SubResource("ParticleProcessMaterial_3f07h")
 stream = ExtResource("5_ksfch")
 volume_db = 10.0
 bus = &"Sound FX"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(7.99998, 0)
+scale = Vector2(11.125, 5.75)
+color = Color(0.855623, 0.354928, 0.40821, 1)
+texture = SubResource("GradientTexture2D_ksfch")

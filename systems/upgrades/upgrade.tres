@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_mtqcl")
-upgrade_type = null
+upgrade_type = 0
 mult = null
 tier_value_in_tooltip = true
 tooltip_string = ""

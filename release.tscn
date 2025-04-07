@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://cd8oj31rnkhdm"]
+[gd_scene load_steps=49 format=4 uid="uid://cd8oj31rnkhdm"]
 
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_cg2fx"]
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="2_pv1fl"]
@@ -30,6 +30,8 @@
 [ext_resource type="Script" uid="uid://d0eblir7jx7p" path="res://ui/HUD/global_stat_label.gd" id="23_ikfu8"]
 [ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="26_bv7pd"]
 [ext_resource type="PackedScene" uid="uid://c4e86uoalfgiw" path="res://ui/HUD/hud.tscn" id="33_krr1o"]
+[ext_resource type="PackedScene" uid="uid://b2vtm14w5fe48" path="res://menu/game_over.tscn" id="35_a5ivc"]
+[ext_resource type="AudioStream" uid="uid://bixi2inlened8" path="res://systems/music_sfx/files/sfx/ui/restock sound.wav" id="35_enyai"]
 [ext_resource type="Resource" uid="uid://44skluikbcii" path="res://systems/inventory/items/item_sticky_bomb.tres" id="38_js5np"]
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="39_yfehs"]
 [ext_resource type="Resource" uid="uid://wylmsxcnfp00" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="40_4crvc"]
@@ -218,6 +220,9 @@ shape = SubResource("RectangleShape2D_rvswv")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource("Environment_qhcbd")
 
+[node name="RestockSound" type="AudioStreamPlayer" parent="World"]
+stream = ExtResource("35_enyai")
+
 [node name="GUI" type="CanvasLayer" parent="."]
 
 [node name="UpgradeGUI" type="Control" parent="GUI" node_paths=PackedStringArray("spawn_area_detector")]
@@ -337,6 +342,8 @@ timer = NodePath("../../../../../../World/Player/GrapplePoint/GrappleCooldown")
 
 [node name="FuelBar" parent="GUI/HUD/VBoxContainer/HBoxContainer3" index="1" node_paths=PackedStringArray("player")]
 player = NodePath("../../../../../World/Player")
+
+[node name="GameOver" parent="GUI" instance=ExtResource("35_a5ivc")]
 
 [node name="Music" parent="." instance=ExtResource("46_q8u1n")]
 
