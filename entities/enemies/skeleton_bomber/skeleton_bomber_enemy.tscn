@@ -9,8 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://dbffdldsuvlnl" path="res://entities/enemies/skeleton_bomber/skelebebe.png" id="7_it2dn"]
 [ext_resource type="Script" uid="uid://cvt58g0l0nldn" path="res://entities/enemies/skeleton_bomber/skeleton_bomber_animation_tree.gd" id="8_ab6qr"]
 
-[sub_resource type="Animation" id="Animation_qvd8g"]
-length = 0.8
+[sub_resource type="Animation" id="Animation_ab6qr"]
+length = 0.1
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -55,10 +55,10 @@ tracks/3/path = NodePath("Sprite:frame_coords")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(5, 0), Vector2i(6, 0), Vector2i(7, 0)]
+"values": [Vector2i(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_it2dn"]
@@ -112,8 +112,8 @@ tracks/3/keys = {
 "values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_ab6qr"]
-length = 0.1
+[sub_resource type="Animation" id="Animation_qvd8g"]
+length = 0.8
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -158,10 +158,10 @@ tracks/3/path = NodePath("Sprite:frame_coords")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 0)]
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(5, 0), Vector2i(6, 0), Vector2i(7, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_it2dn"]
@@ -209,7 +209,7 @@ states/walk/position = Vector2(541, 94)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_6u40w"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_xucpt"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_it2dn"), "idle", "throw", SubResource("AnimationNodeStateMachineTransition_ab6qr"), "walk", "throw", SubResource("AnimationNodeStateMachineTransition_og1b4"), "throw", "idle", SubResource("AnimationNodeStateMachineTransition_nsopf")]
 graph_offset = Vector2(11, -29)
 
-[node name="Enemy2" instance=ExtResource("1_735mc")]
+[node name="Enemy3" instance=ExtResource("1_735mc")]
 enemy_stats = ExtResource("2_fevhr")
 
 [node name="Sprite" parent="." index="0"]

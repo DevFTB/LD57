@@ -138,7 +138,7 @@ _data = {
 &"fly_right": SubResource("Animation_lj33s")
 }
 
-[node name="Enemy" instance=ExtResource("1_otgj8")]
+[node name="Enemy2" instance=ExtResource("1_otgj8")]
 
 [node name="Sprite" parent="." index="0"]
 position = Vector2(-8, -8)

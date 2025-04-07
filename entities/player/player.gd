@@ -7,7 +7,7 @@ signal throw_initiated()
 signal throw_released(data: World.ThrowReleasedEventData)
 signal depth_changed(depth)
 signal selected_bomb_changed(bomb: Item)
-
+signal invulnerability_unlocked()
 signal traversal_method_unlocked(method: TraversalMethod)
 signal movement_state_changed(new_movement_state: MovementState)
 signal died
@@ -29,7 +29,7 @@ enum TraversalMethod {
 @export var blast_resistance_factor := 1
 @export var unlocked_traversal_methods: Array[TraversalMethod] = []
 @export var base_magnet_range := 100
-@export var invulnerability_cooldown := 30
+@export var invulnerability_cooldown := 5
 
 @export var upgrade_state: PlayerUpgradeState = PlayerUpgradeState.new()
 
@@ -40,6 +40,7 @@ var jetpack_fuel_multiplier = 1
 var invulnerability_duration: float = 0
 var multi_bomb_chance_percent := 0.0
 var multi_bomb_amount := 1
+var grapple_cooldown_reduction = 0
 
 var continuous_interaction_frames := 0
 
@@ -47,6 +48,7 @@ var _holding_throw := false
 var _throw_action_held_time := 0.0
 var selected_bomb_item: Item
 var can_throw := true
+var invulnerability_available := false
 var can_pickup := true
 var can_climb := false
 var current_depth := 0
@@ -54,6 +56,8 @@ var blast_resistance := 0
 
 var world: Node
 var frozen := false
+var invulnerable := false
+
 
 var current_movement_state: MovementState = MovementState.FREE
 
@@ -68,6 +72,9 @@ var current_movement_state: MovementState = MovementState.FREE
 @onready var spawn_location: Vector2 = global_position
 @onready var winch = $"../Winch"
 @onready var holding_bomb = $Sprite2D/BombSprites
+@onready var invulnerability_cooldown_timer: Timer = $InvulnerabilityCooldown
+@onready var invulnerability_duration_timer: Timer = $InvulnerabilityDuration
+
 
 func _ready() -> void:
 	upgrade_state.upgraded.connect(on_upgrade)
@@ -92,6 +99,7 @@ func _ready() -> void:
 func on_upgrade(upgrade: Upgrade, tier):
 	match upgrade.upgrade_type:
 		PlayerUpgradeState.UpgradeType.JETPACK:
+			traversal_method_unlocked.emit(TraversalMethod.JETPACK)
 			unlocked_traversal_methods.append(TraversalMethod.JETPACK)
 		PlayerUpgradeState.UpgradeType.BOMB_HARDNESS:
 			bomb_damage_multiplier = upgrade_state.get_total_value(upgrade)
@@ -99,6 +107,8 @@ func on_upgrade(upgrade: Upgrade, tier):
 			bomb_radius_multiplier = upgrade_state.get_total_value(upgrade)
 		PlayerUpgradeState.UpgradeType.GRAPPLE_RANGE:
 			grapple_point.grapple_range_multiplier = upgrade_state.get_total_value(upgrade)
+		PlayerUpgradeState.UpgradeType.GRAPPLE_COOLDOWN:
+			grapple_point.grapple_cooldown_reduction = upgrade_state.get_total_value(upgrade)
 		PlayerUpgradeState.UpgradeType.JETPACK_FUEL:
 			jetpack.fuel_multiplier = upgrade_state.get_total_value(upgrade)
 		PlayerUpgradeState.UpgradeType.MAGNET:
@@ -107,7 +117,9 @@ func on_upgrade(upgrade: Upgrade, tier):
 			health_component.set_maximum_health(health_component.base_maximum_health + upgrade_state.get_total_value(upgrade))
 			health_component.reset()
 		PlayerUpgradeState.UpgradeType.INVULNERABILITY:
+			invulnerability_available = true
 			invulnerability_duration = upgrade_state.get_total_value(upgrade)
+			invulnerability_unlocked.emit()
 		PlayerUpgradeState.UpgradeType.MULTIBOMB:
 			multi_bomb_chance_percent = upgrade_state.get_total_value(upgrade)
 		PlayerUpgradeState.UpgradeType.MULTIBOMB_AMOUNT:
@@ -128,7 +140,6 @@ func modify_restock_inventory(bomb_item: Item, amount: int):
 	inventory.remove_item(bomb_item, inventory.get_item_amount(bomb_item))
 	inventory.add_item(bomb_item, amount)
 	world.restock_player(self)
-	
 
 func set_movement_state(new_movement_state: MovementState) -> void:
 	current_movement_state = new_movement_state
@@ -181,7 +192,14 @@ func _physics_process(delta: float) -> void:
 		
 		current_depth = calculate_depth(global_position.y)
 		if not health_component.is_dead:
-			if Input.is_action_pressed("interact"):
+			if Input.is_action_just_pressed("invulnerability"):
+				if invulnerability_available:
+					use_invulnerability()
+					
+			
+			if Input.is_action_just_pressed("interact"):
+				interacted.emit(0)
+			elif Input.is_action_pressed("interact"):
 				continuous_interaction_frames += 1
 				interacted.emit(continuous_interaction_frames)
 			else:
@@ -190,7 +208,7 @@ func _physics_process(delta: float) -> void:
 			handle_bomb_switch(range(9))
 
 			if Input.is_action_just_pressed("throw"):
-				if can_throw == true:
+				if can_throw:
 					initiate_throw()
 
 			if _holding_throw:
@@ -202,6 +220,20 @@ func _physics_process(delta: float) -> void:
 
 				if _throw_action_held_time > maximum_throw_hold_time:
 					_on_throw_release(1.0)
+
+func use_invulnerability():
+	invulnerability_cooldown_timer.start(invulnerability_cooldown)
+	invulnerability_duration_timer.start(invulnerability_duration)
+	invulnerable = true
+	invulnerability_available = false
+	health_component.is_invulnerable = true
+
+
+func _on_invulnerability_duration_timeout():
+	invulnerability_cooldown_timer.start(invulnerability_cooldown)
+	invulnerable = false
+	health_component.is_invulnerable = false
+
 
 func freeze() -> void:
 	frozen = true
@@ -295,6 +327,10 @@ func calculate_depth(current_y):
 
 func _on_bomb_cooldown_timeout():
 	can_throw = true
+
+func _on_invulnerability_cooldown_timeout():
+	if invulnerability_duration > 0:
+		invulnerability_available = true
 
 func _on_death():
 	StatsManager.add_to_stat(StatsManager.Stat.DEATH_COUNT, 1)

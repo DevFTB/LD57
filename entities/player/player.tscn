@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://uex2tapn1k1y" path="res://entities/player/player.gd" id="1_merdl"]
 [ext_resource type="Texture2D" uid="uid://o2j8sch5klsg" path="res://entities/player/animations/idle.png" id="2_7thud"]
-[ext_resource type="Script" path="res://entities/player/inventory_component.gd" id="2_sglur"]
+[ext_resource type="Script" uid="uid://3o156l3yjpoa" path="res://entities/player/inventory_component.gd" id="2_sglur"]
 [ext_resource type="Resource" uid="uid://ctoa5b8j1n1x3" path="res://entities/player/player_inventory.tres" id="3_sglur"]
 [ext_resource type="Texture2D" uid="uid://c7tla5tuusbhm" path="res://entities/player/particles/jetpack_particles.png" id="3_yqrof"]
 [ext_resource type="AudioStream" uid="uid://de7ioukso276q" path="res://systems/music_sfx/files/sfx/jetpack/jetpack start.wav" id="4_b2kln"]
@@ -1137,6 +1137,9 @@ inventory = ExtResource("4_bls4j")
 [node name="BombCooldown" type="Timer" parent="."]
 one_shot = true
 
+[node name="InvulnerabilityCooldown" type="Timer" parent="."]
+one_shot = true
+
 [node name="HealthComponent" parent="." instance=ExtResource("5_fkugw")]
 base_maximum_health = 100
 
@@ -1219,3 +1222,4 @@ climb_speed = 500.0
 
 [connection signal="selected_bomb_changed" from="." to="." method="_on_selected_bomb_changed"]
 [connection signal="timeout" from="BombCooldown" to="." method="_on_bomb_cooldown_timeout"]
+[connection signal="timeout" from="InvulnerabilityCooldown" to="." method="_on_bomb_cooldown_timeout"]

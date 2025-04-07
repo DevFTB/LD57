@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://bap0toclr6kyw"]
+
+[ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_cmu3t"]
+[ext_resource type="Texture2D" uid="uid://dkypt6vsrswei" path="res://systems/upgrades/icons/health.png" id="2_fkyih"]
+
+[resource]
+script = ExtResource("1_cmu3t")
+upgrade_type = 10
+mult = false
+tier_value_in_tooltip = true
+tooltip_string = "Decreases the damage you take from explosions."
+display_name = "Item"
+texture = ExtResource("2_fkyih")
+num_tiers = 2
+tier_costs = Array[int]([10, 20])
+tier_values = [5, 15]
+current_level_str = "[color=grey]%s[/color]"
+value_str = "[color=green](+%s)[/color] "
+metadata/_custom_type_script = "uid://dycw7l33nfhy8"

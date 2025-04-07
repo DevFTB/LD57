@@ -19,6 +19,7 @@ func _ready() -> void:
 	update()
 	
 	player_bomb_inventory.item_modified.connect(update.unbind(2))
+	restock_inventory.item_modified.connect(update.unbind(2))
 	player.selected_bomb_changed.connect(update.unbind(1))
 
 func update() -> void:

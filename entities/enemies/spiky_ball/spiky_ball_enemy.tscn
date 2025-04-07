@@ -107,7 +107,7 @@ _data = {
 &"roll": SubResource("Animation_cq2da")
 }
 
-[node name="Enemy" instance=ExtResource("1_0ymvm")]
+[node name="Enemy2" instance=ExtResource("1_0ymvm")]
 enemy_stats = ExtResource("2_hj171")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]

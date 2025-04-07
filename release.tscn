@@ -4,12 +4,6 @@
 
 [node name="Game" instance=ExtResource("1_uubav")]
 
-[node name="MoabExplosionSystem" parent="." index="2"]
-bomb_timer_starting_value = 300.0
-
-[node name="Player" parent="World" index="4"]
-unlocked_traversal_methods = Array[int]([1, 0])
-
 [node name="UpgradeGUI" parent="GUI" index="5"]
 visible = false
 
