@@ -97,6 +97,7 @@ func _ready() -> void:
 
 	world = get_tree().get_first_node_in_group("world")
 	
+	
 func on_upgrade(upgrade: Upgrade, tier):
 	match upgrade.upgrade_type:
 		PlayerUpgradeState.UpgradeType.JETPACK:
@@ -223,7 +224,6 @@ func _physics_process(delta: float) -> void:
 					_on_throw_release(1.0)
 
 func use_invulnerability():
-	invulnerability_cooldown_timer.start(invulnerability_cooldown)
 	invulnerability_duration_timer.start(invulnerability_duration)
 	invulnerable = true
 	invulnerability_available = false
