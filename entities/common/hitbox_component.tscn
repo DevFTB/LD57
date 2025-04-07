@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dg3mif63wy502" path="res://entities/common/hitbox_component.gd" id="1_5y84n"]
 
 [sub_resource type="Curve" id="Curve_5y84n"]
-_data = [Vector2(0, 0.47191), 0.0, 1.4, 0, 0, Vector2(0.452128, 0.775281), 0.463689, 0.463689, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.247191), 0.0, 1.4, 0, 0, Vector2(0.5, 0.741573), 0.804708, 0.804708, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [node name="HitboxComponent" type="Area2D"]

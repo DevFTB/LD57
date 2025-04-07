@@ -14,6 +14,6 @@ is_perishable = true
 is_sticky = true
 explode_on_impact = false
 explosion_radius = 4
-entity_damage = 25
+entity_damage = 12
 bomb_velocity_modifier = 1.0
 metadata/_custom_type_script = "uid://dgalf5pstb0iw"
