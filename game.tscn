@@ -53,6 +53,8 @@
 [ext_resource type="Texture2D" uid="uid://bm4qbqxhx3vff" path="res://ui/depth.png" id="40_cfc7e"]
 [ext_resource type="Script" uid="uid://eky8k0h2e6jt" path="res://ui/HUD/depth.gd" id="41_gh0px"]
 [ext_resource type="Script" path="res://ui/grapple_ui.gd" id="43_m28ev"]
+[ext_resource type="Script" uid="uid://bw4n7aeli48jj" path="res://ui/grapple_ui.gd" id="43_m28ev"]
+[ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="49_mljfx"]
 
 [sub_resource type="Resource" id="Resource_0de7l"]
 script = ExtResource("5_lwlx3")
@@ -590,6 +592,8 @@ player = NodePath("../../../../../World/Player")
 [node name="Control" type="Control" parent="GUI/NewHUD/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="PauseMenu" parent="GUI" instance=ExtResource("49_mljfx")]
 
 [node name="Music" parent="." instance=ExtResource("23_qhcbd")]
 

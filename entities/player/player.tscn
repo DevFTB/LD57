@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://b6753y8fi3avo" path="res://entities/player/grapple/grapple_hook.png" id="9_bectd"]
 [ext_resource type="Script" uid="uid://cc2j1e84os7o7" path="res://entities/player/jetpack.gd" id="10_wvtmh"]
 [ext_resource type="Texture2D" uid="uid://chpbvtny8msu7" path="res://entities/player/animations/walk.png" id="12_a1qjk"]
-[ext_resource type="Script" path="res://entities/common/entity_hurtbox_component.gd" id="12_t1t22"]
+[ext_resource type="Script" uid="uid://c7vkf6rmxkfse" path="res://entities/common/entity_hurtbox_component.gd" id="12_t1t22"]
 [ext_resource type="Texture2D" uid="uid://deinxf2hul2ko" path="res://entities/player/animations/jump.png" id="13_j3ovn"]
 [ext_resource type="AudioStream" uid="uid://dg6cyqp7qwmm7" path="res://systems/music_sfx/files/sfx/throw selection sound.wav" id="13_we0b7"]
 [ext_resource type="Texture2D" uid="uid://bf5qhstojbd5w" path="res://entities/player/animations/throw.png" id="14_afbqv"]
@@ -25,7 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://dis0is1c00khw" path="res://systems/music_sfx/files/sfx/throw sound.wav" id="20_mtric"]
 [ext_resource type="AudioStream" uid="uid://gllb6uw3s25f" path="res://systems/music_sfx/files/sfx/player/damage.wav" id="21_eyb6c"]
 [ext_resource type="AudioStream" uid="uid://tpulestneq76" path="res://systems/music_sfx/files/sfx/player/death.wav" id="22_221hk"]
-[ext_resource type="Script" uid="uid://bim3pfpf1ea4l" path="res://entities/player/rope_climb.gd" id="24_t1t22"]
+[ext_resource type="Script" path="res://entities/player/rope_climb.gd" id="24_t1t22"]
 [ext_resource type="Texture2D" uid="uid://c0nbm2a4tsd3w" path="res://entities/throwables/bomb/throwable_bomb.png" id="26_wuv6x"]
 
 [sub_resource type="Curve" id="Curve_qiwj3"]
