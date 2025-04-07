@@ -658,6 +658,9 @@ boom_level_textures = Dictionary[int, Texture2D]({
 [node name="BombProgressBar" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" index="1" node_paths=PackedStringArray("bomb_explosion_system")]
 bomb_explosion_system = NodePath("../../../../../../../../MoabExplosionSystem")
 
+[node name="HBoxContainer2" parent="GUI/HUD/VBoxContainer/HBoxContainer2" index="0" node_paths=PackedStringArray("inventory_component")]
+inventory_component = NodePath("../../../../../World/Player/BombInventoryComponent")
+
 [node name="ProgressBar" parent="GUI/HUD/VBoxContainer/HBoxContainer3/TextureRect" index="0" node_paths=PackedStringArray("player", "timer")]
 player = NodePath("../../../../../../World/Player")
 timer = NodePath("../../../../../../World/Player/GrapplePoint/GrappleCooldown")
