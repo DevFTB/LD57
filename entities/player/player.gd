@@ -49,6 +49,7 @@ var can_throw := true
 var can_pickup := true
 var can_climb := false
 var current_depth := 0
+var blast_resistance := 0
 
 
 var current_movement_state: MovementState = MovementState.FREE
@@ -56,6 +57,7 @@ var current_movement_state: MovementState = MovementState.FREE
 @onready var mineral_inventory_component: InventoryComponent = $MineralInventoryComponent
 @onready var bomb_inventory_component: InventoryComponent = $BombInventoryComponent
 @onready var health_component: HealthComponent = $HealthComponent
+@onready var hurtbox_component = $HurtboxComponent
 @onready var bomb_cooldown: Timer = $BombCooldown
 @onready var grapple_point: GrapplePoint = $GrapplePoint
 @onready var jetpack: Jetpack = $Jetpack
@@ -105,6 +107,8 @@ func on_upgrade(upgrade: Upgrade, tier):
 			multi_bomb_chance_percent = upgrade_state.get_total_value(upgrade)
 		PlayerUpgradeState.UpgradeType.MULTIBOMB_AMOUNT:
 			multi_bomb_amount = upgrade_state.get_total_value(upgrade) + 1
+		PlayerUpgradeState.UpgradeType.BLAST_RESISTANCE: # logarithmic scale
+			hurtbox_component.blast_resistance_factor= upgrade_state.get_total_value(upgrade)
 
 func set_movement_state(new_movement_state: MovementState) -> void:
 	current_movement_state = new_movement_state
@@ -231,7 +235,7 @@ func _on_throw_release(strength = 1.0) -> void:
 
 	var data := World.ThrowReleasedEventData.new()
 	data.position = global_position
-	data.impulse = direction.normalized() * throw_force_curve.sample_baked(strength)
+	data.impulse = direction.normalized() * throw_force_curve.sample_baked(strength) * bomb_type.bomb_velocity_modifier
 	data.bomb_type = bomb_type
 	
 	# Consume item from inventory if perishable

@@ -4,6 +4,10 @@ extends ProgressBar
 @export var bomb_progress_bar: ProgressBar
 @export var time_display: Label
 
+signal changed_danger_mode(_bool)
+
+var current_danger_mode := false
+
 func _process(_delta: float) -> void:
 	var minutes := floorf(bomb_explosion_system.seconds_left / 60)
 	var seconds := floorf(bomb_explosion_system.seconds_left - (minutes * 60))

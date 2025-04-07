@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b3cnp6fsypd5"]
+[gd_scene load_steps=14 format=3 uid="uid://b3cnp6fsypd5"]
 
 [ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="1_kku6u"]
 [ext_resource type="Script" path="res://ui/upgrade/upgrade_tree.gd" id="1_m7apr"]
@@ -6,11 +6,26 @@
 [ext_resource type="Resource" uid="uid://pn1yg60fm2h1" path="res://systems/upgrades/upgrade_health.tres" id="3_m7apr"]
 [ext_resource type="Resource" uid="uid://b6xkpnkwkffbg" path="res://systems/upgrades/upgrade_bomb_radius.tres" id="3_tsxcs"]
 [ext_resource type="Resource" uid="uid://c1q8kqvleqg17" path="res://systems/upgrades/upgrade_magnet.tres" id="4_pgr47"]
+[ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="5_sj7n6"]
 [ext_resource type="Resource" uid="uid://bpwardgn02pyv" path="res://systems/upgrades/upgrade_grapple_range.tres" id="6_pgr47"]
 [ext_resource type="Resource" path="res://systems/upgrades/upgrade_multibomb.tres" id="7_fgdme"]
 [ext_resource type="Resource" uid="uid://dwdep7v4xw104" path="res://systems/upgrades/upgrade_jetpack.tres" id="7_pgr47"]
 [ext_resource type="Resource" uid="uid://dye4bvtjqdm26" path="res://systems/upgrades/upgrade_jetpack_fuel.tres" id="8_ev5ml"]
 [ext_resource type="Resource" path="res://systems/upgrades/upgrade_multi_bomb_amount.tres" id="8_gi71y"]
+
+[sub_resource type="Resource" id="Resource_t5m0t"]
+script = ExtResource("5_sj7n6")
+upgrade_type = 10
+mult = false
+tier_value_in_tooltip = true
+tooltip_string = "Decreases the damage you take from explosions."
+display_name = "Blast Resistance"
+num_tiers = 2
+tier_costs = Array[int]([10, 40])
+tier_values = [15.0, 30.0]
+current_level_str = "[color=grey]%s[/color]"
+value_str = "[color=green](+%s)[/color] "
+metadata/_custom_type_script = "uid://dycw7l33nfhy8"
 
 [node name="UpgradeTree" type="ColorRect"]
 anchors_preset = 8
@@ -27,19 +42,6 @@ grow_vertical = 2
 mouse_filter = 1
 color = Color(0.35554, 0.00955138, 0.237468, 0)
 script = ExtResource("1_m7apr")
-
-[node name="Health" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
-layout_mode = 2
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 1728.0
-offset_top = 2609.0
-offset_right = 1824.0
-offset_bottom = 2737.0
-upgrade = ExtResource("3_m7apr")
 
 [node name="Magnet" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
 layout_mode = 2
@@ -110,6 +112,19 @@ NodePath("../Magnet3"): 3
 max_level = 1
 tier = 3
 
+[node name="Health" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1752.0
+offset_top = 2610.0
+offset_right = 1848.0
+offset_bottom = 2738.0
+upgrade = ExtResource("3_m7apr")
+
 [node name="Health2" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
@@ -134,16 +149,52 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1759.0
-offset_top = 2201.0
-offset_right = 1855.0
-offset_bottom = 2329.0
+offset_left = 1742.0
+offset_top = 2195.0
+offset_right = 1838.0
+offset_bottom = 2323.0
 upgrade = ExtResource("3_m7apr")
 dependecies = {
 NodePath("../Health2"): 3
 }
 max_level = 7
 tier = 2
+
+[node name="BlastResistance" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1886.0
+offset_top = 2377.0
+offset_right = 1982.0
+offset_bottom = 2505.0
+upgrade = SubResource("Resource_t5m0t")
+dependecies = {
+NodePath("../Health"): 3
+}
+max_level = 5
+
+[node name="BlastResistance2" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1892.0
+offset_top = 2026.0
+offset_right = 1988.0
+offset_bottom = 2154.0
+upgrade = SubResource("Resource_t5m0t")
+dependecies = {
+NodePath("../Health3"): 3,
+NodePath("../BlastResistance"): 5
+}
+max_level = 5
+tier = 1
 
 [node name="Radius" parent="." instance=ExtResource("1_kku6u")]
 layout_mode = 2
@@ -352,10 +403,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2011.0
-offset_top = 2351.0
-offset_right = 2107.0
-offset_bottom = 2479.0
+offset_left = 2031.0
+offset_top = 2377.0
+offset_right = 2127.0
+offset_bottom = 2505.0
 upgrade = ExtResource("6_pgr47")
 dependecies = {
 NodePath("../GrappleCD"): 3
@@ -369,10 +420,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1989.0
-offset_top = 2200.0
-offset_right = 2085.0
-offset_bottom = 2328.0
+offset_left = 2015.0
+offset_top = 2207.0
+offset_right = 2111.0
+offset_bottom = 2335.0
 upgrade = ExtResource("6_pgr47")
 dependecies = {
 NodePath("../GrappleCD2"): 2
@@ -386,10 +437,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2143.0
-offset_top = 2262.0
-offset_right = 2239.0
-offset_bottom = 2390.0
+offset_left = 2140.0
+offset_top = 2230.0
+offset_right = 2236.0
+offset_bottom = 2358.0
 upgrade = ExtResource("7_pgr47")
 dependecies = {
 NodePath("../GrappleCD2"): 3
@@ -403,10 +454,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2126.0
-offset_top = 2094.0
-offset_right = 2222.0
-offset_bottom = 2222.0
+offset_left = 2147.0
+offset_top = 2092.0
+offset_right = 2243.0
+offset_bottom = 2220.0
 upgrade = ExtResource("8_ev5ml")
 dependecies = {
 NodePath("../Jetpack"): 1
@@ -419,10 +470,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2140.0
-offset_top = 1926.0
-offset_right = 2236.0
-offset_bottom = 2054.0
+offset_left = 2148.0
+offset_top = 1929.0
+offset_right = 2244.0
+offset_bottom = 2057.0
 upgrade = ExtResource("8_ev5ml")
 dependecies = {
 NodePath("../JetpackFuel"): 3

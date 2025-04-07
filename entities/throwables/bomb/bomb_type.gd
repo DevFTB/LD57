@@ -12,3 +12,4 @@ class_name BombType
 @export var explode_on_impact := false
 @export var explosion_radius: int = 2
 @export var entity_damage: int = 50
+@export var bomb_velocity_modifier: float = 1.0
