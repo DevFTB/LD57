@@ -1,11 +1,16 @@
 class_name World extends Node2D
 
-const BASE_ZOOM = 1.5
-const SPAWN_ZOOM = 1.8
+
+
 @export var spawn_camera_offset: Vector2 = Vector2(0, -30)
 
 ## Everytime the player enters spawn their bomb inventory will have atleast this many of each item
 @export var restock_inventory: Inventory
+@export var base_zoom = 1.5
+@export var spawn_zoom = 2.0
+@export var shake_intensity := 2.0
+
+@export var hardness_ore_drops: Dictionary[int, RandomInt] = {}
 
 @onready var player: Player = $Player
 @onready var cave_blocks_tilemap: TileMapLayer = $Level/CaveBlocks
@@ -16,8 +21,11 @@ const SPAWN_ZOOM = 1.8
 
 @onready var block_break_scene = preload("res://systems/music_sfx/files/sfx/tile/block_break.tscn")
 
-var camera_following_player: bool = false
-var initial_camera_location
+enum camera_mode {FOLLOWING_PLAYER,SPAWN_ROOM_STATIC,FROZEN,INITIAL}
+var initial_camera_location : Vector2
+var queued_camera_mode
+var current_camera_mode = camera_mode.INITIAL
+
 
 class ThrowReleasedEventData:
 	var position: Vector2
@@ -29,11 +37,38 @@ func _ready() -> void:
 	player.health_component.died.connect(_on_player_death)
 	initial_camera_location = camera.position
 	
-func _physics_process(_delta):
-	if camera_following_player:
-		var camera_tweener = get_tree().create_tween()
-		camera_tweener.tween_property(camera, "global_position", player.global_position, 0.3)
+func _physics_process(delta):
+	match current_camera_mode:
+		camera_mode.FOLLOWING_PLAYER:
+			var camera_tweener = get_tree().create_tween()
+			camera_tweener.parallel().tween_property(camera, "zoom", Vector2(base_zoom,base_zoom), 0.1)
+			camera_tweener.set_ease(Tween.EASE_IN)
+			camera_tweener.parallel().tween_property(camera, "global_position", player.global_position, 0.3)
+		camera_mode.SPAWN_ROOM_STATIC:
+			pass
 
+
+func switch_camera_mode(requested_camera_mode):
+	if requested_camera_mode is camera_mode:
+		current_camera_mode = requested_camera_mode
+	else:
+		assert("Camera Error - " + str(requested_camera_mode) + " does not exist.")
+
+func process_camera():
+	match current_camera_mode:
+		camera_mode.SPAWN_ROOM_STATIC:
+			var camera_tweener = get_tree().create_tween()
+			camera_tweener.set_ease(Tween.EASE_IN_OUT)
+			camera_tweener.set_trans(Tween.TRANS_CUBIC)
+			camera_tweener.parallel().tween_property(camera, "zoom", Vector2(spawn_zoom,spawn_zoom), 1)
+			camera_tweener.parallel().tween_property(camera, "position", initial_camera_location + spawn_camera_offset, 1)
+		camera_mode.INITIAL:
+			var camera_tweener = get_tree().create_tween()
+			camera_tweener.set_ease(Tween.EASE_IN_OUT)
+			camera_tweener.set_trans(Tween.TRANS_CUBIC)
+			camera_tweener.tween_property(camera, "zoom", Vector2(spawn_zoom,spawn_zoom), 1)
+			camera_tweener.parallel().tween_property(camera, "position", initial_camera_location + spawn_camera_offset, 1)
+	pass
 
 func _spawn_bomb_with_velocity(data: ThrowReleasedEventData) -> void:
 	var new_bomb := data.bomb_type.bomb_scene.instantiate() as ThrowableBomb
@@ -46,6 +81,8 @@ func _spawn_bomb_with_velocity(data: ThrowReleasedEventData) -> void:
 	new_bomb.exploded.connect(_on_bomb_exploded.bind(new_bomb))
 
 func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
+	camera.random_camera_shake_strength = bomb.bomb_type.explosion_radius*bomb.bomb_type.hardness * shake_intensity
+	camera.apply_shake()
 	var explosion_radius := bomb.bomb_type.explosion_radius
 
 	var map_position_of_explosion = cave_blocks_tilemap.local_to_map(bomb.global_position)
@@ -80,8 +117,9 @@ func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 		if has_ore:
 			var location = ore_tilemap.map_to_local(tile)
 			var item: Item = ore_tilemap.get_cell_tile_data(tile).get_custom_data("drop_item")
-			
-			var drop_amount := 1
+
+			var hardness: int = cave_blocks_tilemap.get_cell_tile_data(tile).get_custom_data("hardness")
+			var drop_amount: int = hardness_ore_drops.get(hardness, 1).sample()
 			
 			if item.id == &"bombpowder":
 				StatsManager.add_to_stat(StatsManager.Stat.BOMBPOWDER_MINED, drop_amount)
@@ -92,7 +130,7 @@ func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 			# TODO: Add variable drop amounts
 			ore_tilemap.erase_cell(tile)
 
-			call_deferred("drop_ore", location, item, drop_amount)
+			call_deferred("drop_item_entity", location, item, drop_amount)
 			
 		#tile destroy animation
 		var break_location = cave_blocks_tilemap.map_to_local(tile)
@@ -117,13 +155,28 @@ func _on_bomb_exploded(bomb: ThrowableBomb) -> void:
 						nav_mesh.bake_navigation_polygon()
 
 const ITEM_ENTITY := preload("uid://bkh5wheo7tg4h")
-func drop_ore(location: Vector2, item: Item, amount: int) -> void:
+
+func drop_item_entity(location: Vector2, item: Item, amount: int, max_stacks := 10) -> void:
 	if item == null:
 		push_warning("Cannot drop null item!")
 		return
 	if amount < 1:
 		push_warning("Cannot drop zero or negative amount")
 		return
+	
+	var chunks: Array[int] = []
+	
+	@warning_ignore("integer_division")
+	var small_piece_size := floori(amount / max_stacks)
+	var amount_of_large_pieces = amount % max_stacks
+	
+	for i in range(max_stacks):
+		if i < amount_of_large_pieces:
+			chunks.append(small_piece_size + 1)
+		else:
+			chunks.append(small_piece_size)
+
+	prints(amount, chunks)
 
 	for i in range(amount):
 		var new_entity: ItemEntity = ITEM_ENTITY.instantiate()
@@ -134,17 +187,14 @@ func drop_ore(location: Vector2, item: Item, amount: int) -> void:
 		var offset_vector := Vector2.ONE.rotated(randf() * 2 * PI)
 		new_entity.position = location + offset_vector * 4
 		new_entity.apply_central_impulse(offset_vector * 100)
+	
 
 func _on_spawn_area_player_detector_player_entered(_player):
 	player.health_component.is_invulnerable = true
 	player.health_component.heal(player.health_component.maximum_health)
 	#handle camera tween
-	camera_following_player = false
-	var camera_tweener = get_tree().create_tween()
-	camera_tweener.set_ease(Tween.EASE_IN_OUT)
-	camera_tweener.set_trans(Tween.TRANS_CUBIC)
-	camera_tweener.tween_property(camera, "zoom", Vector2.ONE * SPAWN_ZOOM, 1)
-	camera_tweener.parallel().tween_property(camera, "position", initial_camera_location + spawn_camera_offset, 1)
+	switch_camera_mode(camera_mode.SPAWN_ROOM_STATIC)
+	process_camera()
 
 	# restock player
 	for item in restock_inventory.get_items():
@@ -155,17 +205,17 @@ func _on_spawn_area_player_detector_player_entered(_player):
 			player.bomb_inventory_component.inventory.add_item(item, diff)
 			
 	player.jetpack.restock()
-	# TODO: play restock sound.
+	$RestockSound.play()
 
 
 func _on_spawn_area_player_detector_player_exited(_player):
 	player.health_component.is_invulnerable = false
 	#handle camera tween
-	camera_following_player = true
-	var camera_tweener = get_tree().create_tween()
-	camera_tweener.set_ease(Tween.EASE_IN)
-	camera_tweener.tween_property(camera, "zoom", Vector2.ONE * BASE_ZOOM, 1)
-	camera_tweener.parallel().tween_property(camera, "position", initial_camera_location, 1)
-	
+	switch_camera_mode(camera_mode.FOLLOWING_PLAYER)
+	process_camera()
+	#var camera_tweener = get_tree().create_tween()
+
+	#
 func _on_player_death():
-	camera_following_player = false
+	switch_camera_mode(camera_mode.FROZEN)
+	process_camera()

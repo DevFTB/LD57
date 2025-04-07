@@ -11,9 +11,15 @@ var bomb_type: BombType
 
 @onready var explosion_timer: Timer = $ExplosionTimer
 @onready var hitbox_component: HitboxComponent = $HitboxComponent
+@onready var ray_cast = $RayCast
 
 @onready var explosion_animation_scene = preload("res://entities/throwables/bomb/bomb_explode.tscn")
 
+func _physics_process(delta):
+	ray_cast.target_position = linear_velocity * -0.05
+	var collided_body = ray_cast.get_collider() 
+	if collided_body:
+		_on_body_entered(collided_body)
 
 func _ready() -> void:
 	sprite_2d.texture = bomb_type.bomb_icon

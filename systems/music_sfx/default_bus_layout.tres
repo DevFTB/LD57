@@ -2,6 +2,8 @@
 
 [sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_03nvl"]
 resource_name = "Compressor"
+threshold = -6.0
+ratio = 7.0
 
 [resource]
 bus/1/name = &"Music"
@@ -16,5 +18,11 @@ bus/2/mute = false
 bus/2/bypass_fx = false
 bus/2/volume_db = 0.0
 bus/2/send = &"Master"
-bus/2/effect/0/effect = SubResource("AudioEffectCompressor_03nvl")
-bus/2/effect/0/enabled = true
+bus/3/name = &"Block Break"
+bus/3/solo = false
+bus/3/mute = false
+bus/3/bypass_fx = false
+bus/3/volume_db = 0.0
+bus/3/send = &"Sound FX"
+bus/3/effect/0/effect = SubResource("AudioEffectCompressor_03nvl")
+bus/3/effect/0/enabled = true

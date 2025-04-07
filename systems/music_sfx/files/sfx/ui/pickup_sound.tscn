@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ch8222omi7i1x"]
+
+[ext_resource type="AudioStream" uid="uid://dp18eos4u4x6r" path="res://systems/music_sfx/files/sfx/ui/pickup_sound.wav" id="1_8hi3d"]
+[ext_resource type="Script" uid="uid://bfc7v2bauucxm" path="res://systems/music_sfx/files/sfx/ui/pickup_sound.gd" id="2_q822h"]
+
+[node name="PickupSound" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_8hi3d")
+volume_db = 3.0
+autoplay = true
+bus = &"Sound FX"
+script = ExtResource("2_q822h")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

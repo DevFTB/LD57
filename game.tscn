@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=71 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
@@ -14,9 +14,10 @@
 [ext_resource type="PackedScene" uid="uid://vp4hhi7lbt7d" path="res://world/buildings/winch.tscn" id="5_4v2jo"]
 [ext_resource type="TileSet" uid="uid://1s8d18ai2k57" path="res://world/tileset/ore_tileset.tres" id="5_e36ub"]
 [ext_resource type="Script" uid="uid://b0ogai8s7l7sc" path="res://systems/inventory/inventory.gd" id="5_lwlx3"]
+[ext_resource type="Script" uid="uid://6gp81uqd76gy" path="res://entities/loot_chest/random_float.gd" id="6_qpefm"]
 [ext_resource type="Script" uid="uid://cr0u8ykoigma" path="res://ui/bomb_timer/bomb_ui.gd" id="7_eow3j"]
+[ext_resource type="Script" uid="uid://cv6y1hrey2gct" path="res://main_camera.gd" id="7_lwlx3"]
 [ext_resource type="Script" uid="uid://cnf626cpgukip" path="res://entities/loot_chest/loot_table.gd" id="8_87ddb"]
-[ext_resource type="Resource" uid="uid://diae5nc080sux" path="res://entities/player/player_bomb_inventory.tres" id="8_mfdv2"]
 [ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="9_215e1"]
 [ext_resource type="Script" uid="uid://b0mdeooldsu15" path="res://enemy_spawner.gd" id="9_kq12w"]
 [ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="9_qhcbd"]
@@ -27,7 +28,6 @@
 [ext_resource type="PackedScene" uid="uid://c5457i8ubkrc7" path="res://entities/enemies/spiky_ball/spiky_ball_enemy.tscn" id="11_t46w6"]
 [ext_resource type="PackedScene" uid="uid://dqawvbjg7bayk" path="res://entities/enemies/skeleton_bomber/skeleton_bomber_enemy.tscn" id="12_m28ev"]
 [ext_resource type="Script" uid="uid://motjp37ct4o3" path="res://ui/HUD/fuel_bar.gd" id="13_36jdj"]
-[ext_resource type="Script" uid="uid://ulg81k7glw1a" path="res://ui/timer_progress_bar.gd" id="13_bnpwn"]
 [ext_resource type="PackedScene" uid="uid://bbvhdbp0joc6q" path="res://ui/bomb_select/bomb_slot_select_scene.tscn" id="13_i2p71"]
 [ext_resource type="PackedScene" uid="uid://53ohv57t2ihg" path="res://entities/loot_chest/loot_chest.tscn" id="13_klri6"]
 [ext_resource type="PackedScene" uid="uid://p0ipn2tylswi" path="res://ui/inventory/inventory_item_display.tscn" id="13_qhcbd"]
@@ -44,19 +44,42 @@
 [ext_resource type="Texture2D" uid="uid://b8vkgx0epv747" path="res://entities/moab/moab_sprite_sheet.png" id="28_aa0lp"]
 [ext_resource type="Texture2D" uid="uid://2nhewmpeakjh" path="res://ui/HUD/hook.png" id="28_dhpj7"]
 [ext_resource type="Texture2D" uid="uid://de1ldfvaoh7a" path="res://ui/HUD/health_fill.png" id="28_edr7y"]
+[ext_resource type="AudioStream" uid="uid://bixi2inlened8" path="res://systems/music_sfx/files/sfx/ui/restock sound.wav" id="29_qpefm"]
 [ext_resource type="Texture2D" uid="uid://dimkj68ybmkil" path="res://ui/HUD/fuel.png" id="30_082n1"]
 [ext_resource type="Script" uid="uid://c8up2ibn67q7f" path="res://ui/HUD/label_health_bar.gd" id="31_dhpj7"]
 [ext_resource type="Texture2D" uid="uid://d317cp0qhrmd4" path="res://ui/parchment.png" id="32_7knny"]
 [ext_resource type="Resource" uid="uid://wylmsxcnfp00" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="34_l1i01"]
 [ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
+[ext_resource type="Texture2D" uid="uid://bm4qbqxhx3vff" path="res://ui/depth.png" id="40_cfc7e"]
+[ext_resource type="Script" uid="uid://eky8k0h2e6jt" path="res://ui/HUD/depth.gd" id="41_gh0px"]
+[ext_resource type="Script" path="res://ui/grapple_ui.gd" id="43_m28ev"]
 [ext_resource type="Script" uid="uid://bw4n7aeli48jj" path="res://ui/grapple_ui.gd" id="43_m28ev"]
+[ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="49_mljfx"]
 
 [sub_resource type="Resource" id="Resource_0de7l"]
 script = ExtResource("5_lwlx3")
 maximum_size = -1
 starting_inventory = {}
 metadata/_custom_type_script = "uid://b0ogai8s7l7sc"
+
+[sub_resource type="Resource" id="Resource_fcpvs"]
+script = ExtResource("6_qpefm")
+min_value = 1
+max_value = 2
+metadata/_custom_type_script = "uid://6gp81uqd76gy"
+
+[sub_resource type="Resource" id="Resource_kl2i7"]
+script = ExtResource("6_qpefm")
+min_value = 2
+max_value = 3
+metadata/_custom_type_script = "uid://6gp81uqd76gy"
+
+[sub_resource type="Resource" id="Resource_qpefm"]
+script = ExtResource("6_qpefm")
+min_value = 3
+max_value = 5
+metadata/_custom_type_script = "uid://6gp81uqd76gy"
 
 [sub_resource type="Gradient" id="Gradient_qhcbd"]
 offsets = PackedFloat32Array(0, 0.298561, 0.697842, 1)
@@ -108,6 +131,11 @@ font_size = 32
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_cfc7e"]
+font_size = 20
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_iu0sx"]
 atlas = ExtResource("28_aa0lp")
 region = Rect2(192, 128, 640, 704)
@@ -142,6 +170,11 @@ texture = ExtResource("11_qhcbd")
 [node name="World" type="Node2D" parent="." groups=["world"]]
 script = ExtResource("2_hve3p")
 restock_inventory = SubResource("Resource_0de7l")
+hardness_ore_drops = Dictionary[int, ExtResource("6_qpefm")]({
+1: SubResource("Resource_fcpvs"),
+2: SubResource("Resource_kl2i7"),
+3: SubResource("Resource_qpefm")
+})
 
 [node name="Winch" parent="World" instance=ExtResource("5_4v2jo")]
 position = Vector2(-3.945, -3300)
@@ -149,6 +182,7 @@ position = Vector2(-3.945, -3300)
 [node name="MainCamera" type="Camera2D" parent="World"]
 position = Vector2(-32, -3328)
 scale = Vector2(2, 2)
+script = ExtResource("7_lwlx3")
 
 [node name="PointLight2D" type="PointLight2D" parent="World/MainCamera"]
 position = Vector2(-17.5, -15)
@@ -253,6 +287,9 @@ environment = SubResource("Environment_qhcbd")
 [node name="LootChest" parent="World" instance=ExtResource("13_klri6")]
 position = Vector2(224, -3264)
 loot_table = ExtResource("15_m28ev")
+
+[node name="RestockSound" type="AudioStreamPlayer" parent="World"]
+stream = ExtResource("29_qpefm")
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
@@ -413,6 +450,21 @@ label_settings = SubResource("LabelSettings_xfvwf")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Depth" type="TextureRect" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/Control/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("40_cfc7e")
+expand_mode = 2
+script = ExtResource("41_gh0px")
+
+[node name="Label" type="Label" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/Control/HBoxContainer/Depth"]
+layout_mode = 0
+offset_top = -8.0
+offset_right = 92.0
+offset_bottom = 84.0
+label_settings = SubResource("LabelSettings_cfc7e")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Bottom" type="HBoxContainer" parent="GUI/NewHUD/VBoxContainer/HBoxContainer/Control/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -565,6 +617,9 @@ player = NodePath("../../../../../World/Player")
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="PauseMenu" parent="GUI" instance=ExtResource("49_mljfx")]
+visible = false
+
 [node name="Music" parent="." instance=ExtResource("23_qhcbd")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
@@ -572,6 +627,7 @@ color = Color(0.36968, 0.328359, 0.176195, 1)
 
 [connection signal="timeout" from="World/Spawner/SpawnTimer" to="World/Spawner" method="_on_spawn_timer_timeout"]
 [connection signal="depth_changed" from="World/Player" to="Music" method="_on_player_depth_changed"]
+[connection signal="depth_changed" from="World/Player" to="GUI/NewHUD/VBoxContainer/HBoxContainer/Control/HBoxContainer/Depth" method="_on_player_depth_changed"]
 [connection signal="health_modified" from="World/Player/HealthComponent" to="World/Player" method="_on_health_component_health_modified"]
 [connection signal="player_entered" from="World/Spawn/SpawnAreaPlayerDetector" to="World" method="_on_spawn_area_player_detector_player_entered"]
 [connection signal="player_exited" from="World/Spawn/SpawnAreaPlayerDetector" to="World" method="_on_spawn_area_player_detector_player_exited"]

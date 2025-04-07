@@ -29,6 +29,8 @@ enum TraversalMethod {
 @export var blast_resistance_factor := 0.5
 @export var unlocked_traversal_methods: Array[TraversalMethod] = []
 
+
+
 var _holding_throw := false
 var _throw_action_held_time := 0.0
 var selected_bomb_item: Item
@@ -36,6 +38,7 @@ var can_throw := true
 var can_pickup := true
 var can_climb := false
 var current_depth := 0
+
 
 var upgrade_state: PlayerUpgradeState = PlayerUpgradeState.new()
 
@@ -144,6 +147,7 @@ func _physics_process(delta: float) -> void:
 
 			if _throw_action_held_time > maximum_throw_hold_time:
 				_on_throw_release(1.0)
+	
 func handle_bomb_switch(indexes: Array) -> void:
 	for i in indexes:
 		var action := "select_bomb_%d" % (i + 1)
@@ -230,16 +234,12 @@ func _on_death():
 	if _holding_throw:
 		_on_throw_release(0)
 	var inventory: Inventory = mineral_inventory_component.inventory
-	var dropped_item_scene = preload("res://entities/item/item_entity.tscn")
+
+	var world: World = get_tree().get_first_node_in_group("world")
 	for item in inventory.get_items():
-		for i in range(inventory.get_item_amount(item)):
-			var dropped_item = dropped_item_scene.instantiate()
-			dropped_item.item = item
-			dropped_item.quantity = 1
-			inventory.remove_item(item, dropped_item.quantity)
-			get_tree().get_first_node_in_group("world").call_deferred("add_child", dropped_item)
-			dropped_item.global_position = self.global_position + Vector2(randi_range(-10, 10), randi_range(-10, 10))
-			dropped_item.linear_velocity = Vector2(randf_range(-300, 300), randf_range(-300, 300))
+		world.drop_item_entity(global_position, item, inventory.get_item_amount(item))
+		inventory.remove_item(item, inventory.get_item_amount(item))
+
 	$DeathSound.play()
 	died.emit()
 
@@ -250,6 +250,7 @@ func reset_player() -> void:
 	velocity = Vector2.ZERO
 	global_position = spawn_location
 	set_movement_state(MovementState.FREE)
+	
 
 func _play_hurt_sounds() -> void:
 	$HurtSound.pitch_scale = randf_range(0.9, 1.1)
