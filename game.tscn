@@ -37,7 +37,7 @@
 [ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
 [ext_resource type="PackedScene" uid="uid://c4e86uoalfgiw" path="res://ui/HUD/hud.tscn" id="36_4v2jo"]
-[ext_resource type="PackedScene" uid="uid://b2vtm14w5fe48" path="res://menu/game_over.tscn" id="37_4v2jo"]
+[ext_resource type="PackedScene" uid="uid://cc5dkwrsnplny" path="res://menu/game_over.tscn" id="37_4v2jo"]
 [ext_resource type="Texture2D" uid="uid://2nhewmpeakjh" path="res://ui/HUD/hook.png" id="37_kq12w"]
 [ext_resource type="PackedScene" uid="uid://b3cnp6fsypd5" path="res://ui/upgrade/upgrade_tree.tscn" id="38_l1i01"]
 [ext_resource type="Texture2D" uid="uid://cdp2qg6foouy2" path="res://world/loot/chest.png" id="38_t46w6"]
@@ -460,9 +460,6 @@ fall_acceleration = 550
 
 [node name="BombInventoryComponent" parent="World/Player" index="4"]
 inventory = SubResource("Resource_lwlx3")
-
-[node name="Bat" parent="World" instance=ExtResource("9_qhcbd")]
-position = Vector2(-176, -3384)
 
 [node name="MoabEntity" parent="World" node_paths=PackedStringArray("moab_explosion_system") instance=ExtResource("4_j5wjh")]
 position = Vector2(-216, -3288)

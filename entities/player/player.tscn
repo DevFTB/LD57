@@ -1082,7 +1082,7 @@ throw_cooldown = 0.6
 throw_force_curve = SubResource("Curve_qiwj3")
 throw_strength_curve = SubResource("Curve_26q78")
 maximum_throw_hold_time = 5.0
-unlocked_traversal_methods = Array[int]([1])
+unlocked_traversal_methods = Array[int]([0])
 
 [node name="Jetpack" type="Node2D" parent="."]
 script = ExtResource("10_wvtmh")

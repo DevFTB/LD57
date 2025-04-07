@@ -15,7 +15,7 @@ func set_health_component(hc: HealthComponent) -> void:
 	hc.maximum_health_modified.connect(_on_maximum_health_modified)
 	
 func _on_health_modified(_amount: int, current_health: int) -> void:
-	value = current_health
+	ratio = float(health_component.current_health) / float(health_component.maximum_health)
 	
 func _on_maximum_health_modified(maximum_health: int) -> void:
 	max_value = maximum_health

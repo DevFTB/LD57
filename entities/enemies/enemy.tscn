@@ -71,7 +71,6 @@ collision_mask = 783
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("10_sb13e")
-maximum_health = 100
 metadata/_custom_type_script = "uid://do5gnx1cf4tjg"
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_ipr6v")]
@@ -96,12 +95,8 @@ health_component = NodePath("../HealthComponent")
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
 bus = &"Sound FX"
 
-[connection signal="timeout" from="RefreshTimer" to="." method="_on_refresh_timer_timeout"]
 [connection signal="timeout" from="StateMachine/KnockedBack/KnockbackTimer" to="StateMachine/KnockedBack" method="_on_knockback_timer_timeout"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
-[connection signal="health_modified" from="HealthComponent" to="." method="_on_health_component_health_modified"]
-[connection signal="damage_applied" from="HurtboxComponent" to="." method="_on_hurtbox_component_damage_applied"]
-[connection signal="hurt_entity" from="HitboxComponent" to="." method="_on_hitbox_component_hurt_entity"]
 
 [editable path="HitboxComponent"]

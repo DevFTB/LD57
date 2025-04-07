@@ -51,7 +51,9 @@ var can_climb := false
 var current_depth := 0
 var blast_resistance := 0
 
-var world : Node
+var world: Node
+var frozen := false
+
 var current_movement_state: MovementState = MovementState.FREE
 
 @onready var mineral_inventory_component: InventoryComponent = $MineralInventoryComponent
@@ -67,7 +69,6 @@ var current_movement_state: MovementState = MovementState.FREE
 @onready var holding_bomb = $Sprite2D/BombSprites
 
 func _ready() -> void:
-	
 	upgrade_state.upgraded.connect(on_upgrade)
 	throw_released.connect(StatsManager.add_to_stat.bind(StatsManager.Stat.BOMBS_THROWN, 1).unbind(1))
 	if winch:
@@ -87,7 +88,7 @@ func _ready() -> void:
 
 	world = get_tree().get_first_node_in_group("world")
 	
-func on_upgrade(upgrade : Upgrade, tier):
+func on_upgrade(upgrade: Upgrade, tier):
 	match upgrade.upgrade_type:
 		PlayerUpgradeState.UpgradeType.JETPACK:
 			unlocked_traversal_methods.append(TraversalMethod.JETPACK)
@@ -111,7 +112,7 @@ func on_upgrade(upgrade : Upgrade, tier):
 		PlayerUpgradeState.UpgradeType.MULTIBOMB_AMOUNT:
 			multi_bomb_amount = upgrade_state.get_total_value(upgrade) + 1
 		PlayerUpgradeState.UpgradeType.BLAST_RESISTANCE: # logarithmic scale
-			hurtbox_component.blast_resistance_factor= upgrade_state.get_total_value(upgrade)
+			hurtbox_component.blast_resistance_factor = upgrade_state.get_total_value(upgrade)
 		PlayerUpgradeState.UpgradeType.STICKY_RESTOCK_AMOUNT:
 			modify_restock_inventory(preload("res://systems/inventory/items/item_sticky_bomb.tres"), upgrade_state.get_total_value(upgrade))
 		PlayerUpgradeState.UpgradeType.NUKE_RESTOCK_AMOUNT:
@@ -121,7 +122,7 @@ func on_upgrade(upgrade : Upgrade, tier):
 		PlayerUpgradeState.UpgradeType.SHRAPNEL_RESTOCK_AMOUNT:
 			modify_restock_inventory(preload("res://systems/inventory/items/item_shrapnel_bomb.tres"), upgrade_state.get_total_value(upgrade))
 
-func modify_restock_inventory(bomb_item : Item, amount : int):
+func modify_restock_inventory(bomb_item: Item, amount: int):
 	var inventory: Inventory = world.restock_inventory
 	inventory.remove_item(bomb_item, inventory.get_item_amount(bomb_item))
 	inventory.add_item(bomb_item, amount)
@@ -140,63 +141,66 @@ func free_movement(source: MovementState) -> void:
 		movement_state_changed.emit(current_movement_state)
 	
 func _physics_process(delta: float) -> void:
-	check_collisions()
-	
-	if not current_movement_state == MovementState.BLOCKED:
-		if can_climb:
-			rope_climb.handle_action(&"climb")
-		else:
-			if current_movement_state == MovementState.CLIMBING:
-				current_movement_state = MovementState.FREE
-		for method in unlocked_traversal_methods:
-			if method == TraversalMethod.GRAPPLE: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.GRAPPLE):
-				grapple_point.handle_action(&"traverse")
-			if method == TraversalMethod.JETPACK: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.JETPACK):
-				match jetpack.state:
-					jetpack.JetpackState.OFF:
-						if not is_on_floor():
+	if not frozen:
+		check_collisions()
+		if not current_movement_state == MovementState.BLOCKED:
+			if can_climb:
+				rope_climb.handle_action(&"climb")
+			else:
+				if current_movement_state == MovementState.CLIMBING:
+					current_movement_state = MovementState.FREE
+			for method in unlocked_traversal_methods:
+				if method == TraversalMethod.GRAPPLE: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.GRAPPLE):
+					grapple_point.handle_action(&"traverse")
+				if method == TraversalMethod.JETPACK: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.JETPACK):
+					match jetpack.state:
+						jetpack.JetpackState.OFF:
+							if not is_on_floor():
+								jetpack.handle_action(&"jump")
+						jetpack.JetpackState.ON:
 							jetpack.handle_action(&"jump")
-					jetpack.JetpackState.ON:
-						jetpack.handle_action(&"jump")
+			
+		match current_movement_state:
+			MovementState.FREE:
+				handle_jump()
+				handle_direction(delta)
+				handle_gravity(delta)
+			MovementState.GRAPPLE:
+				handle_grapple(delta)
+			MovementState.JETPACK:
+				handle_direction(delta)
+				handle_gravity(delta)
+				handle_jetpack(delta)
+			MovementState.BLOCKED:
+				pass
+			MovementState.CLIMBING:
+				handle_climbing(delta)
 		
-	match current_movement_state:
-		MovementState.FREE:
-			handle_jump()
-			handle_direction(delta)
-			handle_gravity(delta)
-		MovementState.GRAPPLE:
-			handle_grapple(delta)
-		MovementState.JETPACK:
-			handle_direction(delta)
-			handle_gravity(delta)
-			handle_jetpack(delta)
-		MovementState.BLOCKED:
-			pass
-		MovementState.CLIMBING:
-			handle_climbing(delta)
-	
-	apply_movement()
-	
-	current_depth = calculate_depth(global_position.y)
-	if not health_component.is_dead:
-		if Input.is_action_just_pressed("interact"):
-			interacted.emit()
-			
-		handle_bomb_switch(range(9))
+		apply_movement()
+		
+		current_depth = calculate_depth(global_position.y)
+		if not health_component.is_dead:
+			if Input.is_action_just_pressed("interact"):
+				interacted.emit()
+				
+			handle_bomb_switch(range(9))
 
-		if Input.is_action_just_pressed("throw"):
-			if can_throw == true:
-				initiate_throw()
+			if Input.is_action_just_pressed("throw"):
+				if can_throw == true:
+					initiate_throw()
 
-		if _holding_throw:
-			_throw_action_held_time += delta
-			
-			if Input.is_action_just_released("throw"):
-				var strength := throw_strength_curve.sample_baked(_throw_action_held_time)
-				_on_throw_release(strength)
+			if _holding_throw:
+				_throw_action_held_time += delta
+				
+				if Input.is_action_just_released("throw"):
+					var strength := throw_strength_curve.sample_baked(_throw_action_held_time)
+					_on_throw_release(strength)
 
-			if _throw_action_held_time > maximum_throw_hold_time:
-				_on_throw_release(1.0)
+				if _throw_action_held_time > maximum_throw_hold_time:
+					_on_throw_release(1.0)
+
+func freeze() -> void:
+	frozen = true
 
 func handle_bomb_switch(indexes: Array) -> void:
 	for i in indexes:
@@ -261,10 +265,9 @@ func _on_throw_release(strength = 1.0) -> void:
 		if bomb_inventory_component.inventory.has_item(selected_bomb_item):
 			for i in range(0, thrown_bomb_amount):
 				if multi_bomb:
-					data.impulse.y *= randf_range(1-(multi_bomb_amount*0.1),1+(multi_bomb_amount*0.1))
-					data.position += Vector2(0,-15)
+					data.impulse.y *= randf_range(1 - (multi_bomb_amount * 0.1), 1 + (multi_bomb_amount * 0.1))
+					data.position += Vector2(0, -15)
 					data.random_fuse = true
-					print("multithrow")
 				throw_released.emit(data)
 			bomb_inventory_component.inventory.remove_item(selected_bomb_item, 1)
 			if bomb_inventory_component.inventory.get_item_amount(selected_bomb_item) == 0:
@@ -275,7 +278,6 @@ func _on_throw_release(strength = 1.0) -> void:
 				data.impulse.y *= randf_range(1 - (multi_bomb_amount * 0.1), 1 + (multi_bomb_amount * 0.1))
 				data.position += Vector2(0, -15)
 				data.random_fuse = true
-				print("multithrow")
 			throw_released.emit(data)
 			
 

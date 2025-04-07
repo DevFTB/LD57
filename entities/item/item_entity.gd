@@ -9,7 +9,7 @@ var pickup_sound_scene = preload("res://systems/music_sfx/files/sfx/ui/pickup_so
 @onready var player_detector: PlayerDetectorArea2D = $PlayerDetectorArea2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var combination_area_2d: Area2D = $CombinationArea2D
-@onready var timer = $ExplosionTimer
+@onready var timer = $Timer
 
 const MAGNET_STRENGTH = 500
 var player: Player
@@ -29,7 +29,6 @@ func get_consumed() -> void:
 func consume() -> void:
 	if not is_queued_for_deletion():
 		var other_item_entities := combination_area_2d.get_overlapping_bodies()
-		print(other_item_entities.size())
 		for item_entity: ItemEntity in other_item_entities:
 			if not item_entity.is_queued_for_deletion() and not item_entity == self:
 				if item_entity.item == item:
