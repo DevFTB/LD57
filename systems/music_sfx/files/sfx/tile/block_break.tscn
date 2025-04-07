@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://b1vkc3c3dg3av"]
 
-[ext_resource type="Texture2D" uid="uid://c06peap37rqwa" path="res://systems/inventory/items/texture_upgradium.png" id="1_agh3l"]
+[ext_resource type="Texture2D" uid="uid://cqwuy4cxhj0gi" path="res://systems/inventory/items/texture_upgradium.png" id="1_agh3l"]
 [ext_resource type="Script" uid="uid://d2j2sm4grpsdq" path="res://systems/music_sfx/files/sfx/tile/block_break.gd" id="1_givdv"]
 [ext_resource type="AudioStream" uid="uid://dsbawt5jv1up" path="res://systems/music_sfx/files/sfx/tile/block_break.wav" id="2_agh3l"]
 

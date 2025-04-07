@@ -1,9 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://62qa0lv1bhdx"]
+[gd_scene load_steps=10 format=3 uid="uid://62qa0lv1bhdx"]
 
 [ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="1_otgj8"]
 [ext_resource type="Texture2D" uid="uid://pmstxd1ml6gm" path="res://entities/enemies/bat/bat.png" id="2_w0bok"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://dvj8glwqavlfj" path="res://entities/enemies/bat/bat_animation_tree.tres" id="3_0iyqo"]
 [ext_resource type="Script" uid="uid://8yq7eg5mbxvw" path="res://entities/enemies/enemy_animation_tree.gd" id="3_lmyjq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0iyqo"]
+radius = 25.2982
 
 [sub_resource type="Animation" id="Animation_w0bok"]
 length = 0.001
@@ -138,13 +141,13 @@ _data = {
 [node name="Enemy" instance=ExtResource("1_otgj8")]
 
 [node name="Sprite" parent="." index="0"]
-position = Vector2(8, 0)
+position = Vector2(-8, -8)
 scale = Vector2(-0.47, 0.47)
 texture = ExtResource("2_w0bok")
 hframes = 4
 
-[node name="HitboxComponent" parent="." index="9"]
-repeating = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="1"]
+shape = SubResource("CircleShape2D_0iyqo")
 
 [node name="AnimationPlayer" parent="." index="11"]
 libraries = {

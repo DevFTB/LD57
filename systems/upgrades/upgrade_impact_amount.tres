@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://cyic3f18h5328"]
+
+[ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_okqmc"]
+[ext_resource type="Texture2D" uid="uid://drtqquwv0qjtg" path="res://entities/throwables/bomb/impact_bomb.png" id="2_tq6vh"]
+
+[resource]
+script = ExtResource("1_okqmc")
+upgrade_type = 12
+mult = false
+tier_value_in_tooltip = true
+tooltip_string = "Impact bombs when resupplying at base"
+display_name = "Impact Bombs"
+texture = ExtResource("2_tq6vh")
+num_tiers = 2
+tier_costs = Array[int]([50, 100])
+tier_values = [2, 2]
+current_level_str = "[color=grey]%s[/color]"
+value_str = "[color=green](+%s)[/color] "
+metadata/_custom_type_script = "uid://dycw7l33nfhy8"

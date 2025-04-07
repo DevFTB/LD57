@@ -31,13 +31,15 @@ enum TraversalMethod {
 @export var base_magnet_range := 100
 @export var invulnerability_cooldown := 30
 
+@export var upgrade_state: PlayerUpgradeState = PlayerUpgradeState.new()
 
 var magnet_strength_multiplier = 1
 var bomb_damage_multiplier = 1
 var bomb_radius_multiplier = 1
 var jetpack_fuel_multiplier = 1
-var invulnerability_duration : float = 0
-
+var invulnerability_duration: float = 0
+var multi_bomb_chance_percent := 0.0
+var multi_bomb_amount := 1
 
 
 var _holding_throw := false
@@ -47,15 +49,17 @@ var can_throw := true
 var can_pickup := true
 var can_climb := false
 var current_depth := 0
+var blast_resistance := 0
 
-
-var upgrade_state: PlayerUpgradeState = PlayerUpgradeState.new()
+var world: Node
+var frozen := false
 
 var current_movement_state: MovementState = MovementState.FREE
 
 @onready var mineral_inventory_component: InventoryComponent = $MineralInventoryComponent
 @onready var bomb_inventory_component: InventoryComponent = $BombInventoryComponent
 @onready var health_component: HealthComponent = $HealthComponent
+@onready var hurtbox_component = $HurtboxComponent
 @onready var bomb_cooldown: Timer = $BombCooldown
 @onready var grapple_point: GrapplePoint = $GrapplePoint
 @onready var jetpack: Jetpack = $Jetpack
@@ -81,8 +85,10 @@ func _ready() -> void:
 	#connect signals
 	if health_component:
 		health_component.died.connect(_on_death)
-		
-func on_upgrade(upgrade : Upgrade, tier):
+
+	world = get_tree().get_first_node_in_group("world")
+	
+func on_upgrade(upgrade: Upgrade, tier):
 	match upgrade.upgrade_type:
 		PlayerUpgradeState.UpgradeType.JETPACK:
 			unlocked_traversal_methods.append(TraversalMethod.JETPACK)
@@ -101,7 +107,27 @@ func on_upgrade(upgrade : Upgrade, tier):
 			health_component.reset()
 		PlayerUpgradeState.UpgradeType.INVULNERABILITY:
 			invulnerability_duration = upgrade_state.get_total_value(upgrade)
+		PlayerUpgradeState.UpgradeType.MULTIBOMB:
+			multi_bomb_chance_percent = upgrade_state.get_total_value(upgrade)
+		PlayerUpgradeState.UpgradeType.MULTIBOMB_AMOUNT:
+			multi_bomb_amount = upgrade_state.get_total_value(upgrade) + 1
+		PlayerUpgradeState.UpgradeType.BLAST_RESISTANCE: # logarithmic scale
+			hurtbox_component.blast_resistance_factor = upgrade_state.get_total_value(upgrade)
+		PlayerUpgradeState.UpgradeType.STICKY_RESTOCK_AMOUNT:
+			modify_restock_inventory(preload("res://systems/inventory/items/item_sticky_bomb.tres"), upgrade_state.get_total_value(upgrade))
+		PlayerUpgradeState.UpgradeType.NUKE_RESTOCK_AMOUNT:
+			modify_restock_inventory(preload("res://systems/inventory/items/item_nuclear_bomb.tres"), upgrade_state.get_total_value(upgrade))
+		PlayerUpgradeState.UpgradeType.IMPACT_RESTOCK_AMOUNT:
+			modify_restock_inventory(preload("res://systems/inventory/items/item_impact_bomb.tres"), upgrade_state.get_total_value(upgrade))
+		PlayerUpgradeState.UpgradeType.SHRAPNEL_RESTOCK_AMOUNT:
+			modify_restock_inventory(preload("res://systems/inventory/items/item_shrapnel_bomb.tres"), upgrade_state.get_total_value(upgrade))
 
+func modify_restock_inventory(bomb_item: Item, amount: int):
+	var inventory: Inventory = world.restock_inventory
+	inventory.remove_item(bomb_item, inventory.get_item_amount(bomb_item))
+	inventory.add_item(bomb_item, amount)
+	world.restock_player(self)
+	
 
 func set_movement_state(new_movement_state: MovementState) -> void:
 	current_movement_state = new_movement_state
@@ -115,63 +141,66 @@ func free_movement(source: MovementState) -> void:
 		movement_state_changed.emit(current_movement_state)
 	
 func _physics_process(delta: float) -> void:
-	check_collisions()
-	
-	if not current_movement_state == MovementState.BLOCKED:
-		if can_climb:
-			rope_climb.handle_action(&"climb")
-		else:
-			if current_movement_state == MovementState.CLIMBING:
-				current_movement_state = MovementState.FREE
-		for method in unlocked_traversal_methods:
-			if method == TraversalMethod.GRAPPLE: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.GRAPPLE):
-				grapple_point.handle_action(&"traverse")
-			if method == TraversalMethod.JETPACK: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.JETPACK):
-				match jetpack.state:
-					jetpack.JetpackState.OFF:
-						if not is_on_floor():
+	if not frozen:
+		check_collisions()
+		if not current_movement_state == MovementState.BLOCKED:
+			if can_climb:
+				rope_climb.handle_action(&"climb")
+			else:
+				if current_movement_state == MovementState.CLIMBING:
+					current_movement_state = MovementState.FREE
+			for method in unlocked_traversal_methods:
+				if method == TraversalMethod.GRAPPLE: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.GRAPPLE):
+					grapple_point.handle_action(&"traverse")
+				if method == TraversalMethod.JETPACK: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.JETPACK):
+					match jetpack.state:
+						jetpack.JetpackState.OFF:
+							if not is_on_floor():
+								jetpack.handle_action(&"jump")
+						jetpack.JetpackState.ON:
 							jetpack.handle_action(&"jump")
-					jetpack.JetpackState.ON:
-						jetpack.handle_action(&"jump")
+			
+		match current_movement_state:
+			MovementState.FREE:
+				handle_jump()
+				handle_direction(delta)
+				handle_gravity(delta)
+			MovementState.GRAPPLE:
+				handle_grapple(delta)
+			MovementState.JETPACK:
+				handle_direction(delta)
+				handle_gravity(delta)
+				handle_jetpack(delta)
+			MovementState.BLOCKED:
+				pass
+			MovementState.CLIMBING:
+				handle_climbing(delta)
 		
-	match current_movement_state:
-		MovementState.FREE:
-			handle_jump()
-			handle_direction(delta)
-			handle_gravity(delta)
-		MovementState.GRAPPLE:
-			handle_grapple(delta)
-		MovementState.JETPACK:
-			handle_direction(delta)
-			handle_gravity(delta)
-			handle_jetpack(delta)
-		MovementState.BLOCKED:
-			pass
-		MovementState.CLIMBING:
-			handle_climbing(delta)
-	
-	apply_movement()
-	
-	current_depth = calculate_depth(global_position.y)
-	if not health_component.is_dead:
-		if Input.is_action_just_pressed("interact"):
-			interacted.emit()
-			
-		handle_bomb_switch(range(9))
+		apply_movement()
+		
+		current_depth = calculate_depth(global_position.y)
+		if not health_component.is_dead:
+			if Input.is_action_just_pressed("interact"):
+				interacted.emit()
+				
+			handle_bomb_switch(range(9))
 
-		if Input.is_action_just_pressed("throw"):
-			if can_throw == true:
-				initiate_throw()
+			if Input.is_action_just_pressed("throw"):
+				if can_throw == true:
+					initiate_throw()
 
-		if _holding_throw:
-			_throw_action_held_time += delta
-			
-			if Input.is_action_just_released("throw"):
-				var strength := throw_strength_curve.sample_baked(_throw_action_held_time)
-				_on_throw_release(strength)
+			if _holding_throw:
+				_throw_action_held_time += delta
+				
+				if Input.is_action_just_released("throw"):
+					var strength := throw_strength_curve.sample_baked(_throw_action_held_time)
+					_on_throw_release(strength)
 
-			if _throw_action_held_time > maximum_throw_hold_time:
-				_on_throw_release(1.0)
+				if _throw_action_held_time > maximum_throw_hold_time:
+					_on_throw_release(1.0)
+
+func freeze() -> void:
+	frozen = true
 
 func handle_bomb_switch(indexes: Array) -> void:
 	for i in indexes:
@@ -220,21 +249,37 @@ func _on_throw_release(strength = 1.0) -> void:
 	# apply upgrades		
 	bomb_type.hardness = bomb_type.hardness * bomb_damage_multiplier
 	bomb_type.explosion_radius = bomb_type.explosion_radius * bomb_radius_multiplier
+	var multi_bomb = false
+	var thrown_bomb_amount := 1
+	if randf_range(0, 100) <= multi_bomb_chance_percent:
+		multi_bomb = true
+		thrown_bomb_amount = 1 + multi_bomb_amount
 
 	var data := World.ThrowReleasedEventData.new()
 	data.position = global_position
-	data.impulse = direction.normalized() * throw_force_curve.sample_baked(strength)
+	data.impulse = direction.normalized() * throw_force_curve.sample_baked(strength) * bomb_type.bomb_velocity_modifier
 	data.bomb_type = bomb_type
 	
 	# Consume item from inventory if perishable
 	if bomb_type.is_perishable:
 		if bomb_inventory_component.inventory.has_item(selected_bomb_item):
-			throw_released.emit(data)
+			for i in range(0, thrown_bomb_amount):
+				if multi_bomb:
+					data.impulse.y *= randf_range(1 - (multi_bomb_amount * 0.1), 1 + (multi_bomb_amount * 0.1))
+					data.position += Vector2(0, -15)
+					data.random_fuse = true
+				throw_released.emit(data)
 			bomb_inventory_component.inventory.remove_item(selected_bomb_item, 1)
 			if bomb_inventory_component.inventory.get_item_amount(selected_bomb_item) == 0:
 				switch_selected_bomb(0)
 	else:
-		throw_released.emit(data)
+		for i in range(0, thrown_bomb_amount):
+			if multi_bomb:
+				data.impulse.y *= randf_range(1 - (multi_bomb_amount * 0.1), 1 + (multi_bomb_amount * 0.1))
+				data.position += Vector2(0, -15)
+				data.random_fuse = true
+			throw_released.emit(data)
+			
 
 #calculates depth based on spawn position
 func calculate_depth(current_y):

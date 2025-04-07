@@ -7,6 +7,9 @@
 [ext_resource type="Script" uid="uid://lc66av2lel3h" path="res://entities/import_animation_player.gd" id="5_cq2da"]
 [ext_resource type="Texture2D" uid="uid://wrcjvvyk7ho1" path="res://entities/enemies/spiky_ball/spiky_ball_roll.png" id="6_nr6jm"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_cq2da"]
+radius = 35.0571
+
 [sub_resource type="Animation" id="Animation_nr6jm"]
 length = 0.001
 tracks/0/type = "value"
@@ -122,7 +125,10 @@ hframes = 4
 frame = 1
 script = ExtResource("3_gww4m")
 
-[node name="AnimationPlayer" parent="." index="12"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="1"]
+shape = SubResource("CircleShape2D_cq2da")
+
+[node name="AnimationPlayer" parent="." index="11"]
 libraries = {
 &"": SubResource("AnimationLibrary_cq2da")
 }

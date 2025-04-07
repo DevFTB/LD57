@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://lp27oeriponm"]
+
+[ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_vf0pf"]
+[ext_resource type="Texture2D" uid="uid://dluvc0f6knj8p" path="res://entities/throwables/bomb/shapnel_bomb.png" id="2_6rnya"]
+
+[resource]
+script = ExtResource("1_vf0pf")
+upgrade_type = 13
+mult = false
+tier_value_in_tooltip = true
+tooltip_string = "Shrapnel bombs when resupplying at base"
+display_name = "Shrapnel Bombs"
+texture = ExtResource("2_6rnya")
+num_tiers = 2
+tier_costs = Array[int]([25, 50])
+tier_values = [2, 2]
+current_level_str = "[color=grey]%s[/color]"
+value_str = "[color=green](+%s)[/color] "
+metadata/_custom_type_script = "uid://dycw7l33nfhy8"

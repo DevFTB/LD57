@@ -1,7 +1,7 @@
 extends Control
 
 @export var spawn_area_detector: PlayerDetectorArea2D
-@onready var upgrade_tree : UpgradeTree = $SubViewport/UpgradeTree
+@onready var upgrade_tree: UpgradeTree = $SubViewport/UpgradeTree
 
 var toggleable := true
 

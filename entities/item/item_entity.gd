@@ -3,21 +3,40 @@ class_name ItemEntity
 
 @export var item: Item
 @export var quantity: int = 1
-
+var consumed := 0
 var pickup_sound_scene = preload("res://systems/music_sfx/files/sfx/ui/pickup_sound.tscn")
 
 @onready var player_detector: PlayerDetectorArea2D = $PlayerDetectorArea2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var combination_area_2d: Area2D = $CombinationArea2D
+@onready var timer = $Timer
 
 const MAGNET_STRENGTH = 500
-var player : Player
+var player: Player
 
 func _ready() -> void:
 	sprite_2d.texture = item.texture
 	player_detector.player_entered.connect(_on_player_entered)
 	player = get_tree().get_first_node_in_group("player")
+	if timer:
+		timer.wait_time += randf()
+		timer.timeout.connect(consume, ConnectFlags.CONNECT_DEFERRED)
 
+func get_consumed() -> void:
+	if consumed > 0:
+		queue_free()
 
+func consume() -> void:
+	if not is_queued_for_deletion():
+		var other_item_entities := combination_area_2d.get_overlapping_bodies()
+		for item_entity: ItemEntity in other_item_entities:
+			if not item_entity.is_queued_for_deletion() and not item_entity == self:
+				if item_entity.item == item:
+					quantity += item_entity.quantity
+					item_entity.queue_free()
+					consumed += 1
+		
+	#prints(name, consumed)
 
 func _on_player_entered(player: Player) -> void:
 	if player.can_pickup:
@@ -30,11 +49,9 @@ func _on_player_entered(player: Player) -> void:
 		sound.global_position = global_position
 		queue_free()
 
-func _process(delta:float) -> void:
+func _process(delta: float) -> void:
 	var player_vector = player.global_position - global_position
 	var magnet_range = player.get_magnet_range()
 	var distance = player_vector.length()
 	if distance < player.get_magnet_range():
 		apply_central_force(player_vector * MAGNET_STRENGTH * player.magnet_strength_multiplier / distance)
-		
-	

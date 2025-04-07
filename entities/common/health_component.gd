@@ -1,7 +1,7 @@
 extends Node
 class_name HealthComponent
 
-signal maximum_health_modified(new_maximum : int)
+signal maximum_health_modified(new_maximum: int)
 
 ## emitted when either taking damage or healing
 signal health_modified(amount: int, new_health: int)
@@ -10,21 +10,19 @@ signal health_modified(amount: int, new_health: int)
 signal died
 
 ## current_health cannot exceed this value by healing
-@export var base_maximum_health : int = 5
+@export var base_maximum_health: int = 5
 
 ## cannot take damage if invulnerable.
-@export var is_invulnerable : bool = false
+@export var is_invulnerable: bool = false
 
 ## set to true when the current_health has dropped to or past 0.
-var is_dead : bool = false
+var is_dead: bool = false
 
-@onready var maximum_health : int = base_maximum_health
+@onready var maximum_health: int = base_maximum_health
 
-@onready var current_health : int = maximum_health
-
+@onready var current_health: int = maximum_health
 
 	
-
 func _ready() -> void:
 	set_maximum_health(maximum_health)
 	health_modified.emit(0, current_health)
@@ -45,6 +43,7 @@ func heal(amount: int) -> void:
 
 func take_damage(amount: int) -> void:
 	if amount < 0:
+		print_stack()
 		push_warning("Damage shouldn't be negative")
 		return
 
@@ -62,4 +61,3 @@ func reset():
 	current_health = maximum_health
 	is_dead = false
 	health_modified.emit(0, maximum_health)
-	

@@ -1,11 +1,12 @@
 [gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://bsytuw721i88d"]
 
 [ext_resource type="Script" uid="uid://da7hjs20aj38i" path="res://systems/inventory/item.gd" id="1_sqng8"]
-[ext_resource type="Texture2D" uid="uid://c06peap37rqwa" path="res://systems/inventory/items/texture_upgradium.png" id="2_6e1m6"]
+[ext_resource type="Texture2D" uid="uid://cqwuy4cxhj0gi" path="res://systems/inventory/items/texture_upgradium.png" id="2_6e1m6"]
 
 [resource]
 script = ExtResource("1_sqng8")
 id = &"upgradium"
 display_name = "Upgradium"
 texture = ExtResource("2_6e1m6")
+data_components = Dictionary[int, Variant]({})
 metadata/_custom_type_script = "uid://da7hjs20aj38i"
