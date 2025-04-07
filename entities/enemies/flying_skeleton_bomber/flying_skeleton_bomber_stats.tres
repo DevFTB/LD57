@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyStats" load_steps=5 format=3 uid="uid://ck0egrdd81y68"]
 
 [ext_resource type="AudioStream" uid="uid://2444sxpwg05u" path="res://systems/music_sfx/files/sfx/enemies/skeleton deathwav.wav" id="1_v8nmo"]
-[ext_resource type="Texture2D" uid="uid://5eotavc3ynea" path="res://entities/enemies/skeleton_bomber/texture_skeleton_bomber.png" id="2_6l5hj"]
+[ext_resource type="Texture2D" uid="uid://cj8c2a0redeqy" path="res://entities/enemies/flying_skeleton_bomber/skeleton_death_icon.png" id="2_0pe6k"]
 [ext_resource type="AudioStream" uid="uid://m8ocays85axa" path="res://systems/music_sfx/files/sfx/enemies/skeleton hurt.wav" id="3_b3cay"]
 [ext_resource type="Script" uid="uid://bvi6ww4ywm8ge" path="res://entities/enemies/enemy_stats.gd" id="4_hfudw"]
 
@@ -15,6 +15,6 @@ range = 8.0
 is_grounded = false
 hurt_sound = ExtResource("3_b3cay")
 death_sound = ExtResource("1_v8nmo")
-death_sprite = ExtResource("2_6l5hj")
-death_sprite_scale = Vector2(0.5, 0.5)
+death_sprite = ExtResource("2_0pe6k")
+death_sprite_scale = Vector2(0.25, 0.25)
 metadata/_custom_type_script = "uid://bvi6ww4ywm8ge"
