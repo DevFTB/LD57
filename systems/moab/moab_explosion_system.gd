@@ -4,6 +4,8 @@ class_name MoabExplosionSystem
 @export var time_scale: float = 1.0
 @export var bomb_timer_starting_value: float = 300.0 # time in seconds for bomb to explode
 
+var current_danger_mode = false
+
 var bomb_max_value: float
 var bomb_timer: float:
 	set(value):
@@ -29,6 +31,21 @@ func _process(delta):
 	# 	print("Game is over, bomb explodied sadge")
 		
 	_total_time_passed += delta
+	
+	if seconds_left < 90.0:
+		if current_danger_mode == false:
+			current_danger_mode = true
+			var bomb_tween = get_tree().create_tween()
+			$BombDangerSound.play()
+			bomb_tween.tween_property($BombDangerSound, "pitch_scale", 1.8, seconds_left)
+			$"../Music".music_muted(true)
+		print("DANGER")
+	elif seconds_left >= 90.0 : 
+		current_danger_mode = false
+		$BombDangerSound.stop()
+		$BombDangerSound.pitch_scale = 1
+		$"../Music".music_muted(false)
+
 
 func add_to_timer(items_provided: int) -> void:
 	var time_added := items_provided / get_items_per_second(_total_time_passed)
