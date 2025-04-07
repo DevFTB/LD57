@@ -198,8 +198,8 @@ func _physics_process(delta: float) -> void:
 					
 			
 			if Input.is_action_just_pressed("interact"):
-				interacted.emit()
-			if Input.is_action_pressed("interact"):
+				interacted.emit(0)
+			elif Input.is_action_pressed("interact"):
 				continuous_interaction_frames += 1
 				interacted.emit(continuous_interaction_frames)
 			else:

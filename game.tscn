@@ -663,7 +663,6 @@ player = NodePath("../../../../../../World/Player")
 timer = NodePath("../../../../../../World/Player/GrapplePoint/GrappleCooldown")
 
 [node name="InvulnerabillityBar" parent="GUI/HUD/VBoxContainer/HBoxContainer3" index="1" node_paths=PackedStringArray("player", "timer")]
-visible = false
 player = NodePath("../../../../../World/Player")
 timer = NodePath("../../../../../World/Player/InvulnerabilityCooldown")
 
@@ -697,19 +696,20 @@ visible = false
 [node name="UpgradeGUI" type="SubViewportContainer" parent="GUI" node_paths=PackedStringArray("spawn_area_detector")]
 process_mode = 3
 z_index = 2
-anchors_preset = -1
-anchor_left = 0.5
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 stretch = true
 script = ExtResource("14_e8heu")
 spawn_area_detector = NodePath("../../World/Spawn/SpawnAreaPlayerDetector")
 
 [node name="SubViewport" type="SubViewport" parent="GUI/UpgradeGUI"]
 handle_input_locally = false
-size = Vector2i(960, 1080)
+size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="NinePatchRect2" type="ColorRect" parent="GUI/UpgradeGUI/SubViewport"]
@@ -724,19 +724,20 @@ color = Color(0.156686, 0.0981791, 0.0880168, 0.635294)
 anchors_preset = -1
 anchor_left = 0.339
 anchor_right = 0.339
-offset_left = -1302.38
+offset_left = -1302.23
 offset_top = -2109.0
-offset_right = 2545.62
+offset_right = 2545.77
 offset_bottom = 2243.0
+scale = Vector2(0.685, 0.685)
 
 [node name="Music" parent="." instance=ExtResource("23_qhcbd")]
+process_mode = 3
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.36968, 0.328359, 0.176195, 1)
 
 [connection signal="timeout" from="World/Spawner/SpawnTimer" to="World/Spawner" method="_on_spawn_timer_timeout"]
 [connection signal="depth_changed" from="World/Player" to="Music" method="_on_player_depth_changed"]
-[connection signal="timeout" from="World/Player/InvulnerabilityCooldown" to="World/Player" method="_on_invulnerability_cooldown_timeout"]
 [connection signal="health_modified" from="World/Player/HealthComponent" to="World/Player" method="_on_health_component_health_modified"]
 [connection signal="timeout" from="World/Player/InvulnerabilityDuration" to="World/Player" method="_on_invulnerability_duration_timeout"]
 [connection signal="player_entered" from="World/Spawn/SpawnAreaPlayerDetector" to="World" method="_on_spawn_area_player_detector_player_entered"]
