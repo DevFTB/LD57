@@ -125,6 +125,9 @@ hframes = 4
 frame = 1
 script = ExtResource("3_gww4m")
 
+[node name="HitboxComponent" parent="." index="10"]
+damage = 5
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="1"]
 shape = SubResource("CircleShape2D_cq2da")
 
