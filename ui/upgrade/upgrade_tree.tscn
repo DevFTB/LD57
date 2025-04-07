@@ -1,0 +1,376 @@
+[gd_scene load_steps=10 format=3 uid="uid://b3cnp6fsypd5"]
+
+[ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="1_kku6u"]
+[ext_resource type="Script" uid="uid://08b32ubcmb2e" path="res://ui/upgrade/upgrade_tree.gd" id="1_m7apr"]
+[ext_resource type="Resource" uid="uid://b6nkhnlvgtk7s" path="res://systems/upgrades/upgrade_bomb_hardness.tres" id="2_m7apr"]
+[ext_resource type="Resource" uid="uid://pn1yg60fm2h1" path="res://systems/upgrades/upgrade_health.tres" id="3_m7apr"]
+[ext_resource type="Resource" uid="uid://b6xkpnkwkffbg" path="res://systems/upgrades/upgrade_bomb_radius.tres" id="3_tsxcs"]
+[ext_resource type="Resource" uid="uid://c1q8kqvleqg17" path="res://systems/upgrades/upgrade_magnet.tres" id="4_pgr47"]
+[ext_resource type="Resource" uid="uid://bpwardgn02pyv" path="res://systems/upgrades/upgrade_grapple_range.tres" id="6_pgr47"]
+[ext_resource type="Resource" uid="uid://dwdep7v4xw104" path="res://systems/upgrades/upgrade_jetpack.tres" id="7_pgr47"]
+[ext_resource type="Resource" uid="uid://dye4bvtjqdm26" path="res://systems/upgrades/upgrade_jetpack_fuel.tres" id="8_ev5ml"]
+
+[node name="UpgradeTree" type="ColorRect"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1924.0
+offset_top = -2176.0
+offset_right = 1924.0
+offset_bottom = 2176.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.35554, 0.00955138, 0.237468, 0)
+script = ExtResource("1_m7apr")
+
+[node name="Health" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1937.0
+offset_top = 2556.0
+offset_right = 2001.0
+offset_bottom = 2647.0
+upgrade = ExtResource("3_m7apr")
+
+[node name="Magnet" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1636.0
+offset_top = 2390.0
+offset_right = 1700.0
+offset_bottom = 2481.0
+upgrade = ExtResource("4_pgr47")
+dependecies = {
+NodePath("../Health"): 2,
+NodePath("../Radius"): 2
+}
+
+[node name="Magnet2" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1628.0
+offset_top = 2212.0
+offset_right = 1692.0
+offset_bottom = 2303.0
+upgrade = ExtResource("4_pgr47")
+dependecies = {
+NodePath("../Magnet"): 3
+}
+tier = 1
+
+[node name="Magnet3" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1614.0
+offset_top = 1968.0
+offset_right = 1710.0
+offset_bottom = 2096.0
+upgrade = ExtResource("4_pgr47")
+dependecies = {
+NodePath("../Magnet2"): 3
+}
+tier = 2
+
+[node name="Magnet4" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1612.0
+offset_top = 1793.0
+offset_right = 1708.0
+offset_bottom = 1921.0
+upgrade = ExtResource("4_pgr47")
+dependecies = {
+NodePath("../Magnet3"): 3
+}
+max_level = 1
+tier = 3
+
+[node name="Health2" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1932.0
+offset_top = 2367.0
+offset_right = 1996.0
+offset_bottom = 2458.0
+upgrade = ExtResource("3_m7apr")
+dependecies = {
+NodePath("../Health"): 2
+}
+tier = 1
+
+[node name="Health3" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1930.0
+offset_top = 2203.0
+offset_right = 1994.0
+offset_bottom = 2294.0
+upgrade = ExtResource("3_m7apr")
+dependecies = {
+NodePath("../Health2"): 3
+}
+max_level = 7
+tier = 2
+
+[node name="Radius" parent="." instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1416.0
+offset_top = 2622.0
+offset_right = 1480.0
+offset_bottom = 2713.0
+upgrade = ExtResource("3_tsxcs")
+max_level = 5
+
+[node name="Radius2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1390.0
+offset_top = 2371.0
+offset_right = 1454.0
+offset_bottom = 2462.0
+upgrade = ExtResource("3_tsxcs")
+dependecies = {
+NodePath("../Radius"): 2
+}
+max_level = 4
+tier = 1
+
+[node name="Radius3" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1378.0
+offset_top = 2208.0
+offset_right = 1442.0
+offset_bottom = 2299.0
+upgrade = ExtResource("3_tsxcs")
+dependecies = {
+NodePath("../Radius2"): 2
+}
+tier = 2
+
+[node name="Radius4" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1362.0
+offset_top = 2010.0
+offset_right = 1426.0
+offset_bottom = 2101.0
+upgrade = ExtResource("3_tsxcs")
+dependecies = {
+NodePath("../Radius3"): 3
+}
+max_level = 7
+tier = 3
+
+[node name="Radius5" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1341.0
+offset_top = 1781.0
+offset_right = 1437.0
+offset_bottom = 1909.0
+upgrade = ExtResource("3_tsxcs")
+dependecies = {
+NodePath("../Radius4"): 3
+}
+tier = 4
+
+[node name="Damage1" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1110.0
+offset_top = 2414.0
+offset_right = 1174.0
+offset_bottom = 2505.0
+upgrade = ExtResource("2_m7apr")
+dependecies = {
+NodePath("../Radius"): 2
+}
+
+[node name="Damage2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1106.0
+offset_top = 2216.0
+offset_right = 1170.0
+offset_bottom = 2307.0
+upgrade = ExtResource("2_m7apr")
+dependecies = {
+NodePath("../Damage1"): 3
+}
+max_level = 4
+tier = 1
+
+[node name="Damage3" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1105.0
+offset_top = 2012.0
+offset_right = 1169.0
+offset_bottom = 2103.0
+upgrade = ExtResource("2_m7apr")
+dependecies = {
+NodePath("."): 3
+}
+max_level = 7
+tier = 2
+
+[node name="GrappleCD" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2387.0
+offset_top = 2585.0
+offset_right = 2451.0
+offset_bottom = 2676.0
+upgrade = ExtResource("6_pgr47")
+
+[node name="GrappleCD2" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2268.0
+offset_top = 2355.0
+offset_right = 2332.0
+offset_bottom = 2446.0
+upgrade = ExtResource("6_pgr47")
+dependecies = {
+NodePath("../GrappleCD"): 3
+}
+tier = 1
+
+[node name="GrappleCD3" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2263.0
+offset_top = 2212.0
+offset_right = 2327.0
+offset_bottom = 2303.0
+upgrade = ExtResource("6_pgr47")
+dependecies = {
+NodePath("../GrappleCD2"): 2
+}
+tier = 2
+
+[node name="Jetpack" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2494.0
+offset_top = 2231.0
+offset_right = 2558.0
+offset_bottom = 2322.0
+upgrade = ExtResource("7_pgr47")
+dependecies = {
+NodePath("../GrappleCD2"): 3
+}
+max_level = 1
+
+[node name="JetpackFuel" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2486.0
+offset_top = 2043.0
+offset_right = 2582.0
+offset_bottom = 2171.0
+upgrade = ExtResource("8_ev5ml")
+dependecies = {
+NodePath("../Jetpack"): 1
+}
+
+[node name="JetpackFuel2" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2488.0
+offset_top = 1879.0
+offset_right = 2584.0
+offset_bottom = 2007.0
+upgrade = ExtResource("8_ev5ml")
+dependecies = {
+NodePath("../JetpackFuel"): 3
+}
+tier = 1

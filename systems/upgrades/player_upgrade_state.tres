@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PlayerUpgradeState" load_steps=3 format=3 uid="uid://1536g4n66bkb"]
+
+[ext_resource type="Script" uid="uid://dugteq684yrb3" path="res://systems/upgrades/player_upgrade_state.gd" id="1_s1ry2"]
+[ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="2_cdolk"]
+
+[resource]
+script = ExtResource("1_s1ry2")
+upgrades = Dictionary[int, ExtResource("2_cdolk")]({})
+metadata/_custom_type_script = "uid://dugteq684yrb3"

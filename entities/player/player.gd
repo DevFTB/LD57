@@ -26,8 +26,17 @@ enum TraversalMethod {
 @export var throw_force_curve: Curve
 @export var throw_strength_curve: Curve
 @export var maximum_throw_hold_time := 1.0
-@export var blast_resistance_factor := 0.5
+@export var blast_resistance_factor := 1
 @export var unlocked_traversal_methods: Array[TraversalMethod] = []
+@export var base_magnet_range := 100
+@export var invulnerability_cooldown := 30
+
+
+var magnet_strength_multiplier = 1
+var bomb_damage_multiplier = 1
+var bomb_radius_multiplier = 1
+var jetpack_fuel_multiplier = 1
+var invulnerability_duration : float = 0
 
 
 
@@ -56,6 +65,7 @@ var current_movement_state: MovementState = MovementState.FREE
 @onready var holding_bomb = $Sprite2D/BombSprites
 
 func _ready() -> void:
+	upgrade_state.upgraded.connect(on_upgrade)
 	throw_released.connect(StatsManager.add_to_stat.bind(StatsManager.Stat.BOMBS_THROWN, 1).unbind(1))
 	if winch:
 		winch.rope_area.body_entered.connect(_on_rope_entered)
@@ -72,12 +82,27 @@ func _ready() -> void:
 	if health_component:
 		health_component.died.connect(_on_death)
 		
-func unlock_traversal_method(method: TraversalMethod) -> void:
-	if not unlocked_traversal_methods.has(method):
-		unlocked_traversal_methods.append(method)
-		traversal_method_unlocked.emit(method)
-	pass
-		
+func on_upgrade(upgrade : Upgrade, tier):
+	match upgrade.upgrade_type:
+		PlayerUpgradeState.UpgradeType.JETPACK:
+			unlocked_traversal_methods.append(TraversalMethod.JETPACK)
+		PlayerUpgradeState.UpgradeType.BOMB_HARDNESS:
+			bomb_damage_multiplier = upgrade_state.get_total_value(upgrade)
+		PlayerUpgradeState.UpgradeType.BOMB_RADIUS:
+			bomb_radius_multiplier = upgrade_state.get_total_value(upgrade)
+		PlayerUpgradeState.UpgradeType.GRAPPLE_RANGE:
+			grapple_point.grapple_range_multiplier = upgrade_state.get_total_value(upgrade)
+		PlayerUpgradeState.UpgradeType.JETPACK_FUEL:
+			jetpack.fuel_multiplier = upgrade_state.get_total_value(upgrade)
+		PlayerUpgradeState.UpgradeType.MAGNET:
+			magnet_strength_multiplier = upgrade_state.get_total_value(upgrade)
+		PlayerUpgradeState.UpgradeType.HEALTH:
+			health_component.set_maximum_health(health_component.base_maximum_health + upgrade_state.get_total_value(upgrade))
+			health_component.reset()
+		PlayerUpgradeState.UpgradeType.INVULNERABILITY:
+			invulnerability_duration = upgrade_state.get_total_value(upgrade)
+
+
 func set_movement_state(new_movement_state: MovementState) -> void:
 	current_movement_state = new_movement_state
 	movement_state_changed.emit(new_movement_state)
@@ -147,7 +172,7 @@ func _physics_process(delta: float) -> void:
 
 			if _throw_action_held_time > maximum_throw_hold_time:
 				_on_throw_release(1.0)
-	
+
 func handle_bomb_switch(indexes: Array) -> void:
 	for i in indexes:
 		var action := "select_bomb_%d" % (i + 1)
@@ -173,8 +198,6 @@ func switch_selected_bomb(index: int) -> void:
 		selected_bomb_item = items[index]
 		selected_bomb_changed.emit(selected_bomb_item)
 		
-const UPGRADE_BOMB_HARDNESS = preload("res://systems/upgrades/upgrade_bomb_hardness.tres")
-const UPGRADE_BOMB_RADIUS = preload("res://systems/upgrades/upgrade_bomb_radius.tres")
 func initiate_throw() -> void:
 	_holding_throw = true
 	throw_initiated.emit()
@@ -194,9 +217,9 @@ func _on_throw_release(strength = 1.0) -> void:
 	# Get bomb type from selected item.
 	var bomb_type: BombType = (selected_bomb_item.get_data_component(Item.DataCompontents.BOMB_DATA_COMPONENT)).duplicate()
 	
-	# apply upgrades
-	bomb_type.hardness += upgrade_state.get_value(UPGRADE_BOMB_HARDNESS)
-	bomb_type.explosion_radius += upgrade_state.get_value(UPGRADE_BOMB_RADIUS)
+	# apply upgrades		
+	bomb_type.hardness = bomb_type.hardness * bomb_damage_multiplier
+	bomb_type.explosion_radius = bomb_type.explosion_radius * bomb_radius_multiplier
 
 	var data := World.ThrowReleasedEventData.new()
 	data.position = global_position
@@ -270,3 +293,6 @@ func _on_selected_bomb_changed(bomb):
 	for child in holding_bomb.get_children():
 		child.texture = bomb.texture
 	pass # Replace with function body.
+
+func get_magnet_range():
+	return base_magnet_range * magnet_strength_multiplier

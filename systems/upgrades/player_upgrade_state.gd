@@ -1,18 +1,38 @@
 extends Resource
 class_name PlayerUpgradeState
 
-var upgrade_tiers: Dictionary[Upgrade, int]
+signal upgraded(upgrade: Upgrade, tier)
 
-func get_tier(upgrade: Upgrade) -> int:
-	return upgrade_tiers.get(upgrade, 0)
+enum UpgradeType {
+	BOMB_RADIUS, BOMB_HARDNESS, GRAPPLE_RANGE, HEALTH, JETPACK, MAGNET, JETPACK_FUEL, INVULNERABILITY
+}
 
-func get_value(upgrade: Upgrade) -> Variant:
-	return upgrade.tier_value_map[get_tier(upgrade)]
+@export var upgrades : Dictionary[UpgradeType, Upgrade]
 
-func increment_upgrade_tier(upgrade: Upgrade) -> void:
-	var current_tier := get_tier(upgrade)
-	upgrade.upgraded.emit()
-	if upgrade.num_tiers > current_tier + 1:
-		upgrade_tiers.set(upgrade, current_tier + 1)
+var upgrade_tier_levels: Dictionary[Upgrade, Array]
+
+func get_tier_level(upgrade: Upgrade, tier) -> int:
+	var levels = upgrade_tier_levels.get_or_add(upgrade, Array())
+	if levels.is_empty():
+		levels.resize(upgrade.num_tiers)
+		levels.fill(0)
+	return levels[tier]
+
+func get_tier_value(upgrade: Upgrade, tier) -> Variant:
+	if upgrade.mult: return ((upgrade.tier_values[tier] - 1) * get_tier_level(upgrade, tier)) + 1
+	return upgrade.tier_values[tier] * get_tier_level(upgrade, tier)
+
+func increment_upgrade_tier_level(upgrade: Upgrade, tier) -> void:
+	var current_tier := get_tier_level(upgrade, tier)
+	upgrade_tier_levels.get(upgrade)[tier] += 1
+	emit_changed()
+	upgraded.emit(upgrade, tier)
+
+func get_total_value(upgrade: Upgrade) -> Variant:
+	var cumulative = 0
+	if upgrade.mult: cumulative = 1
+	for tier in range(upgrade.num_tiers):
+		if upgrade.mult: cumulative = cumulative * get_tier_value(upgrade, tier)
+		else: cumulative += get_tier_value(upgrade, tier)
+	return cumulative
 		
-		emit_changed()

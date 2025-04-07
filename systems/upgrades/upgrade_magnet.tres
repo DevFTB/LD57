@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://c1q8kqvleqg17"]
+
+[ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_qf63n"]
+
+[resource]
+script = ExtResource("1_qf63n")
+upgrade_type = 5
+mult = true
+tier_value_in_tooltip = true
+tooltip_string = "more magnet range"
+display_name = "Item"
+num_tiers = 4
+tier_costs = Array[int]([5, 10, 20, 40])
+tier_values = [1.1, 1.2, 1.4, 1.7]
+current_level_str = "[color=grey]%s[/color]"
+value_str = "[color=green](+%s)[/color] "
+metadata/_custom_type_script = "uid://dycw7l33nfhy8"
