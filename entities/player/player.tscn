@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://be4tedtvsf8on"]
+[gd_scene load_steps=77 format=3 uid="uid://be4tedtvsf8on"]
 
 [ext_resource type="Script" uid="uid://uex2tapn1k1y" path="res://entities/player/player.gd" id="1_merdl"]
 [ext_resource type="Texture2D" uid="uid://o2j8sch5klsg" path="res://entities/player/animations/idle.png" id="2_7thud"]
@@ -24,6 +24,7 @@
 [ext_resource type="AudioStream" uid="uid://dis0is1c00khw" path="res://systems/music_sfx/files/sfx/throw sound.wav" id="20_mtric"]
 [ext_resource type="AudioStream" uid="uid://gllb6uw3s25f" path="res://systems/music_sfx/files/sfx/player/damage.wav" id="21_eyb6c"]
 [ext_resource type="AudioStream" uid="uid://tpulestneq76" path="res://systems/music_sfx/files/sfx/player/death.wav" id="22_221hk"]
+[ext_resource type="Script" uid="uid://bim3pfpf1ea4l" path="res://entities/player/rope_climb.gd" id="24_t1t22"]
 
 [sub_resource type="Curve" id="Curve_qiwj3"]
 _limits = [0.0, 1000.0, 0.0, 1.0]
@@ -947,7 +948,7 @@ throw_cooldown = 0.6
 throw_force_curve = SubResource("Curve_qiwj3")
 throw_strength_curve = SubResource("Curve_26q78")
 maximum_throw_hold_time = 5.0
-unlocked_traversal_methods = Array[int]([1, 2])
+unlocked_traversal_methods = Array[int]([1, 0])
 
 [node name="Jetpack" type="Node2D" parent="."]
 script = ExtResource("10_wvtmh")
@@ -1061,5 +1062,9 @@ bus = &"Sound FX"
 stream = ExtResource("22_221hk")
 volume_db = 8.0
 bus = &"Sound FX"
+
+[node name="RopeClimb" type="Node2D" parent="."]
+script = ExtResource("24_t1t22")
+climb_speed = 150.0
 
 [connection signal="timeout" from="BombCooldown" to="." method="_on_bomb_cooldown_timeout"]

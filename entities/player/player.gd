@@ -12,7 +12,7 @@ signal movement_state_changed(new_movement_state: MovementState)
 signal died
 
 enum MovementState {
-	FREE, GRAPPLE, JETPACK, BLOCKED
+	FREE, GRAPPLE, JETPACK, BLOCKED, CLIMBING
 }
 
 enum TraversalMethod {
@@ -33,6 +33,7 @@ var _throw_action_held_time := 0.0
 var selected_bomb_item: Item
 var can_throw := true
 var can_pickup := true
+var can_climb := false
 var current_depth := 0
 
 var upgrade_state: PlayerUpgradeState = PlayerUpgradeState.new()
@@ -45,11 +46,16 @@ var current_movement_state: MovementState = MovementState.FREE
 @onready var bomb_cooldown: Timer = $BombCooldown
 @onready var grapple_point: GrapplePoint = $GrapplePoint
 @onready var jetpack: Jetpack = $Jetpack
+@onready var rope_climb : RopeClimb = $RopeClimb
 @onready var spawn_location: Vector2 = global_position
+@onready var winch = $"../Winch"
 
 func _ready() -> void:
 	throw_released.connect(StatsManager.add_to_stat.bind(StatsManager.Stat.BOMBS_THROWN, 1).unbind(1))
-
+	if winch:
+		winch.rope_area.body_entered.connect(_on_rope_entered)
+		winch.rope_area.body_exited.connect(_on_rope_exited)
+	
 	var inv := bomb_inventory_component.inventory
 	bomb_cooldown.wait_time = throw_cooldown
 	if inv.size() > 0:
@@ -73,9 +79,14 @@ func free_movement(source: MovementState) -> void:
 		movement_state_changed.emit(current_movement_state)
 	
 func _physics_process(delta: float) -> void:
-	check_collsions()
+	check_collisions()
 	
 	if not current_movement_state == MovementState.BLOCKED:
+		if can_climb:
+			rope_climb.handle_action(&"climb")
+		else:
+			if current_movement_state == MovementState.CLIMBING:
+				current_movement_state = MovementState.FREE
 		for method in unlocked_traversal_methods:
 			if method == TraversalMethod.GRAPPLE: # and (current_movement_state == MovementState.FREE or current_movement_state == MovementState.GRAPPLE):
 				grapple_point.handle_action(&"traverse")
@@ -86,7 +97,7 @@ func _physics_process(delta: float) -> void:
 							jetpack.handle_action(&"jump")
 					jetpack.JetpackState.ON:
 						jetpack.handle_action(&"jump")
-	
+		
 	match current_movement_state:
 		MovementState.FREE:
 			handle_jump()
@@ -100,6 +111,8 @@ func _physics_process(delta: float) -> void:
 			handle_jetpack(delta)
 		MovementState.BLOCKED:
 			pass
+		MovementState.CLIMBING:
+			handle_climbing(delta)
 	
 	apply_movement()
 	
@@ -134,7 +147,10 @@ func handle_grapple(delta: float) -> void:
 
 func handle_jetpack(delta: float) -> void:
 	_frame_velocity = jetpack.calculate_frame_velocity(delta)
-	
+
+func handle_climbing(delta:float) -> void:
+	_frame_velocity = rope_climb.calculate_frame_velocity(delta)
+
 func _process(delta):
 	if not health_component.is_dead:
 		super._process(delta)
@@ -230,3 +246,12 @@ func reset_player() -> void:
 func _play_hurt_sounds() -> void:
 	$HurtSound.pitch_scale = randf_range(0.9, 1.1)
 	$HurtSound.play()
+	
+func _on_rope_entered(body):
+	if body is Player:
+		can_climb = true
+
+	
+func _on_rope_exited(body):
+	if body is Player:
+		can_climb = false

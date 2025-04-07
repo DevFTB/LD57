@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://b0ogai8s7l7sc" path="res://systems/inventory/inventory.gd" id="1_4wq8t"]
 [ext_resource type="Resource" uid="uid://2rch3ef2vr66" path="res://systems/inventory/items/item_basic_bomb.tres" id="2_2qu1l"]
 [ext_resource type="Resource" uid="uid://44skluikbcii" path="res://systems/inventory/items/item_sticky_bomb.tres" id="3_lon2p"]
-[ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="4_ugq1y"]
-[ext_resource type="Resource" uid="uid://wylmsxcnfp00" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="5_q16ju"]
-[ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="6_7owr2"]
+[ext_resource type="Resource" path="res://systems/inventory/items/item_impact_bomb.tres" id="4_ugq1y"]
+[ext_resource type="Resource" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="5_q16ju"]
+[ext_resource type="Resource" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="6_7owr2"]
 
 [resource]
 script = ExtResource("1_4wq8t")

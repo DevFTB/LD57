@@ -9,6 +9,7 @@ const SPAWN_ZOOM = 1.8
 @onready var ore_tilemap: TileMapLayer = $Level/OreIndicators
 @onready var nav_meshes = $Level/NavMeshes
 @onready var camera = $MainCamera
+@onready var winch = $Winch
 
 @onready var block_break_scene = preload("res://systems/music_sfx/files/sfx/tile/block_break.tscn")
 
