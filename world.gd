@@ -30,6 +30,7 @@ class ThrowReleasedEventData:
 	var position: Vector2
 	var impulse: Vector2
 	var bomb_type: BombType
+	var random_fuse : bool = false
 	
 func _ready() -> void:
 	player.throw_released.connect(_spawn_bomb_with_velocity)
@@ -76,7 +77,8 @@ func _spawn_bomb_with_velocity(data: ThrowReleasedEventData) -> void:
 	add_child(new_bomb)
 	new_bomb.global_position = data.impulse.normalized() * 30 + data.position
 	new_bomb.apply_central_impulse(data.impulse)
-	
+	if data.random_fuse:
+		new_bomb.random_explosion_delay = true
 	new_bomb.exploded.connect(_on_bomb_exploded.bind(new_bomb))
 
 

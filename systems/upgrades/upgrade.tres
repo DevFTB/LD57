@@ -4,13 +4,13 @@
 
 [resource]
 script = ExtResource("1_mtqcl")
-upgrade_type = null
+upgrade_type = 0
 mult = null
 tier_value_in_tooltip = true
-tooltip_string = ""
-display_name = ""
+tooltip_string = "Chance to multi bomb."
+display_name = "Multi Bomb"
 num_tiers = 5
 tier_costs = Array[int]([])
-tier_values = []
-current_level_str = "[color=grey]%s[/color]"
-value_str = "[color=green](+%s)[/color] "
+tier_values = [10.0]
+current_level_str = "[color=grey]%s%%[/color]"
+value_str = "[color=green](+%s%%)[/color] "
