@@ -18,10 +18,10 @@ var last_moved_direction: Vector2 = Vector2.RIGHT
 @onready var state_machine = $StateMachine
 @onready var animation_tree = get_node_or_null("AnimationPlayer/AnimationTree")
 @onready var is_ranged = enemy_stats.range != 0
+@onready var hurtbox_component: HurtboxComponent = $HurtboxComponent
+@onready var hitbox_component: HitboxComponent = $HitboxComponent
 
 var death_scene = preload("res://entities/enemies/bat/death.tscn")
-
-
 func _ready():
 	player = get_tree().get_first_node_in_group("player")
 	if enemy_stats.hurt_sound:
@@ -29,7 +29,14 @@ func _ready():
 	enemy_stats.health = enemy_stats.max_health
 	health_component.maximum_health = enemy_stats.max_health
 	health_component.current_health = health_component.maximum_health
+
 	health_component.died.connect(die)
+	health_component.health_modified.connect(_on_health_component_health_modified)
+
+	hurtbox_component.damage_applied.connect(_on_hurtbox_component_damage_applied)
+	hitbox_component.hurt_entity.connect(_on_hitbox_component_hurt_entity)
+	
+	refresh_timer.timeout.connect(_on_refresh_timer_timeout)
 	
 
 func _process(_delta: float) -> void:
@@ -100,7 +107,7 @@ func _on_health_component_health_modified(amount, _new_health):
 		await get_tree().create_timer(0.3).timeout
 		self.modulate = Color.WHITE
 
-func _on_hitbox_component_hurt_entity(hurtbox_component: HurtboxComponent) -> void:
+func _on_hitbox_component_hurt_entity(hurtbox_component: HurtboxComponent, _damage: float) -> void:
 	if hurtbox_component.get_parent().is_in_group("player") and state_machine.state != $StateMachine/KnockedBack:
 		do_knockback(hurtbox_component.get_parent().global_position, 1)
 

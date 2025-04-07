@@ -31,7 +31,7 @@ class ThrowReleasedEventData:
 	var position: Vector2
 	var impulse: Vector2
 	var bomb_type: BombType
-	var random_fuse : bool = false
+	var random_fuse: bool = false
 	
 func _ready() -> void:
 	player.throw_released.connect(_spawn_bomb_with_velocity)
@@ -171,7 +171,6 @@ func _destroy_tiles(explosion_tiles: Array[Vector2i], rebake := true, animate :=
 		cave_blocks_tilemap.erase_cell(tile)
 
 	if chunk_items:
-		print(inventory._inventory)
 		for item in inventory.get_items():
 			var drop_amount := inventory.get_item_amount(item)
 			var location = explosion_tiles.pick_random()
@@ -237,7 +236,7 @@ func _on_spawn_area_player_detector_player_entered(_player):
 func restock_player(player):
 		# restock player
 	for item in restock_inventory.get_items():
-		var amount_in_player_inventory : int = player.bomb_inventory_component.inventory.get_item_amount(item)
+		var amount_in_player_inventory: int = player.bomb_inventory_component.inventory.get_item_amount(item)
 		var restock_amount := restock_inventory.get_item_amount(item)
 		if amount_in_player_inventory < restock_amount:
 			var diff := restock_amount - amount_in_player_inventory

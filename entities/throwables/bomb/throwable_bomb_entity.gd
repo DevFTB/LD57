@@ -16,7 +16,7 @@ var bomb_type: BombType
 
 @onready var explosion_animation_scene = preload("res://entities/throwables/bomb/bomb_explode.tscn")
 
-var random_explosion_delay : bool
+var random_explosion_delay: bool
 
 func _ready() -> void:
 	sprite_2d.texture = bomb_type.bomb_icon
@@ -49,7 +49,7 @@ func _on_body_entered(body: Node2D) -> void:
 
 func explode() -> void:
 	if random_explosion_delay:
-		await get_tree().create_timer(randf_range(0,0.1)).timeout
+		await get_tree().create_timer(randf_range(0, 0.1)).timeout
 	exploded.emit()
 	explosion_hitbox.damage_overlapping_hurtboxes()
 
