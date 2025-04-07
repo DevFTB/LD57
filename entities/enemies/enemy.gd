@@ -89,7 +89,8 @@ func _on_refresh_timer_timeout():
 		var is_flying_skeleton_bomber = enemy_stats.resource_name == "flying_skeleton_stats"
 		var flying_skeleton_target = player.global_position + Vector2(0, -224)
 		nav.target_position = player.global_position if not is_flying_skeleton_bomber else flying_skeleton_target
-		if nav.is_target_reachable() and state_machine.state == $StateMachine/Idle:
+		# another dirty hack here, because flying skeleton not always target reachable, but we want it to try get as close as possible anyways
+		if (nav.is_target_reachable() and state_machine.state == $StateMachine/Idle) or (is_flying_skeleton_bomber and state_machine.state == $StateMachine/Idle):
 			if enemy_stats.is_grounded:
 				state_machine._transition_to_next_state("Running")
 			else:

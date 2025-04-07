@@ -15,7 +15,7 @@ func attack():
 	if collided_shape is Player:
 		var data := World.ThrowReleasedEventData.new()
 		
-		data.position = get_parent().enemy.global_position
+		data.position = get_parent().enemy.global_position + Vector2(0, 16)
 		data.impulse = Vector2(0, bomb_initial_speed)
 		data.bomb_type = bomb_type
 		

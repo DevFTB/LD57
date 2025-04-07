@@ -6,11 +6,11 @@
 [ext_resource type="SpriteFrames" uid="uid://dlc7vxvp7wl8s" path="res://entities/enemies/flying_skeleton_bomber/hat.tres" id="3_8uurn"]
 [ext_resource type="Script" uid="uid://6tjmeeuhgjyc" path="res://entities/enemies/flying_skeleton_bomber/directional_sprite.gd" id="4_8dvak"]
 [ext_resource type="Script" uid="uid://cr1qbqndeqoj5" path="res://entities/enemies/flying_skeleton_bomber/drop_bomb.gd" id="5_lr7i3"]
-[ext_resource type="Resource" uid="uid://br4sg3mkhd41y" path="res://entities/enemies/skeleton_bomber/bomb_skeleton.tres" id="5_sxbrf"]
+[ext_resource type="Resource" uid="uid://cu5et0tnprj4u" path="res://entities/enemies/flying_skeleton_bomber/bomb_flying_skeleton.tres" id="7_8dvak"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8dvak"]
-radius = 8.37957
-height = 21.1806
+radius = 6.98297
+height = 15.8855
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sxbrf"]
 radius = 22.0
@@ -20,7 +20,7 @@ height = 48.0
 radius = 19.0
 height = 42.0
 
-[node name="Enemy" instance=ExtResource("1_lr7i3")]
+[node name="Enemy2" instance=ExtResource("1_lr7i3")]
 enemy_stats = ExtResource("2_8uurn")
 
 [node name="Sprite" parent="." index="0"]
@@ -55,7 +55,7 @@ one_shot = true
 
 [node name="BombAttack" type="Node" parent="StateMachine/RangedAttacking" index="1" node_paths=PackedStringArray("player_raycast")]
 script = ExtResource("5_lr7i3")
-bomb_type = ExtResource("5_sxbrf")
+bomb_type = ExtResource("7_8dvak")
 player_raycast = NodePath("../../../PlayerRaycast")
 
 [node name="VisibleOnScreenNotifier2D" parent="." index="7"]
