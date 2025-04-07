@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=4 uid="uid://cg36xu5wqn7v1"]
+[gd_scene load_steps=60 format=4 uid="uid://cd8oj31rnkhdm"]
 
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_cg2fx"]
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="2_pv1fl"]
@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://bhk4kqmlpwyv0" path="res://world/levelgen.gd" id="6_p1nfb"]
 [ext_resource type="TileSet" uid="uid://ci0bxhrhedi27" path="res://world/tileset/test_tileset.tres" id="7_cq58n"]
 [ext_resource type="TileSet" uid="uid://1s8d18ai2k57" path="res://world/tileset/ore_tileset.tres" id="8_fcpvs"]
-[ext_resource type="Script" path="res://enemy_spawner.gd" id="9_kl2i7"]
+[ext_resource type="Script" uid="uid://b0mdeooldsu15" path="res://enemy_spawner.gd" id="9_kl2i7"]
 [ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="10_gl4cv"]
 [ext_resource type="PackedScene" uid="uid://c5457i8ubkrc7" path="res://entities/enemies/spiky_ball/spiky_ball_enemy.tscn" id="11_1kf84"]
 [ext_resource type="PackedScene" uid="uid://dqawvbjg7bayk" path="res://entities/enemies/skeleton_bomber/skeleton_bomber_enemy.tscn" id="12_g081t"]
@@ -39,8 +39,8 @@
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="39_yfehs"]
 [ext_resource type="Resource" uid="uid://wylmsxcnfp00" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="40_4crvc"]
 [ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="41_t1pqd"]
+[ext_resource type="Script" uid="uid://bw4n7aeli48jj" path="res://ui/grapple_ui.gd" id="41_ym6nc"]
 [ext_resource type="Texture2D" uid="uid://2nhewmpeakjh" path="res://ui/HUD/hook.png" id="42_0qes3"]
-[ext_resource type="Script" uid="uid://ulg81k7glw1a" path="res://ui/timer_progress_bar.gd" id="43_5ices"]
 [ext_resource type="Texture2D" uid="uid://dimkj68ybmkil" path="res://ui/HUD/fuel.png" id="44_p5pdp"]
 [ext_resource type="Script" uid="uid://motjp37ct4o3" path="res://ui/HUD/fuel_bar.gd" id="45_rta2i"]
 [ext_resource type="PackedScene" uid="uid://dfb6tk3jaqp55" path="res://systems/music_sfx/music.tscn" id="46_q8u1n"]
@@ -186,7 +186,6 @@ position = Vector2(128, -3280)
 collision_mask = 3
 available_bomb_types = Array[ExtResource("14_c4xu6")]([null])
 throw_force_curve = SubResource("Curve_lc2xo")
-unlocked_traversal_methods = Array[int]([1, 0, 2])
 max_speed = 200
 acceleration = 5000
 ground_deceleration = 800
@@ -509,7 +508,7 @@ texture = ExtResource("42_0qes3")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="ProgressBar" type="ProgressBar" parent="GUI/NewHUD/VBoxContainer/HBoxContainer3/TextureRect" node_paths=PackedStringArray("timer")]
+[node name="ProgressBar" type="ProgressBar" parent="GUI/NewHUD/VBoxContainer/HBoxContainer3/TextureRect" node_paths=PackedStringArray("player", "timer")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -519,10 +518,11 @@ grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_dhpj7")
 fill_mode = 3
 show_percentage = false
-script = ExtResource("43_5ices")
+script = ExtResource("41_ym6nc")
+player = NodePath("../../../../../../World/Player")
 timer = NodePath("../../../../../../World/Player/GrapplePoint/GrappleCooldown")
 
-[node name="FuelBar" type="TextureProgressBar" parent="GUI/NewHUD/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("jetpack")]
+[node name="FuelBar" type="TextureProgressBar" parent="GUI/NewHUD/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("player")]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 fill_mode = 3
@@ -531,7 +531,7 @@ texture_under = SubResource("AtlasTexture_xex6t")
 texture_over = SubResource("AtlasTexture_082n1")
 texture_progress = SubResource("AtlasTexture_aa0lp")
 script = ExtResource("45_rta2i")
-jetpack = NodePath("../../../../../World/Player/Jetpack")
+player = NodePath("../../../../../World/Player")
 
 [node name="Control" type="Control" parent="GUI/NewHUD/VBoxContainer"]
 layout_mode = 2
