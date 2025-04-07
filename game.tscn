@@ -1,23 +1,20 @@
-[gd_scene load_steps=53 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=50 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://fvoq4j85fbwd" path="res://systems/stats_manager.tscn" id="1_f1jbl"]
 [ext_resource type="Script" uid="uid://bmkwbjas0ep82" path="res://systems/moab/moab_explosion_system.gd" id="1_j5wjh"]
 [ext_resource type="TileSet" uid="uid://ci0bxhrhedi27" path="res://world/tileset/test_tileset.tres" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://dxicxe0tvx28m" path="res://world.gd" id="2_hve3p"]
-[ext_resource type="Resource" uid="uid://b6xkpnkwkffbg" path="res://systems/upgrades/upgrade_bomb_radius.tres" id="3_e8heu"]
 [ext_resource type="Script" uid="uid://bhk4kqmlpwyv0" path="res://world/levelgen.gd" id="3_lc2xo"]
 [ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="4_hve3p"]
 [ext_resource type="PackedScene" uid="uid://bq84mpxun851f" path="res://entities/moab/moab_entity.tscn" id="4_j5wjh"]
-[ext_resource type="Resource" uid="uid://b6nkhnlvgtk7s" path="res://systems/upgrades/upgrade_bomb_hardness.tres" id="4_rvswv"]
 [ext_resource type="PackedScene" uid="uid://vp4hhi7lbt7d" path="res://world/buildings/winch.tscn" id="5_4v2jo"]
 [ext_resource type="TileSet" uid="uid://1s8d18ai2k57" path="res://world/tileset/ore_tileset.tres" id="5_e36ub"]
 [ext_resource type="Script" uid="uid://b0ogai8s7l7sc" path="res://systems/inventory/inventory.gd" id="5_lwlx3"]
 [ext_resource type="Script" uid="uid://6gp81uqd76gy" path="res://entities/loot_chest/random_float.gd" id="6_qpefm"]
 [ext_resource type="Script" path="res://main_camera.gd" id="7_lwlx3"]
 [ext_resource type="Script" uid="uid://cnf626cpgukip" path="res://entities/loot_chest/loot_table.gd" id="8_87ddb"]
-[ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="9_215e1"]
-[ext_resource type="Script" uid="uid://b0mdeooldsu15" path="res://enemy_spawner.gd" id="9_kq12w"]
+[ext_resource type="Script" path="res://enemy_spawner.gd" id="9_kq12w"]
 [ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="9_qhcbd"]
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="9_rvswv"]
 [ext_resource type="Resource" uid="uid://bibv5en88eckk" path="res://entities/loot_chest/loot_table_hardness_2.tres" id="10_mljfx"]
@@ -31,15 +28,14 @@
 [ext_resource type="Resource" uid="uid://44skluikbcii" path="res://systems/inventory/items/item_sticky_bomb.tres" id="15_5b14r"]
 [ext_resource type="Resource" uid="uid://bag1idy6pkmv1" path="res://entities/loot_chest/loot_table_hardness_1.tres" id="15_m28ev"]
 [ext_resource type="PackedScene" uid="uid://dfb6tk3jaqp55" path="res://systems/music_sfx/music.tscn" id="23_qhcbd"]
-[ext_resource type="Script" uid="uid://d0eblir7jx7p" path="res://ui/HUD/global_stat_label.gd" id="24_vaj68"]
+[ext_resource type="Script" path="res://ui/HUD/global_stat_label.gd" id="24_vaj68"]
 [ext_resource type="AudioStream" uid="uid://bixi2inlened8" path="res://systems/music_sfx/files/sfx/ui/restock sound.wav" id="29_qpefm"]
 [ext_resource type="Resource" uid="uid://wylmsxcnfp00" path="res://systems/inventory/items/item_shrapnel_bomb.tres" id="34_l1i01"]
 [ext_resource type="Resource" uid="uid://de0glg7ekgldy" path="res://systems/inventory/items/item_nuclear_bomb.tres" id="35_klri6"]
 [ext_resource type="Resource" uid="uid://p16h3i4yv7yj" path="res://systems/inventory/items/item_impact_bomb.tres" id="35_r62pu"]
 [ext_resource type="PackedScene" uid="uid://c4e86uoalfgiw" path="res://ui/HUD/hud.tscn" id="36_4v2jo"]
-[ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="49_mljfx"]
 [ext_resource type="PackedScene" uid="uid://b3cnp6fsypd5" path="res://ui/upgrade/upgrade_tree.tscn" id="38_l1i01"]
-
+[ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="49_mljfx"]
 
 [sub_resource type="Resource" id="Resource_0de7l"]
 script = ExtResource("5_lwlx3")
@@ -193,7 +189,7 @@ position = Vector2(128, -3280)
 collision_mask = 3
 available_bomb_types = Array[ExtResource("4_hve3p")]([null])
 throw_force_curve = SubResource("Curve_lc2xo")
-unlocked_traversal_methods = Array[int]([1, 0, 2])
+unlocked_traversal_methods = Array[int]([1, 0])
 max_speed = 200
 acceleration = 5000
 ground_deceleration = 800
@@ -248,54 +244,6 @@ loot_table = ExtResource("15_m28ev")
 stream = ExtResource("29_qpefm")
 
 [node name="GUI" type="CanvasLayer" parent="."]
-
-[node name="UpgradeGUI" type="Control" parent="GUI" node_paths=PackedStringArray("spawn_area_detector")]
-visible = false
-layout_mode = 3
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -448.0
-grow_horizontal = 0
-grow_vertical = 2
-script = ExtResource("14_e8heu")
-spawn_area_detector = NodePath("../../World/Spawn/SpawnAreaPlayerDetector")
-
-[node name="NinePatchRect" type="ColorRect" parent="GUI/UpgradeGUI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-color = Color(0.193653, 0.193653, 0.193653, 1)
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/UpgradeGUI"]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -32.0
-offset_bottom = 32.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="UpgradeButton" parent="GUI/UpgradeGUI/HBoxContainer" instance=ExtResource("9_215e1")]
-layout_mode = 2
-upgrade = ExtResource("4_rvswv")
-
-[node name="Control" type="Control" parent="GUI/UpgradeGUI/HBoxContainer"]
-custom_minimum_size = Vector2(40, 0)
-layout_mode = 2
-
-[node name="UpgradeButton2" parent="GUI/UpgradeGUI/HBoxContainer" instance=ExtResource("9_215e1")]
-layout_mode = 2
-upgrade = ExtResource("3_e8heu")
 
 [node name="Control" type="VBoxContainer" parent="GUI"]
 anchors_preset = 2
@@ -370,10 +318,10 @@ visible = false
 [node name="UpgradeGUI" type="SubViewportContainer" parent="GUI" node_paths=PackedStringArray("spawn_area_detector")]
 process_mode = 3
 z_index = 2
-anchors_preset = 15
+anchors_preset = -1
+anchor_left = 0.5
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 500.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
@@ -382,7 +330,7 @@ spawn_area_detector = NodePath("../../World/Spawn/SpawnAreaPlayerDetector")
 
 [node name="SubViewport" type="SubViewport" parent="GUI/UpgradeGUI"]
 handle_input_locally = false
-size = Vector2i(1420, 1080)
+size = Vector2i(960, 1080)
 render_target_update_mode = 4
 
 [node name="NinePatchRect2" type="ColorRect" parent="GUI/UpgradeGUI/SubViewport"]

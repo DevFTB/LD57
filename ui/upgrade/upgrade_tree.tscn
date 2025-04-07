@@ -22,6 +22,7 @@ offset_right = 1924.0
 offset_bottom = 2176.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 color = Color(0.35554, 0.00955138, 0.237468, 0)
 script = ExtResource("1_m7apr")
 
