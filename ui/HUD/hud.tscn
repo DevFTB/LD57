@@ -29,6 +29,10 @@
 [ext_resource type="Script" uid="uid://bw4n7aeli48jj" path="res://ui/grapple_ui.gd" id="21_s7ar1"]
 [ext_resource type="Texture2D" uid="uid://c34niogq1juqp" path="res://ui/HUD/fuel full.png" id="22_gifym"]
 [ext_resource type="Script" uid="uid://motjp37ct4o3" path="res://ui/HUD/fuel_bar.gd" id="23_wbpfx"]
+<<<<<<< Updated upstream
+=======
+[ext_resource type="Script" path="res://ui/invulnerability_ui.gd" id="25_5q00s"]
+>>>>>>> Stashed changes
 
 [sub_resource type="LabelSettings" id="LabelSettings_xfvwf"]
 font_size = 32

@@ -13,7 +13,7 @@ display_name = "Multi-bomb"
 texture = ExtResource("2_8mvbj")
 num_tiers = 2
 tier_costs = Array[int]([10, 50])
-tier_values = [10.0, 10.0]
+tier_values = [5.0, 10.0]
 current_level_str = "[color=grey]%s[/color]"
 value_str = "[color=green](+%s)[/color] "
 metadata/_custom_type_script = "uid://dycw7l33nfhy8"
