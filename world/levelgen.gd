@@ -43,7 +43,7 @@ enum Resources {BOMB_POWDER, UPGRADIUM}
 var CAVE_THRESHOLD: float = -0.2
 # hardness layers must be equal to len(HARDNESS_THRESHOLDS) + 1
 # i think it will still work if threshold values are not unique... but make them unique anyway u stoopid
-var HARDNESS_THRESHOLDS: Array[float] = [0, 0.5]
+var HARDNESS_THRESHOLDS: Array[float] = [0, 0.6]
 var HARDNESS_LAYER_NAME: String = "hardness"
 
 # works ok - cellular, freq 0.1, cave threshold -0.6

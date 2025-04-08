@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://dxicxe0tvx28m" path="res://world.gd" id="2_hve3p"]
 [ext_resource type="SpriteFrames" uid="uid://dputq1l47geed" path="res://entities/explosion_sprite_frames.tres" id="2_l1i01"]
 [ext_resource type="Script" uid="uid://bhk4kqmlpwyv0" path="res://world/levelgen.gd" id="3_lc2xo"]
-[ext_resource type="Script" uid="uid://b3ixyl0rewrho" path="res://systems/hints/item_collection_hint.gd" id="3_lwlx3"]
+[ext_resource type="Script" path="res://systems/hints/item_collection_hint.gd" id="3_lwlx3"]
 [ext_resource type="AudioStream" uid="uid://c800xef1mh8vm" path="res://systems/music_sfx/files/sfx/explosion.wav" id="3_r62pu"]
 [ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="4_hve3p"]
 [ext_resource type="PackedScene" uid="uid://bq84mpxun851f" path="res://entities/moab/moab_entity.tscn" id="4_j5wjh"]
@@ -18,12 +18,12 @@
 [ext_resource type="Script" uid="uid://cv6y1hrey2gct" path="res://main_camera.gd" id="7_lwlx3"]
 [ext_resource type="Resource" uid="uid://bsytuw721i88d" path="res://systems/inventory/items/item_upgradium.tres" id="8_0de7l"]
 [ext_resource type="Script" uid="uid://cnf626cpgukip" path="res://entities/loot_chest/loot_table.gd" id="8_87ddb"]
-[ext_resource type="Script" uid="uid://dqic6wnf216n8" path="res://systems/hints/location_based_hint.gd" id="9_87ddb"]
+[ext_resource type="Script" path="res://systems/hints/location_based_hint.gd" id="9_87ddb"]
 [ext_resource type="Script" uid="uid://b0mdeooldsu15" path="res://enemy_spawner.gd" id="9_kq12w"]
 [ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="9_qhcbd"]
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="9_rvswv"]
 [ext_resource type="Resource" uid="uid://bibv5en88eckk" path="res://entities/loot_chest/loot_table_hardness_2.tres" id="10_mljfx"]
-[ext_resource type="Script" uid="uid://cxlwd2pylj2aw" path="res://systems/hints/timer_based_hint.gd" id="10_qpefm"]
+[ext_resource type="Script" path="res://systems/hints/timer_based_hint.gd" id="10_qpefm"]
 [ext_resource type="Texture2D" uid="uid://1r3chexcrwx" path="res://world/level_bg.png" id="11_qhcbd"]
 [ext_resource type="Resource" uid="uid://c6xty2mdlfahl" path="res://entities/loot_chest/loot_table_hardness_3.tres" id="11_qpefm"]
 [ext_resource type="PackedScene" uid="uid://c5457i8ubkrc7" path="res://entities/enemies/spiky_ball/spiky_ball_enemy.tscn" id="11_t46w6"]
@@ -48,7 +48,7 @@
 [ext_resource type="PackedScene" uid="uid://b1k16mj1gyba7" path="res://ui/HUD/hint_container.tscn" id="42_m28ev"]
 [ext_resource type="Texture2D" uid="uid://obnans8x4h0f" path="res://ui/bomb_timer/moab 1.png" id="44_tb2lt"]
 [ext_resource type="Texture2D" uid="uid://di8hppjk33q36" path="res://ui/bomb_timer/moab 2.png" id="45_cfc7e"]
-[ext_resource type="Script" uid="uid://b7n44vpq265gx" path="res://systems/hints/depth_based_hint.gd" id="45_t46w6"]
+[ext_resource type="Script" path="res://systems/hints/depth_based_hint.gd" id="45_t46w6"]
 [ext_resource type="Texture2D" uid="uid://psaqm0aoode4" path="res://ui/bomb_timer/moab 3.png" id="46_gh0px"]
 [ext_resource type="Texture2D" uid="uid://cjc30eoicedm3" path="res://ui/bomb_timer/moab 4.png" id="47_v33yl"]
 [ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="49_mljfx"]
@@ -385,7 +385,6 @@ target_item = ExtResource("15_5b14r")
 inventory_component = NodePath("../../World/Player/BombInventoryComponent")
 hint_text = "You've picked up a sticky bomb. Pretty self-explanatory. You don't have an unlimited supply of these, but they aren't rare either."
 hint_box = NodePath("../../GUI/HintContainer")
-metadata/_custom_type_script = "uid://cvfc62vqgmxes"
 
 [node name="ImpactBombHint" type="Node" parent="Hints" node_paths=PackedStringArray("inventory_component", "hint_box")]
 script = ExtResource("3_lwlx3")
@@ -393,7 +392,6 @@ target_item = ExtResource("35_r62pu")
 inventory_component = NodePath("../../World/Player/BombInventoryComponent")
 hint_text = "An impact bomb explodes on hit and packs a punch in a small area."
 hint_box = NodePath("../../GUI/HintContainer")
-metadata/_custom_type_script = "uid://cvfc62vqgmxes"
 
 [node name="ShrapnelBombHint" type="Node" parent="Hints" node_paths=PackedStringArray("inventory_component", "hint_box")]
 script = ExtResource("3_lwlx3")
@@ -401,7 +399,6 @@ target_item = ExtResource("34_l1i01")
 inventory_component = NodePath("../../World/Player/BombInventoryComponent")
 hint_text = "A shrapnel bomb does a area of damage to enemies. Too bad shrapnel doesn't hurt stone..."
 hint_box = NodePath("../../GUI/HintContainer")
-metadata/_custom_type_script = "uid://cvfc62vqgmxes"
 
 [node name="NuclearBombHint" type="Node" parent="Hints" node_paths=PackedStringArray("inventory_component", "hint_box")]
 script = ExtResource("3_lwlx3")
@@ -409,7 +406,6 @@ target_item = ExtResource("35_klri6")
 inventory_component = NodePath("../../World/Player/BombInventoryComponent")
 hint_text = "I hope you have a good PC."
 hint_box = NodePath("../../GUI/HintContainer")
-metadata/_custom_type_script = "uid://cvfc62vqgmxes"
 
 [node name="UpgradiumHint" type="Node" parent="Hints" node_paths=PackedStringArray("inventory_component", "hint_box")]
 script = ExtResource("3_lwlx3")
@@ -417,7 +413,6 @@ target_item = ExtResource("8_0de7l")
 inventory_component = NodePath("../../World/Player/MineralInventoryComponent")
 hint_text = "The yellow rock you picked up is upgradium. Use it to upgrade your stuff at your base. Press [Tab] to open the upgrade menu in your base."
 hint_box = NodePath("../../GUI/HintContainer")
-metadata/_custom_type_script = "uid://cvfc62vqgmxes"
 
 [node name="BoomBobHint" type="Node" parent="Hints" node_paths=PackedStringArray("area_2d", "player", "hint_box")]
 script = ExtResource("9_87ddb")
@@ -425,7 +420,6 @@ area_2d = NodePath("../../World/MoabEntity/MoabHintArea")
 player = NodePath("../../World/Player")
 hint_text = "This is Big Boom Bob. He is everything to you. Feed him boompowder, the black dust you mine from the caves, to prevent him from exploding. He gets hungrier as time goes on. Press and hold [E] to feed."
 hint_box = NodePath("../../GUI/HintContainer")
-metadata/_custom_type_script = "uid://cvfc62vqgmxes"
 
 [node name="TimerHint" type="Node" parent="Hints" node_paths=PackedStringArray("target_timer", "hint_box")]
 script = ExtResource("10_qpefm")
@@ -433,7 +427,6 @@ target_timer = NodePath("../../MoabExplosionSystem")
 wait_time_threshold = 60.0
 hint_text = "Time is running out! Get back to base and feed Big Boom Bob bombpowder before he catastrophically melts down."
 hint_box = NodePath("../../GUI/HintContainer")
-metadata/_custom_type_script = "uid://cvfc62vqgmxes"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -493,6 +486,7 @@ texture_scale = 2.84
 
 [node name="Level" type="Node2D" parent="World"]
 script = ExtResource("3_lc2xo")
+height_hardness_factor = 0.4
 loot_chest_scene = ExtResource("13_klri6")
 loot_tables = Array[ExtResource("8_87ddb")]([ExtResource("15_m28ev"), ExtResource("10_mljfx"), ExtResource("11_qpefm")])
 

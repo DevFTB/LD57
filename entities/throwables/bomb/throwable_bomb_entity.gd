@@ -20,7 +20,7 @@ var random_explosion_delay: bool
 
 func _ready() -> void:
 	sprite_2d.texture = bomb_type.bomb_icon
-	explosion_hitbox.damage = bomb_type.entity_damage
+	explosion_hitbox.damage = bomb_type.entity_damage * bomb_type.hardness
 	var new_shape: CircleShape2D = $ExplosionHitboxComponent/CollisionShape2D.shape.duplicate()
 	new_shape.radius = bomb_type.explosion_radius * 32
 	$ExplosionHitboxComponent/CollisionShape2D.shape = new_shape

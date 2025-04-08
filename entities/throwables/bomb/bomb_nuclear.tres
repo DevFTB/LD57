@@ -6,14 +6,14 @@
 
 [resource]
 script = ExtResource("3_g0hyb")
-id = &"sticky"
+id = &"nuclear"
 bomb_icon = ExtResource("1_dxttg")
 bomb_scene = ExtResource("2_t066l")
-hardness = 30.0
+hardness = 10.0
 is_perishable = true
 is_sticky = false
 explode_on_impact = false
-explosion_radius = 10
+explosion_radius = 50
 entity_damage = 500
 bomb_velocity_modifier = 0.5
 metadata/_custom_type_script = "uid://dgalf5pstb0iw"

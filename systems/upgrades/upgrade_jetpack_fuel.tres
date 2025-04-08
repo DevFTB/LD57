@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://dye4bvtjqdm26"]
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://dye4bvtjqdm26"]
 
 [ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_km01k"]
+[ext_resource type="Texture2D" uid="uid://dr7d621hmsxv" path="res://systems/upgrades/icons/jetpack_fuel.png" id="2_37na6"]
 
 [resource]
 script = ExtResource("1_km01k")
@@ -9,8 +10,9 @@ mult = true
 tier_value_in_tooltip = true
 tooltip_string = "more jetpack fuel"
 display_name = "Item"
+texture = ExtResource("2_37na6")
 num_tiers = 3
-tier_costs = Array[int]([5, 10, 20])
+tier_costs = Array[int]([10, 20, 20])
 tier_values = [1.1, 1.2, 1.5]
 current_level_str = "[color=grey]%s[/color]"
 value_str = "[color=green](+%s)[/color] "

@@ -59,20 +59,20 @@ func maxed():
 func can_upgrade():
 	if not player: return false
 	# TODO: Check money is enough and take money
-	var has_items := player.mineral_inventory_component.inventory.has_item(ITEM_UPGRADIUM, upgrade.tier_costs[tier])
-	#var has_items := player.mineral_inventory_component.inventory.has_item(ITEM_UPGRADIUM, 0)
+	#var has_items := player.mineral_inventory_component.inventory.has_item(ITEM_UPGRADIUM, upgrade.tier_costs[tier])
+	var has_items := player.mineral_inventory_component.inventory.has_item(ITEM_UPGRADIUM, 0)
 	return dependencies_satisfied() and not maxed() and has_items
 
 func dependencies_satisfied(force_min = 0) -> bool:
-	var dependencies_satisfied := dependecies.size() == 0
-	if not dependencies_satisfied:
-		for dependency in dependecies:
-			var min: int
-			if force_min > 0: min = force_min
-			else: min = dependecies[dependency]
-			dependencies_satisfied = dependecies and dependency.current_level >= min
+	if dependecies.size() == 0: return true
+	for dependency in dependecies:
+		var min: int
+		if force_min > 0: min = force_min
+		else: min = dependecies[dependency]
+		if dependency.current_level < min:
+			return false
 	
-	return dependencies_satisfied
+	return true
 
 func mouse_entered():
 	tooltip = display_tooltip()
