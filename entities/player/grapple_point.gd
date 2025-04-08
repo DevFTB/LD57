@@ -12,7 +12,7 @@ enum GrappleState {
 @export var player_pull_speed: float = 1000.0
 
 ## The maximum distance at which a hook can attached to the tilemap
-@export var max_attachment_distance := 250.0
+@export var max_attachment_distance := 200.0
 
 ## How fast the grapple point flys through the world
 @export var grapple_point_speed: float = 250.0

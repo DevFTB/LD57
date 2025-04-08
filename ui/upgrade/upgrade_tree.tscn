@@ -284,7 +284,6 @@ upgrade = ExtResource("3_tsxcs")
 dependecies = {
 NodePath("../Radius"): 3
 }
-max_level = 4
 tier = 1
 
 [node name="Radius3" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
@@ -301,7 +300,7 @@ offset_bottom = 2080.0
 scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("3_tsxcs")
 dependecies = {
-NodePath("../Radius2"): 4
+NodePath("../Radius2"): 3
 }
 tier = 2
 
@@ -321,7 +320,7 @@ upgrade = ExtResource("3_tsxcs")
 dependecies = {
 NodePath("../Radius3"): 3
 }
-max_level = 7
+max_level = 4
 tier = 3
 
 [node name="Radius5" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
@@ -338,8 +337,9 @@ offset_bottom = 1708.0
 scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("3_tsxcs")
 dependecies = {
-NodePath("../Radius4"): 3
+NodePath("../Radius4"): 4
 }
+max_level = 5
 tier = 4
 
 [node name="MultiBomb1" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
@@ -366,10 +366,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 732.0
-offset_top = 1523.0
-offset_right = 828.0
-offset_bottom = 1651.0
+offset_left = 743.0
+offset_top = 1548.0
+offset_right = 839.0
+offset_bottom = 1676.0
 scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("7_fgdme")
 dependecies = {
@@ -495,10 +495,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2745.0
-offset_top = 1960.0
-offset_right = 2841.0
-offset_bottom = 2088.0
+offset_left = 2733.0
+offset_top = 1949.0
+offset_right = 2829.0
+offset_bottom = 2077.0
 rotation = -0.003067
 scale = Vector2(1.23153, 1.24127)
 upgrade = ExtResource("10_t5m0t")
@@ -572,10 +572,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 3048.0
-offset_top = 1956.0
-offset_right = 3144.0
-offset_bottom = 2084.0
+offset_left = 3059.0
+offset_top = 1952.0
+offset_right = 3155.0
+offset_bottom = 2080.0
 rotation = -0.003067
 scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("12_qu11t")
@@ -592,10 +592,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2882.0
-offset_top = 1803.0
-offset_right = 2978.0
-offset_bottom = 1931.0
+offset_left = 2886.0
+offset_top = 1784.0
+offset_right = 2982.0
+offset_bottom = 1912.0
 rotation = -0.003067
 scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("11_b4gpk")

@@ -12,7 +12,7 @@ tooltip_string = "More health"
 display_name = "Item"
 texture = ExtResource("2_4ww3f")
 num_tiers = 5
-tier_costs = Array[int]([5, 10, 20, 50, 100])
+tier_costs = Array[int]([5, 10, 20, 40, 100])
 tier_values = [10, 15, 25, 25, 50]
 current_level_str = "[color=grey]%s[/color]"
 value_str = "[color=green](+%s)[/color] "

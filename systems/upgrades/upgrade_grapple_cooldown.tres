@@ -12,7 +12,7 @@ tooltip_string = "Less Grapple Cooldown"
 display_name = "Item"
 texture = ExtResource("2_4ps8f")
 num_tiers = 2
-tier_costs = Array[int]([25, 50])
+tier_costs = Array[int]([15, 30])
 tier_values = [0.5, 0.5]
 current_level_str = "[color=grey]-%s sec[/color]"
 value_str = "[color=green](-%s sec)[/color] "
