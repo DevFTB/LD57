@@ -4,13 +4,8 @@
 
 [node name="Game" instance=ExtResource("1_uubav")]
 
-[node name="UpgradeGUI" parent="GUI" index="5"]
-visible = false
-
-[node name="SubViewport" parent="GUI/UpgradeGUI" index="0"]
-render_target_update_mode = 0
-
-[connection signal="health_modified" from="World/Player/HealthComponent" to="World/Player" method="_on_health_component_health_modified"]
+[node name="Level" parent="World" index="2"]
+height_hardness_factor = 0.3
 
 [editable path="World/Player"]
 [editable path="GUI/HUD"]
