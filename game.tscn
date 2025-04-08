@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://dxicxe0tvx28m" path="res://world.gd" id="2_hve3p"]
 [ext_resource type="SpriteFrames" uid="uid://dputq1l47geed" path="res://entities/explosion_sprite_frames.tres" id="2_l1i01"]
 [ext_resource type="Script" uid="uid://bhk4kqmlpwyv0" path="res://world/levelgen.gd" id="3_lc2xo"]
-[ext_resource type="Script" path="res://systems/hints/item_collection_hint.gd" id="3_lwlx3"]
+[ext_resource type="Script" uid="uid://b3ixyl0rewrho" path="res://systems/hints/item_collection_hint.gd" id="3_lwlx3"]
 [ext_resource type="AudioStream" uid="uid://c800xef1mh8vm" path="res://systems/music_sfx/files/sfx/explosion.wav" id="3_r62pu"]
 [ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="4_hve3p"]
 [ext_resource type="PackedScene" uid="uid://bq84mpxun851f" path="res://entities/moab/moab_entity.tscn" id="4_j5wjh"]
@@ -18,12 +18,12 @@
 [ext_resource type="Script" uid="uid://cv6y1hrey2gct" path="res://main_camera.gd" id="7_lwlx3"]
 [ext_resource type="Resource" uid="uid://bsytuw721i88d" path="res://systems/inventory/items/item_upgradium.tres" id="8_0de7l"]
 [ext_resource type="Script" uid="uid://cnf626cpgukip" path="res://entities/loot_chest/loot_table.gd" id="8_87ddb"]
-[ext_resource type="Script" path="res://systems/hints/location_based_hint.gd" id="9_87ddb"]
+[ext_resource type="Script" uid="uid://dqic6wnf216n8" path="res://systems/hints/location_based_hint.gd" id="9_87ddb"]
 [ext_resource type="Script" uid="uid://b0mdeooldsu15" path="res://enemy_spawner.gd" id="9_kq12w"]
 [ext_resource type="PackedScene" uid="uid://62qa0lv1bhdx" path="res://entities/enemies/bat/bat.tscn" id="9_qhcbd"]
 [ext_resource type="Script" uid="uid://1x04lpb258os" path="res://world/detectors/player_detector_area_2d.gd" id="9_rvswv"]
 [ext_resource type="Resource" uid="uid://bibv5en88eckk" path="res://entities/loot_chest/loot_table_hardness_2.tres" id="10_mljfx"]
-[ext_resource type="Script" path="res://systems/hints/timer_based_hint.gd" id="10_qpefm"]
+[ext_resource type="Script" uid="uid://cxlwd2pylj2aw" path="res://systems/hints/timer_based_hint.gd" id="10_qpefm"]
 [ext_resource type="Texture2D" uid="uid://1r3chexcrwx" path="res://world/level_bg.png" id="11_qhcbd"]
 [ext_resource type="Resource" uid="uid://c6xty2mdlfahl" path="res://entities/loot_chest/loot_table_hardness_3.tres" id="11_qpefm"]
 [ext_resource type="PackedScene" uid="uid://c5457i8ubkrc7" path="res://entities/enemies/spiky_ball/spiky_ball_enemy.tscn" id="11_t46w6"]
@@ -53,7 +53,7 @@
 [ext_resource type="PackedScene" uid="uid://b1k16mj1gyba7" path="res://ui/HUD/hint_container.tscn" id="42_m28ev"]
 [ext_resource type="Texture2D" uid="uid://obnans8x4h0f" path="res://ui/bomb_timer/moab 1.png" id="44_tb2lt"]
 [ext_resource type="Texture2D" uid="uid://di8hppjk33q36" path="res://ui/bomb_timer/moab 2.png" id="45_cfc7e"]
-[ext_resource type="Script" path="res://systems/hints/depth_based_hint.gd" id="45_t46w6"]
+[ext_resource type="Script" uid="uid://b7n44vpq265gx" path="res://systems/hints/depth_based_hint.gd" id="45_t46w6"]
 [ext_resource type="Texture2D" uid="uid://psaqm0aoode4" path="res://ui/bomb_timer/moab 3.png" id="46_gh0px"]
 [ext_resource type="Texture2D" uid="uid://cjc30eoicedm3" path="res://ui/bomb_timer/moab 4.png" id="47_v33yl"]
 [ext_resource type="PackedScene" uid="uid://cp4wn6jygcpbr" path="res://menu/pause_menu.tscn" id="49_mljfx"]
@@ -877,8 +877,8 @@ scale = Vector2(0.685, 0.685)
 
 [node name="Music" parent="." instance=ExtResource("23_qhcbd")]
 process_mode = 3
-depth_for_track2 = 100
-depth_for_track3 = 250
+depth_for_track2 = 50
+depth_for_track3 = 100
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.36968, 0.328359, 0.176195, 1)
