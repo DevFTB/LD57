@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=4 uid="uid://dwd1eadkk13on"]
+[gd_scene load_steps=80 format=4 uid="uid://dwd1eadkk13on"]
 
 [ext_resource type="Script" uid="uid://hbvbhincea3w" path="res://game.gd" id="1_4v2jo"]
 [ext_resource type="PackedScene" uid="uid://be4tedtvsf8on" path="res://entities/player/player.tscn" id="1_80nbo"]
@@ -376,12 +376,12 @@ ExtResource("35_klri6"): 0
 metadata/_custom_type_script = "uid://b0ogai8s7l7sc"
 
 [sub_resource type="Curve" id="Curve_tb2lt"]
-_limits = [1.0, 120.0, 0.0, 5.0]
-_data = [Vector2(0.0235571, 1), 0.0, 0.398794, 0, 0, Vector2(5, 120), 67.0323, 0.0, 0, 0]
+_limits = [1.0, 100.0, 0.0, 5.0]
+_data = [Vector2(0.0235571, 1), 0.0, 0.398794, 0, 0, Vector2(5, 100), 62.7556, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_87ddb"]
-radius = 189.095
+radius = 128.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_bqa6y"]
 font = ExtResource("39_vuohh")
@@ -660,7 +660,6 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/MoabEntity/MoabHintArea"]
-position = Vector2(61.225, 0)
 shape = SubResource("CircleShape2D_87ddb")
 
 [node name="Spawn" type="Node2D" parent="World"]
@@ -774,6 +773,7 @@ title = "Deaths"
 [node name="HUD" parent="GUI" instance=ExtResource("36_4v2jo")]
 
 [node name="HealthBar" parent="GUI/HUD/VBoxContainer/HBoxContainer/Control/HBoxContainer" index="0" node_paths=PackedStringArray("health_component")]
+start_hidden = false
 health_component = NodePath("../../../../../../../World/Player/HealthComponent")
 
 [node name="BombpowderDisplay" parent="GUI/HUD/VBoxContainer/HBoxContainer/Control/HBoxContainer/Bottom" index="0" node_paths=PackedStringArray("inventory_component")]
@@ -785,16 +785,8 @@ inventory_component = NodePath("../../../../../../../../World/Player/MineralInve
 [node name="Depth" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/Control2" index="0" node_paths=PackedStringArray("player")]
 player = NodePath("../../../../../../../World/Player")
 
-[node name="BoomLevelTextureRect" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" index="0"]
-boom_level_textures = Dictionary[int, Texture2D]({
-0: ExtResource("44_tb2lt"),
-1: ExtResource("45_cfc7e"),
-2: ExtResource("46_gh0px"),
-3: ExtResource("47_v33yl")
-})
-
-[node name="BombProgressBar" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" index="1" node_paths=PackedStringArray("bomb_explosion_system")]
-bomb_explosion_system = NodePath("../../../../../../../../MoabExplosionSystem")
+[node name="BombProgressBar" parent="GUI/HUD/VBoxContainer/HBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer" index="1" node_paths=PackedStringArray("bomb_explosion_system")]
+bomb_explosion_system = NodePath("../../../../../../../../../MoabExplosionSystem")
 
 [node name="HBoxContainer2" parent="GUI/HUD/VBoxContainer/HBoxContainer2" index="0" node_paths=PackedStringArray("inventory_component")]
 inventory_component = NodePath("../../../../../World/Player/BombInventoryComponent")

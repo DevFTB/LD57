@@ -1,6 +1,7 @@
 extends Range
 class_name HealthBar
 
+@export var start_hidden := true
 @export var health_component: HealthComponent
 @export var start_hidden := true
 
