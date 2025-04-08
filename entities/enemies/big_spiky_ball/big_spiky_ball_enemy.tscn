@@ -124,7 +124,7 @@ knockback_velocity_multiplier = 200.0
 shape = SubResource("CircleShape2D_pwns4")
 
 [node name="HitboxComponent" parent="." index="9"]
-damage = 20
+damage = 80
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="1"]
 shape = SubResource("CircleShape2D_jxac4")
