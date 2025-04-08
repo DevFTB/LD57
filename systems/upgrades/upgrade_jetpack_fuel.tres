@@ -12,8 +12,8 @@ tooltip_string = "more jetpack fuel"
 display_name = "Item"
 texture = ExtResource("2_37na6")
 num_tiers = 3
-tier_costs = Array[int]([10, 20, 20])
-tier_values = [1.1, 1.2, 1.5]
+tier_costs = Array[int]([10, 20, 50])
+tier_values = [1.1, 1.2, 1.4]
 current_level_str = "[color=grey]%s[/color]"
 value_str = "[color=green](+%s)[/color] "
 metadata/_custom_type_script = "uid://dycw7l33nfhy8"

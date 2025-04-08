@@ -12,7 +12,7 @@ tooltip_string = "more bomb radius"
 display_name = "Bomb Radius"
 texture = ExtResource("2_4u0uo")
 num_tiers = 5
-tier_costs = Array[int]([5, 10, 30, 60, 120])
-tier_values = [1.05, 1.075, 1.1, 1.15, 1.25]
+tier_costs = Array[int]([5, 10, 50, 100, 200])
+tier_values = [1.05, 1.075, 1.1, 1.1, 1.1]
 current_level_str = "[color=grey]%s[/color]"
 value_str = "[color=green](+%s)[/color] "
