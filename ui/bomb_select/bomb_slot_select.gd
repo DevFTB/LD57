@@ -25,18 +25,15 @@ func _ready() -> void:
 
 func update() -> void:
 	if bomb_item != null:
+		show()
 		var amount_in_player_inventory := player_bomb_inventory.get_item_amount(bomb_item)
 		var amount_in_restock_inventory := restock_inventory.get_item_amount(bomb_item)
-		if amount_in_player_inventory < 1 and amount_in_restock_inventory < 1:
-			hide()
-		else:
-			show()
 
 		texture_rect.texture = bomb_item.texture
 		slot_label.text = str(slot_number)
 		amount_label.text = "∞" if not bomb_type.is_perishable else str(amount_in_player_inventory) + "/" + str(amount_in_restock_inventory)
 		
-		texture_rect.modulate = Color(0, 0, 0, 200) if amount_in_player_inventory < 1 else Color.WHITE
+		texture_rect.modulate = Color(0.4, 0.4, 0.4, 1.0) if amount_in_player_inventory < 1 else Color.WHITE
 		slot_label.label_settings.font_color = Color.ORANGE if player.selected_bomb_item == bomb_item else Color.WHITE
 	else:
 		texture_rect.texture = null

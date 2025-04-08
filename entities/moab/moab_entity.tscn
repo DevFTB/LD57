@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bq84mpxun851f"]
+[gd_scene load_steps=35 format=3 uid="uid://bq84mpxun851f"]
 
 [ext_resource type="Script" uid="uid://ce42cdw34mrhe" path="res://entities/moab/moab_entity.gd" id="1_075v3"]
 [ext_resource type="Texture2D" uid="uid://b8vkgx0epv747" path="res://entities/moab/moab_sprite_sheet.png" id="2_3f07h"]
@@ -9,6 +9,9 @@
 [ext_resource type="FontFile" uid="uid://dyco6ifhi4rkt" path="res://ui/FreeCheeseItalic-m28d9.ttf" id="6_tplae"]
 [ext_resource type="Texture2D" uid="uid://shixt7b27l57" path="res://ui/keyboard_e.png" id="7_7e0m7"]
 [ext_resource type="FontFile" uid="uid://dq57i7wq1wxud" path="res://ui/FreeCheese-dryYR.ttf" id="9_n5q78"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n5q78"]
+radius = 118.271
 
 [sub_resource type="Animation" id="Animation_v21hs"]
 length = 0.001
@@ -333,6 +336,9 @@ hframes = 2
 
 [node name="PlayerDetector2D" parent="." instance=ExtResource("3_exw8j")]
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector2D"]
+shape = SubResource("CircleShape2D_n5q78")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_hndvo")
@@ -372,10 +378,10 @@ color = Color(0.855623, 0.354928, 0.40821, 1)
 texture = SubResource("GradientTexture2D_ksfch")
 
 [node name="FeedLabel" type="Label" parent="."]
-offset_left = 73.0
-offset_top = 21.0
-offset_right = 308.0
-offset_bottom = 129.0
+offset_left = 64.0
+offset_top = -66.0
+offset_right = 299.0
+offset_bottom = 42.0
 text = "FEED"
 label_settings = SubResource("LabelSettings_n5q78")
 

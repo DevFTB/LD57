@@ -46,7 +46,7 @@
 [ext_resource type="PackedScene" uid="uid://cc5dkwrsnplny" path="res://menu/game_over.tscn" id="37_4v2jo"]
 [ext_resource type="PackedScene" uid="uid://b3cnp6fsypd5" path="res://ui/upgrade/upgrade_tree.tscn" id="38_l1i01"]
 [ext_resource type="FontFile" uid="uid://dyco6ifhi4rkt" path="res://ui/FreeCheeseItalic-m28d9.ttf" id="39_vuohh"]
-[ext_resource type="Script" uid="uid://dosh0nath1iks" path="res://feed_label.gd" id="40_3gvs5"]
+[ext_resource type="Script" path="res://feed_label.gd" id="40_3gvs5"]
 [ext_resource type="Script" uid="uid://c7t2d4jjx2aeb" path="res://entities/loot_chest/loot_table_entry.gd" id="40_gh0px"]
 [ext_resource type="Texture2D" uid="uid://celwptlye823p" path="res://ui/keyboard_tab.png" id="41_mc3al"]
 [ext_resource type="Resource" uid="uid://bfwwxfc0kwllo" path="res://systems/inventory/items/item_bombpowder.tres" id="41_v33yl"]
@@ -547,6 +547,7 @@ bus = &"Sound FX"
 [node name="Timer" type="Timer" parent="MoabExplosionSystem"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -10
 scale = Vector2(100, 100)
 texture = ExtResource("11_qhcbd")
 
@@ -564,6 +565,7 @@ moab = NodePath("MoabEntity")
 position = Vector2(-218, -3339)
 
 [node name="Winch" parent="World" instance=ExtResource("5_4v2jo")]
+z_index = -2
 position = Vector2(-3.945, -3300)
 
 [node name="MainCamera" type="Camera2D" parent="World"]
@@ -665,10 +667,11 @@ position = Vector2(-32, -3328)
 
 [node name="UpgradeLabel" type="Label" parent="World/Spawn" node_paths=PackedStringArray("player_detector")]
 modulate = Color(1, 1, 1, 0)
-offset_left = 120.0
-offset_top = 46.0
-offset_right = 355.0
-offset_bottom = 154.0
+z_index = -1
+offset_left = 129.0
+offset_top = -41.0
+offset_right = 364.0
+offset_bottom = 67.0
 text = "UPGRADE"
 label_settings = SubResource("LabelSettings_bqa6y")
 script = ExtResource("40_3gvs5")
@@ -835,6 +838,7 @@ visible = false
 
 [node name="UpgradeGUI" type="SubViewportContainer" parent="GUI" node_paths=PackedStringArray("spawn_area_detector")]
 process_mode = 3
+visible = false
 z_index = 2
 anchors_preset = 15
 anchor_right = 1.0
@@ -850,7 +854,7 @@ spawn_area_detector = NodePath("../../World/Spawn/SpawnAreaPlayerDetector")
 [node name="SubViewport" type="SubViewport" parent="GUI/UpgradeGUI"]
 handle_input_locally = false
 size = Vector2i(1920, 1080)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="NinePatchRect2" type="ColorRect" parent="GUI/UpgradeGUI/SubViewport"]
 anchors_preset = 15
