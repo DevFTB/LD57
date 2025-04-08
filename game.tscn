@@ -376,8 +376,8 @@ ExtResource("35_klri6"): 0
 metadata/_custom_type_script = "uid://b0ogai8s7l7sc"
 
 [sub_resource type="Curve" id="Curve_tb2lt"]
-_limits = [1.0, 75.5281, 0.0, 5.0]
-_data = [Vector2(0.0235571, 1), 0.0, 0.398794, 0, 0, Vector2(5, 75.5281), 43.4808, 0.0, 0, 0]
+_limits = [1.0, 120.0, 0.0, 5.0]
+_data = [Vector2(0.0235571, 1), 0.0, 0.398794, 0, 0, Vector2(5, 120), 67.0323, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_87ddb"]
