@@ -9,10 +9,10 @@
 script = ExtResource("1_dvny4")
 max_health = 100
 move_speed = 150
-damage = 10.0
 range = 0.0
 is_grounded = true
 hurt_sound = ExtResource("3_0oaaw")
 death_sound = ExtResource("1_jqx4d")
 death_sprite = ExtResource("2_jqx4d")
+death_sprite_scale = Vector2(0.5, 0.5)
 metadata/_custom_type_script = "uid://bvi6ww4ywm8ge"

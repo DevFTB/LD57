@@ -4,10 +4,17 @@
 
 [node name="Game" instance=ExtResource("1_uubav")]
 
+[node name="MoabExplosionSystem" parent="." index="2"]
+bomb_timer_starting_value = 300.0
+
 [node name="Player" parent="World" index="4"]
 unlocked_traversal_methods = Array[int]([1, 0])
 
-[connection signal="health_modified" from="World/Player/HealthComponent" to="World/Player" method="_on_health_component_health_modified"]
+[node name="UpgradeGUI" parent="GUI" index="5"]
+visible = false
+
+[node name="SubViewport" parent="GUI/UpgradeGUI" index="0"]
+render_target_update_mode = 0
 
 [editable path="World/Player"]
 [editable path="GUI/HUD"]

@@ -146,6 +146,9 @@ scale = Vector2(-0.47, 0.47)
 texture = ExtResource("2_w0bok")
 hframes = 4
 
+[node name="HitboxComponent" parent="." index="9"]
+damage = 5
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="1"]
 shape = SubResource("CircleShape2D_0iyqo")
 

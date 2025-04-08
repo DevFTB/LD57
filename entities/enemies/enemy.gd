@@ -56,7 +56,7 @@ func _spawn_death_scene() -> void:
 	get_tree().get_first_node_in_group("world").add_child(death)
 	death.global_position = self.global_position
 	var death_initial_velocity = Vector2(randf_range(-100, 100), randf_range(-100, -300))
-	death.set_properties(enemy_stats.death_sound, enemy_stats.death_sprite, death_initial_velocity)
+	death.set_properties(enemy_stats.death_sound, enemy_stats.death_sprite, death_initial_velocity, enemy_stats.death_sprite_scale)
 
 
 func stick(entity: Node2D) -> void:
@@ -92,8 +92,13 @@ func _on_refresh_timer_timeout():
 		sees_player = false
 	#start navigation agent
 	if seen_player:
-		nav.target_position = player.global_position
-		if nav.is_target_reachable() and state_machine.state == $StateMachine/Idle:
+		# dirty hack, ususally navs towards player, but for flying skeleton bomber
+		# we want it to bomb from above
+		var is_flying_skeleton_bomber = enemy_stats.resource_name == "flying_skeleton_stats"
+		var flying_skeleton_target = player.global_position + Vector2(0, -224)
+		nav.target_position = player.global_position if not is_flying_skeleton_bomber else flying_skeleton_target
+		# another dirty hack here, because flying skeleton not always target reachable, but we want it to try get as close as possible anyways
+		if (nav.is_target_reachable() and state_machine.state == $StateMachine/Idle) or (is_flying_skeleton_bomber and state_machine.state == $StateMachine/Idle):
 			if enemy_stats.is_grounded:
 				state_machine._transition_to_next_state("Running")
 			else:

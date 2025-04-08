@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="BombType" load_steps=4 format=3 uid="uid://cu5et0tnprj4u"]
+
+[ext_resource type="Texture2D" uid="uid://c0nbm2a4tsd3w" path="res://entities/throwables/bomb/throwable_bomb.png" id="1_yo6ff"]
+[ext_resource type="PackedScene" uid="uid://dr3313h064d14" path="res://entities/enemies/flying_skeleton_bomber/flying_skeleton_bomb.tscn" id="2_o14xj"]
+[ext_resource type="Script" uid="uid://dgalf5pstb0iw" path="res://entities/throwables/bomb/bomb_type.gd" id="3_j87ml"]
+
+[resource]
+script = ExtResource("3_j87ml")
+id = &"skeleton"
+bomb_icon = ExtResource("1_yo6ff")
+bomb_scene = ExtResource("2_o14xj")
+hardness = 1.0
+is_perishable = false
+is_sticky = false
+explode_on_impact = false
+explosion_radius = 3
+entity_damage = 50
+bomb_velocity_modifier = 1.0
+metadata/_custom_type_script = "uid://dgalf5pstb0iw"

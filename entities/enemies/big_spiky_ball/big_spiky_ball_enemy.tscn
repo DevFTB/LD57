@@ -1,0 +1,137 @@
+[gd_scene load_steps=12 format=3 uid="uid://bmj7bdrt80xsx"]
+
+[ext_resource type="PackedScene" uid="uid://jc5sht43d6gw" path="res://entities/enemies/enemy.tscn" id="1_cbirw"]
+[ext_resource type="Resource" uid="uid://dr17kl8e3idh" path="res://entities/enemies/big_spiky_ball/big_spiky_ball_stats.tres" id="2_pwns4"]
+[ext_resource type="Texture2D" uid="uid://wrcjvvyk7ho1" path="res://entities/enemies/spiky_ball/spiky_ball_roll.png" id="3_8dwip"]
+[ext_resource type="Texture2D" uid="uid://cn48ht7cov3i5" path="res://entities/enemies/big_spiky_ball/angry spiky.png" id="3_pwns4"]
+[ext_resource type="Script" uid="uid://duat2hmovvg3u" path="res://entities/enemies/spiky_ball/roll_sprite.gd" id="4_bb0dk"]
+[ext_resource type="Script" uid="uid://lc66av2lel3h" path="res://entities/import_animation_player.gd" id="5_ax23s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ciwp5"]
+radius = 45.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pwns4"]
+radius = 50.6
+
+[sub_resource type="Animation" id="Animation_nr6jm"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_cq2da"]
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [ExtResource("3_8dwip")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite:frame_coords")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.466667, 0.733333, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.64, 0.64)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cq2da"]
+_data = {
+&"RESET": SubResource("Animation_nr6jm"),
+&"roll": SubResource("Animation_cq2da")
+}
+
+[node name="Enemy2" instance=ExtResource("1_cbirw")]
+enemy_stats = ExtResource("2_pwns4")
+
+[node name="Sprite" parent="." index="0"]
+scale = Vector2(0.64, 0.64)
+texture = ExtResource("3_pwns4")
+script = ExtResource("4_bb0dk")
+rotation_speed = 6
+roll_accel = 12
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_ciwp5")
+
+[node name="Running" parent="StateMachine" index="2"]
+jump_power = 400.0
+
+[node name="KnockedBack" parent="StateMachine" index="4"]
+knockback_velocity_multiplier = 200.0
+
+[node name="CollisionShape2D" parent="HurtboxComponent" index="1"]
+shape = SubResource("CircleShape2D_pwns4")
+
+[node name="HitboxComponent" parent="." index="9"]
+damage = 20
+
+[node name="AnimationPlayer" parent="." index="11"]
+libraries = {
+&"": SubResource("AnimationLibrary_cq2da")
+}
+script = ExtResource("5_ax23s")
+sprite_path = "Sprite"
+action_name = "roll"
+sprite_sheet = ExtResource("3_8dwip")
+size = Vector2i(4, 1)
+time_spacing = 0.25
+
+[editable path="HitboxComponent"]

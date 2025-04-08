@@ -1,7 +1,7 @@
 extends GroundedCharacterController
 class_name Player
 
-signal interacted
+signal interacted(continuous_interaction_frames: int)
 
 signal throw_initiated()
 signal throw_released(data: World.ThrowReleasedEventData)
@@ -42,6 +42,7 @@ var multi_bomb_chance_percent := 0.0
 var multi_bomb_amount := 1
 var grapple_cooldown_reduction = 0
 
+var continuous_interaction_frames := 0
 
 var _holding_throw := false
 var _throw_action_held_time := 0.0
@@ -198,6 +199,11 @@ func _physics_process(delta: float) -> void:
 			
 			if Input.is_action_just_pressed("interact"):
 				interacted.emit()
+			if Input.is_action_pressed("interact"):
+				continuous_interaction_frames += 1
+				interacted.emit(continuous_interaction_frames)
+			else:
+				continuous_interaction_frames = 0
 				
 			handle_bomb_switch(range(9))
 

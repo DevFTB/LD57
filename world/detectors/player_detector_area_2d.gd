@@ -2,10 +2,11 @@ extends Area2D
 class_name PlayerDetectorArea2D
 
 signal player_entered(player: Player)
-signal player_interacted(player: Player)
+signal player_interacted(player: Player, continuous_interaction_frames: int)
 signal player_exited(player: Player)
 
 var players_in_area: Array[Player]
+
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)

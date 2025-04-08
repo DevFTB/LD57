@@ -37,19 +37,19 @@ func load_animations() -> void:
 	if direction_order.size() == 0:
 		var anim := _generate_animation_direction(0)
 		anim_library.add_animation(action_name, anim)
+	else:
+		for direction_index in range(direction_order.size()):
+			var direction := direction_order[direction_index]
+			
+			var animation_name := str(action_name, "_", direction_strings[direction])
+			var anim := _generate_animation_direction(direction_index)
+			anim_library.add_animation(animation_name, anim)
+			
+			if generate_flips:
+				var flipped_animation_name := str(action_name, "_", direction_strings[FLIP_TARGET[direction]])
+				var flipped_anim := _generate_animation_direction(direction_index, true)
 
-	for direction_index in range(direction_order.size()):
-		var direction := direction_order[direction_index]
-		
-		var animation_name := str(action_name, "_", direction_strings[direction])
-		var anim := _generate_animation_direction(direction_index)
-		anim_library.add_animation(animation_name, anim)
-		
-		if generate_flips:
-			var flipped_animation_name := str(action_name, "_", direction_strings[FLIP_TARGET[direction]])
-			var flipped_anim := _generate_animation_direction(direction_index, true)
-
-			anim_library.add_animation(flipped_animation_name, flipped_anim)
+				anim_library.add_animation(flipped_animation_name, flipped_anim)
 			
 	ResourceSaver.save(anim_library)
 
