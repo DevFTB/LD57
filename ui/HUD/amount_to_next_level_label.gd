@@ -9,3 +9,5 @@ func _on_stat_updated() -> void:
     if boom_level < StatsManager.BOOM_LEVELS.size():
         var diff: int = StatsManager.BOOM_LEVELS[boom_level] - StatsManager.get_stat(StatsManager.Stat.BOMBPOWDER_OFFERED)
         text = str(diff)
+    else:
+        text = str("Ready to boom. You're free to die :).")

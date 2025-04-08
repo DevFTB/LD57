@@ -13,4 +13,4 @@ func _on_play_pressed() -> void:
 	animation_player.play("start_game")
 
 func change_to_game() -> void:
-	get_tree().change_scene_to_file("res://release.tscn")
+	get_tree().change_scene_to_file("res://game.tscn")

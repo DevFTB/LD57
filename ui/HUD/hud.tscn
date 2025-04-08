@@ -179,6 +179,7 @@ texture_over = ExtResource("3_gifym")
 texture_progress = ExtResource("4_27arm")
 script = ExtResource("5_ko6kn")
 label = NodePath("HealthLabel")
+start_hidden = false
 
 [node name="HealthLabel" type="Label" parent="VBoxContainer/HBoxContainer/Control/HBoxContainer/HealthBar"]
 layout_mode = 1
