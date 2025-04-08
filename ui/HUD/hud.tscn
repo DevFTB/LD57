@@ -1,6 +1,5 @@
-[gd_scene load_steps=44 format=3 uid="uid://c4e86uoalfgiw"]
+[gd_scene load_steps=39 format=3 uid="uid://c4e86uoalfgiw"]
 
-[ext_resource type="Texture2D" uid="uid://d317cp0qhrmd4" path="res://ui/parchment.png" id="1_mki3y"]
 [ext_resource type="Texture2D" uid="uid://di1qrf568wfoh" path="res://ui/HUD/heart_under.png" id="2_mki3y"]
 [ext_resource type="Texture2D" uid="uid://x1piys74ke6r" path="res://ui/HUD/heart_over.png" id="3_gifym"]
 [ext_resource type="Texture2D" uid="uid://b6665t4pngacj" path="res://ui/HUD/heart_fill.png" id="4_27arm"]
@@ -23,7 +22,7 @@
 [ext_resource type="Script" uid="uid://bw4n7aeli48jj" path="res://ui/grapple_ui.gd" id="21_s7ar1"]
 [ext_resource type="Texture2D" uid="uid://c34niogq1juqp" path="res://ui/HUD/fuel full.png" id="22_gifym"]
 [ext_resource type="Script" uid="uid://motjp37ct4o3" path="res://ui/HUD/fuel_bar.gd" id="23_wbpfx"]
-[ext_resource type="Script" path="res://ui/invulnerability_ui.gd" id="25_5q00s"]
+[ext_resource type="Script" uid="uid://dnmhtn4xdv6rt" path="res://ui/invulnerability_ui.gd" id="25_5q00s"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xfvwf"]
 font_size = 32
@@ -34,23 +33,6 @@ outline_color = Color(0, 0, 0, 1)
 font_size = 20
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="Animation" id="Animation_5q00s"]
-resource_name = "pulse"
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.995222, 0.289264, 0.341955, 1), Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_a2w4y"]
 length = 0.001
@@ -94,6 +76,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5q00s"]
+resource_name = "pulse"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.995222, 0.289264, 0.341955, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a2w4y"]
@@ -160,15 +159,6 @@ custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_mki3y")
-
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/Control"]
 custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
@@ -227,6 +217,7 @@ size_flags_stretch_ratio = 2.02
 custom_minimum_size = Vector2(0, 128)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 alignment = 1
 
 [node name="Control2" type="Control" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
@@ -257,26 +248,35 @@ label_settings = SubResource("LabelSettings_cfc7e")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="Control" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="Control" parent="VBoxContainer/HBoxContainer/HBoxContainer/Control/VBoxContainer"]
 custom_minimum_size = Vector2(0, 75.135)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BoomLevelTextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="BoomLevelTextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer"]
 z_index = 1
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = -31.0
-offset_top = -64.0
-offset_right = 97.0
-offset_bottom = 64.0
+offset_left = -1.0
+offset_top = -48.5675
+offset_right = 127.0
+offset_bottom = 79.4325
 grow_vertical = 2
 texture = ExtResource("13_gifym")
 expand_mode = 2
@@ -288,7 +288,7 @@ boom_level_textures = Dictionary[int, Texture2D]({
 3: ExtResource("13_gifym")
 })
 
-[node name="BombProgressBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("bomb_progress_bar", "time_display")]
+[node name="BombProgressBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("bomb_progress_bar", "time_display")]
 clip_contents = true
 custom_minimum_size = Vector2(192, 24)
 layout_mode = 1
@@ -296,8 +296,10 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -2.0
-offset_bottom = 2.0
+offset_left = -1.0
+offset_top = 3.0
+offset_right = -1.0
+offset_bottom = 27.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -307,7 +309,7 @@ script = ExtResource("13_05i5p")
 bomb_progress_bar = NodePath(".")
 time_display = NodePath("TimeDisplay")
 
-[node name="TimeDisplay" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/BombProgressBar"]
+[node name="TimeDisplay" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer/BombProgressBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -317,38 +319,42 @@ grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/BombProgressBar"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VBoxContainer/HBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer/BombProgressBar"]
 libraries = {
 &"": SubResource("AnimationLibrary_a2w4y")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/BombProgressBar/AnimationPlayer"]
+[node name="AnimationTree" type="AnimationTree" parent="VBoxContainer/HBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer/BombProgressBar/AnimationPlayer"]
 root_node = NodePath("../..")
 tree_root = SubResource("AnimationNodeStateMachine_5q00s")
 advance_expression_base_node = NodePath("../..")
 anim_player = NodePath("..")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 2
 
-[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="AmountToNextLevelLabel" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="AmountToNextLevelLabel" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer/Control/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "1"
 script = ExtResource("17_ko6kn")
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer/Control/HBoxContainer2"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 texture = ExtResource("17_xyxuj")
 expand_mode = 4
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer/Control/HBoxContainer2"]
 layout_mode = 2
 text = "till next boom level"
 

@@ -1,11 +1,12 @@
 extends Range
 class_name HealthBar
 
+@export var start_hidden := true
 @export var health_component: HealthComponent
 
 func _ready() -> void:
 	set_health_component(health_component)
-	self.visible = false
+	self.visible = not start_hidden
 
 func set_health_component(hc: HealthComponent) -> void:
 	health_component = hc
