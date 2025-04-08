@@ -46,6 +46,7 @@ offset_left = 1460.0
 offset_top = 2379.0
 offset_right = 1556.0
 offset_bottom = 2507.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("4_pgr47")
 dependecies = {
 NodePath("../Health"): 2
@@ -62,6 +63,7 @@ offset_left = 1461.0
 offset_top = 2196.0
 offset_right = 1557.0
 offset_bottom = 2324.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("4_pgr47")
 dependecies = {
 NodePath("../Magnet"): 3
@@ -79,6 +81,7 @@ offset_left = 1298.0
 offset_top = 2186.0
 offset_right = 1394.0
 offset_bottom = 2314.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("4_pgr47")
 dependecies = {
 NodePath("../Magnet2"): 3
@@ -96,6 +99,7 @@ offset_left = 1448.0
 offset_top = 1996.0
 offset_right = 1544.0
 offset_bottom = 2124.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("4_pgr47")
 dependecies = {
 NodePath("../Magnet3"): 3
@@ -114,6 +118,7 @@ offset_left = 1627.0
 offset_top = 2562.0
 offset_right = 1723.0
 offset_bottom = 2690.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("3_m7apr")
 max_level = 5
 
@@ -128,6 +133,7 @@ offset_left = 1631.0
 offset_top = 2396.0
 offset_right = 1727.0
 offset_bottom = 2524.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("3_m7apr")
 dependecies = {
 NodePath("../Health"): 3
@@ -145,6 +151,7 @@ offset_left = 1636.0
 offset_top = 2216.0
 offset_right = 1732.0
 offset_bottom = 2344.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("3_m7apr")
 dependecies = {
 NodePath("../Health2"): 3
@@ -163,6 +170,7 @@ offset_left = 1621.0
 offset_top = 2050.0
 offset_right = 1717.0
 offset_bottom = 2178.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("3_m7apr")
 dependecies = {
 NodePath("../Health3"): 7
@@ -181,9 +189,10 @@ offset_left = 1797.0
 offset_top = 2385.0
 offset_right = 1893.0
 offset_bottom = 2513.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("5_qu11t")
 dependecies = {
-NodePath("../Health2"): 3
+NodePath("../Health"): 3
 }
 max_level = 5
 
@@ -198,6 +207,7 @@ offset_left = 1812.0
 offset_top = 2203.0
 offset_right = 1908.0
 offset_bottom = 2331.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("5_qu11t")
 dependecies = {
 NodePath("../BlastResistance"): 3
@@ -216,6 +226,7 @@ offset_left = 1962.0
 offset_top = 2213.0
 offset_right = 2058.0
 offset_bottom = 2341.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("6_8swnl")
 dependecies = {
 NodePath("../BlastResistance"): 3
@@ -233,6 +244,7 @@ offset_left = 1807.0
 offset_top = 2006.0
 offset_right = 1903.0
 offset_bottom = 2134.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("6_8swnl")
 dependecies = {
 NodePath("../Invulnerability"): 1,
@@ -252,6 +264,7 @@ offset_left = 1004.0
 offset_top = 2318.0
 offset_right = 1100.0
 offset_bottom = 2446.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("3_tsxcs")
 max_level = 5
 
@@ -266,6 +279,7 @@ offset_left = 1066.0
 offset_top = 2137.0
 offset_right = 1162.0
 offset_bottom = 2265.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("3_tsxcs")
 dependecies = {
 NodePath("../Radius"): 3
@@ -284,6 +298,7 @@ offset_left = 1073.0
 offset_top = 1952.0
 offset_right = 1169.0
 offset_bottom = 2080.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("3_tsxcs")
 dependecies = {
 NodePath("../Radius2"): 4
@@ -301,6 +316,7 @@ offset_left = 1155.0
 offset_top = 1753.0
 offset_right = 1251.0
 offset_bottom = 1881.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("3_tsxcs")
 dependecies = {
 NodePath("../Radius3"): 3
@@ -319,6 +335,7 @@ offset_left = 1204.0
 offset_top = 1580.0
 offset_right = 1300.0
 offset_bottom = 1708.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("3_tsxcs")
 dependecies = {
 NodePath("../Radius4"): 3
@@ -336,6 +353,7 @@ offset_left = 916.0
 offset_top = 1952.0
 offset_right = 1012.0
 offset_bottom = 2080.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("7_fgdme")
 dependecies = {
 NodePath("../Damage1"): 3
@@ -352,6 +370,7 @@ offset_left = 732.0
 offset_top = 1523.0
 offset_right = 828.0
 offset_bottom = 1651.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("7_fgdme")
 dependecies = {
 NodePath("../Damage3"): 3
@@ -370,6 +389,7 @@ offset_left = 956.0
 offset_top = 1756.0
 offset_right = 1052.0
 offset_bottom = 1884.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("8_gi71y")
 dependecies = {
 NodePath("../Radius3"): 3,
@@ -388,6 +408,7 @@ offset_left = 914.0
 offset_top = 2140.0
 offset_right = 1010.0
 offset_bottom = 2268.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("2_m7apr")
 dependecies = {
 NodePath("../Radius"): 3
@@ -401,10 +422,11 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 773.0
-offset_top = 1907.0
-offset_right = 869.0
-offset_bottom = 2035.0
+offset_left = 755.0
+offset_top = 1958.0
+offset_right = 851.0
+offset_bottom = 2086.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("2_m7apr")
 dependecies = {
 NodePath("../Damage1"): 1
@@ -419,10 +441,11 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 755.0
-offset_top = 1722.0
-offset_right = 851.0
-offset_bottom = 1850.0
+offset_left = 750.0
+offset_top = 1750.0
+offset_right = 846.0
+offset_bottom = 1878.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("2_m7apr")
 dependecies = {
 NodePath("../Damage2"): 1
@@ -442,6 +465,7 @@ offset_top = 2297.0
 offset_right = 2982.0
 offset_bottom = 2425.0
 rotation = -0.003067
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("10_t5m0t")
 max_level = 1
 
@@ -452,11 +476,12 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2760.0
-offset_top = 2114.0
-offset_right = 2856.0
-offset_bottom = 2242.0
+offset_left = 2741.0
+offset_top = 2116.0
+offset_right = 2837.0
+offset_bottom = 2244.0
 rotation = -0.003067
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("10_t5m0t")
 dependecies = {
 NodePath("../StickyRestock"): 1
@@ -475,7 +500,7 @@ offset_top = 1960.0
 offset_right = 2841.0
 offset_bottom = 2088.0
 rotation = -0.003067
-scale = Vector2(1.00007, 1.00798)
+scale = Vector2(1.23153, 1.24127)
 upgrade = ExtResource("10_t5m0t")
 dependecies = {
 NodePath("../StickyRestock2"): 2
@@ -489,11 +514,12 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2899.0
-offset_top = 2107.0
-offset_right = 2995.0
-offset_bottom = 2235.0
+offset_left = 2894.0
+offset_top = 2119.0
+offset_right = 2990.0
+offset_bottom = 2247.0
 rotation = -0.003067
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("11_vdv25")
 dependecies = {
 NodePath("../StickyRestock"): 1
@@ -512,6 +538,7 @@ offset_top = 1955.0
 offset_right = 2984.0
 offset_bottom = 2083.0
 rotation = -0.003067
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("11_vdv25")
 dependecies = {
 NodePath("../ShrapnelRestock"): 1
@@ -526,11 +553,12 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 3021.0
-offset_top = 2100.0
-offset_right = 3117.0
-offset_bottom = 2228.0
+offset_left = 3065.0
+offset_top = 2114.0
+offset_right = 3161.0
+offset_bottom = 2242.0
 rotation = -0.003067
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("12_qu11t")
 dependecies = {
 NodePath("../StickyRestock"): 1
@@ -544,11 +572,12 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 3027.0
-offset_top = 1947.0
-offset_right = 3123.0
-offset_bottom = 2075.0
+offset_left = 3048.0
+offset_top = 1956.0
+offset_right = 3144.0
+offset_bottom = 2084.0
 rotation = -0.003067
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("12_qu11t")
 dependecies = {
 NodePath("../ImpactRestock"): 1
@@ -568,6 +597,7 @@ offset_top = 1803.0
 offset_right = 2978.0
 offset_bottom = 1931.0
 rotation = -0.003067
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("11_b4gpk")
 dependecies = {
 NodePath("../StickyRestock3"): 1,
@@ -583,11 +613,12 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2796.0
-offset_top = 1650.0
-offset_right = 2892.0
-offset_bottom = 1778.0
+offset_left = 2761.0
+offset_top = 1607.0
+offset_right = 2857.0
+offset_bottom = 1735.0
 rotation = -0.003067
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("11_b4gpk")
 dependecies = {
 NodePath("../NukeRestock1"): 1
@@ -602,11 +633,12 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2953.0
-offset_top = 1641.0
-offset_right = 3049.0
-offset_bottom = 1769.0
+offset_left = 2992.0
+offset_top = 1623.0
+offset_right = 3088.0
+offset_bottom = 1751.0
 rotation = -0.003067
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("11_b4gpk")
 dependecies = {
 NodePath("../NukeRestock2"): 1
@@ -625,6 +657,7 @@ offset_left = 2340.0
 offset_top = 2589.0
 offset_right = 2436.0
 offset_bottom = 2717.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("6_pgr47")
 
 [node name="GrappleRange2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
@@ -638,7 +671,7 @@ offset_left = 2294.0
 offset_top = 2404.0
 offset_right = 2390.0
 offset_bottom = 2532.0
-scale = Vector2(0.980342, 1)
+scale = Vector2(1.20724, 1.23145)
 upgrade = ExtResource("6_pgr47")
 dependecies = {
 NodePath("../GrappleRange"): 3
@@ -656,6 +689,7 @@ offset_left = 2385.0
 offset_top = 2225.0
 offset_right = 2481.0
 offset_bottom = 2353.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("6_pgr47")
 dependecies = {
 NodePath("../GrappleRange2"): 3
@@ -673,7 +707,7 @@ offset_left = 2489.0
 offset_top = 2405.0
 offset_right = 2585.0
 offset_bottom = 2533.0
-scale = Vector2(0.980342, 1)
+scale = Vector2(1.20724, 1.23145)
 upgrade = ExtResource("16_8swnl")
 dependecies = {
 NodePath("../GrappleRange"): 3
@@ -691,7 +725,7 @@ offset_left = 2576.0
 offset_top = 2240.0
 offset_right = 2672.0
 offset_bottom = 2368.0
-scale = Vector2(0.980342, 1)
+scale = Vector2(1.20724, 1.23145)
 upgrade = ExtResource("16_8swnl")
 dependecies = {
 NodePath("../GrappleCD1"): 2
@@ -710,6 +744,7 @@ offset_left = 2203.0
 offset_top = 2228.0
 offset_right = 2299.0
 offset_bottom = 2356.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("7_pgr47")
 dependecies = {
 NodePath("../GrappleRange2"): 3
@@ -727,6 +762,7 @@ offset_left = 2291.0
 offset_top = 2056.0
 offset_right = 2387.0
 offset_bottom = 2184.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("8_ev5ml")
 dependecies = {
 NodePath("../Jetpack"): 1
@@ -743,6 +779,7 @@ offset_left = 2434.0
 offset_top = 1922.0
 offset_right = 2530.0
 offset_bottom = 2050.0
+scale = Vector2(1.23145, 1.23145)
 upgrade = ExtResource("8_ev5ml")
 dependecies = {
 NodePath("../JetpackFuel"): 3

@@ -12,7 +12,7 @@ tooltip_string = "Unlock the Jetpack. Press [SPACE] while in the air to activate
 display_name = "Item"
 texture = ExtResource("2_bmhx2")
 num_tiers = 1
-tier_costs = Array[int]([100])
+tier_costs = Array[int]([50])
 tier_values = [true]
 current_level_str = "[color=grey]%s[/color]"
 value_str = "[color=green](+%s)[/color] "

@@ -8,11 +8,11 @@ script = ExtResource("1_7enb1")
 upgrade_type = 1
 mult = false
 tier_value_in_tooltip = true
-tooltip_string = "More bomb damage to enemies and blocks"
+tooltip_string = "More bomb damage to enemies and blocks [color=red](AND YOU!)[/color]"
 display_name = "Bomb Damage"
 texture = ExtResource("2_bc300")
 num_tiers = 3
-tier_costs = Array[int]([25, 50, 100])
+tier_costs = Array[int]([20, 40, 100])
 tier_values = [1, 1, 1]
 current_level_str = "[color=grey]%s[/color]"
 value_str = "[color=green](+%s)[/color] "

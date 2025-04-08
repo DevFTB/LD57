@@ -1236,6 +1236,7 @@ top_level = true
 collision_layer = 0
 script = ExtResource("8_26q78")
 max_attachment_distance = 600.0
+grapple_point_speed = 175.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrapplePoint"]
 shape = SubResource("CircleShape2D_bectd")

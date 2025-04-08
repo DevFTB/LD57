@@ -4,7 +4,7 @@
 
 [node name="Game" instance=ExtResource("1_uubav")]
 
-[node name="Level" parent="World" index="2"]
+[node name="Level" parent="World" index="3"]
 height_hardness_factor = 0.3
 
 [editable path="World/Player"]
