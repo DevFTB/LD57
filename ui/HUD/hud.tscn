@@ -1,6 +1,5 @@
-[gd_scene load_steps=40 format=3 uid="uid://c4e86uoalfgiw"]
+[gd_scene load_steps=39 format=3 uid="uid://c4e86uoalfgiw"]
 
-[ext_resource type="Texture2D" uid="uid://d317cp0qhrmd4" path="res://ui/parchment.png" id="1_mki3y"]
 [ext_resource type="Texture2D" uid="uid://di1qrf568wfoh" path="res://ui/HUD/heart_under.png" id="2_mki3y"]
 [ext_resource type="Texture2D" uid="uid://x1piys74ke6r" path="res://ui/HUD/heart_over.png" id="3_gifym"]
 [ext_resource type="Texture2D" uid="uid://b6665t4pngacj" path="res://ui/HUD/heart_fill.png" id="4_27arm"]
@@ -160,15 +159,6 @@ custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_mki3y")
-
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/Control"]
 custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
@@ -189,6 +179,7 @@ texture_over = ExtResource("3_gifym")
 texture_progress = ExtResource("4_27arm")
 script = ExtResource("5_ko6kn")
 label = NodePath("HealthLabel")
+start_hidden = false
 
 [node name="HealthLabel" type="Label" parent="VBoxContainer/HBoxContainer/Control/HBoxContainer/HealthBar"]
 layout_mode = 1
