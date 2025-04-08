@@ -12,8 +12,8 @@ tooltip_string = "More health"
 display_name = "Item"
 texture = ExtResource("2_4ww3f")
 num_tiers = 5
-tier_costs = Array[int]([5, 10, 20, 40, 100])
-tier_values = [10, 15, 25, 25, 50]
+tier_costs = Array[int]([5, 10, 25, 30, 40])
+tier_values = [10, 20, 30, 40, 50]
 current_level_str = "[color=grey]%s[/color]"
 value_str = "[color=green](+%s)[/color] "
 metadata/_custom_type_script = "uid://dycw7l33nfhy8"

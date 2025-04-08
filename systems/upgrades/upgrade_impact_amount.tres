@@ -12,7 +12,7 @@ tooltip_string = "Impact bombs when resupplying at base"
 display_name = "Impact Bombs"
 texture = ExtResource("2_tq6vh")
 num_tiers = 2
-tier_costs = Array[int]([50, 100])
+tier_costs = Array[int]([10, 20])
 tier_values = [2, 2]
 current_level_str = "[color=grey]%s[/color]"
 value_str = "[color=green](+%s)[/color] "

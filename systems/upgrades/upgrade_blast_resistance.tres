@@ -13,7 +13,7 @@ display_name = "Item"
 texture = ExtResource("2_cmu3t")
 num_tiers = 2
 tier_costs = Array[int]([10, 30])
-tier_values = [5, 15]
+tier_values = [10, 20]
 current_level_str = "[color=grey]%s[/color]"
 value_str = "[color=green](+%s)[/color] "
 metadata/_custom_type_script = "uid://dycw7l33nfhy8"

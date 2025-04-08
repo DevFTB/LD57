@@ -12,7 +12,7 @@ tooltip_string = "more magnet range"
 display_name = "Item"
 texture = ExtResource("2_a37p1")
 num_tiers = 4
-tier_costs = Array[int]([5, 10, 20, 40])
+tier_costs = Array[int]([4, 8, 16, 32])
 tier_values = [1.1, 1.2, 1.4, 1.7]
 current_level_str = "[color=grey]%s[/color]"
 value_str = "[color=green](+%s)[/color] "
