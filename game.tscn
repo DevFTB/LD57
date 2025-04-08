@@ -643,9 +643,6 @@ inventory = SubResource("Resource_lwlx3")
 [node name="GrapplePoint" parent="World/Player" index="10"]
 grapple_point_speed = 250.0
 
-[node name="RopeClimb" parent="World/Player" index="15"]
-climb_speed = 300.0
-
 [node name="InvulnerabilityDuration" type="Timer" parent="World/Player"]
 one_shot = true
 
