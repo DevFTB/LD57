@@ -94,7 +94,7 @@ func generate_cave_blocks(cave_noise: Noise, hardness_noise: Noise, resource_noi
 		for y in range(from_y, to_y + 1):
 			var is_cave: bool = cave_noise.get_noise_2d(x, y) > CAVE_THRESHOLD
 			if is_cave:
-				var hardness: int = HARDNESS_THRESHOLDS.find_custom(func(e: float): return e > noise_height_transform(y, hardness_noise.get_noise_2d(x, y), height_hardness_factor)) + 1
+				var hardness: int = HARDNESS_THRESHOLDS.find_custom(func(e: float): return e > noise_height_transform(y, hardness_noise.get_noise_2d(x, y), height_hardness_factor, -2.0, 2.0, -40)) + 1
 				hardness = HARDNESS_THRESHOLDS.size() + 1 if hardness == 0 else hardness
 				_add_cave_block(hardness, x, y)
 				

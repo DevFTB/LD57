@@ -376,12 +376,12 @@ ExtResource("35_klri6"): 0
 metadata/_custom_type_script = "uid://b0ogai8s7l7sc"
 
 [sub_resource type="Curve" id="Curve_tb2lt"]
-_limits = [1.0, 100.0, 0.0, 5.0]
-_data = [Vector2(0.0235571, 1), 0.0, 0.398794, 0, 0, Vector2(5, 100), 62.7556, 0.0, 0, 0]
+_limits = [1.0, 120.0, 0.0, 5.0]
+_data = [Vector2(0.0235571, 1), 0.0, 0.398794, 0, 0, Vector2(5, 120), 67.0323, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_87ddb"]
-radius = 128.0
+radius = 189.095
 
 [sub_resource type="LabelSettings" id="LabelSettings_bqa6y"]
 font = ExtResource("39_vuohh")
@@ -456,7 +456,8 @@ hint_box = NodePath("../../GUI/HintContainer")
 script = ExtResource("3_lwlx3")
 target_item = ExtResource("15_5b14r")
 inventory_component = NodePath("../../World/Player/BombInventoryComponent")
-hint_text = "You've picked up a sticky bomb. Pretty self-explanatory. You don't have an unlimited supply of these, but they aren't rare either."
+hint_text = "You've picked up a sticky bomb. Pretty self-explanatory. You don't have an unlimited supply of these, but they aren't rare either.
+Use the numbers keys to cycle through your bombs."
 hint_box = NodePath("../../GUI/HintContainer")
 
 [node name="ImpactBombHint" type="Node" parent="Hints" node_paths=PackedStringArray("inventory_component", "hint_box")]
@@ -546,6 +547,7 @@ bus = &"Sound FX"
 [node name="Timer" type="Timer" parent="MoabExplosionSystem"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -10
 scale = Vector2(100, 100)
 texture = ExtResource("11_qhcbd")
 
@@ -563,6 +565,7 @@ moab = NodePath("MoabEntity")
 position = Vector2(-218, -3339)
 
 [node name="Winch" parent="World" instance=ExtResource("5_4v2jo")]
+z_index = -2
 position = Vector2(-3.945, -3300)
 
 [node name="MainCamera" type="Camera2D" parent="World"]
@@ -657,6 +660,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/MoabEntity/MoabHintArea"]
+position = Vector2(61.225, 0)
 shape = SubResource("CircleShape2D_87ddb")
 
 [node name="Spawn" type="Node2D" parent="World"]
@@ -664,10 +668,11 @@ position = Vector2(-32, -3328)
 
 [node name="UpgradeLabel" type="Label" parent="World/Spawn" node_paths=PackedStringArray("player_detector")]
 modulate = Color(1, 1, 1, 0)
-offset_left = 120.0
-offset_top = 46.0
-offset_right = 355.0
-offset_bottom = 154.0
+z_index = -1
+offset_left = 129.0
+offset_top = -41.0
+offset_right = 364.0
+offset_bottom = 67.0
 text = "UPGRADE"
 label_settings = SubResource("LabelSettings_bqa6y")
 script = ExtResource("40_3gvs5")
@@ -834,6 +839,7 @@ visible = false
 
 [node name="UpgradeGUI" type="SubViewportContainer" parent="GUI" node_paths=PackedStringArray("spawn_area_detector")]
 process_mode = 3
+visible = false
 z_index = 2
 anchors_preset = 15
 anchor_right = 1.0
@@ -849,7 +855,7 @@ spawn_area_detector = NodePath("../../World/Spawn/SpawnAreaPlayerDetector")
 [node name="SubViewport" type="SubViewport" parent="GUI/UpgradeGUI"]
 handle_input_locally = false
 size = Vector2i(1920, 1080)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="NinePatchRect2" type="ColorRect" parent="GUI/UpgradeGUI/SubViewport"]
 anchors_preset = 15
@@ -871,6 +877,8 @@ scale = Vector2(0.685, 0.685)
 
 [node name="Music" parent="." instance=ExtResource("23_qhcbd")]
 process_mode = 3
+depth_for_track2 = 100
+depth_for_track3 = 250
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.36968, 0.328359, 0.176195, 1)
