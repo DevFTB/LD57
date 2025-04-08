@@ -17,8 +17,13 @@ const CONSUME_AMOUNT := 1
 @onready var playback: AnimationNodeStateMachinePlayback = $AnimationPlayer/AnimationTree.get("parameters/playback")
 @onready var path_follow: PathFollow2D = $Path2D/PathFollow2D
 
+@onready var label = $FeedLabel
+
 func _ready() -> void:
+	label.modulate = Color(1,1,1,0)
 	player_detector.player_interacted.connect(_on_player_interacted)
+	player_detector.player_entered.connect(_on_player_entered)
+	player_detector.player_exited.connect(_on_player_exited)
 	animation_player.play("idle")
 
 func _physics_process(_delta: float) -> void:
@@ -42,6 +47,16 @@ func _on_player_interacted(continuous_interaction_frames: int, player: Player) -
 			playback.travel("consume")
 			$EatSound.play()
 			consumed_item.emit()
+		else:
+			$FailSound.play()
 
 func self_destruct() -> void:
 	pass
+
+func _on_player_entered(body):
+	var tween = get_tree().create_tween()
+	tween.tween_property(label, "modulate", Color.WHITE,1)
+
+func _on_player_exited(body):
+	var tween = get_tree().create_tween()
+	tween.tween_property(label, "modulate", Color(1,1,1,0),1)
