@@ -116,8 +116,9 @@ func on_upgrade(upgrade: Upgrade, tier):
 			health_component.set_maximum_health(health_component.base_maximum_health + upgrade_state.get_total_value(upgrade))
 			health_component.reset()
 		PlayerUpgradeState.UpgradeType.INVULNERABILITY:
-			invulnerability_unlocked.emit()
+			invulnerability_available = true
 			invulnerability_duration = upgrade_state.get_total_value(upgrade)
+			invulnerability_unlocked.emit()
 		PlayerUpgradeState.UpgradeType.MULTIBOMB:
 			multi_bomb_chance_percent = upgrade_state.get_total_value(upgrade)
 		PlayerUpgradeState.UpgradeType.MULTIBOMB_AMOUNT:
@@ -218,6 +219,7 @@ func use_invulnerability():
 	invulnerability_cooldown_timer.start(invulnerability_cooldown)
 	invulnerability_duration_timer.start(invulnerability_duration)
 	invulnerable = true
+	invulnerability_available = false
 	health_component.is_invulnerable = true
 
 
