@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://cdjd64xi6swcd"]
+
+[ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="1_3iymo"]
+[ext_resource type="Texture2D" uid="uid://2nhewmpeakjh" path="res://ui/HUD/hook.png" id="2_4ps8f"]
+
+[resource]
+script = ExtResource("1_3iymo")
+upgrade_type = 15
+mult = false
+tier_value_in_tooltip = true
+tooltip_string = "Less Grapple Cooldown"
+display_name = "Item"
+texture = ExtResource("2_4ps8f")
+num_tiers = 2
+tier_costs = Array[int]([25, 50])
+tier_values = [0.5, 0.5]
+current_level_str = "[color=grey]-%s sec[/color]"
+value_str = "[color=green](-%s sec)[/color] "
+metadata/_custom_type_script = "uid://dycw7l33nfhy8"

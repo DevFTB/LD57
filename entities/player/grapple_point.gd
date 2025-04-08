@@ -20,8 +20,10 @@ enum GrappleState {
 ## The distance at which the grapple hook stops pulling to avoid janky collisions.
 @export var grapple_min_pull_distance := 60
 
+@export var base_grapple_cooldown = 2.0
 var grapple_state: GrappleState
 var grapple_range_multiplier = 1
+var grapple_cooldown_reduction = 0
 
 var cooldown_active: bool:
 	get:
@@ -63,7 +65,8 @@ func throw(direction: Vector2) -> void:
 		position = player.position
 		velocity = direction * player_pull_speed * grapple_range_multiplier
 		set_state(GrappleState.SEARCHING)
-		grapple_cooldown.start()
+		var cd = max(0.01, base_grapple_cooldown - grapple_cooldown_reduction)
+		grapple_cooldown.start(cd)
 	
 ## Handles traversal actions from the player
 func handle_action(key: StringName) -> void:

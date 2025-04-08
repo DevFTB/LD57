@@ -18,7 +18,8 @@ enum UpgradeType {
 	STICKY_RESTOCK_AMOUNT,
 	IMPACT_RESTOCK_AMOUNT,
 	SHRAPNEL_RESTOCK_AMOUNT,
-	NUKE_RESTOCK_AMOUNT
+	NUKE_RESTOCK_AMOUNT,
+	GRAPPLE_COOLDOWN
 }
 
 @export var upgrades : Dictionary[UpgradeType, Upgrade]

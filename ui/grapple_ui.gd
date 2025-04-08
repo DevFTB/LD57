@@ -8,4 +8,4 @@ func _ready() -> void:
 
 func update() -> void:
 	super.update()
-	visible = player.unlocked_traversal_methods.has(Player.TraversalMethod.JETPACK)
+	visible = player.unlocked_traversal_methods.has(Player.TraversalMethod.GRAPPLE)

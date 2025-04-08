@@ -1,8 +1,8 @@
-#@tool
+@tool
 extends Control
 class_name UpgradeButton
 
-#@export_tool_button("generate") var generate_button = generate
+@export_tool_button("generate") var generate_button = generate
 @export var upgrade: Upgrade
 @export var dependecies: Dictionary[UpgradeButton, int]
 @export var max_level = 3
@@ -59,8 +59,8 @@ func maxed():
 func can_upgrade():
 	if not player: return false
 	# TODO: Check money is enough and take money
-	var has_items := player.mineral_inventory_component.inventory.has_item(ITEM_UPGRADIUM, upgrade.tier_costs[tier])
-	#var has_items := player.mineral_inventory_component.inventory.has_item(ITEM_UPGRADIUM, 0)
+	#var has_items := player.mineral_inventory_component.inventory.has_item(ITEM_UPGRADIUM, upgrade.tier_costs[tier])
+	var has_items := player.mineral_inventory_component.inventory.has_item(ITEM_UPGRADIUM, 0)
 	return dependencies_satisfied() and not maxed() and has_items
 
 func dependencies_satisfied(force_min = 0) -> bool:
@@ -80,9 +80,9 @@ func mouse_entered():
 func mouse_exited():
 	hide_tooltip()
 
-func _draw():
-	for dependency in dependecies:
-		draw_line(dependency.get_position() + Vector2(dependency.size.x / 2, 0) - self.get_position(), Vector2(self.get_size().x / 2, self.get_size().y), Color.BLACK, 3)
+#func _draw():
+	#for dependency in dependecies:
+		#draw_line(dependency.get_position() + Vector2(dependency.size.x / 2, 0) - self.get_position(), Vector2(self.get_size().x / 2, self.get_size().y), Color.BLACK, 3)
 
 func update_tooltip():
 	tooltip.config(upgrade.get_text(tier, current_level), LEVEL_FORMAT_STRING % [current_level, max_level], upgrade.tier_costs[tier])

@@ -449,7 +449,7 @@ position = Vector2(128, -3280)
 collision_mask = 3
 available_bomb_types = Array[ExtResource("4_hve3p")]([null])
 throw_force_curve = SubResource("Curve_lc2xo")
-unlocked_traversal_methods = Array[int]([1, 0, 2])
+unlocked_traversal_methods = Array[int]([1, 0])
 max_speed = 200
 acceleration = 5000
 ground_deceleration = 800
@@ -460,6 +460,9 @@ fall_acceleration = 550
 
 [node name="BombInventoryComponent" parent="World/Player" index="4"]
 inventory = SubResource("Resource_lwlx3")
+
+[node name="InvulnerabilityDuration" type="Timer" parent="World/Player"]
+one_shot = true
 
 [node name="MoabEntity" parent="World" node_paths=PackedStringArray("moab_explosion_system") instance=ExtResource("4_j5wjh")]
 position = Vector2(-216, -3288)
@@ -564,9 +567,15 @@ bomb_explosion_system = NodePath("../../../../../../../../MoabExplosionSystem")
 
 [node name="ProgressBar" parent="GUI/HUD/VBoxContainer/HBoxContainer3/TextureRect" index="0" node_paths=PackedStringArray("player", "timer")]
 player = NodePath("../../../../../../World/Player")
-timer = NodePath("../../../../../../World/Player/BombCooldown")
+timer = NodePath("../../../../../../World/Player/GrapplePoint/GrappleCooldown")
 
-[node name="FuelBar" parent="GUI/HUD/VBoxContainer/HBoxContainer3" index="1" node_paths=PackedStringArray("player")]
+[node name="InvulnerabillityBar" parent="GUI/HUD/VBoxContainer/HBoxContainer3" index="1" node_paths=PackedStringArray("player", "timer")]
+visible = false
+player = NodePath("../../../../../World/Player")
+timer = NodePath("../../../../../World/Player/InvulnerabilityCooldown")
+
+[node name="FuelBar" parent="GUI/HUD/VBoxContainer/HBoxContainer3" index="2" node_paths=PackedStringArray("player")]
+visible = false
 player = NodePath("../../../../../World/Player")
 
 [node name="PauseMenu" parent="GUI" instance=ExtResource("49_mljfx")]
@@ -614,7 +623,9 @@ color = Color(0.36968, 0.328359, 0.176195, 1)
 
 [connection signal="timeout" from="World/Spawner/SpawnTimer" to="World/Spawner" method="_on_spawn_timer_timeout"]
 [connection signal="depth_changed" from="World/Player" to="Music" method="_on_player_depth_changed"]
+[connection signal="timeout" from="World/Player/InvulnerabilityCooldown" to="World/Player" method="_on_invulnerability_cooldown_timeout"]
 [connection signal="health_modified" from="World/Player/HealthComponent" to="World/Player" method="_on_health_component_health_modified"]
+[connection signal="timeout" from="World/Player/InvulnerabilityDuration" to="World/Player" method="_on_invulnerability_duration_timeout"]
 [connection signal="player_entered" from="World/Spawn/SpawnAreaPlayerDetector" to="World" method="_on_spawn_area_player_detector_player_entered"]
 [connection signal="player_exited" from="World/Spawn/SpawnAreaPlayerDetector" to="World" method="_on_spawn_area_player_detector_player_exited"]
 

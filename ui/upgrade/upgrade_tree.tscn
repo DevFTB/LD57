@@ -1,12 +1,13 @@
-[gd_scene load_steps=18 format=3 uid="uid://b3cnp6fsypd5"]
+[gd_scene load_steps=19 format=3 uid="uid://b3cnp6fsypd5"]
 
 [ext_resource type="PackedScene" uid="uid://df3b6w0eshfhw" path="res://ui/upgrade/upgrade_button.tscn" id="1_kku6u"]
-[ext_resource type="Script" path="res://ui/upgrade/upgrade_tree.gd" id="1_m7apr"]
+[ext_resource type="Script" uid="uid://08b32ubcmb2e" path="res://ui/upgrade/upgrade_tree.gd" id="1_m7apr"]
 [ext_resource type="Resource" uid="uid://b6nkhnlvgtk7s" path="res://systems/upgrades/upgrade_bomb_hardness.tres" id="2_m7apr"]
 [ext_resource type="Resource" uid="uid://pn1yg60fm2h1" path="res://systems/upgrades/upgrade_health.tres" id="3_m7apr"]
 [ext_resource type="Resource" uid="uid://b6xkpnkwkffbg" path="res://systems/upgrades/upgrade_bomb_radius.tres" id="3_tsxcs"]
 [ext_resource type="Resource" uid="uid://c1q8kqvleqg17" path="res://systems/upgrades/upgrade_magnet.tres" id="4_pgr47"]
-[ext_resource type="Script" uid="uid://dycw7l33nfhy8" path="res://systems/upgrades/upgrade.gd" id="5_sj7n6"]
+[ext_resource type="Resource" uid="uid://bap0toclr6kyw" path="res://systems/upgrades/upgrade_blast_resistance.tres" id="5_qu11t"]
+[ext_resource type="Resource" uid="uid://6td1kuhjmmhe" path="res://systems/upgrades/upgrade_invulnerability.tres" id="6_8swnl"]
 [ext_resource type="Resource" uid="uid://bpwardgn02pyv" path="res://systems/upgrades/upgrade_grapple_range.tres" id="6_pgr47"]
 [ext_resource type="Resource" uid="uid://bu82hndi3k5kg" path="res://systems/upgrades/upgrade_multibomb.tres" id="7_fgdme"]
 [ext_resource type="Resource" uid="uid://dwdep7v4xw104" path="res://systems/upgrades/upgrade_jetpack.tres" id="7_pgr47"]
@@ -16,20 +17,7 @@
 [ext_resource type="Resource" uid="uid://dmetufn204wq1" path="res://systems/upgrades/upgrade_nuke_bomb_restock.tres" id="11_b4gpk"]
 [ext_resource type="Resource" uid="uid://lp27oeriponm" path="res://systems/upgrades/upgrade_shrapnel_bomb_restock.tres" id="11_vdv25"]
 [ext_resource type="Resource" uid="uid://cyic3f18h5328" path="res://systems/upgrades/upgrade_impact_amount.tres" id="12_qu11t"]
-
-[sub_resource type="Resource" id="Resource_t5m0t"]
-script = ExtResource("5_sj7n6")
-upgrade_type = 10
-mult = false
-tier_value_in_tooltip = true
-tooltip_string = "Decreases the damage you take from explosions."
-display_name = "Blast Resistance"
-num_tiers = 2
-tier_costs = Array[int]([10, 40])
-tier_values = [15.0, 30.0]
-current_level_str = "[color=grey]%s[/color]"
-value_str = "[color=green](+%s)[/color] "
-metadata/_custom_type_script = "uid://dycw7l33nfhy8"
+[ext_resource type="Resource" uid="uid://cdjd64xi6swcd" path="res://systems/upgrades/upgrade_grapple_cooldown.tres" id="16_8swnl"]
 
 [node name="UpgradeTree" type="ColorRect"]
 anchors_preset = 8
@@ -37,69 +25,81 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -1924.0
-offset_top = -2176.0
-offset_right = 1924.0
-offset_bottom = 2176.0
+offset_left = -1908.0
+offset_top = -2212.0
+offset_right = 1940.0
+offset_bottom = 2140.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 color = Color(0.35554, 0.00955138, 0.237468, 0)
 script = ExtResource("1_m7apr")
 
-[node name="Magnet" parent="." instance=ExtResource("1_kku6u")]
+[node name="Magnet" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1568.0
-offset_top = 2349.0
-offset_right = 1664.0
-offset_bottom = 2477.0
+offset_left = 1460.0
+offset_top = 2379.0
+offset_right = 1556.0
+offset_bottom = 2507.0
 upgrade = ExtResource("4_pgr47")
+dependecies = {
+NodePath("../Health"): 2
+}
 
-[node name="Magnet2" parent="." instance=ExtResource("1_kku6u")]
+[node name="Magnet2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1582.0
-offset_top = 2184.0
-offset_right = 1678.0
-offset_bottom = 2312.0
+offset_left = 1445.0
+offset_top = 2211.0
+offset_right = 1541.0
+offset_bottom = 2339.0
 upgrade = ExtResource("4_pgr47")
+dependecies = {
+NodePath("../Magnet"): 3
+}
 tier = 1
 
-[node name="Magnet3" parent="." instance=ExtResource("1_kku6u")]
+[node name="Magnet3" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1564.0
-offset_top = 1992.0
-offset_right = 1660.0
-offset_bottom = 2120.0
+offset_left = 1298.0
+offset_top = 2186.0
+offset_right = 1394.0
+offset_bottom = 2314.0
 upgrade = ExtResource("4_pgr47")
+dependecies = {
+NodePath("../Magnet2"): 3
+}
 tier = 2
 
-[node name="Magnet4" parent="." instance=ExtResource("1_kku6u")]
+[node name="Magnet4" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1559.0
-offset_top = 1820.0
-offset_right = 1655.0
-offset_bottom = 1948.0
+offset_left = 1437.0
+offset_top = 2025.0
+offset_right = 1533.0
+offset_bottom = 2153.0
 upgrade = ExtResource("4_pgr47")
+dependecies = {
+NodePath("../Magnet3"): 3
+}
 max_level = 1
 tier = 3
 
@@ -110,68 +110,135 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1752.0
-offset_top = 2610.0
-offset_right = 1848.0
-offset_bottom = 2738.0
+offset_left = 1627.0
+offset_top = 2562.0
+offset_right = 1723.0
+offset_bottom = 2690.0
 upgrade = ExtResource("3_m7apr")
+max_level = 5
 
-[node name="Health2" parent="." instance=ExtResource("1_kku6u")]
+[node name="Health2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1747.0
-offset_top = 2375.0
-offset_right = 1843.0
-offset_bottom = 2503.0
+offset_left = 1631.0
+offset_top = 2396.0
+offset_right = 1727.0
+offset_bottom = 2524.0
 upgrade = ExtResource("3_m7apr")
+dependecies = {
+NodePath("../Health"): 3
+}
 tier = 1
 
-[node name="Health3" parent="." instance=ExtResource("1_kku6u")]
+[node name="Health3" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1742.0
-offset_top = 2195.0
-offset_right = 1838.0
-offset_bottom = 2323.0
+offset_left = 1636.0
+offset_top = 2216.0
+offset_right = 1732.0
+offset_bottom = 2344.0
 upgrade = ExtResource("3_m7apr")
+dependecies = {
+NodePath("../Health2"): 3
+}
 max_level = 7
 tier = 2
 
-[node name="BlastResistance" parent="." instance=ExtResource("1_kku6u")]
+[node name="Health4" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1886.0
-offset_top = 2377.0
-offset_right = 1982.0
-offset_bottom = 2505.0
-upgrade = SubResource("Resource_t5m0t")
+offset_left = 1631.0
+offset_top = 2037.0
+offset_right = 1727.0
+offset_bottom = 2165.0
+upgrade = ExtResource("3_m7apr")
+dependecies = {
+NodePath("../Health3"): 7
+}
+max_level = 7
+tier = 3
+
+[node name="BlastResistance" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1820.0
+offset_top = 2356.0
+offset_right = 1916.0
+offset_bottom = 2484.0
+upgrade = ExtResource("5_qu11t")
+dependecies = {
+NodePath("../Health2"): 3
+}
 max_level = 5
 
-[node name="BlastResistance2" parent="." instance=ExtResource("1_kku6u")]
+[node name="BlastResistance2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1887.0
-offset_top = 2010.0
-offset_right = 1983.0
-offset_bottom = 2138.0
-upgrade = SubResource("Resource_t5m0t")
+offset_left = 1812.0
+offset_top = 2203.0
+offset_right = 1908.0
+offset_bottom = 2331.0
+upgrade = ExtResource("5_qu11t")
+dependecies = {
+NodePath("../BlastResistance"): 3
+}
 max_level = 5
+tier = 1
+
+[node name="Invulnerability" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1962.0
+offset_top = 2213.0
+offset_right = 2058.0
+offset_bottom = 2341.0
+upgrade = ExtResource("6_8swnl")
+dependecies = {
+NodePath("../BlastResistance"): 3
+}
+max_level = 1
+
+[node name="Invulnerability2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1821.0
+offset_top = 2019.0
+offset_right = 1917.0
+offset_bottom = 2147.0
+upgrade = ExtResource("6_8swnl")
+dependecies = {
+NodePath("../Invulnerability"): 1,
+NodePath("../BlastResistance2"): 1
+}
+max_level = 1
 tier = 1
 
 [node name="Radius" parent="." instance=ExtResource("1_kku6u")]
@@ -181,152 +248,183 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1416.0
-offset_top = 2622.0
-offset_right = 1480.0
-offset_bottom = 2713.0
+offset_left = 1004.0
+offset_top = 2318.0
+offset_right = 1100.0
+offset_bottom = 2446.0
 upgrade = ExtResource("3_tsxcs")
 max_level = 5
 
-[node name="Radius2" parent="." instance=ExtResource("1_kku6u")]
+[node name="Radius2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1390.0
-offset_top = 2355.0
-offset_right = 1486.0
-offset_bottom = 2483.0
+offset_left = 1066.0
+offset_top = 2137.0
+offset_right = 1162.0
+offset_bottom = 2265.0
 upgrade = ExtResource("3_tsxcs")
+dependecies = {
+NodePath("../Radius"): 3
+}
 max_level = 4
 tier = 1
 
-[node name="Radius3" parent="." instance=ExtResource("1_kku6u")]
+[node name="Radius3" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1383.0
-offset_top = 2191.0
-offset_right = 1479.0
-offset_bottom = 2319.0
+offset_left = 1073.0
+offset_top = 1952.0
+offset_right = 1169.0
+offset_bottom = 2080.0
 upgrade = ExtResource("3_tsxcs")
+dependecies = {
+NodePath("../Radius2"): 4
+}
 tier = 2
 
-[node name="Radius4" parent="." instance=ExtResource("1_kku6u")]
+[node name="Radius4" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1377.0
-offset_top = 1998.0
-offset_right = 1473.0
-offset_bottom = 2126.0
+offset_left = 1155.0
+offset_top = 1753.0
+offset_right = 1251.0
+offset_bottom = 1881.0
 upgrade = ExtResource("3_tsxcs")
+dependecies = {
+NodePath("../Radius3"): 3
+}
 max_level = 7
 tier = 3
 
-[node name="Radius5" parent="." instance=ExtResource("1_kku6u")]
+[node name="Radius5" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1363.0
-offset_top = 1786.0
-offset_right = 1459.0
-offset_bottom = 1914.0
+offset_left = 1204.0
+offset_top = 1580.0
+offset_right = 1300.0
+offset_bottom = 1708.0
 upgrade = ExtResource("3_tsxcs")
+dependecies = {
+NodePath("../Radius4"): 3
+}
 tier = 4
 
-[node name="MultiBomb1" parent="." instance=ExtResource("1_kku6u")]
+[node name="MultiBomb1" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1228.0
-offset_top = 2194.0
-offset_right = 1324.0
-offset_bottom = 2322.0
+offset_left = 916.0
+offset_top = 1952.0
+offset_right = 1012.0
+offset_bottom = 2080.0
 upgrade = ExtResource("7_fgdme")
+dependecies = {
+NodePath("../Damage1"): 3
+}
 max_level = 5
 
-[node name="MultiBomb2" parent="." instance=ExtResource("1_kku6u")]
+[node name="MultiBomb2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1221.0
-offset_top = 1797.0
-offset_right = 1317.0
-offset_bottom = 1925.0
+offset_left = 732.0
+offset_top = 1523.0
+offset_right = 828.0
+offset_bottom = 1651.0
 upgrade = ExtResource("7_fgdme")
+dependecies = {
+NodePath("../Damage3"): 3
+}
 max_level = 5
 
-[node name="MultiBombAmount1" parent="." instance=ExtResource("1_kku6u")]
+[node name="MultiBombAmount1" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1222.0
-offset_top = 1999.0
-offset_right = 1318.0
-offset_bottom = 2127.0
+offset_left = 940.0
+offset_top = 1748.0
+offset_right = 1036.0
+offset_bottom = 1876.0
 upgrade = ExtResource("8_gi71y")
+dependecies = {
+NodePath("../Radius3"): 3,
+NodePath("../MultiBomb1"): 3
+}
 
-[node name="Damage1" parent="." instance=ExtResource("1_kku6u")]
+[node name="Damage1" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1094.0
-offset_top = 2395.5
-offset_right = 1190.0
-offset_bottom = 2523.5
+offset_left = 914.0
+offset_top = 2140.0
+offset_right = 1010.0
+offset_bottom = 2268.0
 upgrade = ExtResource("2_m7apr")
+dependecies = {
+NodePath("../Radius"): 3
+}
 
-[node name="Damage2" parent="." instance=ExtResource("1_kku6u")]
+[node name="Damage2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1106.0
-offset_top = 2216.0
-offset_right = 1170.0
-offset_bottom = 2307.0
+offset_left = 773.0
+offset_top = 1907.0
+offset_right = 869.0
+offset_bottom = 2035.0
 upgrade = ExtResource("2_m7apr")
+dependecies = {
+NodePath("../Damage1"): 3
+}
 max_level = 4
 tier = 1
 
-[node name="Damage3" parent="." instance=ExtResource("1_kku6u")]
+[node name="Damage3" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 1105.0
-offset_top = 2012.0
-offset_right = 1169.0
-offset_bottom = 2103.0
+offset_left = 755.0
+offset_top = 1722.0
+offset_right = 851.0
+offset_bottom = 1850.0
 upgrade = ExtResource("2_m7apr")
+dependecies = {
+NodePath("../Damage2"): 3
+}
 max_level = 7
 tier = 2
 
@@ -337,220 +435,314 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2297.0
-offset_top = 2568.0
-offset_right = 2393.0
-offset_bottom = 2696.0
+offset_left = 2886.0
+offset_top = 2297.0
+offset_right = 2982.0
+offset_bottom = 2425.0
+rotation = -0.003067
 upgrade = ExtResource("10_t5m0t")
 max_level = 1
 
-[node name="StickyRestock2" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
+[node name="StickyRestock2" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2298.0
-offset_top = 2398.0
-offset_right = 2394.0
-offset_bottom = 2526.0
+offset_left = 2717.0
+offset_top = 2095.0
+offset_right = 2813.0
+offset_bottom = 2223.0
+rotation = -0.003067
 upgrade = ExtResource("10_t5m0t")
+dependecies = {
+NodePath("../StickyRestock"): 1
+}
 tier = 1
 
-[node name="StickyRestock3" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
+[node name="StickyRestock3" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2298.0
-offset_top = 2225.0
-offset_right = 2394.0
-offset_bottom = 2353.0
+offset_left = 2717.0
+offset_top = 1941.0
+offset_right = 2813.0
+offset_bottom = 2069.0
+rotation = -0.003067
+scale = Vector2(1.00007, 1.00798)
 upgrade = ExtResource("10_t5m0t")
+dependecies = {
+NodePath("../StickyRestock2"): 2
+}
 tier = 2
 
-[node name="ShrapnelRestock" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
+[node name="ShrapnelRestock" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2490.0
-offset_top = 2388.0
-offset_right = 2586.0
-offset_bottom = 2516.0
+offset_left = 2864.0
+offset_top = 2094.0
+offset_right = 2960.0
+offset_bottom = 2222.0
+rotation = -0.003067
 upgrade = ExtResource("11_vdv25")
+dependecies = {
+NodePath("../StickyRestock"): 1
+}
 max_level = 1
 
-[node name="ShrapnelRestock2" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
+[node name="ShrapnelRestock2" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2481.0
-offset_top = 2216.0
-offset_right = 2577.0
-offset_bottom = 2344.0
+offset_left = 2877.0
+offset_top = 1938.0
+offset_right = 2973.0
+offset_bottom = 2066.0
+rotation = -0.003067
 upgrade = ExtResource("11_vdv25")
+dependecies = {
+NodePath("../ShrapnelRestock"): 1
+}
 max_level = 5
 tier = 1
 
-[node name="ImpactRestock" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
+[node name="ImpactRestock" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2687.0
-offset_top = 2389.0
-offset_right = 2783.0
-offset_bottom = 2517.0
+offset_left = 3021.0
+offset_top = 2100.0
+offset_right = 3117.0
+offset_bottom = 2228.0
+rotation = -0.003067
 upgrade = ExtResource("12_qu11t")
+dependecies = {
+NodePath("../StickyRestock"): 1
+}
 max_level = 1
 
-[node name="ImpactRestock2" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
+[node name="ImpactRestock2" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2682.0
-offset_top = 2213.0
-offset_right = 2778.0
-offset_bottom = 2341.0
+offset_left = 3016.0
+offset_top = 1926.0
+offset_right = 3112.0
+offset_bottom = 2054.0
+rotation = -0.003067
 upgrade = ExtResource("12_qu11t")
+dependecies = {
+NodePath("../ImpactRestock"): 1
+}
 max_level = 5
 tier = 1
 
-[node name="NukeRestock1" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
+[node name="NukeRestock1" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2473.0
-offset_top = 1962.0
-offset_right = 2569.0
-offset_bottom = 2090.0
+offset_left = 2871.0
+offset_top = 1764.0
+offset_right = 2967.0
+offset_bottom = 1892.0
+rotation = -0.003067
 upgrade = ExtResource("11_b4gpk")
+dependecies = {
+NodePath("../StickyRestock3"): 1,
+NodePath("../ShrapnelRestock2"): 1,
+NodePath("../ImpactRestock2"): 1
+}
 max_level = 1
 
-[node name="NukeRestock2" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
+[node name="NukeRestock2" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2473.0
-offset_top = 1811.0
-offset_right = 2569.0
-offset_bottom = 1939.0
+offset_left = 2759.0
+offset_top = 1605.0
+offset_right = 2855.0
+offset_bottom = 1733.0
+rotation = -0.003067
 upgrade = ExtResource("11_b4gpk")
+dependecies = {
+NodePath("../NukeRestock1"): 1
+}
 max_level = 1
 tier = 1
 
-[node name="NukeRestock3" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
+[node name="NukeRestock3" parent="." node_paths=PackedStringArray("dependecies") groups=["player"] instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2464.0
-offset_top = 1659.0
-offset_right = 2560.0
-offset_bottom = 1787.0
+offset_left = 2956.0
+offset_top = 1600.0
+offset_right = 3052.0
+offset_bottom = 1728.0
+rotation = -0.003067
 upgrade = ExtResource("11_b4gpk")
+dependecies = {
+NodePath("../NukeRestock2"): 1
+}
+max_level = 1
 tier = 2
 
-[node name="GrappleCD" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
+[node name="GrappleRange" parent="." groups=["player"] instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2131.0
-offset_top = 2570.0
-offset_right = 2227.0
-offset_bottom = 2698.0
+offset_left = 2340.0
+offset_top = 2589.0
+offset_right = 2436.0
+offset_bottom = 2717.0
 upgrade = ExtResource("6_pgr47")
 
-[node name="GrappleCD2" parent="." instance=ExtResource("1_kku6u")]
+[node name="GrappleRange2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2031.0
-offset_top = 2377.0
-offset_right = 2127.0
-offset_bottom = 2505.0
+offset_left = 2294.0
+offset_top = 2404.0
+offset_right = 2390.0
+offset_bottom = 2532.0
+scale = Vector2(0.980342, 1)
 upgrade = ExtResource("6_pgr47")
+dependecies = {
+NodePath("../GrappleRange"): 3
+}
 tier = 1
 
-[node name="GrappleCD3" parent="." instance=ExtResource("1_kku6u")]
+[node name="GrappleRange3" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2031.0
-offset_top = 2234.0
-offset_right = 2127.0
-offset_bottom = 2362.0
-upgrade = ExtResource("6_pgr47")
-tier = 2
-
-[node name="Jetpack" parent="." instance=ExtResource("1_kku6u")]
-layout_mode = 2
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 2155.0
+offset_left = 2385.0
 offset_top = 2225.0
-offset_right = 2251.0
+offset_right = 2481.0
 offset_bottom = 2353.0
+upgrade = ExtResource("6_pgr47")
+dependecies = {
+NodePath("../GrappleRange2"): 3
+}
+tier = 2
+
+[node name="GrappleCD1" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2489.0
+offset_top = 2405.0
+offset_right = 2585.0
+offset_bottom = 2533.0
+scale = Vector2(0.980342, 1)
+upgrade = ExtResource("16_8swnl")
+dependecies = {
+NodePath("../GrappleRange"): 3
+}
+max_level = 2
+
+[node name="GrappleCD2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2576.0
+offset_top = 2240.0
+offset_right = 2672.0
+offset_bottom = 2368.0
+scale = Vector2(0.980342, 1)
+upgrade = ExtResource("16_8swnl")
+dependecies = {
+NodePath("../GrappleCD1"): 2
+}
+max_level = 2
+tier = 1
+
+[node name="Jetpack" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2179.0
+offset_top = 2240.0
+offset_right = 2275.0
+offset_bottom = 2368.0
 upgrade = ExtResource("7_pgr47")
+dependecies = {
+NodePath("../GrappleRange2"): 3
+}
 max_level = 1
 
-[node name="JetpackFuel" parent="." instance=ExtResource("1_kku6u")]
+[node name="JetpackFuel" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2154.0
-offset_top = 2084.0
-offset_right = 2250.0
-offset_bottom = 2212.0
+offset_left = 2291.0
+offset_top = 2056.0
+offset_right = 2387.0
+offset_bottom = 2184.0
 upgrade = ExtResource("8_ev5ml")
+dependecies = {
+NodePath("../Jetpack"): 1
+}
 
-[node name="JetpackFuel2" parent="." instance=ExtResource("1_kku6u")]
+[node name="JetpackFuel2" parent="." node_paths=PackedStringArray("dependecies") instance=ExtResource("1_kku6u")]
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 2148.0
-offset_top = 1929.0
-offset_right = 2244.0
-offset_bottom = 2057.0
+offset_left = 2434.0
+offset_top = 1922.0
+offset_right = 2530.0
+offset_bottom = 2050.0
 upgrade = ExtResource("8_ev5ml")
+dependecies = {
+NodePath("../JetpackFuel"): 3
+}
 tier = 1

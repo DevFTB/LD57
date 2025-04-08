@@ -1137,6 +1137,9 @@ inventory = ExtResource("4_bls4j")
 [node name="BombCooldown" type="Timer" parent="."]
 one_shot = true
 
+[node name="InvulnerabilityCooldown" type="Timer" parent="."]
+one_shot = true
+
 [node name="HealthComponent" parent="." instance=ExtResource("5_fkugw")]
 base_maximum_health = 100
 
@@ -1219,3 +1222,4 @@ climb_speed = 150.0
 
 [connection signal="selected_bomb_changed" from="." to="." method="_on_selected_bomb_changed"]
 [connection signal="timeout" from="BombCooldown" to="." method="_on_bomb_cooldown_timeout"]
+[connection signal="timeout" from="InvulnerabilityCooldown" to="." method="_on_bomb_cooldown_timeout"]

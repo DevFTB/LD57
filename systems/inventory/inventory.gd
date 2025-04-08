@@ -20,33 +20,26 @@ var _current_size := 0
 func add_item(item: Item, amount: int) -> void:
 	if amount < 0:
 		push_warning("Cannot add negative amount")
-		return
-		
-	if maximum_size > -1 and _current_size + amount > maximum_size:
-		push_warning("Cannot add %d amount of %s, exceeds maximum size %d" % [amount, item.id, maximum_size])
-		return
+	elif maximum_size > -1 and _current_size + amount > maximum_size:
+		push_warning("Cannot add %d amount of %s, exceeds maximum size %d" % [amount, item.id, maximum_size])	
+	else:
+		var sum: int = _inventory.get(item, 0) + amount
+		_inventory[item] = sum
+		_current_size += amount
 	
-	var sum: int = _inventory.get(item, 0) + amount
-	_inventory[item] = sum
-	_current_size += amount
-	
-	item_modified.emit(item, sum)
+	item_modified.emit(item, _inventory.get(item))
 	
 ## Tries to remove a certain amount of an item to the inventory. Will only add if entire amount can be removed, otherwise will fail with warning.
 func remove_item(item: Item, amount: int) -> void:
+	var current_amount: int = _inventory.get_or_add(item, 0)
 	if amount < 0:
 		push_warning("Cannot remove negative amount")
-		return
-	
-	var current_amount: int = _inventory.get_or_add(item, 0)
-	
-	if not amount <= current_amount:
+	elif not amount <= current_amount:
 		push_warning("Inventory does not contain at least %d amount of %s." % [amount, item.id])
-		return
-	
-	_inventory[item] -= amount
-	_current_size -= amount
-	
+	else:
+		_inventory[item] -= amount
+		_current_size -= amount
+		
 	item_modified.emit(item, _inventory.get(item))
 
 ## Gets the amount of the item in the inventory
